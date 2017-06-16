@@ -5,7 +5,8 @@ angular.module('app', [
   'app.components',
   'app.routes',
   'app.config',
-  'app.partials'
+  'app.partials',
+  'ngMaterial'
 ])
 
 angular.module('app.run', [])

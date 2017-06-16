@@ -1,5 +1,9 @@
-export function RoutesConfig ($stateProvider, $urlRouterProvider) {
+export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
   'ngInject'
+
+  $qProvider.errorOnUnhandledRejections(false);
+
+
 
   var getView = (viewName) => {
     return `./views/app/pages/${viewName}/${viewName}.page.html`
@@ -369,4 +373,29 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider) {
         }
       }
     })
+
+      .state('app.create-project', {
+        url: '/create-project',
+        views: {
+          'main@app': {
+            template: '<project-form></project-form>'
+          }
+        }
+    })
+  .state('app.user-projects', {
+        url: '/user-project',
+        views: {
+          'main@app': {
+            template: '<user-projects></user-projects>'
+          }
+        }
+    })
+  .state('app.projects', {
+          url: '/projects',
+          views: {
+            'main@app': {
+              templateUrl: getView('projects')
+            }
+          }
+      })
 }
