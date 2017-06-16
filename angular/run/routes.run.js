@@ -8,7 +8,7 @@ export function RoutesRun ($rootScope, $state, $auth, AclService, $timeout, API,
     if (toState.data && toState.data.auth) {
       if (!$auth.isAuthenticated()) {
         event.preventDefault()
-        return $state.go('login')
+        return $state.transitionTo('login')
       }
     }
 

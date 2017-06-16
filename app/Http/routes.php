@@ -18,6 +18,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('auth/{provider}', ['uses' => 'Auth\AuthController@redirectToProvider']);
     Route::get('auth/{provider}/callback', ['uses' => 'Auth\AuthController@handleProviderCallback']);
     Route::get('/api/authenticate/user', 'Auth\AuthController@getAuthenticatedUser');
+    Route::post('porjects', 'ProjectController@create');
 });
 
 $api->group(['middleware' => ['api']], function ($api) {
