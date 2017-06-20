@@ -17,3 +17,13 @@
   .inputdemoIcons md-input-container.md-input-invalid > md-icon.email,
   .inputdemoIcons md-input-container.md-input-invalid > md-icon.name {
     color: red; }
+
+
+  
+  .step.ng-hide {
+opacity: 0;
+}
+.step.current {
+opacity: 1;
+transition: all 1s ease-in-out;
+}

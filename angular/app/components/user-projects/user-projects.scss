@@ -19,3 +19,24 @@
   left: 7px;
   font-size: 14px;
   opacity: 0.54; }
+
+.md-fab {
+  top: auto;
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  position: fixed;
+}
+
+
+
+  @media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .md-fab {
+      top: auto;
+      /*right: 20px;*/
+       /*bottom: 20px;*/
+      left: auto;
+      position: relative;
+    }
+}

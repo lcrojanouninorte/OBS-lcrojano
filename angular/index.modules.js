@@ -6,7 +6,9 @@ angular.module('app', [
   'app.routes',
   'app.config',
   'app.partials',
-  'ngMaterial'
+  'ngMaterial',
+  'mgo-angular-wizard',
+  'angular-svg-round-progressbar'
 ])
 
 angular.module('app.run', [])

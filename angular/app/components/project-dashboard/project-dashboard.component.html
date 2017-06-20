@@ -1,0 +1,22 @@
+<md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">
+      <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>{{vm.project.titulo}} </h2>
+    </div>
+</md-toolbar>
+
+<div class="project_dashboard" layout="row" layout-xs="column" >
+  <md-content class="page-container" flex="100">
+    <md-card class="page" >
+      <h1>{{vm.project.titulo}}</h1>
+      <p>{{vm.project.desc }}</p>
+      
+    </md-card>
+  </md-content>
+</div>
+
+<div layout="col" layout-wrap  layout-margin layout-align="center">
+	<result-item flex="45"></result-item>
+	<result-item flex="45"></result-item>
+	<result-item flex="45"></result-item>
+</div>
+ 

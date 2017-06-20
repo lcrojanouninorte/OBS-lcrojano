@@ -1,0 +1,16 @@
+<md-content layout-margin="5" layout="row">
+    <div layout="column" flex="80">
+        <md-checkbox ng-model="vm.checkModel" ng-change="vm.checkModelChange()" aria-label="Checkbox" md-indeterminate="vm.checkModel === null" flex="100">
+            <b>{{ vm.checkModel == null ? 'Pendiente: ' : ""}}</b><span ng-class="{strike: vm.checkModel, bold: vm.important}">Lorem ipsum dolor sit amet, ne quod novum mei</span>
+            <div>
+                <p class="italic">
+                    1-JUL/2-AGO
+                </p>
+            </div>
+        </md-checkbox>
+    </div>
+    <div layout="row" class="text-right"  flex="20">
+        <md-icon md-font-icon="ion-edit"></md-icon>
+        <md-icon md-font-icon="ion-ios-trash-outline"></md-icon>
+    </div>
+</md-content>
