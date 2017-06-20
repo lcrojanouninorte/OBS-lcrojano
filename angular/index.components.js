@@ -1,3 +1,10 @@
+import {ProductFormComponent} from './app/components/product-form/product-form.component';
+import {ResultFormComponent} from './app/components/result-form/result-form.component';
+import {ProductItemComponent} from './app/components/product-item/product-item.component';
+import {ProductListComponent} from './app/components/product-list/product-list.component';
+import {ResultListComponent} from './app/components/result-list/result-list.component';
+import {ResultItemComponent} from './app/components/result-item/result-item.component';
+import {ProjectDashboardComponent} from './app/components/project-dashboard/project-dashboard.component';
 import {ProjectItemComponent} from './app/components/project-item/project-item.component';
 import {ProjectListComponent} from './app/components/project-list/project-list.component';
 import {ProjectDetailComponent} from './app/components/project-detail/project-detail.component';
@@ -33,6 +40,13 @@ import { LoginFormComponent } from './app/components/login-form/login-form.compo
 import { RegisterFormComponent } from './app/components/register-form/register-form.component'
 
 angular.module('app.components')
+	.component('productForm', ProductFormComponent)
+	.component('resultForm', ResultFormComponent)
+	.component('productItem', ProductItemComponent)
+	.component('productList', ProductListComponent)
+	.component('resultList', ResultListComponent)
+	.component('resultItem', ResultItemComponent)
+	.component('projectDashboard', ProjectDashboardComponent)
 	.component('projectItem', ProjectItemComponent)
 	.component('projectList', ProjectListComponent)
 	.component('projectDetail', ProjectDetailComponent)

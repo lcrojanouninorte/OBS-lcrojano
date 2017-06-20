@@ -33,4 +33,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = [
         'password', 'remember_token', 'oauth_provider_id', 'oauth_provider',
     ];
+
+    public function projects(){
+        return $this->hasMany(Project::class);
+    }
 }

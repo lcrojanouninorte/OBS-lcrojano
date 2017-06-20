@@ -18,7 +18,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('auth/{provider}', ['uses' => 'Auth\AuthController@redirectToProvider']);
     Route::get('auth/{provider}/callback', ['uses' => 'Auth\AuthController@handleProviderCallback']);
     Route::get('/api/authenticate/user', 'Auth\AuthController@getAuthenticatedUser');
-    Route::post('porjects', 'ProjectController@create');
+
 });
 
 $api->group(['middleware' => ['api']], function ($api) {
@@ -28,11 +28,16 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->post('auth/password/email', 'Auth\PasswordResetController@sendResetLinkEmail');
     $api->get('auth/password/verify', 'Auth\PasswordResetController@verify');
     $api->post('auth/password/reset', 'Auth\PasswordResetController@reset');
+
 });
 
 $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     $api->get('users/me', 'UserController@getMe');
     $api->put('users/me', 'UserController@putMe');
+    $api->post('projects', 'ProjectController@create');
+    $api->get('projects', 'ProjectController@index');
+    $api->delete('projects/{id}', 'ProjectController@delete');
+    $api->get('project/{id}', 'ProjectController@show');
 });
 
 $api->group(['middleware' => ['api', 'api.auth', 'role:admin.super|admin.user']], function ($api) {

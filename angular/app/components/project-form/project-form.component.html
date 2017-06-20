@@ -1,37 +1,54 @@
-<div  layout="column" layout-padding ng-cloak>
+<div layout="column" layout-align="center center">
+<form name="projectForm" >
+  
 
-  <br/>
-  <md-content class="md-no-momentum">
-    <md-input-container class="md-icon-float md-block">
-      <!-- Use floating label instead of placeholder -->
-      <label>Name</label>
-      <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
-      <input ng-model="vm.user.name" type="text">
-    </md-input-container>
+    <wizard on-finish="vm.finishedWizard(projectForm)" on-cancel="cancelledWizard()" hide-indicators="true">
+        <wz-step wz-title="titulo" canexit="vm.exitValidation(projectForm.titulo.$error)" >
+            <h3 class="text-center">{{vm.userData.name}}, Cuentanos el titulo del proyecto</h3>
+            <p>El titulo debe ir en primera persona con preterito pluscuanperfecto?? bla bla bla</p>
+            <md-input-container class="md-icon-float md-block">
+                <!-- Use floating label instead of placeholder -->             
+                <label>Titulo</label>
+                <md-icon md-font-icon="ion-ios-heart-outline" class="title"></md-icon>
+                <input name="titulo" ng-model="vm.project.titulo" type="text" ng-required="true">
+                <div ng-messages="projectForm.titulo.$error">
+                  <div ng-message="required">Este campo es obligatorio.</div>
+                </div>
+            
+                </md-input-container>
+                <br>
+                <md-radio-group ng-model="vm.project.process_id">
 
-    <md-input-container md-no-float class="md-block">
-      <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon>
-      <input ng-model="vm.user.phone" type="text" placeholder="Phone Number">
-    </md-input-container>
+                  <md-radio-button value="1" class="md-primary"> Proceso 1</md-radio-button>
+                  <md-radio-button value="2"> Proceso 2 </md-radio-button>
+                  <md-radio-button value="3"> Proceso 3</md-radio-button>
 
-    <md-input-container class="md-block">
-      <!-- Use floating placeholder instead of label -->
-      <md-icon md-svg-src="img/icons/ic_email_24px.svg" class="email"></md-icon>
-      <input ng-model="vm.user.email" type="email" placeholder="Email (required)" ng-required="true">
-    </md-input-container>
-
-    <md-input-container md-no-float class="md-block">
-      <input ng-model="vm.user.address" type="text" placeholder="Address" >
-      <md-icon md-svg-src="img/icons/ic_place_24px.svg" style="display:inline-block;"></md-icon>
-    </md-input-container>
-
-    <md-input-container class="md-icon-float md-icon-right md-block">
-      <label>Donation Amount</label>
-      <md-icon md-svg-src="img/icons/ic_card_giftcard_24px.svg"></md-icon>
-      <input ng-model="vm.user.donation" type="number" step="0.01">
-      <md-icon md-svg-src="img/icons/ic_euro_24px.svg"></md-icon>
-    </md-input-container>
-
-  </md-content>
-
+                </md-radio-group>
+            <div class="text-center">
+                <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar</md-button>
+            </div>
+        </wz-step>
+        <wz-step wz-title="descripcion" canexit="vm.exitValidation(projectForm.desc.$error)">
+            <h3 class="text-center">Ahora cuentanos una breve descripción</h3>
+            <p>una descripcion breve es un resumen bla bla</p>
+            <md-input-container class="md-icon-float md-block">
+                <!-- Use floating label instead of placeholder -->
+                <label>Descripción</label>
+                <md-icon md-font-icon="ion-ios-heart-outline" class="title"></md-icon>
+                <input name="desc" layout-align="center" ng-model="vm.project.desc" type="text" ng-required="true">
+            </md-input-container>
+            <div class="text-center">
+                <md-button type="submit" class="md-raised md-primary" wz-previous value="previus"><md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>Atras</md-button>
+                <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar<md-icon md-font-icon="ion-chevron-right" aria-label="description"></md-icon></md-button>
+            </div>
+        </wz-step>
+        <wz-step wz-title="Fin" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+            <h3 class="text-center">Excelente! da clic en crear proyecto para finalizar</h3>
+            <div class="text-center">
+                <md-button type="submit" class="md-raised md-primary" wz-previous value="previus"><md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>Atras</md-button>
+                <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Crear Proyecto<md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon></md-button>
+            </div>
+        </wz-step>
+    </wizard>
+</form>
 </div>

@@ -1,19 +1,38 @@
 <div layout="row" layout-xs="column">
-  <div flex-sm="100" flex="10">
+  <div flex-xs="100" flex-gt-xs="10">
 
    <div class="lock-size" layout="row" layout-align="center center">
-       <md-button class="md-fab" aria-label="Eat cake">
+       <md-button class="md-fab" aria-label="Eat cake" ng-click="vm.create_project();">
             <md-icon md-font-icon="ion-plus-round"></md-icon>
         </md-button>
     </div>
   </div>
 
-  <div flex-sm="100" flex="90">
+  <div flex-xs="100" flex-gt-xs="90">
 
-  <project-list></project-list>
+  <project-list ></project-list>
 
   </div>
 </div>
 
+<!--Modal formulario de creación de proyecto!-->
+<script type="text/ng-template" id="myModalContent.html">
+<div role="dialog" aria-label="Eat me!" layout="column" layout-align="center" >
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Crea Un proyecto!</h2>
+    </div>
+  </md-toolbar>
+
+  <project-form closeparent="mvm.cancel()"></project-form>
+
+  <div layout="row" class="demo-dialog-button">
+    <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
+      Cancelar
+    </md-button>
+  </div>
+</div>
+
+</script>
 
 

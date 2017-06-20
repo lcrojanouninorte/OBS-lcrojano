@@ -1,3 +1,4 @@
 <div layout="row" layout-wrap  layout-margin>
-<project-item project="project" ng-repeat="project in vm.projects" flex="30"></project-item>
+<li ng-hide="vm.projects.length>0">Actualemte no ha creado proyectos, puede dar clic en + para agregar uno</li>
+<project-item project="project" ng-repeat="project in vm.projects" flex="100" flex-gt-sm="30"></project-item>
 </div>

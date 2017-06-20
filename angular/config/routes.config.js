@@ -376,6 +376,9 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
 
       .state('app.create-project', {
         url: '/create-project',
+        data: {
+          auth: true
+        },
         views: {
           'main@app': {
             template: '<project-form></project-form>'
@@ -384,6 +387,9 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
     })
   .state('app.user-projects', {
         url: '/user-project',
+        data: {
+          auth: true
+        },
         views: {
           'main@app': {
             template: '<user-projects></user-projects>'
@@ -392,9 +398,22 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
     })
   .state('app.projects', {
           url: '/projects',
+          data: {
+            auth: true
+          },
           views: {
             'main@app': {
               templateUrl: getView('projects')
+            }
+          }
+  }).state('app.project', {
+          url: '/project/:projectId',
+          data: {
+            auth: true
+          },
+          views: {
+            'main@app': {
+              template: "<project-dashboard></project-dashboard>"
             }
           }
       })
