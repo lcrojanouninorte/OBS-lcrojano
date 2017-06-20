@@ -3,7 +3,30 @@
       <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>{{vm.project.titulo}} </h2>
     </div>
 </md-toolbar>
+<div layout="row" layout-xs="column">
+  <div flex-xs="100" flex-gt-xs="10">
 
+   <div class="lock-size" layout="row" layout-align="center">
+       <md-button class="md-fab md-whiteframe-5dp" aria-label="Eat cake" ng-click="vm.create_project();">
+            <md-icon md-font-icon="ion-plus-round"></md-icon>
+        </md-button>
+    </div>
+  </div>
+
+</div>
+
+
+<h3 class="text-center">RESULTADOS</h3>
+<div layout="col" layout-wrap  layout-margin layout-align="center">
+	<result-item flex-gt-sm="45" flex="100"></result-item>
+	<result-item flex-gt-sm="45" flex="100"></result-item>
+	<result-item flex-gt-sm="45" flex="100"></result-item>
+</div>
+ 
+
+
+
+<!--
 <div class="project_dashboard" layout="row" layout-xs="column" >
   <md-content class="page-container" flex="100">
     <md-card class="page" >
@@ -13,10 +36,4 @@
     </md-card>
   </md-content>
 </div>
-
-<div layout="col" layout-wrap  layout-margin layout-align="center">
-	<result-item flex="45"></result-item>
-	<result-item flex="45"></result-item>
-	<result-item flex="45"></result-item>
-</div>
- 
+-->

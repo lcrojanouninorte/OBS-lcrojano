@@ -1,9 +1,14 @@
-<md-content layout-gt-sm="column" layout-padding layout-align="center">
-    <md-button class="md-icon-button text-right" aria-label="More">
-        <md-icon ng-show="vm.add" class="" md-font-icon="ion-chevron-up" aria-label="description" ng-click="vm.add=!vm.add"></md-icon>
-        <md-icon ng-show="!vm.add" class="" md-font-icon="ion-chevron-down" aria-label="description" ng-click="vm.add=!vm.add"></md-icon>
+<md-content    layout-gt-sm="column" layout-padding >
+
+   <md-button  ng-show="!vm.add" class=" text-center md-raised md-primary" aria-label="More" flex ng-click="vm.add=!vm.add">
+        Añadir producto <md-icon md-font-icon="ion-chevron-down" ></md-icon>
     </md-button>
-    <div ng-show="vm.add" layout="column">
+    <md-button md-no-ink ng-show="vm.add " class=" text-center md-primary" aria-label="More" flex ng-click="vm.add=!vm.add">
+        Cancelar <md-icon md-font-icon="ion-chevron-up" ></md-icon>
+    </md-button>
+
+ 
+    <div ng-show="vm.add" layout="column" class="md-whiteframe-2dp">
         <md-input-container flex="100">
             <label>Descripción</label>
             <textarea ng-model="vm.desc" md-maxlength="150" rows="1" md-select-on-focus></textarea>
@@ -12,7 +17,7 @@
             <md-datepicker ng-model="ctrl.myDate" md-placeholder="Inicio" flex="50"></md-datepicker>
             <md-datepicker ng-model="ctrl.myDate" md-placeholder="Fin" flex="50"></md-datepicker>
         </div>
-        <md-button class="md-raised md-primary">Añadir</md-button>
+        <md-button class="md-raised md-primary"><md-icon md-font-icon="ion-plus-round" ></md-icon>Añadir</md-button>
         <!--
       <md-input-container flex="20">
         <label>Duración</label>

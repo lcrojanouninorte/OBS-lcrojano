@@ -1,4 +1,5 @@
-<md-card class="box box-{{vm.estado}}">
+
+<md-card class="box box-success md-whiteframe-2dp" >
     <md-card-header>
     <md-card-avatar>
         <div class="progress-wrapper">
@@ -39,22 +40,8 @@
                   </md-menu-item>
               </md-menu-content>
           </md-menu>
-        </md-card-header>
-        <md-card-content>
-       
-          <product-list></product-list>
-         
 
-          
-        </md-card-content>
-        <md-card-actions layout="row " layout-align="center ">
-    <div flex="33">
-        <p class="text-bold ">
-            Proceso: {{vm.process_id}}
-        </p>
-    </div>
-    <div class="text-right " flex="66">
-        <h2 class="md-display-1 ">$200.000</h2>
+          <div class="text-right " >
         <md-button class="md-icon-button " aria-label="edit " ui-sref="app.project({projectId: vm.id}) ">
             <md-icon md-font-icon="ion-edit "></md-icon>
         </md-button>
@@ -64,6 +51,19 @@
         <md-button class="md-icon-button " aria-label="edit " ng-click="vm.delete(vm.id) ">
             <md-icon md-font-icon="ion-trash-a "></md-icon>
         </md-button>
+    </div>
+        </md-card-header>
+
+          <product-list></product-list>
+       
+        <md-card-actions layout="row " layout-align="center ">
+    <div flex="33">
+        <p class="text-bold ">
+            Proceso: {{vm.process_id}}
+        </p>
+    </div>
+    <div class="text-right " flex="66">
+        <h2 class="md-display-1 ">$200.000</h2>
     </div>
 </md-card-actions>
 

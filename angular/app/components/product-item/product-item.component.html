@@ -1,16 +1,27 @@
-<md-content layout-margin="5" layout="row">
+<md-content layout="row" layout-margin>
     <div layout="column" flex="80">
-        <md-checkbox ng-model="vm.checkModel" ng-change="vm.checkModelChange()" aria-label="Checkbox" md-indeterminate="vm.checkModel === null" flex="100">
-            <b>{{ vm.checkModel == null ? 'Pendiente: ' : ""}}</b><span ng-class="{strike: vm.checkModel, bold: vm.important}">Lorem ipsum dolor sit amet, ne quod novum mei</span>
+        <md-checkbox style="margin-bottom: 0px;" ng-model="vm.checkModel" ng-change="vm.checkModelChange()" aria-label="Checkbox" md-indeterminate="vm.checkModel === null" flex="100">
+            <b>{{ vm.checkModel == null ? 'Pendiente: ' : ""}}</b><span ng-class="{strike: vm.checkModel, bold: vm.important}">{{vm.nombre}}</span>
             <div>
-                <p class="italic">
+                <i class="italic">
                     1-JUL/2-AGO
-                </p>
+                </i>
             </div>
         </md-checkbox>
     </div>
-    <div layout="row" class="text-right"  flex="20">
-        <md-icon md-font-icon="ion-edit"></md-icon>
-        <md-icon md-font-icon="ion-ios-trash-outline"></md-icon>
+    <div layout="row" class="text-right" flex="20">
+        <md-button class="md-icon-button " aria-label="Play">
+            <md-tooltip md-direction="top">Presupuesto</md-tooltip>
+            <md-icon md-font-icon="ion-social-usd"></md-icon>
+        </md-button>
+        <md-button class="md-icon-button " aria-label="Play">
+            <md-tooltip md-direction="top">Editar</md-tooltip>
+            <md-icon md-font-icon="ion-edit"></md-icon>
+        </md-button>
+        <md-button class="md-icon-button " aria-label="Play">
+            <md-tooltip md-direction="top">Borrar</md-tooltip>
+            <md-icon md-font-icon="ion-ios-trash-outline"></md-icon>
+        </md-button>
     </div>
 </md-content>
+<md-divider></md-divider>

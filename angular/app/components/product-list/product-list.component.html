@@ -1,9 +1,11 @@
-<div layout="column">
+<div style="height:300px; max-height: 300px;" layout="column">
+    <md-content  layout="column">
+        <div class="repeated-item" >
+            <product-item  ng-repeat="product in vm.products" product="product">
+            	
+            </product-item>
 
-	<product-item flex="100">Producto 1</product-item>
-	<product-item flex="100">Producto 2</product-item>
-	<product-item flex="100">Producto 3</product-item>
-
-	
-	<product-form></product-form>
+        </div>
+    </md-content>
+ <product-form></product-form>
 </div>
