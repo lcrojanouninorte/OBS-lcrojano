@@ -1,14 +1,14 @@
 <md-content    layout-gt-sm="column" layout-padding >
 
-   <md-button  ng-show="!vm.add" class=" text-center md-raised md-primary" aria-label="More" flex ng-click="vm.add=!vm.add">
+   <!--<md-button  ng-show="!vm.add" class=" text-center md-raised md-primary" aria-label="More" flex ng-click="vm.add=!vm.add">
         Añadir producto <md-icon md-font-icon="ion-chevron-down" ></md-icon>
     </md-button>
     <md-button md-no-ink ng-show="vm.add " class=" text-center md-primary" aria-label="More" flex ng-click="vm.add=!vm.add">
         Cancelar <md-icon md-font-icon="ion-chevron-up" ></md-icon>
     </md-button>
-
+-->
  
-    <div ng-show="vm.add" layout="column" class="md-whiteframe-2dp">
+    <div  layout="column" class="md-whiteframe-2dp">
         <md-input-container flex="100">
             <label>Descripción</label>
             <textarea ng-model="vm.desc" md-maxlength="150" rows="1" md-select-on-focus></textarea>

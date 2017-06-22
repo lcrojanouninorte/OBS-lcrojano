@@ -1,0 +1,20 @@
+<div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">
+    <md-toolbar class="text-center" layout="row" >
+        <div class="md-toolbar-tools">
+            <h2>{{vm.product.nombre}}</h2>
+        </div>
+        <md-icon layout-margin flex-aling="end center" md-font-icon="ion-close-round" aria-label="description"  ng-click="vm.cancel()"></md-icon>
+    </md-toolbar>
+    <md-content class="text-center">
+        <h1>
+      Rubros
+    </h1>
+        <p>Escoja el rubro que quiere utilizar:</p>
+        <budget-list></budget-list>
+    </md-content>  
+    <div  class="demo-dialog-button">
+        <md-button md-autofocus flex class="md-primary" ng-click="vm.cancel()">
+            Cancelar
+        </md-button>
+    </div>
+</div>

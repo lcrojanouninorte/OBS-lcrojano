@@ -1,3 +1,5 @@
+import {ProductBudgetComponent} from './app/components/product-budget/product-budget.component';
+import {ProjectProdutcsComponent} from './app/components/project-produtcs/project-produtcs.component';
 import {BudgetItemComponent} from './app/components/budget-item/budget-item.component';
 import {BudgetListComponent} from './app/components/budget-list/budget-list.component';
 import {BudgetFormComponent} from './app/components/budget-form/budget-form.component';
@@ -43,6 +45,8 @@ import { LoginFormComponent } from './app/components/login-form/login-form.compo
 import { RegisterFormComponent } from './app/components/register-form/register-form.component'
 
 angular.module('app.components')
+	.component('productBudget', ProductBudgetComponent)
+	.component('projectProdutcs', ProjectProdutcsComponent)
 	.component('budgetItem', BudgetItemComponent)
 	.component('budgetList', BudgetListComponent)
 	.component('budgetForm', BudgetFormComponent)
