@@ -1,7 +1,7 @@
 <md-content layout="row" layout-margin>
     <div layout="column" flex="80">
         <md-checkbox style="margin-bottom: 0px;" ng-model="vm.checkModel" ng-change="vm.checkModelChange()" aria-label="Checkbox" md-indeterminate="vm.checkModel === null" flex="100">
-            <b>{{ vm.checkModel == null ? 'Pendiente: ' : ""}}</b><span ng-class="{strike: vm.checkModel, bold: vm.important}">{{vm.nombre}}</span>
+            <b>{{ vm.checkModel == null ? 'Pendiente: ' : ""}}</b><span ng-class="{strike: vm.checkModel, bold: vm.important}">{{vm.product.nombre}}</span>
             <div>
                 <i class="italic">
                     1-JUL/2-AGO
@@ -10,8 +10,8 @@
         </md-checkbox>
     </div>
     <div layout="row" class="text-right" flex="20">
-        <md-button class="md-icon-button " aria-label="Play">
-            <md-tooltip md-direction="top">Presupuesto</md-tooltip>
+        <md-button class="md-icon-button " aria-label="Play" ng-click="vm.open_budget(vm.id)">
+            <md-tooltip md-direction="top" >Presupuesto</md-tooltip>
             <md-icon md-font-icon="ion-social-usd"></md-icon>
         </md-button>
         <md-button class="md-icon-button " aria-label="Play">
@@ -25,3 +25,11 @@
     </div>
 </md-content>
 <md-divider></md-divider>
+
+<!--Modal formulario de creación de proyecto!-->
+<script type="text/ng-template" id="projectBudgetModal.html">
+
+<product-budget product="mvm.product" cancel="mvm.cancel()"></product-budget>
+producto: {{vm.product.nombre}}
+</script>
+

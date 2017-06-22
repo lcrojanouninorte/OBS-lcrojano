@@ -4,6 +4,7 @@ class ProductListController{
 
         //
         this.add = false
+        this.isCollapsed=true
         this.products =[
         {nombre:"Producto 1"},
         {nombre:"Producto 2"},
