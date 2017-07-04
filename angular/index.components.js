@@ -1,3 +1,12 @@
+import {RetosListComponent} from './app/components/retos-list/retos-list.component';
+import {MdSliderPipsComponent} from './app/components/md-slider-pips/md-slider-pips.component';
+import {EmpatiaChartComponent} from './app/components/empatia-chart/empatia-chart.component';
+import {PerfilinnovadorChartComponent} from './app/components/perfilinnovador-chart/perfilinnovador-chart.component';
+import {MindexChartComponent} from './app/components/mindex-chart/mindex-chart.component';
+import {EmpatiaFormComponent} from './app/components/empatia-form/empatia-form.component';
+import {PerfilinnovadorFormComponent} from './app/components/perfilinnovador-form/perfilinnovador-form.component';
+import {MindexFormComponent} from './app/components/mindex-form/mindex-form.component';
+import {KickstarterDashboardComponent} from './app/components/kickstarter_dashboard/kickstarter_dashboard.component';
 import {ProductBudgetComponent} from './app/components/product-budget/product-budget.component';
 import {ProjectProdutcsComponent} from './app/components/project-produtcs/project-produtcs.component';
 import {BudgetItemComponent} from './app/components/budget-item/budget-item.component';
@@ -45,6 +54,15 @@ import { LoginFormComponent } from './app/components/login-form/login-form.compo
 import { RegisterFormComponent } from './app/components/register-form/register-form.component'
 
 angular.module('app.components')
+	.component('retosList', RetosListComponent)
+	.component('mdSliderPips', MdSliderPipsComponent)
+	.component('empatiaChart', EmpatiaChartComponent)
+	.component('perfilinnovadorChart', PerfilinnovadorChartComponent)
+	.component('mindexChart', MindexChartComponent)
+	.component('empatiaForm', EmpatiaFormComponent)
+	.component('perfilinnovadorForm', PerfilinnovadorFormComponent)
+	.component('mindexForm', MindexFormComponent)
+	.component('kickstarterDashboard', KickstarterDashboardComponent)
 	.component('productBudget', ProductBudgetComponent)
 	.component('projectProdutcs', ProjectProdutcsComponent)
 	.component('budgetItem', BudgetItemComponent)

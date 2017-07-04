@@ -1,0 +1,42 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2>Conoce tu perfil Innovador</h2>
+    </div>
+</md-toolbar>
+<div layout layout-margin >
+	
+
+<md-whiteframe class="md-whiteframe-1dp" layout="column" layout-align="center" flex-offset-gt-md="20" flex-gt-md="60" flex="100">
+        <div layout="column" class="md-inline-form">
+            <md-content layout-padding>
+                <h3 class="text-center">Responde las siguientes preguntas para conocer tu perfil innovador</h3>
+                <div layout="column">
+                    <div layout="row">
+                        <div flex>
+                            <p class="text-center">Pregunta</p>
+                        </div>
+                        <div flex layout-align="center">
+                            <p class="text-center">0= No es para nada como yo, 100 = Me identifico perfectamente con la afirmación</p>
+                        </div>
+                    </div>
+                    <md-divider></md-divider>
+                    <md-list flex>
+                        <md-list-item class="md-3-line md-long-text" ng-repeat="question in vm.questions">
+                            <div layout="column" layout-gt-md="row" flex>
+                                <div flex="30">
+                                   {{$index + 1}}. {{question.desc}}
+                                </div>
+                                <div flex="70">
+                                     <md-slider-pips value="question.answers[0].value"></md-slider-pips>
+                                </div>
+                            </div>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                    </md-list>
+                    <md-button class="md-fab" aria-label="send"  md-ripple-size="full" ng-click="vm.save()">Enviar</md-button>
+                </div>
+            </md-content>
+        </div>
+</md-whiteframe>
+</div>
+ 

@@ -1,0 +1,45 @@
+
+   <md-card class="box box-success" layout="column" layout-padding style="height: 450px;">
+        <md-card-header flex>
+          <md-card-avatar>
+            <img src="img/logocesi.png"/>
+          </md-card-avatar>
+          <md-card-header-text  >
+            <h2 class="md-title"> Empatia</h2>
+            <span class="md-subhead">Resultados test de empatia</span>
+          </md-card-header-text>
+        </md-card-header>
+
+        <md-card-title flex>
+          <md-card-title-text>
+            <span class="md-headline text-center"  md-truncate style="max-width: 100px;">Luis</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+        <div layout="row" layout-padding>
+            <div flex>
+                 <vis-network ng-show="vm.graphLoaded" data="vm.graphData" options="vm.graphOptions" events="vm.graphEvents"></vis-network>
+          </div>
+        </div>
+          
+            
+        </md-card-content>
+        <div class="box-footer no-padding">
+           
+        </div>
+        <md-card-actions layout="row" layout-align="end center">
+         
+
+       <div flex>
+          <md-button class="md-icon-button" aria-label="edit" ui-sref="app.empatiaForm">
+            <md-icon md-font-icon="ion-edit" ></md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="view">
+            <md-icon md-font-icon="ion-eye" ></md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="edit" ng-click="vm.delete(vm.id)">
+            <md-icon md-font-icon="ion-trash-a" ></md-icon>
+          </md-button>
+       </div>
+        </md-card-actions>
+      </md-card>

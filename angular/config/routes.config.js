@@ -416,5 +416,45 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
               template: "<project-dashboard></project-dashboard>"
             }
           }
+      }).state('app.kickstarter', {
+          url: '/kickstarter',
+          data: {
+            auth: true
+          },
+          views: {
+            'main@app': {
+              templateUrl: getView('kickstarter')
+            }
+          }
+      }).state('app.mindexForm', {
+          url: '/mindex',
+          data: {
+            auth: true
+          },
+          views: {
+            'main@app': {
+              template: "<mindex-form></mindex-form>"
+            }
+          }
+      }).state('app.perfilInnForm', {
+          url: '/perfil-innovador',
+          data: {
+            auth: true
+          },
+          views: {
+            'main@app': {
+              template: "<perfilinnovador-form></perfilinnovador-form>"
+            }
+          }
+      }).state('app.empatiaForm', {
+          url: '/test-empatia',
+          data: {
+            auth: true
+          },
+          views: {
+            'main@app': {
+              template: "<empatia-form></empatia-form>"
+            }
+          }
       })
 }

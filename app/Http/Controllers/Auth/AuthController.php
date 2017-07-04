@@ -200,9 +200,9 @@ class AuthController extends Controller
 
         $token = JWTAuth::fromUser($user);
 
-        Mail::send('emails.userverification', ['verificationCode' => $verificationCode], function ($m) use ($request) {
+        /*Mail::send('emails.userverification', ['verificationCode' => $verificationCode], function ($m) use ($request) {
             $m->to($request->email, 'test')->subject('Email Confirmation');
-        });
+        });*/
 
         return response()->success(compact('user', 'token'));
     }

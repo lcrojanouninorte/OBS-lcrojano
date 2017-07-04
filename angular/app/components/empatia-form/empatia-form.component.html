@@ -1,0 +1,71 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2>Test de Empatia</h2>
+    </div>
+</md-toolbar>
+<div layout layout-margin>
+    <md-whiteframe class="md-whiteframe-1dp" layout="column" layout-align="center" flex-offset-gt-md="20" flex-gt-md="60" flex="100">
+        <div layout="column" class="md-inline-form">
+            <md-content layout-padding>
+                <h3 class="text-center" flex>Conoce tu empatia</h3>
+                <p class="text-center" flex>Instrucciones: Puntúa de 1 a 10 con quién desempeñarías esta actividad. Siendo 1 una persona con la que definitivamente no trabajarías y 10 una persona con la que trabajarias sin pensarlo.</p>
+                <div layout="column">
+                    <md-divider></md-divider>
+                    <div  style="min-width: 600px">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th ng-repeat="question in vm.survey.questions">
+                                        {{$index + 1}}. {{question.desc}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> John Doe</td>
+                                    <td>
+                                        <md-slider flex class="md-warn" md-discrete ng-model="rating1" step="1" min="1" max="10" aria-label="rating">
+                                        </md-slider>
+                                    </td>
+                                    <td>
+                                        <md-slider flex class="md-warn" md-discrete ng-model="rating2" step="1" min="1" max="10" aria-label="rating">
+                                        </md-slider>
+                                    </td>
+                                    <td>
+                                        <md-slider flex class="md-warn" md-discrete ng-model="rating3" step="1" min="1" max="10" aria-label="rating">
+                                        </md-slider>
+                                    </td>
+                                    <td>
+                                        <md-slider flex class="md-warn" md-discrete ng-model="rating4" step="1" min="1" max="10" aria-label="rating">
+                                        </md-slider>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> Jane Doe</td>
+                                    <td>
+                                        <md-slider flex class="md-warn" md-discrete ng-model="rating11" step="1" min="1" max="10" aria-label="rating">
+                                        </md-slider>
+                                    </td>
+                                    <td>
+                                        <md-slider flex class="md-warn" md-discrete ng-model="rating22" step="1" min="1" max="10" aria-label="rating">
+                                        </md-slider>
+                                    </td>
+                                    <td>
+                                        <md-slider flex class="md-warn" md-discrete ng-model="rating33" step="1" min="1" max="10" aria-label="rating">
+                                        </md-slider>
+                                    </td>
+                                    <td>
+                                        <md-slider flex class="md-warn" md-discrete ng-model="rating44" step="1" min="1" max="10" aria-label="rating">
+                                        </md-slider>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <md-divider></md-divider>
+                </div>
+            </md-content>
+        </div>
+    </md-whiteframe>
+</div>

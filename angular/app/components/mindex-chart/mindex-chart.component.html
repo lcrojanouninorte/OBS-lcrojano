@@ -1,0 +1,47 @@
+
+   <md-card class="box box-success" layout="column" layout-padding style="height: 450px;">
+       <md-card-header flex>
+          <md-card-avatar>
+            <img src="img/logocesi.png"/>
+          </md-card-avatar>
+          <md-card-header-text  >
+            <h2 class="md-title"> Mindex</h2>
+            <span class="md-subhead">Resultados Mindex</span>
+          </md-card-header-text>
+        </md-card-header>
+ 
+        <md-card-content>
+
+<div class="row">
+            <div class="col-md-12">
+              <div class="chart-responsive" >
+                <canvas id="radar" class="chart chart-radar"
+                  chart-data="vm.data" chart-options="vm.options" chart-labels="vm.labels">
+                </canvas> 
+              </div>
+            </div>
+             
+          </div>
+
+          <div class="box-footer no-padding">
+           
+        </div>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+         
+
+       <div flex>
+          <md-button class="md-icon-button" aria-label="edit" ui-sref="app.mindexForm">
+            <md-icon md-font-icon="ion-edit" ></md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="view">
+            <md-icon md-font-icon="ion-eye" ></md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="edit" ng-click="vm.delete(vm.id)">
+            <md-icon md-font-icon="ion-trash-a" ></md-icon>
+          </md-button>
+       </div>
+        </md-card-actions>
+      </md-card>
+
+ 

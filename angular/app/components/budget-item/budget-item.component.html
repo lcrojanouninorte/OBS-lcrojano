@@ -1,8 +1,8 @@
-<div class="budget-item text-center"  layout="column" >
+<div class="budget-item text-center"  layout="column" ng-click="vm.edit()">
     <span class="" flex>{{vm.budget.titulo}}</span>
     <md-card-avatar class="text-center parent" flex>
             <img  class="card img " src="img/business{{vm.budget.icon_id}}.png"  width="70"/>
     </md-card-avatar>
-    <span class="text-success bold" flex>$0.0</span>
+    <span class="text-success bold" flex>$0.0{{vm.budget.total}}</span>
     
 </div>
