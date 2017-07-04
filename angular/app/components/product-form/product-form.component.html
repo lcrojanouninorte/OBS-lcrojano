@@ -11,13 +11,13 @@
     <div  layout="column" class="md-whiteframe-2dp">
         <md-input-container flex="100">
             <label>Descripción</label>
-            <textarea ng-model="vm.desc" md-maxlength="150" rows="1" md-select-on-focus></textarea>
+            <textarea ng-model="vm.product.desc" md-maxlength="150" rows="1" md-select-on-focus></textarea>
         </md-input-container>
         <div layout="row" layout-align="center">
-            <md-datepicker ng-model="ctrl.myDate" md-placeholder="Inicio" flex="50"></md-datepicker>
-            <md-datepicker ng-model="ctrl.myDate" md-placeholder="Fin" flex="50"></md-datepicker>
+            <md-datepicker ng-model="vm.product.fecha_ini" md-placeholder="Inicio" flex="50"></md-datepicker>
+            <md-datepicker ng-model="vm.product.fecha_fin" md-placeholder="Fin" flex="50"></md-datepicker>
         </div>
-        <md-button class="md-raised md-primary"><md-icon md-font-icon="ion-plus-round" ></md-icon>Añadir</md-button>
+        <md-button class="md-raised md-primary" ng-click="vm.add()"><md-icon md-font-icon="ion-plus-round" ></md-icon>Añadir</md-button>
         <!--
       <md-input-container flex="20">
         <label>Duración</label>

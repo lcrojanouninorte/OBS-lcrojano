@@ -9,4 +9,5 @@ use App\Http\Requests;
 class ResultController extends Controller
 {
     //
+    
 }

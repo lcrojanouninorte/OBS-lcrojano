@@ -1,9 +1,10 @@
 class ProductBudgetController{
-    constructor(){
+    constructor(WizardHandler){
         'ngInject';
 
         //
         this.text= "ok"
+        this.WizardHandler = WizardHandler;
         
 
     }

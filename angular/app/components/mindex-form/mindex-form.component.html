@@ -1,0 +1,45 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2>Instrumento de Medición de la Innovación</h2>
+    </div>
+</md-toolbar>
+<div layout layout-margin >
+	
+
+<md-whiteframe class="md-whiteframe-1dp" layout="column" layout-align="center" flex-offset-gt-md="20" flex-gt-md="60" flex="100">
+        <div layout="column" class="md-inline-form">
+            <md-content layout-padding>
+                <h3 class="text-center">Responda las siguientes preguntas. Puede guardar su progreso haciendo clic en guardar.</h3>
+                <div layout="column">
+                    <div layout="row">
+                        <div flex>
+                            <p class="text-center">Actividad</p>
+                        </div>
+                        <div flex layout-align="center">
+                            <p class="text-center">Grado de acuerdo</p>
+                        </div>
+                    </div>
+                    <md-divider></md-divider>
+                    <md-list flex>
+                        <md-list-item class="md-3-line md-long-text" ng-repeat="question in vm.questions">
+                            <div layout="column" layout-gt-md="row" flex>
+                                <div flex="30">
+                                    {{$index + 1}}. {{question.desc}}
+                                </div>
+                                <div flex="70">
+                                    <!--<md-slider-pips value="vm.answers[question.id]"></md-slider-pips>-->
+                                    <md-slider-pips value="question.answers[0].value"></md-slider-pips>
+                                    
+                                </div>
+                            </div>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                    </md-list>
+                    <div flex-offset="80">Preguntas: {{vm.sizeOf(vm.questions)}}/40</div>
+                    <md-button class="md-fab" aria-label="send"  md-ripple-size="full" ng-click="vm.save()">Enviar</md-button>
+                </div>
+            </md-content>
+        </div>
+</md-whiteframe>
+</div>
+ 

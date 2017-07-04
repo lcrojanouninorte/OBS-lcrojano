@@ -8,7 +8,8 @@ angular.module('app', [
   'app.partials',
   'ngMaterial',
   'mgo-angular-wizard',
-  'angular-svg-round-progressbar'
+  'angular-svg-round-progressbar',
+  'ngVis'
 ])
 
 angular.module('app.run', [])

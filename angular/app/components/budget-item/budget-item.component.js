@@ -3,10 +3,14 @@ class BudgetItemController{
         'ngInject';
 
         //
-         
+        
     }
 
     $onInit(){
+        
+    }
+
+    edit(){
         
     }
 }

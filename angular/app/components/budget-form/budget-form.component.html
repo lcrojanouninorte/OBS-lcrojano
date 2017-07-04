@@ -1,23 +1,93 @@
-<div role="dialog" aria-label="Eat me!" layout="column" layout-align="center center">
-  <md-toolbar>
-    <div class="md-toolbar-tools">
-      <h2>Surprise!</h2>
+<h2 flex>
+      Describe que necesitas?
+    </h2>
+    <p>Ten en cuenta que debes especificar en detalle</p>
+
+  <div layout="column" layour-padding layout-align="center">
+    
+    <div layout="row" flex layout-align="center">
+       <md-input-container class="md-icon-float md-block">
+                <!-- Use floating label instead of placeholder -->             
+                <label>Descripción</label>
+                <md-icon md-font-icon="ion-android-chat" class="title"></md-icon>
+                <input name="titulo" ng-model="vm.project.titulo" type="text" ng-required="true">
+                <div ng-messages="projectForm.titulo.$error">
+                  <div ng-message="required">Este campo es obligatorio.</div>
+                </div>
+       </md-input-container>
+       <md-input-container class="md-icon-float md-block">
+                <!-- Use floating label instead of placeholder -->             
+                <label>Unidad</label>
+                <md-icon md-font-icon="ion-android-favorite" class="title"></md-icon>
+                <input name="titulo" ng-model="vm.project.titulo" type="text" ng-required="true">
+                <div ng-messages="projectForm.titulo.$error">
+                  <div ng-message="required">Este campo es obligatorio.</div>
+                </div>
+       </md-input-container>
+       <md-input-container class="md-icon-float md-block">
+                <!-- Use floating label instead of placeholder -->             
+                <label>Cantidad</label>
+                <md-icon md-font-icon="ion-ios-cart" class="title"></md-icon>
+                <input name="titulo" ng-model="vm.project.titulo" type="number" ng-required="true">
+                <div ng-messages="projectForm.titulo.$error">
+                  <div ng-message="required">Este campo es obligatorio.</div>
+                </div>
+       </md-input-container>
+       
+       
+      
+      
     </div>
-  </md-toolbar>
 
-  <div class="demo-dialog-content">
-    <p>
-      You hit the secret button. Here's a donut:
-    </p>
+    <h2 flex>
+      Describe Cuanto necesitas
+    </h2>
+    <p>Ten en cuenta que debes estas restricciones</p>
 
-    <div layout="row" >
-      <img flex alt="Delicious donut" src="img/donut.jpg">
+    <div layout="row" flex layout-align="center">
+    <md-input-container class="md-icon-float md-block">
+                <!-- Use floating label instead of placeholder -->             
+                <label>Valor Unitario</label>
+                <md-icon md-font-icon="ion-social-usd" class="title"></md-icon>
+                <input name="titulo" ng-model="vm.project.titulo" type="text" ng-required="true">
+                <div ng-messages="projectForm.titulo.$error">
+                  <div ng-message="required">Este campo es obligatorio.</div>
+                </div>
+      </md-input-container>
+      <md-input-container class="md-icon-float md-block">
+                <!-- Use floating label instead of placeholder -->             
+                <label>Finaciación SENA</label>
+                <md-icon md-font-icon="ion-social-usd" class="title"></md-icon>
+                <input name="titulo" ng-model="vm.project.titulo" type="text" ng-required="true">
+                <div ng-messages="projectForm.titulo.$error">
+                  <div ng-message="required">Este campo es obligatorio.</div>
+                </div>
+       </md-input-container>
+       <md-input-container class="md-icon-float md-block">
+                <!-- Use floating label instead of placeholder -->             
+                <label>Contrapartida Especie</label>
+                <md-icon md-font-icon="ion-social-usd" class="title"></md-icon>
+                <input name="titulo" ng-model="vm.project.titulo" type="text" ng-required="true">
+                <div ng-messages="projectForm.titulo.$error">
+                  <div ng-message="required">Este campo es obligatorio.</div>
+                </div>
+       </md-input-container>
+       <md-input-container class="md-icon-float md-block">
+                <!-- Use floating label instead of placeholder -->             
+                <label>Contrapartida efectivo</label>
+                <md-icon md-font-icon="ion-social-usd" class="title"></md-icon>
+                <input name="titulo" ng-model="vm.project.titulo" type="text" ng-required="true">
+                <div ng-messages="projectForm.titulo.$error">
+                  <div ng-message="required">Este campo es obligatorio.</div>
+                </div>
+       </md-input-container>
+    </div>
+
+
+  <div class="text-right " layout-margin>
+        <h2 class="md-display-1 ">Total: $200.000</h2>
     </div>
   </div>
 
-  <div layout="row" class="demo-dialog-button">
-    <md-button md-autofocus flex class="md-primary" ng-click="ctrl.closeDialog()">
-      Close
-    </md-button>
-  </div>
-</div>
+ 
+ 

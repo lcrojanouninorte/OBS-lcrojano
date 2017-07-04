@@ -3,9 +3,14 @@ class ProductFormController{
         'ngInject';
 
         //
+        this.product = {}
     }
 
     $onInit(){
+    }
+
+    add(){
+        //Products.add(this.product);
     }
 }
 
