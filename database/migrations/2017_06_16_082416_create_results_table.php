@@ -14,8 +14,16 @@ class CreateResultsTable extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->increments('id');
-           
-            $table->string('desc');
+            $table->integer('project_id')->unsigned();
+            $table->string('titulo');
+            $table->string('indicador');
+            $table->string('meta');
+            $table->string('fuenteverificacion');
+            $table->string('estado');
+            $table->string('progress')->nullable();
+            $table->date('fecha_inicio');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

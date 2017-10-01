@@ -1,20 +1,22 @@
 class ProjectDashboardController{
-    constructor($stateParams, API){
+    constructor($uibModal, $mdSticky, $state,$stateParams, API, $scope) {
         'ngInject';
 
         //
-        this.id = $stateParams.projectId;
+        this.$uibModal = $uibModal
+        this.$mdSticky = $mdSticky
+        this.$state = $state
+
+        //
+        this.id = $stateParams.projectId
         this.API = API
         this.project = {}
         this.dial = {}
         this.dial.isOpen = true;
-        this.dial.selectedMode = 'md-fling';
-        this.dial.selectedDirection = 'down';
-        this.results = [
-        {id:1, nombre: "Trasnferencia SENA", progreso:10},
-        {id:2,nombre: "Crear una plataforma",progreso:50},
-        {id:3,nombre: "Pruebas", progreso:100}
-        ]
+        this.dial.selectedMode = 'md-fling'
+        this.dial.selectedDirection = 'down'
+        this.results = []
+        this.$scope = $scope;
         
     }
 
@@ -25,10 +27,49 @@ class ProjectDashboardController{
           .then((response) => {
             if(!response.error){   
                 this.project = response.data
+                this.results = this.project.results
+                this.$scope.users = this.project.users //pasar solo los usuarios a los componentes hijos
             }
         });
     }
 
+
+
+    create_result() {
+        let $uibModal = this.$uibModal
+        let project = this.project
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'myModalResult.html',
+            controller: this.modalcontroller,
+            controllerAs: 'mvm',
+            size: 'lg',
+            resolve: {
+               project: function() {
+                   return project;
+               }
+            }
+
+        })
+    }
+
+    modalcontroller ($uibModalInstance, project) {
+    'ngInject'
+        this.project_id = project.id;
+        this.project_name = project.titulo;
+        this.ok = () => {
+
+          $uibModalInstance.close($scope.selected.item)
+        }
+
+        this.cancel = () => {
+
+          $uibModalInstance.dismiss('cancel');
+
+        }
+
+        this.project = this.id;
+    }
 
 }
 

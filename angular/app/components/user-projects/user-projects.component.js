@@ -7,11 +7,35 @@ class UserProjectsController {
         this.$mdSticky = $mdSticky
         this.$state = $state
 
+      this.topDirections = ['left', 'up'];
+      this.bottomDirections = ['down', 'right'];
+
+      this.isOpen = false;
+
+      this.availableModes = ['md-fling', 'md-scale'];
+      this.selectedMode = 'md-fling';
+
+      this.availableDirections = ['up', 'down', 'left', 'right'];
+      this.selectedDirection = 'down';
+
 
     }
 
     $onInit() {
 
+    }
+
+    create_empresario() {
+        let $uibModal = this.$uibModal
+        let items = this.items
+
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'addempresario.html',
+            controller: this.modalcontroller,
+            controllerAs: 'mvm',
+            size: 'lg'
+        })
     }
 
 

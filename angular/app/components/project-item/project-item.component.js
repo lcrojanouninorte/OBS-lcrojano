@@ -11,13 +11,14 @@ class ProjectItemController{
 
     $onInit(){
         this.titulo = this.project.titulo
+         this.fecha_inicio = moment(this.project.fecha_inicio).format("DD  MMMM  YYYY"); 
         this.estado = this.project.estado
         this.id = this.project.id
+        this.users = this.project.users
         this.process_id = this.project.process_id
         this.progress = this.project.progress
         this.pieLabels = ['Ejecutado', 'Pendiente']
-        this.chartColours = ["Green",
-            "Red"]
+        this.chartColours = ["Green","Red"]
         this.pieData = [this.project.progress, 100-this.project.progress]
 
         

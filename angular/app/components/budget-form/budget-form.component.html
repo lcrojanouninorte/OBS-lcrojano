@@ -10,7 +10,7 @@
                 <!-- Use floating label instead of placeholder -->             
                 <label>Descripción</label>
                 <md-icon md-font-icon="ion-android-chat" class="title"></md-icon>
-                <input name="titulo" ng-model="vm.project.titulo" type="text" ng-required="true">
+                <input name="titulo" ng-model="vm.parentModel.descripcion" type="text" ng-required="true">
                 <div ng-messages="projectForm.titulo.$error">
                   <div ng-message="required">Este campo es obligatorio.</div>
                 </div>
@@ -19,7 +19,7 @@
                 <!-- Use floating label instead of placeholder -->             
                 <label>Unidad</label>
                 <md-icon md-font-icon="ion-android-favorite" class="title"></md-icon>
-                <input name="titulo" ng-model="vm.project.titulo" type="text" ng-required="true">
+                <input name="titulo" ng-model="vm.parentModel.unidad" type="text" ng-required="true">
                 <div ng-messages="projectForm.titulo.$error">
                   <div ng-message="required">Este campo es obligatorio.</div>
                 </div>
@@ -28,7 +28,7 @@
                 <!-- Use floating label instead of placeholder -->             
                 <label>Cantidad</label>
                 <md-icon md-font-icon="ion-ios-cart" class="title"></md-icon>
-                <input name="titulo" ng-model="vm.project.titulo" type="number" ng-required="true">
+                <input name="titulo" ng-model="vm.parentModel.cantidad" type="number" ng-required="true">
                 <div ng-messages="projectForm.titulo.$error">
                   <div ng-message="required">Este campo es obligatorio.</div>
                 </div>
@@ -49,7 +49,7 @@
                 <!-- Use floating label instead of placeholder -->             
                 <label>Valor Unitario</label>
                 <md-icon md-font-icon="ion-social-usd" class="title"></md-icon>
-                <input name="titulo" ng-model="vm.project.titulo" type="text" ng-required="true">
+                <input name="titulo" ng-model="vm.parentModel.valor_unitario" type="text" ng-required="true">
                 <div ng-messages="projectForm.titulo.$error">
                   <div ng-message="required">Este campo es obligatorio.</div>
                 </div>
@@ -58,7 +58,7 @@
                 <!-- Use floating label instead of placeholder -->             
                 <label>Finaciación SENA</label>
                 <md-icon md-font-icon="ion-social-usd" class="title"></md-icon>
-                <input name="titulo" ng-model="vm.project.titulo" type="text" ng-required="true">
+                <input name="titulo" ng-model="vm.parentModel.financiacion_sena" type="text" ng-required="true">
                 <div ng-messages="projectForm.titulo.$error">
                   <div ng-message="required">Este campo es obligatorio.</div>
                 </div>
@@ -67,7 +67,7 @@
                 <!-- Use floating label instead of placeholder -->             
                 <label>Contrapartida Especie</label>
                 <md-icon md-font-icon="ion-social-usd" class="title"></md-icon>
-                <input name="titulo" ng-model="vm.project.titulo" type="text" ng-required="true">
+                <input name="titulo" ng-model="vm.parentModel.c_especie" type="text" ng-required="true">
                 <div ng-messages="projectForm.titulo.$error">
                   <div ng-message="required">Este campo es obligatorio.</div>
                 </div>
@@ -76,7 +76,7 @@
                 <!-- Use floating label instead of placeholder -->             
                 <label>Contrapartida efectivo</label>
                 <md-icon md-font-icon="ion-social-usd" class="title"></md-icon>
-                <input name="titulo" ng-model="vm.project.titulo" type="text" ng-required="true">
+                <input name="titulo" ng-model="vm.parentModel.c_efectivo" type="text" ng-required="true">
                 <div ng-messages="projectForm.titulo.$error">
                   <div ng-message="required">Este campo es obligatorio.</div>
                 </div>

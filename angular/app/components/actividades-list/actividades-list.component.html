@@ -1,0 +1,33 @@
+<md-content ng-show="vm.show" >
+
+
+
+<section class="content">
+  <div class="row">
+    <div class="col-md-12">
+    
+      <ul class="timeline">
+      <!--TODO: cambiar a actividades item, cambiar css para que funcione.-->
+
+        <li  ng-repeat="actividad in vm.actividades"   class="fx-light-speed fx-speed-342">
+            <actividades-item actividad="actividad" delete="vm.delete($index)"></actividades-item>
+        </li>
+
+        <!--Fin actividades-->
+         <li>
+          <i class="fa fa-chevron-up bg-green" ng-click="vm.show=false"></i>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+ 
+<actividades-form add="vm.add()" titulo="vm.titulo" dates="vm.dates" ></actividades-form>
+
+ 
+
+
+</md-content>
+

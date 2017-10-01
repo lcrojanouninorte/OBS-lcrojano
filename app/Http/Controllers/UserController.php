@@ -10,6 +10,8 @@ use Hash;
 use Illuminate\Http\Request;
 use Input;
 use Validator;
+use DB;
+use JWTAuth;
 
 class UserController extends Controller
 {
@@ -88,12 +90,49 @@ class UserController extends Controller
      *
      * @return JSON
      */
-    public function getIndex()
+    public function getIndex($role=null)
     {
-        $users = User::all();
+        $user = Auth::user();
+        if($user->is('asesor')){
+            if($role!=null){
+            $users = User::whereHas(
+                'roles', function($q) use ($role){
+                    $q->where('name', $role);
+                })->get();
+            }else{
+                $users = User::all();
+            }
+            
 
-        return response()->success(compact('users'));
+            return response()->success(compact('users'));
+        }else{
+            return response()->error("No Tiene privilegios");
+        }
     }
+
+    /**
+     * Get all by role.
+     *
+     * @return JSON
+     */
+    public function getUsersByRole($role)
+    {
+        $user = Auth::user();
+        if($user->is('asesor')){
+            $users = User::whereHas(
+                'roles', function($q) use ($role){
+                    $q->where('name', $role);
+                }
+            )->get();
+
+            return response()->success(compact('users'));
+        }else{
+            return response()->error("No Tiene privilegios");
+        }
+
+       
+    }
+
 
     /**
      * Get user details referenced by id.
@@ -323,4 +362,56 @@ class UserController extends Controller
 
         return response()->success('success');
     }
+
+
+    public function postEmpresario(Request $request)
+    {
+        //Verificar que es un usuario tipo asesor
+        $current_user = Auth::user();
+        
+        if($current_user->is('asesor')){
+            $this->validate($request, [
+                'name'       => 'required|min:3',
+                'email'      => 'required|email|unique:users',
+                //'password'   => 'required|min:8|confirmed',
+            ]);
+            DB::transaction(function () use ($request) {
+                //Crear usuario 
+                $verificationCode = str_random(40);
+                $user = new User();
+                $user->name = trim($request->name);
+                $user->email_verified = 1;
+                $user->email = trim(strtolower($request->email));
+                $user->password = bcrypt("qwertyqwerty");//bcrypt(str_random(6));
+                $user->email_verification_code = $verificationCode;
+                $user->save();
+
+                //asignar rol de empresario al nuevo usuario
+                $role = Role::where("slug", "empresario")->get();
+                $user->attachRole($role);
+
+                $token = JWTAuth::fromUser($user);
+
+            }, 5);
+
+            /*Mail::send('emails.userverification', ['verificationCode' => $verificationCode], function ($m) use ($request) {
+                $m->to($request->email, 'test')->subject('Email Confirmation');
+            });*/
+
+            return response()->success(compact('user', 'token'));
+                    //return response()->success('success');
+
+
+
+
+        }else{
+            return response()->error('No estas habilitado para estas crear usuarios');
+        }
+
+        return response()->success('success');
+
+
+    }
+
+
 }

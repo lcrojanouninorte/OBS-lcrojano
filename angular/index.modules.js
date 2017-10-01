@@ -9,7 +9,12 @@ angular.module('app', [
   'ngMaterial',
   'mgo-angular-wizard',
   'angular-svg-round-progressbar',
-  'ngVis'
+  'ngVis',
+  'ngParallax',
+  'rzModule',
+  'daterangepicker',
+  'ng-fx',
+ 
 ])
 
 angular.module('app.run', [])

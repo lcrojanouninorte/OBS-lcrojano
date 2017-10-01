@@ -1,35 +1,32 @@
 <div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">
     <md-toolbar class="text-center" layout="row">
         <div class="md-toolbar-tools">
-            <h2>{{vm.product.nombre}}</h2>
+            <h2>{{vm.product.desc}}</h2>
         </div>
         <md-icon layout-margin flex-aling="end center" md-font-icon="ion-close-round" aria-label="description" ng-click="vm.cancel()"></md-icon>
     </md-toolbar>
     <md-content class="text-center">
         <h1>Rubros</h1>
-        <wizard on-finish="finishedWizard()" on-cancel="cancelledWizard()" indicators-position="top">
+
+        <wizard on-finish="vm.finishedWizard()" on-cancel="vm.cancelledWizard()" indicators-position="top">
             <wz-step wz-title="Selecciona">
                 <p>Escoja el rubro que quiere utilizar:</p>
-                <budget-list wz-next value="Continue"></budget-list>
+                 
+                <budget-list wz-next value="Continue" product="vm.product" parent-model="vm.productBudget.budget_id"></budget-list>
                 <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar
                     <md-icon md-font-icon="ion-chevron-right" aria-label="description"></md-icon>
                 </md-button>
             </wz-step>
             <wz-step wz-title="Entidad 1">
-                <budget-form></budget-form>
+                <budget-form parent-model="vm.productBudget"></budget-form>
 
                 <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar
                     <md-icon md-font-icon="ion-chevron-right" aria-label="description"></md-icon>
                 </md-button>
             </wz-step>
-            <wz-step wz-title="Entidad 2">
-                <budget-form></budget-form>
-
-                <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar
-                    <md-icon md-font-icon="ion-chevron-right" aria-label="description"></md-icon>
-                </md-button>
-            </wz-step>
+ 
             <wz-step wz-title="Finaliza">
+             
                 <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Finalizar
                     <md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon>
                 </md-button>

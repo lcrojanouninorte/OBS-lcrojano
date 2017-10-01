@@ -1,37 +1,64 @@
-<md-toolbar md-scroll-shrink>
-    <div class="md-toolbar-tools">
-      <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>{{vm.project.titulo}} </h2>
-    </div>
+<md-toolbar md-scroll-shrink >
+<div class="md-toolbar-tools">
+  <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>{{vm.project.titulo}} </h2>
+</div>
 </md-toolbar>
-<div layout="row" layout-xs="column">
-  <div flex-xs="100" flex-gt-xs="10">
-
-   <div class="lock-size" layout="row" layout-align="center">
-       <md-button class="md-fab md-whiteframe-5dp" aria-label="Eat cake" ng-click="vm.create_project();">
-            <md-icon md-font-icon="ion-plus-round"></md-icon>
-        </md-button>
-    </div>
-  </div>
-
-</div>
-
-
-<h3 class="text-center">RESULTADOS</h3>
-<div layout="col" layout-wrap  layout-margin layout-align="center">
-	<result-item result="result" flex-gt-sm="45" flex="100" ng-repeat="result in vm.results"></result-item>
-</div>
  
 
+<div layout="column" layout-wrap >
+  <div layout=row>
+     
+      <div class="lock-size" layout layout-margin layout-padding>
+        <md-button class="md-fab " aria-label="Eat cake" ng-click="vm.create_result();">
+          <md-icon md-font-icon="ion-plus-round"></md-icon>
+        </md-button>
+      </div>
 
-
+    <div flex="80" layout-align="center">
+      <h3 class="text-center">RESULTADOS</h3>
+    </div>
+  </div>
+  <div  ng-show="vm.results.length <= 0" layout="row" layout-padding layout-wrap layout-fill layout-align="">
+    <md-content layout-padding layout-wrap>
+    <md-whiteframe class="md-whiteframe-1dp" layout layout-align="center center">
+    <span>Añade resultados a este proyecto!</span>
+    </md-whiteframe>
+  </div>
+  
+  </md-content>
+  <div layout="row" layout-wrap  >
+    <result-item   result="result"  flex-gt-md="45" flex="100"  ng-repeat="result in vm.results" layout-margin class="fx-fade-up fx-stagger-245"></result-item>
+    
+  </div>
+  
+</div>
 <!--
 <div class="project_dashboard" layout="row" layout-xs="column" >
   <md-content class="page-container" flex="100">
-    <md-card class="page" >
-      <h1>{{vm.project.titulo}}</h1>
-      <p>{{vm.project.desc }}</p>
-      
-    </md-card>
+  <md-card class="page" >
+  <h1>{{vm.project.titulo}}</h1>
+  <p>{{vm.project.desc }}</p>
+  
+  </md-card>
   </md-content>
 </div>
 -->
+<!--Modal formulario de creación de proyecto!-->
+<script type="text/ng-template" id="myModalResult.html">
+<div role="dialog" aria-label="Eat me!" layout="column" layout-align="center" >
+  <md-toolbar>
+  <div class="md-toolbar-tools">
+    <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Crea Un Resultado! </h2>
+  </div>
+  </md-toolbar>
+  <div layout="column" layout-margin>
+    <p>Projecto: {{mvm.project_name}}</p>
+    <result-form closeparent="mvm.cancel()" flex></result-form>
+  </div>
+  <div layout="row" class="demo-dialog-button">
+    <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
+    Cancelar
+    </md-button>
+  </div>
+</div>
+</script>

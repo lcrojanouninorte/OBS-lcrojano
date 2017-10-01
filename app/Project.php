@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     //
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function users(){
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
+    public function results(){
+        return $this->hasMany(Result::class);
+    }
+     
 }

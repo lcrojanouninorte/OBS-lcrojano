@@ -98,10 +98,35 @@ Question::create(['id'=> 76, 'categoria' => 3, 'survey_id' => 2, 'desc' =>   'Me
 
 
  /*Empatia*/
-Question::create(['id'=>77,'categoria' => 1, 'survey_id' => 3, 'desc' => '¿A quién escogerías para que te ayude a descifrar los ingredientes de la receta de la Coca-cola?']);
-Question::create(['id'=>78,'categoria' => 2, 'survey_id' => 3, 'desc' => '¿A quién escogerías para crear un comercial de tv publicitario de tu empresa?']);
-Question::create(['id'=>79,'categoria' => 3, 'survey_id' => 3, 'desc' => 'Compraste una biblioteca modular, ¿Con quién preferirías armarla?']);
-Question::create(['id'=>80,'categoria' => 4, 'survey_id' => 3, 'desc' => 'Estas en el Titanic, ¿A quién escogerías para evitar el hundimiento?']);
+ 
+
+Question::create(['id'=>77,'categoria' => 'Clarificador', 'survey_id' => 3, 'desc'=> 'Disfruta de explorar problemas y oportunidades']);
+Question::create(['id'=>79,'categoria' => 'Clarificador', 'survey_id' => 3, 'desc'=> 'Le gusta examinar los detalles']);
+Question::create(['id'=>80,'categoria' => 'Clarificador', 'survey_id' => 3, 'desc'=> 'Le gusta tener un claro entendimiento del problema']);
+Question::create(['id'=>81,'categoria' => 'Clarificador', 'survey_id' => 3, 'desc'=> 'Prefiere un acercamiento metódico a la resolución de problemas']);
+Question::create(['id'=>82,'categoria' => 'Clarificador', 'survey_id' => 3, 'desc'=> 'Puede llegar a sufrir de "parálisis por análisis"']);
+Question::create(['id'=>83,'categoria' => 'Clarificador', 'survey_id' => 3, 'desc'=> 'Prefiere las preguntas a las afirmaciones']);
+Question::create(['id'=>84,'categoria' => 'Ideador', 'survey_id' => 3, 'desc'=> 'Le gusta ver el panorama general']);
+Question::create(['id'=>85,'categoria' => 'Ideador', 'survey_id' => 3, 'desc'=> 'Disfruta de considerar muchas ideas y posibilidades']);
+Question::create(['id'=>86,'categoria' => 'Ideador', 'survey_id' => 3, 'desc'=> 'Le gusta expandir su imaginación']);
+Question::create(['id'=>87,'categoria' => 'Ideador', 'survey_id' => 3, 'desc'=> 'Disfruta de pensar en términos globales y abstractos']);
+Question::create(['id'=>88,'categoria' => 'Ideador', 'survey_id' => 3, 'desc'=> 'Toma un acercamiento intuitivo a la innovación']);
+Question::create(['id'=>89,'categoria' => 'Ideador', 'survey_id' => 3, 'desc'=> 'Puede pasar de alto los detalles']);
+Question::create(['id'=>90,'categoria' => 'Desarrollador', 'survey_id' => 3, 'desc'=> 'Le gusta armar soluciones factibles']);
+Question::create(['id'=>91,'categoria' => 'Desarrollador', 'survey_id' => 3, 'desc'=> 'Le gusta examinar los puntos a favor y en contra de una idea']);
+Question::create(['id'=>92,'categoria' => 'Desarrollador', 'survey_id' => 3, 'desc'=> 'Le gusta comparar diferentes soluciones']);
+Question::create(['id'=>93,'categoria' => 'Desarrollador', 'survey_id' => 3, 'desc'=> 'Disfruta de analizar soluciones potenciales']);
+Question::create(['id'=>94,'categoria' => 'Desarrollador', 'survey_id' => 3, 'desc'=> 'Disfruta de planificar los pasos necesarios para implementar una idea']);
+Question::create(['id'=>95,'categoria' => 'Desarrollador', 'survey_id' => 3, 'desc'=> 'Puede atascarse en el desarrollo de la solución perfecta']);
+Question::create(['id'=>96,'categoria' => 'Implementador', 'survey_id' => 3, 'desc'=> 'Le gusta que las cosas se concreten']);
+Question::create(['id'=>97,'categoria' => 'Implementador', 'survey_id' => 3, 'desc'=> 'Le gusta estructurar a las ideas para que puedan transformarse en realidad']);
+Question::create(['id'=>98,'categoria' => 'Implementador', 'survey_id' => 3, 'desc'=> 'Disfruta de ver a las ideas transformarse en realidad']);
+Question::create(['id'=>99,'categoria' => 'Implementador', 'survey_id' => 3, 'desc'=> 'Le gusta enfocarse en ideas y soluciones "factibles"']);
+Question::create(['id'=>100,'categoria' => 'Implementador', 'survey_id' => 3, 'desc'=> 'Toma el acercamiento de Nike a la innovación (Ej., "Just do it!" –Sólo  hazlo-)']);
+Question::create(['id'=>101,'categoria' => 'Implementador', 'survey_id' => 3, 'desc'=> 'Puede lanzarse a la acción demasiado rápido']);
+
+
+
 
  }
 }

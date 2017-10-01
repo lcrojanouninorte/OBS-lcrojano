@@ -93,7 +93,7 @@ class EmpatiaChartController{
 
         // create an array with edges
         var edges = new VisDataSet([
-            {"from": 1, "to": 0},
+                {"from": 1, "to": 0},
                 {"from": 2, "to": 0},
                 {"from": 3, "to": 0},
                 {"from": 3, "to": 2},

@@ -1,3 +1,9 @@
+import {EmpresarioFormComponent} from './app/components/empresario-form/empresario-form.component';
+import {ActividadesItemComponent} from './app/components/actividades-item/actividades-item.component';
+import {ActividadesFormComponent} from './app/components/actividades-form/actividades-form.component';
+import {ActividadesListComponent} from './app/components/actividades-list/actividades-list.component';
+import {ChallengeAddComponent} from './app/components/challenge-add/challenge-add.component';
+import {OrganigramaComponent} from './app/components/organigrama/organigrama.component';
 import {RetosListComponent} from './app/components/retos-list/retos-list.component';
 import {MdSliderPipsComponent} from './app/components/md-slider-pips/md-slider-pips.component';
 import {EmpatiaChartComponent} from './app/components/empatia-chart/empatia-chart.component';
@@ -54,6 +60,12 @@ import { LoginFormComponent } from './app/components/login-form/login-form.compo
 import { RegisterFormComponent } from './app/components/register-form/register-form.component'
 
 angular.module('app.components')
+	.component('empresarioForm', EmpresarioFormComponent)
+	.component('actividadesItem', ActividadesItemComponent)
+	.component('actividadesForm', ActividadesFormComponent)
+	.component('actividadesList', ActividadesListComponent)
+	.component('challengeAdd', ChallengeAddComponent)
+	.component('organigrama', OrganigramaComponent)
 	.component('retosList', RetosListComponent)
 	.component('mdSliderPips', MdSliderPipsComponent)
 	.component('empatiaChart', EmpatiaChartComponent)

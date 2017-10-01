@@ -1,0 +1,39 @@
+<div layout="column" layout-margin layout-align="center center">
+  <div class="callout callout-danger" ng-if="vm.loginfailederror">
+    <h4>No se pudo crear el empresario</h4>
+    <p>{{ vm.errors }}</p>
+  </div>
+   
+   
+  
+  <div class="callout callout-success" ng-if="vm.successMsg">
+    <h4>Success!</h4>
+    <p>{{ vm.successMsg }}</p>
+  </div>
+<form name="vm.registerForm" ng-submit="vm.register(vm.registerForm.$valid)" novalidate>
+  <div class="form-group has-feedback" ng-class="{ 'has-error': vm.registerForm.name.$invalid && ( vm.formSubmitted || vm.registerForm.name.$touched) }">
+    <input type="text" class="form-control" placeholder="Nombre Completo" ng-model="vm.name" name="name" ng-maxlength="30" required>
+    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+
+    <p ng-show="vm.registerForm.name.$error.required && ( vm.formSubmitted || vm.registerForm.name.$touched)" class="help-block">Escribe el Nombre completo.</p>
+    <p ng-show="vm.registerForm.name.$error.maxlength" class="help-block">El nombre es muy largo.</p>
+    <p ng-show="vm.registerForm.name.$invalid && (vm.formSubmitted || vm.errors.name)" class="help-block">{{vm.errors.name}}</p>
+  </div>
+
+
+  <div class="form-group has-feedback" ng-class="{ 'has-error': vm.registerForm.email.$invalid && ( vm.formSubmitted || vm.registerForm.email.$touched) }">
+    <input type="email" class="form-control" placeholder="Email" ng-model="vm.email" name="email" ng-maxlength="30" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+    <p ng-show="vm.registerForm.email.$invalid && (vm.formSubmitted || vm.errors.email)" class="help-block">{{vm.errors.email}}</p>
+    <p ng-show="vm.registerForm.email.$error.required && ( vm.formSubmitted || vm.registerForm.email.$touched)" class="help-block">Se requiere un e-mail.</p>
+    <p ng-show="vm.registerForm.email.$error.email && vm.registerForm.email.$touched" class="help-block">No es un email valido</p>
+  </div>
+  
+  
+  <div class="row">
+    <div class="col-xs-12">
+      <button type="submit" class="btn btn-primary btn-block btn-flat">Agregar Empresario</button>
+    </div>
+  </div>
+</form>
+</div>

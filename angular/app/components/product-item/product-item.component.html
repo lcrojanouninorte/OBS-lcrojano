@@ -1,35 +1,77 @@
-<md-content layout="row" layout-margin>
-    <div layout="column" flex="80">
-        <md-checkbox style="margin-bottom: 0px;" ng-model="vm.checkModel" ng-change="vm.checkModelChange()" aria-label="Checkbox" md-indeterminate="vm.checkModel === null" flex="100">
-            <b>{{ vm.checkModel == null ? 'Pendiente: ' : ""}}</b><span ng-class="{strike: vm.checkModel, bold: vm.important}">{{vm.product.nombre}}</span>
-            <div>
-                <i class="italic">
-                    1-JUL/2-AGO
-                </i>
-            </div>
-        </md-checkbox>
+<md-content layout="row" layout-padding>
+    <div layout="row" flex="70">
+    <div layout="column" flex>
+             
+            <span ng-class="{strike: vm.product.checkEmpresario, bold: vm.important}">{{vm.product.desc}}</span>
+                    <i class="italic">
+                        {{vm.product.fecha_inicio}} al {{vm.product.fecha_fin}}
+                    </i>
     </div>
-    <div layout="row" class="text-right" flex="20">
-        <md-button class="md-icon-button " aria-label="Play" ng-click="vm.open_budget(vm.id)">
+    <div layout="row" flex>
+
+        <md-select ng-disabled="vm.hasRole('empresario')" class="color-{{vm.product.checkAsesor}}"  ng-model="vm.product.checkAsesor" ng-change="vm.update()">
+
+            <md-option class="{{state.color}}" ng-repeat="state in vm.statesAsesor" ng-value="state.value">
+              {{state.name}}
+            </md-option>
+        </md-select>
+
+        <md-select ng-disabled="vm.hasRole('asesor')" class="color-{{vm.product.checkEmpresario}}" ng-model="vm.product.checkEmpresario" ng-change="vm.update()">
+
+            <md-option class="{{state.color}}" ng-repeat="state in vm.statesEmpresario" ng-value="state.value" >
+              {{state.name}}
+            </md-option>
+        </md-select>
+    </div>
+        
+
+    <!--
+        <div layout="row" flex="20">
+            <md-checkbox style="margin-bottom: 0px;" ng-model="vm.product.checkAsesor" ng-change="vm.checkModelAsesor()" aria-label="Checkbox" md-indeterminate="vm.product.checkAsesor === null" flex="100" ng-click="vm.updateCheck()">
+            </md-checkbox>
+
+            <md-checkbox style="margin-bottom: 0px;" ng-model="vm.product.checkEmpresario" aria-label="Checkbox"  flex="100" ng-click="vm.updateCheck()">
+            </md-checkbox>
+        </div>
+        -->
+        </div>
+
+    <div layout="row"   flex="40">
+        <md-button class="md-icon-button md-mini md-primary" aria-label="Play" ng-click="vm.open_budget(vm.id)"  style="font-size:12px">
             <md-tooltip md-direction="top" >Presupuesto</md-tooltip>
-            <md-icon md-font-icon="ion-social-usd"></md-icon>
+            <md-icon md-font-icon="ion-social-usd " style="font-size:14px"></md-icon>
         </md-button>
-        <md-button class="md-icon-button " aria-label="Play">
+        <md-button class="md-icon-button md-mini md-primary" aria-label="Play">
             <md-tooltip md-direction="top">Editar</md-tooltip>
-            <md-icon md-font-icon="ion-edit"></md-icon>
+            <md-icon md-font-icon="ion-edit" style="font-size:14px"></md-icon>
         </md-button>
-        <md-button class="md-icon-button " aria-label="Play">
+        <md-button class="md-icon-button md-mini md-primary" aria-label="Play" ng-click="vm.delete(item_id)">
             <md-tooltip md-direction="top">Borrar</md-tooltip>
-            <md-icon md-font-icon="ion-ios-trash-outline"></md-icon>
+            <md-icon md-font-icon="ion-ios-trash-outline" style="font-size:14px"></md-icon>
+        </md-button>
+        <md-button class="md-icon-button md-mini md-primary" aria-label="Play" ng-click="vm.view_products = !vm.view_products">
+            <md-tooltip md-direction="top">Actividades</md-tooltip>
+            <md-icon md-font-icon="ion-chevron-down" style="font-size:14px"></md-icon>
         </md-button>
     </div>
 </md-content>
+ 
+
+
+<!-- aañdir producto acordeon-->
+<div class="products-list fx-fade-normal fx-ease-in-quad" ng-show="vm.view_products"  >
+<md-divider></md-divider>
+ <actividades-list show="vm.view_products"></actividades-list>
+</div>
 <md-divider></md-divider>
 
-<!--Modal formulario de creación de proyecto!-->
-<script type="text/ng-template" id="projectBudgetModal.html">
 
-<product-budget product="mvm.product" cancel="mvm.cancel()"></product-budget>
+
+
+<!--Modal formulario de creación de proyecto!-->
+<script type="text/ng-template" id="BudgetModal.html">
+ 
+<product-budget users="mvm.users" product="mvm.product" cancel="mvm.cancel()"></product-budget>
  
 </script>
 

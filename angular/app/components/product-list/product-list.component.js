@@ -1,24 +1,74 @@
 class ProductListController{
-    constructor(){
+    constructor(API, $state, $scope){
         'ngInject';
 
         //
-        this.add = false
+        //this.add = false
         this.isCollapsed=true
-        this.products =[
-        {nombre:"Producto 1"},
-        {nombre:"Producto 2"},
-        {nombre:"Producto 3"},
-        {nombre:"Producto 4"},
-        {nombre:"Producto 5"},
-
-        ];
+        this.products =[]
+        this.API = API
+        this.$state = $state
+        this.$scope  = $scope
+       // this.dates = {"startDate": null, "endDate": null}
+       // this.desc =""
     }
 
     $onInit(){
+
     }
 
+
+
+    delete (product_id, index) {
+        let API = this.API
+        let deleted = false
+        let $state = this.$state
+        let Products = this.products
+        let Index = index
     
+     
+        swal({
+          title: 'Seguro?',
+          text: 'No sera posible recuperar estos datos!',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: 'Si Quiero borrarlo!',
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true,
+          html: false
+        }, function () {
+
+          API.one('products',product_id).remove()
+            .then((response) => {
+                if(!response.error){
+                    //$state.reload()
+                  Products.splice(Index, 1);
+                  swal({
+                    title: 'Borrado!',
+                    text: 'Se ha borrado el proyecto con exito.',
+                    type: 'success',
+                    confirmButtonText: 'OK',
+                    closeOnConfirm: true
+                  }, function () {
+                    
+                   
+                   
+                    
+                  })
+
+                }else{
+                    this.$log.debug(response);
+                }
+            }
+            )
+        }
+
+ 
+
+        )
+        
+  }
 
 
 }
@@ -27,5 +77,8 @@ export const ProductListComponent = {
     templateUrl: './views/app/components/product-list/product-list.component.html',
     controller: ProductListController,
     controllerAs: 'vm',
-    bindings: {}
+    bindings: {
+        resultId:"<",
+        products:"<"
+    }
 }

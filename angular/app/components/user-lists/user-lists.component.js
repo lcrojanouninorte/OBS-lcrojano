@@ -17,7 +17,7 @@ class UserListsController {
           .withBootstrap()
 
         this.dtColumns = [
-          DTColumnBuilder.newColumn('id').withTitle('ID'),
+         // DTColumnBuilder.newColumn('id').withTitle('ID'),
           DTColumnBuilder.newColumn('name').withTitle('Name'),
           DTColumnBuilder.newColumn('email').withTitle('Email'),
           DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()

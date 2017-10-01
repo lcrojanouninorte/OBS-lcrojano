@@ -1,54 +1,146 @@
-<div layout="column" layout-align="center center">
+<div layout="column" layout-align="center">
 <form name="projectForm" >
   
 
     <wizard on-finish="vm.finishedWizard(projectForm)" on-cancel="cancelledWizard()" hide-indicators="true">
-        <wz-step wz-title="titulo" canexit="vm.exitValidation(projectForm.titulo.$error)" >
-            <h3 class="text-center">{{vm.userData.name}}, Cuentanos el titulo del proyecto</h3>
-            <p>El titulo debe ir en primera persona con preterito pluscuanperfecto?? bla bla bla</p>
-            <md-input-container class="md-icon-float md-block">
-                <!-- Use floating label instead of placeholder -->             
-                <label>Titulo</label>
-                <md-icon md-font-icon="ion-ios-heart-outline" class="title"></md-icon>
-                <input name="titulo" ng-model="vm.project.titulo" type="text" ng-required="true">
-                <div ng-messages="projectForm.titulo.$error">
-                  <div ng-message="required">Este campo es obligatorio.</div>
-                </div>
+        <wz-step wz-title="titulo" canexit="vm.exitValidation(projectForm.titulo.$error)"  flex="100">
+        <div layout="column" layout-gt-sm="row">
+            <div layout="column"  layout-align = "center center" flex="100" flex-gt-sm="20">
+                <img style="width: 125px;" src="https://www.iag.biz/wp-content/uploads/2016/11/Flat-Icon-Set-13.png">
+            </div>
             
+            <div  layout="column" flex>
+                <h3 class="text-center">{{vm.userData.name}}, escribe el titulo del proyecto</h3>
+                <p>Estimado asesor, ingrese el titulo de un proyecto que esté asesorando:</p>
+                <md-input-container class="md-icon-float md-block">
+                    <!-- Use floating label instead of placeholder -->             
+                    <label>Titulo</label>
+                     
+                    <textarea name="titulo" ng-model="vm.project.titulo" ng-required="true" rows="5" md-select-on-focus></textarea>
+                    <div ng-messages="projectForm.titulo.$error">
+                      <div ng-message="required">Este campo es obligatorio.</div>
+                    </div>
                 </md-input-container>
-                <br>
-                <md-radio-group ng-model="vm.project.process_id">
+            </div>
+        </div>
+            <div class="text-center">
+                <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar</md-button>
+            </div>
+        </wz-step>
 
-                  <md-radio-button value="1" class="md-primary"> Proceso 1</md-radio-button>
-                  <md-radio-button value="2"> Proceso 2 </md-radio-button>
-                  <md-radio-button value="3"> Proceso 3</md-radio-button>
+
+        <wz-step wz-title="titulo" canexit="vm.exitValidation(projectForm.titulo.$error)"  flex="100">
+        <div layout="column" layout-gt-sm="row">
+            <div layout="column"  layout-align = "center center" flex="100" flex-gt-sm="20">
+                <img style="width: 125px;" src="https://www.iag.biz/wp-content/uploads/2016/11/Flat-Icon-Set-13.png">
+            </div>
+            
+            <div  layout="column" flex>
+                <h3 class="text-center">{{vm.userData.name}}, Ingresa los resultados del projecto</h3>
+                <p>Estimado asesor, ingrese el titulo de un proyecto que esté asesorando:</p>
+                <md-input-container class="md-icon-float md-block">
+                    <!-- Use floating label instead of placeholder -->             
+                    <label>Titulo</label>
+                     
+                    <textarea name="titulo" ng-model="vm.project.titulo" ng-required="true" rows="5" md-select-on-focus></textarea>
+                    <div ng-messages="projectForm.titulo.$error">
+                      <div ng-message="required">Este campo es obligatorio.</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </div>
+            <div class="text-center">
+                <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar</md-button>
+            </div>
+        </wz-step>
+
+
+        <wz-step wz-title="proceso" canexit="vm.project.process_id!=''" >
+        <div layout="column" layout-gt-sm="row">
+            <div layout="column"  layout-align = "center center" flex="100" flex-gt-sm="20">
+                <img style="width: 125px;" src="http://www.miprepaya.com/wp-content/uploads/2016/08/settings-icon.png">
+            </div>
+
+            <div  layout="column" flex>
+                <h3 class="text-center">Selecciona la convocatoria SENA del Proyecto?</h3>
+                <md-radio-group layout="row"  ng-model="vm.project.process_id" layout-align = "center center">
+
+                    <md-radio-button value="1" class="md-primary"> Proceso 1</md-radio-button>
+                    <md-radio-button value="2"  class="md-success"> Proceso 2 </md-radio-button>
+                    <md-radio-button value="3"> Proceso 3</md-radio-button>
 
                 </md-radio-group>
+            </div>
+        </div>
             <div class="text-center">
                 <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar</md-button>
             </div>
         </wz-step>
         <wz-step wz-title="descripcion" canexit="vm.exitValidation(projectForm.desc.$error)">
-            <h3 class="text-center">Ahora cuentanos una breve descripción</h3>
-            <p>una descripcion breve es un resumen bla bla</p>
-            <md-input-container class="md-icon-float md-block">
-                <!-- Use floating label instead of placeholder -->
-                <label>Descripción</label>
-                <md-icon md-font-icon="ion-ios-heart-outline" class="title"></md-icon>
-                <input name="desc" layout-align="center" ng-model="vm.project.desc" type="text" ng-required="true">
-            </md-input-container>
+        <div layout="column" layout-gt-sm="row">
+            <div layout="column"  layout-align = "center center" flex="100" flex-gt-sm="20">
+                <img style="width: 125px;" src="https://www.skillema.ir/img/icons/Mycontact.svg.png">
+            </div>
+            <div  layout="column" flex>
+                <h3 class="text-center">Descripción</h3>
+                <p>Estimado asesor, ingrese la descripción del proyecto</p>
+                <md-input-container class="md-icon-float md-block">
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Descripción</label>
+        
+                    <textarea name="desc" ng-model="vm.project.desc" ng-required="true" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+            </div>
+         </div>
+
             <div class="text-center">
                 <md-button type="submit" class="md-raised md-primary" wz-previous value="previus"><md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>Atras</md-button>
                 <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar<md-icon md-font-icon="ion-chevron-right" aria-label="description"></md-icon></md-button>
             </div>
         </wz-step>
         <wz-step wz-title="Fin" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+        <div layout="column" layout-gt-sm="row">
+            <div layout="column"  layout-align = "center center" flex="100" flex-gt-sm="20">
+                <img style="width: 125px;" src="https://www.shareicon.net/download/2016/08/19/817176_calendar_512x512.png">
+            </div>
+            <div  layout="column" flex>
+                <h3 class="text-center">Para finalizar, dinos la fecha de inicio de tu proyecto</h3>
+                <md-input-container flex layout-align="center">
+                    <label>Fecha</label>
+                    <input date-range-picker  options="vm.options" class="form-control date-picker" type="text" ng-model="vm.project.fecha_inicio" />
+                </md-input-container>
+            </div>
+        </div>
+            <div class="text-center">
+                <md-button type="submit" class="md-raised md-primary" wz-previous value="previus"><md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>Atras</md-button>
+                <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Crear Proyecto<md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon></md-button>
+            </div>
+
+        </wz-step>
+        <wz-step wz-title="Fin" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+             Seleccionar usuario existente o crear uno nuevo:
+              <div layout="column" layout-align="center center">
+                <md-select placeholder="Assign to user" ng-model="vm.user" md-on-open="vm.loadUsers()" style="min-width: 200px;">
+                  <md-option ng-value="user.id" ng-repeat="user in vm.users">{{user.name}}</md-option>
+                </md-select>
+                <p class="md-caption">Has asignado este project a : {{ vm.user ? vm.user : 'Por favor seleccionar' }}</p>
+              </div>
+
+          <div class="text-center">
+                <md-button type="submit" class="md-raised md-primary" wz-previous value="previus"><md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>Atras</md-button>
+                <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Crear Proyecto<md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon></md-button>
+            </div>
+        </wz-step>
+
+       <!-- <wz-step wz-title="Fin" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
             <h3 class="text-center">Excelente! da clic en crear proyecto para finalizar</h3>
             <div class="text-center">
                 <md-button type="submit" class="md-raised md-primary" wz-previous value="previus"><md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>Atras</md-button>
                 <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Crear Proyecto<md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon></md-button>
             </div>
-        </wz-step>
+        </wz-step>-->
     </wizard>
 </form>
 </div>
+
+
