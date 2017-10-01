@@ -2,9 +2,29 @@
   <div flex-xs="100" flex-gt-xs="10">
 
    <div class="lock-size" layout="row" layout-align="center center">
-       <md-button class="md-fab" aria-label="Eat cake" ng-click="vm.create_project();">
+       <!--<md-button class="md-fab" aria-label="Eat cake" ng-click="vm.create_project();">
             <md-icon md-font-icon="ion-plus-round"></md-icon>
-        </md-button>
+        </md-button>-->
+        <md-fab-speed-dial md-open="vm.isOpen" md-direction="{{vm.selectedDirection}}"
+                         ng-class="vm.selectedMode">
+        <md-fab-trigger>
+          <md-button aria-label="menu" class="md-fab md-warn">
+            <md-icon md-font-icon="ion-plus-round"></md-icon>
+          </md-button>
+        </md-fab-trigger>
+
+        <md-fab-actions>
+          <md-button aria-label="Twitter" class="md-fab md-raised md-mini md-primary " ng-click="vm.create_project();">
+            <md-tooltip md-direction="top" md-visible="tooltipVisible">+ Proyecto</md-tooltip>
+            <md-icon class="step img" md-font-icon="ion-stats-bars" aria-label="description"></md-icon>
+          </md-button>
+          <md-button aria-label="person" class="md-fab md-raised md-mini md-primary" ng-click="vm.create_empresario();">
+            <md-tooltip md-direction="top" md-visible="tooltipVisible">+ Empresario</md-tooltip>
+            <md-icon class="step img" md-font-icon="ion-person-add" aria-label="description"></md-icon>
+          </md-button>
+          
+        </md-fab-actions>
+      </md-fab-speed-dial>
     </div>
   </div>
 
@@ -34,5 +54,29 @@
 </div>
 
 </script>
+
+
+<!--Modal formulario de creación de usuarip!-->
+<script type="text/ng-template" id="addempresario.html">
+<div role="dialog" aria-label="Eat me!" layout="column" layout-align="center" >
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Añade un empresario!</h2>
+    </div>
+  </md-toolbar>
+
+  <empresario-form closeparent="mvm.cancel()"></empresario-form>
+
+  <div layout="row" class="demo-dialog-button">
+    <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
+      Cancelar
+    </md-button>
+  </div>
+</div>
+
+</script>
+
+
+
 
 

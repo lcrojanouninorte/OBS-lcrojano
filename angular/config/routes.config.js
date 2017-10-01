@@ -456,5 +456,15 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
               template: "<empatia-form></empatia-form>"
             }
           }
+      }).state('app.challengeadd', {
+          url: '/challenge/add',
+          data: {
+            auth: true
+          },
+          views: {
+            'main@app': {
+              template: '<challenge-add></challenge-add>'
+            }
+          }
       })
 }

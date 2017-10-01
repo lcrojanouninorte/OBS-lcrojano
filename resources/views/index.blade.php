@@ -10,8 +10,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+
+        <link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
+
     
-    <title>Laravel Angular Admin-LTE</title>
+<!--Material Icons:-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title>Paltaforma </title>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -20,7 +26,7 @@
     <![endif]-->
 </head>
 <body route-bodyclass>
-    <div class="wrapper">
+    <div class="wrapper" >
         <div ui-view="layout"></div>
         <div class="control-sidebar-bg"></div>
     </div>

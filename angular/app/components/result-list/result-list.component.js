@@ -3,6 +3,7 @@ class ResultListController{
         'ngInject';
 
         //
+        
     }
 
     $onInit(){

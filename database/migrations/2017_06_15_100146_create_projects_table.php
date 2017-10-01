@@ -28,6 +28,7 @@ class CreateProjectsTable extends Migration
             $table->integer('entity_id')->unsigned()->nullable();//entidad ejecutora
             $table->integer('asesor')->unsigned()->nullable();//usuario administrador del proyecto
             $table->integer('user_id')->unsigned();//Creador del proyecto
+            $table->date('fecha_inicio');//Creador del proyecto
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

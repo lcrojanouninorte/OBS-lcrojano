@@ -1,28 +1,23 @@
-<md-content    layout-gt-sm="column" layout-padding >
+ <md-whiteframe class="md-whiteframe-3dp"  layout>
+  <md-content md-theme="docs-dark" layout="row" flex layout-padding>
 
-   <!--<md-button  ng-show="!vm.add" class=" text-center md-raised md-primary" aria-label="More" flex ng-click="vm.add=!vm.add">
-        Añadir producto <md-icon md-font-icon="ion-chevron-down" ></md-icon>
-    </md-button>
-    <md-button md-no-ink ng-show="vm.add " class=" text-center md-primary" aria-label="More" flex ng-click="vm.add=!vm.add">
-        Cancelar <md-icon md-font-icon="ion-chevron-up" ></md-icon>
-    </md-button>
--->
+      <md-input-container flex>
+        <label>Descripción</label>
+        <input ng-model="vm.product.desc">
+      </md-input-container>
+
+      <md-input-container flex>
+       <label>Fecha</label>
+      <input date-range-picker  options="vm.options" class="form-control date-picker" type="text" ng-model="vm.product.dates" />
+      </md-input-container>
+      <div flex="10" layout-align="center center">
+        
+      
+      <md-button class="md-fab md-mini md-primary " ng-click="vm.add()">
+        <md-icon md-font-icon="ion-android-send" aria-label="description"></md-icon>
+      </md-button>
+      </div>
+
+  </md-content>
+  </md-whiteframe>
  
-    <div  layout="column" class="md-whiteframe-2dp">
-        <md-input-container flex="100">
-            <label>Descripción</label>
-            <textarea ng-model="vm.product.desc" md-maxlength="150" rows="1" md-select-on-focus></textarea>
-        </md-input-container>
-        <div layout="row" layout-align="center">
-            <md-datepicker ng-model="vm.product.fecha_ini" md-placeholder="Inicio" flex="50"></md-datepicker>
-            <md-datepicker ng-model="vm.product.fecha_fin" md-placeholder="Fin" flex="50"></md-datepicker>
-        </div>
-        <md-button class="md-raised md-primary" ng-click="vm.add()"><md-icon md-font-icon="ion-plus-round" ></md-icon>Añadir</md-button>
-        <!--
-      <md-input-container flex="20">
-        <label>Duración</label>
-        <input ng-model="vm.duracion" type="number">
-      </md-input-container flex="10">
-      -->
-    </div>
-</md-content>

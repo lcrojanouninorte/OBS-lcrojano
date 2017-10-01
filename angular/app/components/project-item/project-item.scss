@@ -35,4 +35,16 @@
     .whiteframedemoBasicClassUsage md-whiteframe > span {
       font-size: 1.0em; } }
 
-      
+
+.project-item .widget-user .widget-user-image {
+    position: absolute;
+     top:70px; 
+    left: 0%; 
+    margin-left: 0px; 
+}
+
+
+.widget-user .widget-user-username {
+ 
+    text-shadow: 1px 1px 0px rgb(83, 83, 83);
+}

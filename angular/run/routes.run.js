@@ -2,6 +2,7 @@ export function RoutesRun ($rootScope, $state, $auth, AclService, $timeout, API,
   'ngInject'
 
   AclService.resume()
+moment.locale("es");
 
   /*eslint-disable */
   let deregisterationCallback = $rootScope.$on('$stateChangeStart', function (event, toState) {
@@ -41,6 +42,7 @@ export function RoutesRun ($rootScope, $state, $auth, AclService, $timeout, API,
           })
       }
     })
+    
   }
 
   $rootScope.$on('$destroy', deregisterationCallback)

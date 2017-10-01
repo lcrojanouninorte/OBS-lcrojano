@@ -7,6 +7,8 @@ use App\PasswordReset;
 use App\User;
 use Illuminate\Http\Request;
 use Mail;
+ 
+
 
 class PasswordResetController extends Controller
 {

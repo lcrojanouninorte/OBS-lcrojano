@@ -10,8 +10,8 @@ class BudgetItemController{
         
     }
 
-    edit(){
-        
+    select_budget(){
+        this.parentModel = this.budget.id;
     }
 }
 
@@ -20,6 +20,7 @@ export const BudgetItemComponent = {
     controller: BudgetItemController,
     controllerAs: 'vm',
     bindings: {
-        budget:"="
+        budget:"=",
+        parentModel : "="
     }
 }

@@ -1,0 +1,21 @@
+ 
+  <md-content md-theme="docs-dark" layout="row" layout-padding>
+
+      <md-input-container flex>
+        <label>Descripción</label>
+        <input ng-model="vm.titulo">
+      </md-input-container>
+
+      <md-input-container flex>
+       <label>Fecha</label>
+      <input date-range-picker  options="vm.options" class="form-control date-picker" type="text" ng-model="vm.dates" />
+      </md-input-container>
+      <div flex="10" layout-align="center center">
+        
+      
+      <md-button class="md-fab md-mini md-success " ng-click="vm.add()">
+        <md-icon md-font-icon="ion-android-send" aria-label="description"></md-icon>
+      </md-button>
+      </div>
+
+  </md-content>

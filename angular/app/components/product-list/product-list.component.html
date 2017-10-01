@@ -1,18 +1,17 @@
-<div style="height:300px; max-height: 300px;" layout="column">
-    <md-content  layout="column">
+<div layout="column">
+    <md-content  layout="column" style="min-height:300px; max-height: 300px">
         <div class="repeated-item" >
-            <product-item  ng-repeat="product in vm.products" product="product">
-            	
-            </product-item>
 
+            <product-item  delete="vm.delete(product.id, $index)" class="fx-zoom-up fx-stagger-245" ng-repeat="product in vm.products" product="product" flex>
+            </product-item>
+            
         </div>
     </md-content>
-    <md-button ng-show="vm.isCollapsed" class="md-raised md-primary" ng-click="vm.isCollapsed = !vm.isCollapsed"><md-icon md-font-icon="ion-chevron-up" ></md-icon>Añadir Producto</md-button>
-    <md-button ng-show="!vm.isCollapsed" class="md-raised " ng-click="vm.isCollapsed = !vm.isCollapsed"><md-icon md-font-icon="ion-chevron-down" ></md-icon>Cancelar</md-button>
 
+    <!-- add product-->
+    <p class="text-center">Añadir producto</p>
 
-	<div uib-collapse="vm.isCollapsed">
-		<product-form></product-form>
-	</div>
- 
+	
+		<product-form result-id="vm.resultId" product-list="vm.products"></product-form>
+	 
 </div>
