@@ -1,6 +1,8 @@
 #Notas
 
-RECORDAR cambiar gulp-uglify por gulp-uglify-es!!!!! debido a que hay componentes escritos en es6 que debn ser pasados a es5
+- RECORDAR cambiar gulp-uglify por gulp-uglify-es!!!!! debido a que hay componentes escritos en es6 que debn ser pasados a es5
+
+- Recordar que al actualizar, se debe volver a edita rel archivo .env y camviar las credenciales de la base de datos
 
 # Laravel Angular Admin
 Laravel + Angularjs + Bootstrap + AdminLTE binded by Gulp workflow Admin Dashboard Boilerplate.
