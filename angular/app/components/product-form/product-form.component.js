@@ -1,5 +1,5 @@
 class ProductFormController {
-    constructor(API) {
+    constructor(API, $state) {
         'ngInject';
 
         //
@@ -7,7 +7,7 @@ class ProductFormController {
         this.product = {
             dates : {"startDate": null, "endDate": null}
         }
-         
+        this.$state = $state;
         this.options = {
             applyClass: 'btn-green',
             locale: {
@@ -36,7 +36,8 @@ $onInit() {
             "desc":this.product.desc,
             "fecha_inicio": moment(this.product.dates.startDate).format("YYYY/MM/DD") ,
             "fecha_fin": moment(this.product.dates.endDate).format("YYYY/MM/DD"),
-            "estado":false
+            "checkEmpresario":3
+
         }
 
         new_product.result_id=this.resultId;
@@ -44,8 +45,9 @@ $onInit() {
                 if(response.errors){
                     $log.debug(response);
                 }else{
-                   // this.$state.reload()
-                   // swal('Producto creado con exito!', '', 'success')
+                   
+                    swal('Producto creado con exito!', '', 'success')
+                    this.$state.reload()
                     this.productList.push(response.data.product)
                     $log.debug(response)
                 }

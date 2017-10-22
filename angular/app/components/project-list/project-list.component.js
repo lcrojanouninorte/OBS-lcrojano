@@ -1,6 +1,7 @@
 class ProjectListController{
-    constructor(API){
+    constructor(API,AclService){
         'ngInject';
+        this.can = AclService.can
 
         //
 

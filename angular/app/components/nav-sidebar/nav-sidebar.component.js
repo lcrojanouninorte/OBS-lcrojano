@@ -4,6 +4,8 @@ class NavSidebarController {
 
     let navSideBar = this
     this.can = AclService.can
+    this.isAsesor = AclService.hasRole("asesor");
+    this.isEmpresario = AclService.hasRole("empresario");
 
     ContextService.me(function (data) {
       navSideBar.userData = data

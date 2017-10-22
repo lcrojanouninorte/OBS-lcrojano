@@ -1,5 +1,5 @@
 class ProductListController{
-    constructor(API, $state, $scope){
+    constructor(API, $state, $scope,AclService){
         'ngInject';
 
         //
@@ -9,6 +9,7 @@ class ProductListController{
         this.API = API
         this.$state = $state
         this.$scope  = $scope
+        this.can = AclService.can
        // this.dates = {"startDate": null, "endDate": null}
        // this.desc =""
     }
@@ -37,7 +38,7 @@ class ProductListController{
           closeOnConfirm: false,
           showLoaderOnConfirm: true,
           html: false
-        }, function () {
+        }).then(function () {
 
           API.one('products',product_id).remove()
             .then((response) => {
@@ -50,9 +51,9 @@ class ProductListController{
                     type: 'success',
                     confirmButtonText: 'OK',
                     closeOnConfirm: true
-                  }, function () {
+                  }).then( function () {
                     
-                   
+                   this.$state.reload()
                    
                     
                   })
@@ -62,11 +63,7 @@ class ProductListController{
                 }
             }
             )
-        }
-
- 
-
-        )
+        })
         
   }
 

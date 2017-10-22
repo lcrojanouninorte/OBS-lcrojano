@@ -19,9 +19,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('auth/{provider}/callback', ['uses' => 'Auth\AuthController@handleProviderCallback']);
     Route::get('/api/authenticate/user', 'Auth\AuthController@getAuthenticatedUser');
     Route::get('api/challenges', 'ChallengeController@index');
-     
-
-
 });
 
 $api->group(['middleware' => ['api']], function ($api) {
@@ -41,15 +38,15 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->post('results', 'ResultController@create');
 
 
-   $api->get('project/{id}', 'ProjectController@show');
+    $api->get('project/{id}', 'ProjectController@show');
 
    //$api->resource('budgets', 'BudgetController');
-   $api->get('budgets/{product_id}', 'BudgetController@budget_product');
-   $api->post('product/budgets', 'ProductController@addBudget');
-   
-   
+    $api->get('budgets/{product_id}', 'BudgetController@budget_product');
+    $api->post('product/budgets', 'ProductController@addBudget');
 
-
+     //RECURSO: WALLET
+    $api->resource('wallets', 'WalletController');
+    $api->get('wallets/{user_id}/{product_id}/{budget_id}', 'WalletController@walletList'); //TODO solo admin
 });
 
 $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
@@ -79,10 +76,10 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
 
     //Productos
     $api->resource('products', 'ProductController');
+    $api->resource('results', 'ResultController');
     $api->post('products/check', 'ProductController@updateCheck');
-
+    $api->post('result/check', 'ResultController@updateCheck');
 });
 
 $api->group(['middleware' => ['api', 'api.auth', 'role:admin.super|admin.user']], function ($api) {
-   
 });

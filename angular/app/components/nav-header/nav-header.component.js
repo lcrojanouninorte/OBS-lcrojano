@@ -1,8 +1,11 @@
 class NavHeaderController {
-  constructor ($rootScope, ContextService) {
+  constructor ($rootScope, ContextService,AclService) {
     'ngInject'
 
     let navHeader = this
+     this.can = AclService.can
+    this.isAsesor = AclService.hasRole("asesor");
+    this.isEmpresario = AclService.hasRole("empresario");
 
     ContextService.me(function (data) {
       navHeader.userData = data

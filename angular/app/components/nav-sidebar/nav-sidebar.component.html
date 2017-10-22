@@ -3,13 +3,17 @@
   <section class="sidebar"  >
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="{{vm.userData.avatar}}" class="img-circle" alt="User Image" onError="this.src='//placeholdit.imgix.net/~text?txtfont=monospace,bold&bg=DD4B39&txtclr=ffffff&txt=A&w=45&h=45&txtsize=16'">
+        <img ng-show="!vm.isEmpresario" src="{{vm.userData.avatar}}" class="img-circle" alt="User Image" onError="this.src='//placeholdit.imgix.net/~text?txtfont=monospace,bold&bg=AAB439&txtclr=ffffff&txt=A&w=45&h=45&txtsize=16'">
+        <img ng-show="vm.isEmpresario" src="{{vm.userData.avatar}}" class="img-circle" alt="User Image" onError="this.src='//placeholdit.imgix.net/~text?txtfont=monospace,bold&bg=DD4B39&txtclr=ffffff&txt=E&w=45&h=45&txtsize=16'">
       </div>
       <div class="pull-left info">
         <p>{{vm.userData.name | capitalize}}</p>
-        <a href="javascript:void(0)"><i class="fa fa-circle text-success"></i> Online</a>
+
+        <a ng-show="vm.isEmpresario" href="javascript:void(0)"><i class="fa fa-circle text-success"></i> Empresario</a>
+        <a ng-show="vm.isAsesor" href="javascript:void(0)"><i class="fa fa-circle "></i> Asesor</a>
       </div>
     </div>
+    <!--
     <form action="#" method="get" class="sidebar-form">
       <div class="input-group">
         <input type="text" name="q" class="form-control" placeholder="Search...">
@@ -19,8 +23,9 @@
         </span>
       </div>
     </form>
+    -->
     <ul class="sidebar-menu">
-      <li class="header">MAIN NAVIGATION</li>
+      <li class="header">OPCIONES</li>
       <li>
         <a ui-sref='app.projects'>
           <i class="fa fa-dashboard"></i> <span>Proyectos</span>
@@ -31,12 +36,12 @@
           <i class="fa fa-dashboard"></i> <span>Kickstarter</span>
         </a>
       </li>
-      <li>
+      <li ng-show="vm.can('manage.roles')">
         <a ui-sref='app.landing'>
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
         </a>
       </li>
-      <!--
+  
       <li class="treeview" ng-show="vm.can('manage.users')">
         <a href="javascript:void(0)">
           <i class="fa fa-users"></i> <span>Users</span> <i class="fa fa-angle-left pull-right"></i>
@@ -54,7 +59,7 @@
           <li ng-show="vm.can('manage.permissions')"><a ui-sref='app.userpermissions'><i class="fa fa-circle-o"></i> <span>User Permissions</span></a></li>
         </ul>
       </li>
-      <li class="treeview">
+      <li class="treeview" ng-show="vm.can('manage.roles')">
         <a href="javascript:void(0)">
           <i class="fa fa-files-o"></i>
           <span>Layout Options</span>
@@ -68,12 +73,12 @@
         </ul>
       </li>
       <li>
-        <a ui-sref="app.widgets">
+        <a ui-sref="app.widgets" ng-show="vm.can('manage.roles')">
           <i class="fa fa-th"></i> <span>Widgets</span>
           <small class="label pull-right bg-green">new</small>
         </a>
       </li>
-      <li class="treeview">
+      <li class="treeview" ng-show="vm.can('manage.roles')">
         <a href="javascript:void(0)">
           <i class="fa fa-pie-chart"></i>
           <span>Charts</span>
@@ -86,7 +91,7 @@
           <li><a ui-sref="app.comingsoon"><i class="fa fa-circle-o"></i> Inline charts</a></li>
         </ul>
       </li>
-      <li class="treeview">
+      <li class="treeview" ng-show="vm.can('manage.roles')">
         <a href="javascript:void(0)">
           <i class="fa fa-laptop"></i>
           <span>UI Elements</span>
@@ -101,7 +106,7 @@
           <li><a ui-sref="app.uimodal"><i class="fa fa-circle-o"></i> Modals</a></li>
         </ul>
       </li>
-      <li class="treeview">
+      <li class="treeview" ng-show="vm.can('manage.roles')">
         <a href="javascript:void(0)">
           <i class="fa fa-edit"></i> <span>Forms</span>
           <i class="fa fa-angle-left pull-right"></i>
@@ -112,7 +117,7 @@
           <li><a ui-sref="app.comingsoon"><i class="fa fa-circle-o"></i> Editors</a></li>
         </ul>
       </li>
-      <li class="treeview">
+      <li class="treeview" ng-show="vm.can('manage.roles')">
         <a href="javascript:void(0)">
           <i class="fa fa-table"></i> <span>Tables</span>
           <i class="fa fa-angle-left pull-right"></i>
@@ -123,19 +128,19 @@
         </ul>
       </li>
       <li>
-        <a ui-sref="app.comingsoon">
+        <a ui-sref="app.comingsoon" ng-show="vm.can('manage.roles')">
           <i class="fa fa-calendar"></i> <span>Calendar</span>
           <small class="label pull-right bg-red">3</small>
         </a>
       </li>
       <li>
-        <a ui-sref="app.comingsoon">
+        <a ui-sref="app.comingsoon" ng-show="vm.can('manage.roles')">
           <i class="fa fa-envelope"></i> <span>Mailbox</span>
           <small class="label pull-right bg-yellow">12</small>
         </a>
       </li>
-      <li class="header">LABELS</li>
-      <li class="treeview">
+      <li class="header" ng-show="vm.can('manage.roles')">LABELS</li>
+      <li class="treeview" ng-show="vm.can('manage.roles')">
         <a href="javascript:void(0)">
           <i class="fa fa-folder"></i> <span>Examples</span>
           <i class="fa fa-angle-left pull-right"></i>
@@ -152,7 +157,7 @@
           <li><a ui-sref="app.comingsoon"><i class="fa fa-circle-o"></i> Pace Page</a></li>
         </ul>
       </li>
-      -->
+      
     </ul>
   </section>
 </aside>

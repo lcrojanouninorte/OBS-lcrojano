@@ -7,10 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     //
-    public function results(){
+    public function results()
+    {
         return $this->belongsTo(Result::class, "result_id", "id");
     }
-    public function budgetproducts(){
+    public function budgetproducts()
+    {
         return $this->hasMany(BudgetProduct::class);
+    }
+    public function wallets()
+    {
+        return $this->hasMany(Wallet::class);
     }
 }

@@ -1,3 +1,7 @@
+#Notas
+
+RECORDAR cambiar gulp-uglify por gulp-uglify-es!!!!! debido a que hay componentes escritos en es6 que debn ser pasados a es5
+
 # Laravel Angular Admin
 Laravel + Angularjs + Bootstrap + AdminLTE binded by Gulp workflow Admin Dashboard Boilerplate.
 Plus Oauth and JWT authentication on the side.

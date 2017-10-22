@@ -1,73 +1,66 @@
- 
 <md-card class="box box-success md-whiteframe-2dp" layout="column">
-    <md-card-header>
-    <md-card-avatar>
-        <div class="progress-wrapper">
-            <div>
-                <round-progress max="100" current="vm.result.progress" color="#45ccce" bgcolor="#eaeaea" radius="100" stroke="30" responsive="true" duration="800" animation="easeInOutQuart" animation-delay="10">
-                </round-progress>
-                <div class="text">{{vm.result.progress}}</div>
+    <md-card-header style="padding-bottom: 0px!important;">
+        <md-card-avatar>
+            <div class="progress-wrapper">
+                <div>
+                    <round-progress max="100" current="vm.result.progress" color="#45ccce" bgcolor="#eaeaea" radius="100" stroke="30" responsive="true" duration="800" animation="easeInOutQuart" animation-delay="10">
+                    </round-progress>
+                    <div class="text">{{vm.result.progress}}</div>
+                </div>
             </div>
-        </div>
-    </md-card-avatar>
-    <md-card-header-text style="position: relative;">
-        <span class="md-title">{{vm.result.titulo}}</span>
-        <span class="md-subhead">del {{vm.result.fecha_inicio| date:'yyyy-MM-dd'}} al X</span>
-    </md-card-header-text>
-    <md-menu>
-        <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="vm.openMenu($mdMenu, $event)">
-            <md-icon md-menu-origin md-font-icon="ion-plus-round"></md-icon>
-        </md-button>
-        <md-menu-content width="4">
-            <md-menu-item>
-                <md-button>
-                    <md-icon md-font-icon="ion-plus-round" md-menu-align-target></md-icon>
-                    Ejecución
-                </md-button>
-            </md-menu-item>
-            <md-menu-item>
-                <md-button disabled="disabled" ">
-                          <md-icon md-font-icon="ion-plus-round "></md-icon>
-                          Pendiente
-                      </md-button>
-                  </md-menu-item>
-                  <md-menu-divider></md-menu-divider>
-                  <md-menu-item>
-                      <md-button ng-click="ctrl.toggleNotifications() ">
-                          <md-icon md-font-icon="ion-plus-round "></md-icon>
-                         Detenido
-                      </md-button>
-                  </md-menu-item>
-              </md-menu-content>
-          </md-menu>
-
-          <div class="text-right " >
-           <md-button class="md-icon-button " aria-label="edit " ui-sref="vm.open_budget(vm.id)">
+        </md-card-avatar>
+        <md-card-header-text style="position: relative;">
+            <span class="md-title">{{vm.result.titulo}}</span>
+            <span class="md-subhead">del {{vm.result.fecha_inicio| date:'yyyy-MM-dd'}} al {{vm.result.fecha_fin | date:'yyyy-MM-dd'}}</span>
+            <span class="md-subhead">{{vm.result.total | currency}}</span>
+        </md-card-header-text>
+        <md-menu>
+            <md-menu-content layout="row">
+                <div layout-align="right" class="text-center">
+                    <div>Asesor</div>
+                    <md-checkbox class="result-color-{{vm.result.checkAsesor}}" aria-label="Checkbox 1" ng-model="vm.result.checkAsesor" ng-change="vm.update()" ng-true-value="1" ng-false-value="0" ng-disabled="vm.hasRole('empresario')">
+                        {{vm.result.checkAsesor ? 'Aprobado' : 'No Aprobado' }}
+                    </md-checkbox>
+                </div>
+                <div style="margin-left: 10px;"> </div>
+                <div layout-align="right" class="text-center">
+                    <div>Empresario</div>
+                    <md-checkbox class="result-color-{{vm.result.checkEmpresario}}" aria-label="Checkbox 1" ng-model="vm.result.checkEmpresario" ng-change="vm.update()" ng-true-value="1" ng-false-value="0" ng-disabled="vm.hasRole('asesor')">
+                        {{vm.result.checkEmpresario ? 'Finalizado' : 'En Ejecución' }}
+                        <div>
+                        </div>
+                    </md-checkbox>
+                </div>
+            </md-menu-content>
+        </md-menu>
+    </md-card-header>
+    <div class="text-right ">
+        Opciones:
+        <md-button class="md-icon-button " aria-label="upload ">
+            <md-tooltip md-direction="top">Subir Fuente de Verificación</md-tooltip>
             <md-icon md-font-icon="ion-paperclip "></md-icon>
         </md-button>
-        <md-button class="md-icon-button " aria-label="edit " ui-sref="vm.open_budget(vm.id)">
+        <md-button ng-show="vm.can( 'edit.project') " class="md-icon-button " aria-label="edit ">
+            <md-tooltip md-direction="top">Editar</md-tooltip>
             <md-icon md-font-icon="ion-edit "></md-icon>
         </md-button>
-        <md-button class="md-icon-button " aria-label="view ">
+        <!--<md-button class="md-icon-button " aria-label="view ">
             <md-icon md-font-icon="ion-eye "></md-icon>
-        </md-button>
-        <md-button class="md-icon-button " aria-label="edit " ng-click="vm.delete(vm.id) ">
+        </md-button>-->
+        <md-button ng-show="vm.can( 'delete.project') " class="md-icon-button " aria-label="delete " ng-click="vm.delete(vm.result.id) ">
+            <md-tooltip md-direction="top">Borrar Resultado</md-tooltip>
             <md-icon md-font-icon="ion-trash-a "></md-icon>
         </md-button>
     </div>
-        </md-card-header>
- 
-          <product-list result-id="vm.result.id" products="vm.result.products"></product-list>
-       
-        <md-card-actions layout="row " layout-align="center ">
-    <div flex="33">
-        <p class="text-bold ">
-            Estado  : {{vm.process_id}}
-        </p>
-    </div>
-    <div class="text-right " flex="66">
-        <h2 class="md-display-1 ">$200.000</h2>
-    </div>
-</md-card-actions>
-
+    <product-list result-id="vm.result.id " products="vm.result.products "></product-list>
+    <md-card-actions layout="row " layout-align="center ">
+        <div flex="33 ">
+            <p class="text-bold ">
+                Estado : {{vm.process_id}}
+            </p>
+        </div>
+        <div class="text-right " flex="66 ">
+            <h2 class="md-display-1 ">{{vm.result.total | currency}}</h2>
+        </div>
+    </md-card-actions>
 </md-card>

@@ -1,0 +1,16 @@
+<h3 class="text-center">Añadir Gasto</h3>
+<md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding layout-align="center" >
+    <div>
+      <md-input-container>
+        <label>Descripción</label>
+        <input ng-model="vm.wallet.desc">
+      </md-input-container>
+
+      <md-input-container>
+        <label>Gasto</label>
+        <input ng-model="vm.wallet.cantidad" ng-currency>
+      </md-input-container>
+
+      <md-button ng-click="vm.add()" class="md-raised md-primary">Agregar</md-button>
+    </div>
+</md-content>

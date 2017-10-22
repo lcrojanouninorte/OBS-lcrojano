@@ -3,11 +3,14 @@ var mainBowerFiles = require('main-bower-files')
 var filter = require('gulp-filter')
 var notify = require('gulp-notify')
 var cssnano = require('gulp-cssnano')
-var uglify = require('gulp-uglify')
+//var uglify = require('gulp-uglify') NO FUNCIONA CON ES6
+var uglify = require('gulp-uglify-es').default; //MEJORADO PARA QUE CONVIERTA ES6 a ES5
 var concat_sm = require('gulp-concat-sourcemap')
 var concat = require('gulp-concat')
 var gulpIf = require('gulp-if')
 var Elixir = require('laravel-elixir')
+var gulpUtil = require('gulp-util');
+
 var Task = Elixir.Task
 
 Elixir.extend('bower', function (jsOutputFile, jsOutputFolder, cssOutputFile, cssOutputFolder) {
@@ -42,7 +45,7 @@ Elixir.extend('bower', function (jsOutputFile, jsOutputFolder, cssOutputFile, cs
       .on('error', onError)
       .pipe(filter('**/*.js'))
       .pipe(concat(jsFile, {sourcesContent: true}))
-      .pipe(gulpIf(Elixir.config.production, uglify()))
+      .pipe(gulpIf(Elixir.config.production, uglify().on('error', gulpUtil.log))) 
       .pipe(gulp.dest(jsOutputFolder || Elixir.config.js.outputFolder))
       .pipe(notify({
         title: 'Laravel Elixir',

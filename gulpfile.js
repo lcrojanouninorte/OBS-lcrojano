@@ -7,7 +7,7 @@ require('./tasks/bower.task.js')
 require('./tasks/ngHtml2Js.task.js')
 
 if (!elixir.config.production) {
-  require('./tasks/phpcs.task.js')
+  //require('./tasks/phpcs.task.js')
 }
 
 /*
