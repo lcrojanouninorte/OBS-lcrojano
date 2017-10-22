@@ -133,9 +133,11 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
+
         $credentials = $request->only('email', 'password');
 
         $user = User::whereEmail($credentials['email'])->first();
+        return $user;
 
         if (isset($user->email_verified) && $user->email_verified == 0) {
             return response()->error('Email Unverified');
@@ -157,7 +159,7 @@ class AuthController extends Controller
         foreach ($user->Roles as $role) {
             $userRole [] = $role->slug;
         }
-
+        return response()->success();
         return response()->success(compact('user', 'token', 'abilities', 'userRole'));
     }
 
