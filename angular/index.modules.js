@@ -14,7 +14,7 @@ angular.module('app', [
   'rzModule',
   'daterangepicker',
   'ng-fx',
- 
+  'ng-currency'
 ])
 
 angular.module('app.run', [])

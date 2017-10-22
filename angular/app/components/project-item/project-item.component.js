@@ -1,29 +1,35 @@
 class ProjectItemController{
-    constructor(API, $log, $state){
+    constructor(API, $log, $state, AclService){
         'ngInject';
 
         //
-        this.API = API;
-        this.$log = $log;
-        this.$state = $state;
-        this.originatorEv = {};
+        this.API = API
+        this.$log = $log
+        this.$state = $state
+        this.originatorEv = {}
+        this.can = AclService.can
     }
 
     $onInit(){
         this.titulo = this.project.titulo
-         this.fecha_inicio = moment(this.project.fecha_inicio).format("DD  MMMM  YYYY"); 
+        this.fecha_inicio = moment(this.project.fecha_inicio).format("DD  MMMM  YYYY");
+        this.fecha_fin = moment(this.project.fecha_fin).format("DD  MMMM  YYYY");  
         this.estado = this.project.estado
         this.id = this.project.id
         this.users = this.project.users
         this.process_id = this.project.process_id
-        this.progress = this.project.progress
+        this.results_total = this.project.results_total
+        this.products_total  = this.project.products_total
+        this.budgets_total  = this.project.budgets_total
+        this.project_wallet_total  = this.project.project_wallet_total
+
+
+        this.progress = (this.project_wallet_total / this.budgets_total)
         this.pieLabels = ['Ejecutado', 'Pendiente']
         this.chartColours = ["Green","Red"]
         this.pieData = [this.project.progress, 100-this.project.progress]
-
-        
     }
-   
+
 
     openMenu($mdMenu, ev) {
       this.originatorEv = ev;
@@ -45,10 +51,10 @@ class ProjectItemController{
       showCancelButton: true,
       confirmButtonColor: '#DD6B55',
       confirmButtonText: 'Si Quiero borrarlo!',
-      closeOnConfirm: false,
-      showLoaderOnConfirm: true,
+      //closeOnConfirm: false,
+      //showLoaderOnConfirm: true,
       html: false
-    }, function () {
+    }).then(function () {
       API.one('projects').one('', projectId).remove()
         .then((response) => {
             if(!response.error){
@@ -57,17 +63,18 @@ class ProjectItemController{
                 text: 'Se ha borrado el proyecto con exito.',
                 type: 'success',
                 confirmButtonText: 'OK',
-                closeOnConfirm: true
-              }, function () {
+                //closeOnConfirm: true
+              }).then( function () {
                 $state.reload()
               })
-
-            }else{
+            }
+            else{
                 this.$log.debug(response);
             }
         })
-    })
-  }
+    
+  })
+}
 }
 
 export const ProjectItemComponent = {

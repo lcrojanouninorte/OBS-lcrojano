@@ -11,11 +11,24 @@ class ProductBudgetController{
 
         this.users=this.$scope.$parent.mvm.users;
         this.$state = $state
+        //this.$state = $state
 
     }
 
     $onInit(){
 
+        //Calc product total from product budget array
+
+        
+
+    }
+    isEditing(){
+        //1. Add, 2. Edit
+        return this.mode == 2? true:false;
+    }
+    isAdding(){
+        //1. Add, 2. Edit
+        return this.mode == 1? true:false;
     }
 
     finishedWizard(form) {
@@ -53,6 +66,7 @@ export const ProductBudgetComponent = {
         cancel :"&",
         product:"<",
         users:"<",
+        mode:"<",
        
     }
 }

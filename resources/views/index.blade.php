@@ -25,7 +25,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body route-bodyclass>
+<body route-bodyclass class="sidebar-collapse">
     <div class="wrapper" >
         <div ui-view="layout"></div>
         <div class="control-sidebar-bg"></div>

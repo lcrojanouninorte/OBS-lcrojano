@@ -12,83 +12,83 @@ use Auth;
 class ProductController extends Controller
 {
     //
-      public function store(Request $request)
-  {
-      $this->validate($request, [
-        	'desc' => 'required',
-	        'fecha_inicio' => 'required',
-	        'fecha_fin' => 'required',
-	        'result_id' => 'required',
-        ]); 
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+          'desc' => 'required',
+          'fecha_inicio' => 'required',
+          'fecha_fin' => 'required',
+          'result_id' => 'required',
+        ]);
        
  
-        	$product = new Product;
-      		$product->desc = $request->input('desc');
-		    $product->fecha_inicio = $request->input('fecha_inicio');
-		    $product->fecha_fin = $request->input('fecha_fin');
+          $product = new Product;
+          $product->desc = $request->input('desc');
+          $product->fecha_inicio = $request->input('fecha_inicio');
+          $product->fecha_fin = $request->input('fecha_fin');
 
-		      //calcular duracion
-		    $datetime1 = new \DateTime($request->input('fecha_inicio'));
-			$datetime2 = new \DateTime($request->input('fecha_fin'));
+            //calcular duracion
+          $datetime1 = new \DateTime($request->input('fecha_inicio'));
+          $datetime2 = new \DateTime($request->input('fecha_fin'));
 
-			$interval =  $datetime2->diff($datetime1);
-			$duracion = ($interval->format('%y') * 12) + $interval->format('%m');
-			$product->duracion = ($duracion==0)?1:$duracion;
-		    $product->estado = "nuevo";
-		    $product->progress = 0;
-		    $product->result_id = $request->input('result_id');
-        $product->checkEmpresario = false;
-        $product->checkAsesor =false;
+          $interval =  $datetime2->diff($datetime1);
+          $duracion = ($interval->format('%y') * 12) + $interval->format('%m');
+          $product->duracion = ($duracion==0)?1:$duracion;
+          $product->estado = "nuevo";
+          $product->progress = 0;
+          $product->result_id = $request->input('result_id');
+        $product->checkEmpresario = 3;
+        $product->checkAsesor =1;
 
-		    $product->save();
-      		return response()->success(compact('product'));
-        
-  }
-      public function index($result_id)
-  {
+          $product->save();
+          return response()->success(compact('product'));
+    }
 
-      $product = Product::where("result_id", $result_id)->get();
+    public function index($result_id)
+    {
+
+        $product = Product::where("result_id", $result_id)->get();
       
-      return response()->success(compact('product'));
-  }
+        return response()->success(compact('product'));
+    }
 
-   public function destroy($id)
-  {
+    public function destroy($id)
+    {
         $product = Product::find($id);
         $product->delete();
         return response()->success('success');
-  }
+    }
 
-   public function updateCheck(Request $request)
-  {
-      $product_id = $request->input('id');
+    public function updateCheck(Request $request)
+    {
+        $product_id = $request->input('id');
    
-     $current_user = Auth::user();
-     $product = Product::find($product_id);
+        $current_user = Auth::user();
+        $product = Product::find($product_id);
         
-        if($current_user->is('asesor')){
-          
-          $product->checkAsesor = $request->input('checkAsesor');
-        }
-        else{
-          if ($current_user->is('empresario')) {
-             $product->checkEmpresario = $request->input('checkEmpresario');
-          }
-
+        if ($current_user->is('asesor')) {
+            $product->checkAsesor = $request->input('checkAsesor');
+        } else {
+            if ($current_user->is('empresario')) {
+                $product->checkEmpresario = $request->input('checkEmpresario');
+            }
         }
          $product ->save();
         
         return response()->success(compact("product"));
-  }
+    }
 
-  public function show($id)
-  {
+    public function show($id)
+    {
         $product = Product::find($id);
         return response()->success($product);
-  }
-  public function addBudget(Request $request){
+    }
 
-  /*  $this->validate($request, [
+    
+    public function addBudget(Request $request)
+    {
+
+    /*  $this->validate($request, [
           'desc' => 'required',
           'fecha_inicio' => 'required',
           'fecha_fin' => 'required',
@@ -113,7 +113,7 @@ class ProductController extends Controller
 
         $budget_product->save();
           return response()->success(compact('budget_product'));
-  }
+    }
 
  /* public function show($project_id)
     {

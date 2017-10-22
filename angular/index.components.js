@@ -1,3 +1,6 @@
+import {BudgetWalletListComponent} from './app/components/budget-wallet-list/budget-wallet-list.component';
+import {BudgetWalletAddComponent} from './app/components/budget-wallet-add/budget-wallet-add.component';
+import {BudgetWalletComponent} from './app/components/budget-wallet/budget-wallet.component';
 import {EmpresarioFormComponent} from './app/components/empresario-form/empresario-form.component';
 import {ActividadesItemComponent} from './app/components/actividades-item/actividades-item.component';
 import {ActividadesFormComponent} from './app/components/actividades-form/actividades-form.component';
@@ -60,6 +63,9 @@ import { LoginFormComponent } from './app/components/login-form/login-form.compo
 import { RegisterFormComponent } from './app/components/register-form/register-form.component'
 
 angular.module('app.components')
+	.component('budgetWalletList', BudgetWalletListComponent)
+	.component('budgetWalletAdd', BudgetWalletAddComponent)
+	.component('budgetWallet', BudgetWalletComponent)
 	.component('empresarioForm', EmpresarioFormComponent)
 	.component('actividadesItem', ActividadesItemComponent)
 	.component('actividadesForm', ActividadesFormComponent)

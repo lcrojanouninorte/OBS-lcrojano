@@ -1,11 +1,12 @@
 class ProjectDashboardController{
-    constructor($uibModal, $mdSticky, $state,$stateParams, API, $scope) {
+    constructor($uibModal, $mdSticky, $state,$stateParams, API, $scope, AclService) {
         'ngInject';
 
         //
         this.$uibModal = $uibModal
         this.$mdSticky = $mdSticky
         this.$state = $state
+        this.can = AclService.can
 
         //
         this.id = $stateParams.projectId
@@ -17,6 +18,7 @@ class ProjectDashboardController{
         this.dial.selectedDirection = 'down'
         this.results = []
         this.$scope = $scope;
+
         
     }
 

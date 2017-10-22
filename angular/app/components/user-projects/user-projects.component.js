@@ -1,11 +1,12 @@
 class UserProjectsController {
-    constructor($uibModal, $mdSticky, $state) {
+    constructor($uibModal, $mdSticky, $state,AclService) {
         'ngInject';
 
         //
         this.$uibModal = $uibModal
         this.$mdSticky = $mdSticky
         this.$state = $state
+        this.can = AclService.can
 
       this.topDirections = ['left', 'up'];
       this.bottomDirections = ['down', 'right'];

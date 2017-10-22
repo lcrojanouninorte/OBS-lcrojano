@@ -8,14 +8,25 @@
 
 .color-1{
     background-color: #4cb54c;
-    color: white!important;
+    color: white!important;    border-radius: 70px;
+    text-align: center;
 }
 .color-2{
 	        background-color: rgb(255, 216, 47);
-	           color: white!important;
+	           color: white!important;    border-radius: 70px;
+	           text-align: center;
 }
 .color-3{
-	background-color: #c25252;
-   color: white!important;
+	background-color: #d84c4c;
+   color: white!important;    border-radius: 70px;
+       text-align: center;
 }
  
+ md-select-menu md-content md-option:not([disabled]):hover {
+    background: rgb(0, 0, 0);
+}
+
+md-select {
+ 
+    margin: 0;
+}

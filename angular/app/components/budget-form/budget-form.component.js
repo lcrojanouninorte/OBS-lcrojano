@@ -14,6 +14,6 @@ export const BudgetFormComponent = {
     controller: BudgetFormController,
     controllerAs: 'vm',
     bindings: {
-        parentModel:"="
+        pbudget:"="
     }
 }

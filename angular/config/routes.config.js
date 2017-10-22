@@ -13,7 +13,7 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
     return `./views/app/pages/layout/${layout}.page.html`
   }
 
-  $urlRouterProvider.otherwise('/')
+  $urlRouterProvider.otherwise('/projects')
 
   $stateProvider
     .state('app', {
@@ -41,8 +41,8 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
       },
       views: {
         'main@app': {
-          templateUrl: getView('landing')
-        }
+              templateUrl: getView('projects')
+            }
       }
     })
     .state('app.tablessimple', {

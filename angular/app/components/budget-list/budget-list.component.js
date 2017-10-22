@@ -6,6 +6,7 @@ class BudgetListController{
         this.API = API
         this.$state = $state
         this.budget = [ ]
+        this.filter = false;
        /* 
         this.budget = [
             {icon_id : 1, titulo:"Rubro tipo 1"},
@@ -45,6 +46,10 @@ class BudgetListController{
 
     }
 
+    hasBudget(item){
+        return item.budgetproducts.length>0
+    }
+
 
 }
 
@@ -54,6 +59,7 @@ export const BudgetListComponent = {
     controllerAs: 'vm',
     bindings: {
         product:"=",
-        parentModel : "="
+        pbudget : "=",
+        filter:"<"
     }
 }

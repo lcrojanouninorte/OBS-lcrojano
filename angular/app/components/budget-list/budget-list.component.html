@@ -1,5 +1,7 @@
 <md-content layout-margin layout-wrap layout="row" layout-align="center">
 
-    <budget-item  flex="33" flex-gt-md="20" budget="budget_item" parent-model="vm.parentModel" ng-repeat="budget_item in vm.budget"></budget-item>
+
+    <budget-item  flex="33" flex-gt-md="20" budget="budget_item" pbudget="vm.pbudget" ng-repeat="budget_item in vm.budget | filter: (vm.filter ? vm.hasBudget : '')"></budget-item>
+ 
 </md-content>
 

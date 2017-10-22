@@ -1,139 +1,72 @@
-  
-   <div class="col-md-12 project-item "  style="margin:0px;">
-      <div class="box box-widget widget-user md-whiteframe-2dp">
-        <div class="widget-user-header bg-black" style="background: url('/img/h.png') center center; background-size: cover;">
-          <h3 class="widget-user-username" md-truncate >{{vm.titulo}}</h3>
-          <h5 class="widget-user-desc">Inica: {{vm.fecha_inicio}}</h5>
+<div class="col-md-12 project-item " style="margin:0px;">
+    <div class="box box-widget widget-user md-whiteframe-2dp">
+        <div layout="column" class="widget-user-header bg-black" style="background: url('/img/h.png') center center; background-size: cover;">
+            <div flex>
+                <h3 class="widget-user-username" md-truncate>{{vm.titulo}}</h3>
+                <h5 class="widget-user-desc">Inica: {{vm.fecha_inicio}}</h5>
+                <h5 class="widget-user-desc">Finaliza: {{vm.fecha_fin}}</h5>
+            </div>
         </div>
-        <div class="widget-user-image">
-              <div class="chart-responsive">
-                <canvas id="doughnut"  height="100" class="chart chart-doughnut" chart-data="vm.pieData" chart-labels="vm.pieLabels" chart-colours="vm.chartColours" >
-                </canvas>
-              </div>
-         <!-- <img class="img-circle" src="/img/ok.png" alt="User Avatar">-->
+        <div>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="{{vm.progress*100}}" aria-valuemin="0" aria-valuemax="100" style="width:{{vm.progress*100}}%">
+                </div>
+            </div>
+            <p class="text-center">
+                {{vm.progress*100 | number:1 }}% Presupuesto Ejecutado
+            </p>
         </div>
-                  <md-menu flex layout-align="right">
-              <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="vm.openMenu($mdMenu, $event)">
-                  <md-icon md-menu-origin md-font-icon="ion-plus-round"></md-icon>
-              </md-button>
-              <md-menu-content width="4">
-                  <md-menu-item>
-                      <md-button >
-                          <md-icon md-font-icon="ion-plus-round" md-menu-align-target></md-icon>
-                          Ejecución
-                      </md-button>
-                  </md-menu-item>
-                  <md-menu-item>
-                      <md-button disabled="disabled" ">
-                          <md-icon md-font-icon="ion-plus-round"></md-icon>
-                          Pendiente
-                      </md-button>
-                  </md-menu-item>
-                  <md-menu-divider></md-menu-divider>
-                  <md-menu-item>
-                      <md-button ng-click="ctrl.toggleNotifications()">
-                          <md-icon md-font-icon="ion-plus-round"></md-icon>
-                         Detenido
-                      </md-button>
-                  </md-menu-item>
-              </md-menu-content>
-          </md-menu>
-
         <div class="box-footer">
-          <div >
-            <div class="col-sm-4 border-right">
-              <div class="description-block">
-                <h5 class="description-header">3</h5>
-                <span class="description-text">Resultados</span>
-              </div>
+            <div>
+                <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                        <h5 class="description-header"> {{vm.results_total}} </h5>
+                        <span class="description-text">Resultados</span>
+                    </div>
+                </div>
+                <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                        <h5 class="description-header">{{vm.products_total}}</h5>
+                        <span class="description-text">Productos</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="description-block">
+                        <h5 class="description-header">{{vm.budgets_total | currency}} / {{vm.project_wallet_total | currency}}</h5>
+                        <span class="description-text">Total</span>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-4 border-right">
-              <div class="description-block">
-                <h5 class="description-header">20</h5>
-                <span class="description-text">Productos</span>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="description-block">
-                <h5 class="description-header">$1000</h5>
-                <span class="description-text">Total</span>
-              </div>
-            </div>
-          </div>
         </div>
         <div layout="column" layout-padding flex>
-        <h6>Empresarios y Asesores: </h6>
-          <div layout="row" layout-wrap>
-            <div layout="column" flex ng-repeat="user in vm.users" layout-align="center">
-              <div flex layout="row" layout-align="center">
-                <img style="height: 30px;" ng-src="https://freeiconshop.com/wp-content/uploads/edd/person-flat.png" class="md-avatar" alt="empresa" />
-              </div>
-              <div flex>
-                <p class="text-center">{{user.name}} </p>
-              </div>
+            <h6>Empresarios y Asesores: </h6>
+            <div layout="row" layout-wrap>
+                <div layout="column" flex ng-repeat="user in vm.users" layout-align="center">
+                    <div flex layout="row" layout-align="center">
+                        <img style="height: 30px;" ng-src="https://www.shareicon.net/download/2016/02/19/721763_people_512x512.png" class="md-avatar" alt="empresa" />
+                    </div>
+                    <div flex>
+                        <p class="text-center">{{user.name}} </p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-       <md-card-actions layout="row" layout-padding layout-align="end center">
-        <div flex="50" layout-align="left">
-          <p class="text-bold">
-          Proceso: {{vm.process_id}} 
-        </p>
-        </div>
-
-       <div layout="row" flex layout layout-align="end">
-          <md-button class="md-icon-button" aria-label="edit" ui-sref="app.project({projectId: vm.id})">
-            <md-icon md-font-icon="ion-eye" ></md-icon>
-          </md-button>
-          
-          
-          <md-button class="md-icon-button" aria-label="edit" ng-click="vm.delete(vm.id)">
-            <md-icon md-font-icon="ion-trash-a" ></md-icon>
-          </md-button>
-       </div>
+        <md-card-actions layout="row" layout-padding layout-align="end center">
+            <div flex="50" layout-align="left">
+                <p class="text-bold">
+                    Proceso: {{vm.process_id}}
+                </p>
+            </div>
+            <div layout="row" flex layout layout-align="end">
+                <md-button class="md-icon-button" aria-label="edit" ui-sref="app.project({projectId: vm.id})">
+                    <md-icon md-font-icon="ion-eye"></md-icon>
+                </md-button>
+                <div ng-show="vm.can('delete.project')">
+                    <md-button class="md-icon-button" aria-label="edit" ng-click="vm.delete(vm.id)">
+                        <md-icon md-font-icon="ion-trash-a"></md-icon>
+                    </md-button>
+                </div>
+            </div>
         </md-card-actions>
-      </div>
-
     </div>
-   
-<!--
-  <div class="padded" md-whiteframe="1"    layout layout-align="center center">
-
-        <div class="box box-{{vm.estado}}" style="margin-bottom: 0px!important">
-        <div class="box-header with-border">
-          <h3 class="box-title">{{vm.titulo}}</h3>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool"  ng-click="vm.delete(vm.id)"><i class="fa fa-times"></i></button>
-          </div>
-        </div>
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-8">
-              <div class="chart-responsive">
-                <canvas id="doughnut" height="200" class="chart chart-doughnut" chart-data="vm.pieData" chart-labels="vm.pieLabels">
-                </canvas>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <ul class="chart-legend clearfix">
-                <li><i class="fa fa-circle-o text-red"></i> Ejecutado</li>
-                <li><i class="fa fa-circle-o text-green"></i> Pendiente</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="box-footer no-padding">
-          <ul class="nav nav-pills nav-stacked">
-            <li><a href="#">Resultados
-              <span class="pull-right text-red"><i class="fa fa-angle-down"></i>0</span></a></li>
-            <li><a href="#">Productos <span class="pull-right text-green"><i class="fa fa-angle-up"></i> 0</span></a>
-            </li>
-            <li><a href="#">Presupuesto
-              <span class="pull-right text-yellow"><i class="fa fa-angle-left"></i> 0</span></a></li>
-          </ul>
-        </div>
-      </div>
-  </div>
--->
+</div>

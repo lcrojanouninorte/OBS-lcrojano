@@ -90,22 +90,24 @@ class UserController extends Controller
      *
      * @return JSON
      */
-    public function getIndex($role=null)
+    public function getIndex($role = null)
     {
         $user = Auth::user();
-        if($user->is('asesor')){
-            if($role!=null){
-            $users = User::whereHas(
-                'roles', function($q) use ($role){
-                    $q->where('name', $role);
-                })->get();
-            }else{
+        if ($user->is('asesor')) {
+            if ($role!=null) {
+                $users = User::whereHas(
+                    'roles',
+                    function ($q) use ($role) {
+                        $q->where('name', $role);
+                    }
+                )->get();
+            } else {
                 $users = User::all();
             }
             
 
             return response()->success(compact('users'));
-        }else{
+        } else {
             return response()->error("No Tiene privilegios");
         }
     }
@@ -118,19 +120,18 @@ class UserController extends Controller
     public function getUsersByRole($role)
     {
         $user = Auth::user();
-        if($user->is('asesor')){
+        if ($user->is('asesor')) {
             $users = User::whereHas(
-                'roles', function($q) use ($role){
+                'roles',
+                function ($q) use ($role) {
                     $q->where('name', $role);
                 }
             )->get();
 
             return response()->success(compact('users'));
-        }else{
+        } else {
             return response()->error("No Tiene privilegios");
         }
-
-       
     }
 
 
@@ -369,14 +370,14 @@ class UserController extends Controller
         //Verificar que es un usuario tipo asesor
         $current_user = Auth::user();
         
-        if($current_user->is('asesor')){
+        if ($current_user->is('asesor')) {
             $this->validate($request, [
                 'name'       => 'required|min:3',
                 'email'      => 'required|email|unique:users',
                 //'password'   => 'required|min:8|confirmed',
             ]);
             DB::transaction(function () use ($request) {
-                //Crear usuario 
+                //Crear usuario
                 $verificationCode = str_random(40);
                 $user = new User();
                 $user->name = trim($request->name);
@@ -391,7 +392,6 @@ class UserController extends Controller
                 $user->attachRole($role);
 
                 $token = JWTAuth::fromUser($user);
-
             }, 5);
 
             /*Mail::send('emails.userverification', ['verificationCode' => $verificationCode], function ($m) use ($request) {
@@ -400,18 +400,10 @@ class UserController extends Controller
 
             return response()->success(compact('user', 'token'));
                     //return response()->success('success');
-
-
-
-
-        }else{
+        } else {
             return response()->error('No estas habilitado para estas crear usuarios');
         }
 
         return response()->success('success');
-
-
     }
-
-
 }

@@ -8,7 +8,7 @@
 <div layout="column" layout-wrap >
   <div layout=row>
      
-      <div class="lock-size" layout layout-margin layout-padding>
+      <div  ng-show="vm.can('delete.project')" class="lock-size" layout layout-margin layout-padding >
         <md-button class="md-fab " aria-label="Eat cake" ng-click="vm.create_result();">
           <md-icon md-font-icon="ion-plus-round"></md-icon>
         </md-button>
@@ -18,7 +18,9 @@
       <h3 class="text-center">RESULTADOS</h3>
     </div>
   </div>
-  <div  ng-show="vm.results.length <= 0" layout="row" layout-padding layout-wrap layout-fill layout-align="">
+
+
+  <div  ng-show="vm.results.length <= 0" layout="row" layout-padding layout-wrap layout-fill layout-align="center">
     <md-content layout-padding layout-wrap>
     <md-whiteframe class="md-whiteframe-1dp" layout layout-align="center center">
     <span>Añade resultados a este proyecto!</span>

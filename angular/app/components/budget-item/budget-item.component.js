@@ -11,7 +11,8 @@ class BudgetItemController{
     }
 
     select_budget(){
-        this.parentModel = this.budget.id;
+        this.pbudget.budget_id = this.budget.id;
+        this.pbudget.budget_title = this.budget.titulo;
     }
 }
 
@@ -21,6 +22,6 @@ export const BudgetItemComponent = {
     controllerAs: 'vm',
     bindings: {
         budget:"=",
-        parentModel : "="
+        pbudget : "="
     }
 }
