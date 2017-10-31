@@ -10,6 +10,8 @@ use App\Result;
 
 use Auth;
 
+use Storage;
+
 class ResultController extends Controller
 {
     //
@@ -77,5 +79,41 @@ class ResultController extends Controller
          $result->save();
         
         return response()->success($request->input('checkAsesor'));
+    }
+
+    public function upload_document(Request $request)
+    {
+        $this->validate($request, [
+            'fuenteverificacion' => 'required|max:2048',
+            'result_id' => 'required',
+        ]);
+
+        //Get Uploader user
+        $user = Auth::user();
+        $user_id = $user->id;
+
+        $file = $request->file('fuenteverificacion');
+        $result_id = $request->input("result_id");
+
+        if (true||$user->is('empresario')) {//Solo suben archivos los empresarios
+            if ($file->isValid()) {
+                    $fileName = $file->getClientOriginalName();
+                    $destinationPath = "/fficaribe/fuentes_verificacion/".$user_id."/".$result_id.$fileName;
+
+                    $path = Storage::put(
+                        $destinationPath,
+                        file_get_contents($file->getRealPath())
+                    );
+
+                    //Update Result
+                    $result = Result::find($result_id);
+                    $result->fuente_file = $destinationPath;
+                    $result->save();
+
+                    return response()->success($destinationPath);
+            } else {
+            }
+        } else {
+        }
     }
 }

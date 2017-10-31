@@ -18,7 +18,7 @@ class BudgetWalletAddController{
             "desc":this.wallet.desc,
             "cantidad": this.wallet.cantidad,
             "product_id": this.productId,
-            "budget_id": this.budgetId,
+            "budget_product_id": this.pbudget.id, //Cambiar por BudgetProduct
             "user_id": this.userId
 
         }
@@ -30,6 +30,7 @@ class BudgetWalletAddController{
                     swal('Gasto asignado con exito!', '', 'success')
                     this.$state.reload()
                     this.walletList.push(response.data.wallet)
+                    //Close modal
                     $log.debug(response)
                 }
             }
@@ -46,7 +47,8 @@ export const BudgetWalletAddComponent = {
     bindings: {
         walletList:"=",
         productId:"<",
-        budgetId:"<",
-        userId:"<"
+        pbudget:"<",
+        userId:"<",
+        walletLimit:"<"
     }
 };

@@ -1,5 +1,5 @@
 class ResultItemController{
-    constructor(API, $scope,AclService, $state){
+    constructor(API, $scope,AclService, $state,$uibModal){
         'ngInject';
 
         //
@@ -8,33 +8,11 @@ class ResultItemController{
         this.can = AclService.can
         this.hasRole = AclService.hasRole
         this.$state = $state
+        this.$uibModal =$uibModal
     }
 
     $onInit(){
         let result = this.result
-
-        result.total  = 0 
-        result.fecha_fin = "1000-01-28"
-        
-        //Calcular totales y fecha final
-        angular.forEach(result.products, function(product, key) {
-          product.total = 0;
-
-          var startTime = new Date(result.fecha_fin+"T04:00:00.000Z");
-          var endTime = new Date(product.fecha_fin+"T04:00:00.000Z");
-
-          //Colocar la mayor fecha final de los productos
-
-          if(startTime<endTime){
-            result.fecha_fin = product.fecha_fin
-          }
-
-
-          angular.forEach(product.budgetproducts, function(budget, key) {
-            product.total = product.total + (budget.cantidad * budget.valor_unitario);
-          });
-          result.total = result.total + product.total;
-        });
         
     }
 
@@ -89,6 +67,39 @@ class ResultItemController{
                     
             })
     }
+
+    //FILE UPLOAD MODAL
+    upload_modal() {
+        let $uibModal = this.$uibModal
+        let result = this.result
+
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: "UploadModal.html",
+            controller: this.modalcontroller ,
+            controllerAs: 'mvm',
+            size: 'sm',
+            resolve: {
+               result: function() {
+                   return result;
+               }
+            }
+        })
+    }
+
+    modalcontroller($uibModalInstance, result) {
+        'ngInject'
+        this.result = result
+       
+        this.ok = () => {
+          $uibModalInstance.close($scope.selected.item)
+        }
+
+        this.cancel = () => {
+
+          $uibModalInstance.dismiss('cancel');
+        }
+  }
 }
 
 export const ResultItemComponent = {

@@ -416,6 +416,28 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
               template: "<project-dashboard></project-dashboard>"
             }
           }
+      })
+  .state('app.milestones', {
+          url: '/milestones/:projectId',
+          data: {
+            auth: true
+          },
+          views: {
+            'main@app': {
+              template: "<milestones-dashboard></milestones-dashboard>"
+            }
+          }
+      })
+  .state('app.products', {
+          url: '/project/:projectId/products/:date',
+          data: {
+            auth: true
+          },
+          views: {
+            'main@app': {
+              template: "<products-dashboard></products-dashboard>"
+            }
+          }
       }).state('app.kickstarter', {
           url: '/kickstarter',
           data: {

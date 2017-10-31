@@ -12,19 +12,24 @@
     text-align: center;
 }
 .color-2{
-	        background-color: rgb(255, 216, 47);
+	        background-color: yellow;
 	           color: white!important;    border-radius: 70px;
 	           text-align: center;
 }
 .color-3{
-	background-color: #d84c4c;
+	background-color: #faa933;
    color: white!important;    border-radius: 70px;
        text-align: center;
 }
- 
- md-select-menu md-content md-option:not([disabled]):hover {
-    background: rgb(0, 0, 0);
+.color-4{
+    background-color: #d84c4c!important;
+    color: white!important;    
+    border-radius: 70px;
+    text-align: center;
 }
+
+ 
+ 
 
 md-select {
  

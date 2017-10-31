@@ -17,9 +17,9 @@ class CreateBudgetProductTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->integer('product_id')->unsigned()->index();
-            $table->integer('budget_id')->unsigned()->index();
-            $table->integer('descripcion');
-            $table->integer('unidad');
+            $table->integer('budget_product')->unsigned()->index();
+            $table->string('descripcion');
+            $table->string('unidad');
             $table->integer('cantidad');
             $table->integer('valor_unitario');
             $table->integer('financiacion_sena');
@@ -30,7 +30,7 @@ class CreateBudgetProductTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('budget_id')->references('id')->on('budgets')->onDelete('cascade');
+            $table->foreign('budget_product_id')->references('id')->on('budget_product')->onDelete('cascade');
         });
     }
 

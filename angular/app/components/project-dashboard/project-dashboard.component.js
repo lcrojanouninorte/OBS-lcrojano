@@ -19,6 +19,8 @@ class ProjectDashboardController{
         this.results = []
         this.$scope = $scope;
 
+         
+
         
     }
 
@@ -45,7 +47,7 @@ class ProjectDashboardController{
             templateUrl: 'myModalResult.html',
             controller: this.modalcontroller,
             controllerAs: 'mvm',
-            size: 'lg',
+            size: 'md',
             resolve: {
                project: function() {
                    return project;

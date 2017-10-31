@@ -12,6 +12,7 @@ use Input;
 use Validator;
 use DB;
 use JWTAuth;
+use Mail;
 
 class UserController extends Controller
 {
@@ -365,7 +366,7 @@ class UserController extends Controller
     }
 
 
-    public function postEmpresario(Request $request)
+    public function postUser(Request $request)
     {
         //Verificar que es un usuario tipo asesor
         $current_user = Auth::user();
@@ -374,31 +375,44 @@ class UserController extends Controller
             $this->validate($request, [
                 'name'       => 'required|min:3',
                 'email'      => 'required|email|unique:users',
+                'type'      => 'required',
                 //'password'   => 'required|min:8|confirmed',
             ]);
-            DB::transaction(function () use ($request) {
+            $data = [];
+             $data = DB::transaction(function () use ($request, $data) {
                 //Crear usuario
                 $verificationCode = str_random(40);
                 $user = new User();
                 $user->name = trim($request->name);
                 $user->email_verified = 1;
                 $user->email = trim(strtolower($request->email));
-                $user->password = bcrypt("qwertyqwerty");//bcrypt(str_random(6));
+                $user->password = bcrypt(str_random(6));
                 $user->email_verification_code = $verificationCode;
                 $user->save();
 
                 //asignar rol de empresario al nuevo usuario
-                $role = Role::where("slug", "empresario")->get();
+                $role = Role::where("slug", $request->type)->get();
                 $user->attachRole($role);
 
+                $data = array(
+                    'verificationCode'=>$user->email_verification_code
+                );
+
                 $token = JWTAuth::fromUser($user);
-            }, 5);
 
-            /*Mail::send('emails.userverification', ['verificationCode' => $verificationCode], function ($m) use ($request) {
-                $m->to($request->email, 'test')->subject('Email Confirmation');
-            });*/
+                Mail::send('emails.userverification', $data, function ($m) use ($user) {
+                    $m->from('fficaribe@uninorte.edu.co', 'Fondo de Fomento a La Innovación - FFI');
+                    $m->to($user->email)->subject('Confirmación Plataforma FFI');
+                });
 
-            return response()->success(compact('user', 'token'));
+                return $data;
+             }, 5);
+           
+                
+
+            
+
+            return response()->success(compact('data'));
                     //return response()->success('success');
         } else {
             return response()->error('No estas habilitado para estas crear usuarios');

@@ -33,16 +33,26 @@ class BudgetListController{
     }
 
     $onInit(){
-         
-
-          //get project and his results.
-        let Budgets = this.API.one('budgets', this.product.id)
-        Budgets.get()
-          .then((response) => {
-            if(!response.error){   
-                this.budget = response.data.budgets
-            }
-        });
+         if(this.desc){
+              //get all budges deagregated.
+       
+            let Budgets = this.API.one('budgets', this.pbudget.id).one('products', this.product.id)
+            Budgets.get()
+              .then((response) => {
+                if(!response.error){   
+                    this.budget = response.data.budgets
+                }
+            });
+         }else{
+              //get budges sumarized.
+            let Budgets = this.API.one('budgets', this.product.id)
+            Budgets.get()
+              .then((response) => {
+                if(!response.error){   
+                    this.budget = response.data.budgets
+                }
+            });
+         }
 
     }
 
@@ -60,6 +70,7 @@ export const BudgetListComponent = {
     bindings: {
         product:"=",
         pbudget : "=",
-        filter:"<"
+        filter:"<",
+        desc:"<"//true false
     }
 }

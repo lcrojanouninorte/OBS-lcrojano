@@ -1,3 +1,10 @@
+import {MilestonesDashboardComponent} from './app/components/milestones-dashboard/milestones-dashboard.component';
+import {MilestonesListComponent} from './app/components/milestones-list/milestones-list.component';
+import {MilestonesAddComponent} from './app/components/milestones-add/milestones-add.component';
+import {ProductsDashboardComponent} from './app/components/products-dashboard/products-dashboard.component';
+import {DelayedProductsComponent} from './app/components/delayed-products/delayed-products.component';
+import {FileUploadFormComponent} from './app/components/file-upload-form/file-upload-form.component';
+import {ProjectGanttComponent} from './app/components/project-gantt/project-gantt.component';
 import {BudgetWalletListComponent} from './app/components/budget-wallet-list/budget-wallet-list.component';
 import {BudgetWalletAddComponent} from './app/components/budget-wallet-add/budget-wallet-add.component';
 import {BudgetWalletComponent} from './app/components/budget-wallet/budget-wallet.component';
@@ -63,6 +70,13 @@ import { LoginFormComponent } from './app/components/login-form/login-form.compo
 import { RegisterFormComponent } from './app/components/register-form/register-form.component'
 
 angular.module('app.components')
+	.component('milestonesDashboard', MilestonesDashboardComponent)
+	.component('milestonesList', MilestonesListComponent)
+	.component('milestonesAdd', MilestonesAddComponent)
+	.component('productsDashboard', ProductsDashboardComponent)
+	.component('delayedProducts', DelayedProductsComponent)
+	.component('fileUploadForm', FileUploadFormComponent)
+	.component('projectGantt', ProjectGanttComponent)
 	.component('budgetWalletList', BudgetWalletListComponent)
 	.component('budgetWalletAdd', BudgetWalletAddComponent)
 	.component('budgetWallet', BudgetWalletComponent)

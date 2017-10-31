@@ -13,7 +13,7 @@ class ProjectItemController{
     $onInit(){
         this.titulo = this.project.titulo
         this.fecha_inicio = moment(this.project.fecha_inicio).format("DD  MMMM  YYYY");
-        this.fecha_fin = moment(this.project.fecha_fin).format("DD  MMMM  YYYY");  
+        this.fecha_fin = moment(this.project.fecha_fin).format("DD  MMMM  YYYY") || "/";  
         this.estado = this.project.estado
         this.id = this.project.id
         this.users = this.project.users
@@ -24,10 +24,23 @@ class ProjectItemController{
         this.project_wallet_total  = this.project.project_wallet_total
 
 
-        this.progress = (this.project_wallet_total / this.budgets_total)
+        this.progress = (this.project_wallet_total / this.budgets_total)*100 ||0
+        this.chartColours = [ '#4caf50', '#00ADF9' ] 
         this.pieLabels = ['Ejecutado', 'Pendiente']
-        this.chartColours = ["Green","Red"]
-        this.pieData = [this.project.progress, 100-this.project.progress]
+        this.pieData = [this.progress, (100-this.progress)]
+        this.options = {
+            responsive: true,
+            legend: {
+              display: true,
+              labels: {
+                padding: 20
+              },
+            }
+        }
+
+        
+
+         
     }
 
 

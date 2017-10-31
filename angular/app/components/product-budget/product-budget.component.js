@@ -31,10 +31,15 @@ class ProductBudgetController{
         return this.mode == 1? true:false;
     }
 
+    budget_desc_ready(){
+        return (this.productBudget.budget_id != '')
+    }
+
     finishedWizard(form) {
         if (true) {
             this.productBudget.user_id =  this.users[0].id
             this.productBudget.product_id=this.product.id
+            this.productBudget.budget_id =this.productBudget.id
             this.API.all('product/budgets').post(this.productBudget).then((response) => {
                 if(response.errors){
                     $log.debug(response)

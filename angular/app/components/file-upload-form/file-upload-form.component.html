@@ -1,0 +1,41 @@
+
+<!-- 1. Add, 2. Edit-->
+<div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">
+
+    <md-toolbar class="text-center" layout="row">
+        <div class="md-toolbar-tools">
+
+            <h2><b>{{vm.result.titulo}}</b></h2>
+        </div>
+        <md-icon layout-margin flex-aling="end center" md-font-icon="ion-close-round" aria-label="description" ng-click="vm.cancel()"></md-icon>
+    </md-toolbar>
+    <md-content class="text-center">
+        <div class="file-upload">
+              <h4>Cargar Fuente de Verificación</h4>
+
+              <button type="file" ngf-select="vm.uploadFiles($file, $invalidFiles)"
+                      accept="*" ngf-max-height="2000" ngf-max-size="2MB">
+                  Seleccionar archivo</button>
+              <br><br>
+              Archivo:
+              <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                  <span class="progress" ng-show="f.progress >= 0">
+                      <div style="width:{{f.progress}}%"  
+                           ng-bind="f.progress + '%'"></div>
+                  </span>
+              </div>     
+              {{errorMsg}}
+        </div>
+        <div class="file-listing">
+            <div ng-click="vm.download_fuente();">
+                <md-icon class="ion-document-text"></md-icon> {{vm.result.fuente_file}}
+            </div>
+        </div>
+ 
+    </md-content>
+    <div class="demo-dialog-button" layout-align="center">
+        <md-button md-autofocus flex class="md-primary" ng-click="vm.cancel()">
+            Cancelar
+        </md-button>
+    </div>
+</div>

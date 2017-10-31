@@ -1,0 +1,50 @@
+  
+.gantt-row-milestone {
+    font-weight: bold;
+    vertical-align: middle;
+    color: white;
+}
+
+
+.color-task-1 .gantt-task-content {
+    background-color: #4cb54c;
+    color: white!important;    
+    //border-radius: 70px;
+    text-align: center;
+}
+
+.color-task-2 .gantt-task-content {
+	        background-color: yellow!important;
+	          //color: white!important;    
+	           //border-radius: 70px;
+	           text-align: center;
+}
+.color-task-3 .gantt-task-content {
+	background-color: #faa933;
+   color: white!important;    
+   //border-radius: 70px;
+       text-align: center;
+}
+
+.color-task-4 .gantt-task-content {
+    background-color: #d84c4c!important;
+    color: white!important;    
+    //border-radius: 70px;
+    text-align: center;
+}
+
+.cuadro{
+	width: 15px;
+	height: 15px;
+
+}
+
+.gantt-important-date{
+	border: 2px solid #000;
+    opacity: .6;
+}
+
+
+.gantt-column-name{
+    max-width: 100px;
+}

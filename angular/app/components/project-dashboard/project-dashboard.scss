@@ -16,9 +16,15 @@
 .project_dashboard .page p {
   line-height: 1.6rem; }
 
-  
-.gantt-row-milestone {
-    font-weight: bold;
-    vertical-align: middle;
-    color: white;
+
+@import url('http://fonts.googleapis.com/css?family=Rationale');
+/* this import should be first line in css file else add as <link> in html*/
+.widget-clock.blue-light .digital {
+  text-align: center;
 }
+.widget-clock.blue-light .time {
+  font-family: 'Rationale', sans-serif;
+  font-size: 1.5em;
+  color: #1da4eb;
+}
+    

@@ -11,4 +11,9 @@ class Wallet extends Model
     {
         return $this->belongsTo('App\Product', "product_id", "id");
     }
+
+    public function budgetproducts()
+    {
+        return $this->belongsTo('App\BudgetProduct', "budget_product_id", "id");
+    }
 }

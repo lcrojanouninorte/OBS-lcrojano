@@ -13,17 +13,29 @@
 
         <link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
 
+
+
+
     
 <!--Material Icons:-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <title>Paltaforma </title>
+
+
+    <title>Plataforma FFI </title>
+    <!-- DESARROLLADO POR LUIS ROJANO -->
+    <!-- @mail: lcrojano@gmail.com -->
+    <!-- @web: lcrojano.com -->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+ 
+
+
 </head>
 <body route-bodyclass class="sidebar-collapse">
     <div class="wrapper" >
@@ -31,5 +43,16 @@
         <div class="control-sidebar-bg"></div>
     </div>
     <script src="{!! elixir('js/final.js') !!}" async defer></script>
+     <!-- Mobile Date Picker-->
+
+
+ 
+ 
+
+    <script type='text/javascript' src="//unpkg.com/css-element-queries@^0.4.0/src/ElementQueries.js"></script>
+    <script type='text/javascript' src="//unpkg.com/css-element-queries@^0.4.0/src/ResizeSensor.js"></script>
+    
+   
+
 </body>
 </html>

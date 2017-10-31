@@ -17,6 +17,7 @@ class CreateResultsTable extends Migration
             $table->integer('project_id')->unsigned();
             $table->string('titulo');
             $table->string('indicador');
+            $table->string('indicador_file');
             $table->string('meta');
             $table->string('fuenteverificacion');
             $table->string('estado');

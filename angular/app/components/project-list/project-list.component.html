@@ -1,5 +1,12 @@
-<div layout="row" layout-wrap  layout-margin>
-<li ng-hide="vm.projects.length>0">Actualemte no ha creado proyectos, puede dar clic en + para agregar uno</li>
-<project-item class="fx-fade-up fx-stagger-245" project="project" ng-repeat="project in vm.projects" flex="100" flex-gt-sm="30" ></project-item>
-</div>
+<div layout="row" layout-wrap layout-margin layout-align="center ">
+    
+   
+  	<div ng-hide="vm.projects.length>0" class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-info"></i> No hay Proyectos!</h4> 
+            Actualmente no hay proyectos.
+    </div>
 
+
+    <project-item class="fx-fade-up fx-stagger-245" project="project" ng-repeat="project in vm.projects" flex="100" flex-gt-sm="30"></project-item>
+</div>

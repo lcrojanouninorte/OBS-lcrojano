@@ -4,6 +4,8 @@
 
 - Recordar que al actualizar, se debe volver a edita rel archivo .env y camviar las credenciales de la base de datos
 
+- AL cambiar las variables de entorno se debe reiniciar servidor!!!
+
 # Laravel Angular Admin
 Laravel + Angularjs + Bootstrap + AdminLTE binded by Gulp workflow Admin Dashboard Boilerplate.
 Plus Oauth and JWT authentication on the side.
