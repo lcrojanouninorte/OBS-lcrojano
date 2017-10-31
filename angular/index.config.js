@@ -1,9 +1,11 @@
+import {LocalizationConfig} from './config/localization.config';
 import { AclConfig } from './config/acl.config'
 import { RoutesConfig } from './config/routes.config'
 import { LoadingBarConfig } from './config/loading_bar.config'
 import { SatellizerConfig } from './config/satellizer.config'
 
 angular.module('app.config')
+	.config(LocalizationConfig)
   .config(AclConfig)
   .config(RoutesConfig)
   .config(LoadingBarConfig)

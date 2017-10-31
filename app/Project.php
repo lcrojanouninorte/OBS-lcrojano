@@ -19,4 +19,8 @@ class Project extends Model
     {
         return $this->hasManyThrough('App\Product', 'App\Result');
     }
+    public function milestones()
+    {
+        return $this->hasMany(Milestone::class);
+    }
 }

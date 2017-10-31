@@ -17,7 +17,7 @@ class UserProjectsController {
       this.selectedMode = 'md-fling';
 
       this.availableDirections = ['up', 'down', 'left', 'right'];
-      this.selectedDirection = 'down';
+      this.selectedDirection = 'left'
 
 
     }
@@ -35,7 +35,7 @@ class UserProjectsController {
             templateUrl: 'addempresario.html',
             controller: this.modalcontroller,
             controllerAs: 'mvm',
-            size: 'lg'
+            size: 'sm'
         })
     }
 

@@ -1,0 +1,14 @@
+
+<md-content layout-margin layout-wrap layout-padding layout="column" layout-align="center">
+	<h2>Hitos</h2>
+	<div layout="column" >
+	    <div ng-repeat="milestone in vm.milestonesList" layout="row" layout-wrap layout-margin>
+
+	    	<p layout-wrap style="max-width: 300px;">{{milestone.titulo}}</p>
+	    	<p layout-wrap style="max-width: 300px;">{{milestone.mensaje}}</p>
+	    	<p>{{milestone.dias}}</p>
+	    	<p>{{milestone.fecha}}</p>
+	    </div>
+    </div>
+</md-content>
+

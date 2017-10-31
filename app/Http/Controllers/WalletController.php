@@ -26,7 +26,7 @@ class WalletController extends Controller
             'desc' => 'required',
             'cantidad' => 'required',
             'product_id' => 'required',
-            'budget_id' => 'required',
+            'budget_product_id' => 'required',
             'user_id' => 'required',
         ]);
 
@@ -34,7 +34,7 @@ class WalletController extends Controller
         $wallet->desc = $request->input('desc');
         $wallet->cantidad = $request->input('cantidad');
         $wallet->product_id = $request->input('product_id');
-        $wallet->budget_id = $request->input('budget_id');
+        $wallet->budget_product_id = $request->input('budget_product_id');
         $wallet->user_id = $request->input('user_id');
 
         $wallet->save();
@@ -42,12 +42,20 @@ class WalletController extends Controller
     }
 
 
-    public function walletList($user_id, $product_id, $budget_id)
+    public function walletList($user_id, $product_id, $budget_product_id)
     {
-        $wallets = Wallet::where("user_id", $user_id)
+        $wallets = new \stdClass();
+        ;
+        $wallets_data = Wallet::where("user_id", $user_id)
                         ->where("product_id", $product_id)
-                        ->where("budget_id", $budget_id)
+                        ->where("budget_product_id", $budget_product_id)
                         ->get();
-        return response()->success(compact('wallets'));
+        $wallet_total = 0;
+        foreach ($wallets_data as $key => $wallet) {
+            $wallet_total+=$wallet->cantidad;
+        }
+        $wallets->total = $wallet_total;
+        $wallets->wallets= $wallets_data;
+        return response()->success($wallets);
     }
 }

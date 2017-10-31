@@ -15,7 +15,7 @@
 }
 
 .content-wrapper {
-	background-image: url(/img/bgflat.png);
+	background-image: url(http://eskipaper.com/images/blur-background-1.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -23,3 +23,11 @@
 .md-select-menu-container {
         z-index: 9999;
     }	
+
+ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Open Sans"!important;
+}
+body{
+	 font-family: "Open Sans";
+	 font-weight: "Regular";
+}

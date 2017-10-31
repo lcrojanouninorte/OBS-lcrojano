@@ -1,38 +1,63 @@
-<md-toolbar md-scroll-shrink >
-<div class="md-toolbar-tools">
-  <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>{{vm.project.titulo}} </h2>
-</div>
-</md-toolbar>
- 
-
-<div layout="column" layout-wrap >
-  <div layout=row>
-     
-      <div  ng-show="vm.can('delete.project')" class="lock-size" layout layout-margin layout-padding >
-        <md-button class="md-fab " aria-label="Eat cake" ng-click="vm.create_result();">
-          <md-icon md-font-icon="ion-plus-round"></md-icon>
+<md-toolbar md-scroll-shrink md-colors="{background: 'green'}" class="md-toolbar-tools md-whiteframe-1dp">
+    <div layout="row" layout-align="start center" class="md-toolbar-tools">
+        <md-button ui-sref="app.projects" md-colors="{background: 'lime'}" aria-label="Projects">
+            <i class="fa fa-chevron-left"></i>
+            Proyectos
         </md-button>
-      </div>
-
-    <div flex="80" layout-align="center">
-      <h3 class="text-center">RESULTADOS</h3>
+        <md-truncate> <i class="fa fa-line-chart"></i> {{vm.project.titulo}}</md-truncate>
+        <span flex></span>
     </div>
-  </div>
+</md-toolbar>
 
-
-  <div  ng-show="vm.results.length <= 0" layout="row" layout-padding layout-wrap layout-fill layout-align="center">
-    <md-content layout-padding layout-wrap>
-    <md-whiteframe class="md-whiteframe-1dp" layout layout-align="center center">
-    <span>Añade resultados a este proyecto!</span>
-    </md-whiteframe>
-  </div>
-  
-  </md-content>
-  <div layout="row" layout-wrap  >
-    <result-item   result="result"  flex-gt-md="45" flex="100"  ng-repeat="result in vm.results" layout-margin class="fx-fade-up fx-stagger-245"></result-item>
-    
-  </div>
-  
+<div layout="column" layout-wrap layout-align="center">
+    <md-card md-theme-watch flex-gt-md="80" flex="100" layout-align="center">
+        <md-card-title style="padding: 0px 11px 0px;">
+            <md-card-title-text>
+                <div layout="row" layout-align="right center" flex="100" layout-wrap>
+                    <div flex="100" flex-gt-md="80" layout="row" layout-align="end center">
+                        <span class="md-headline">Diagrama de Gantt </span>
+                        <div layout-align="right" ng-show="vm.can('delete.project')" class="lock-size" layout flex>
+                            <md-button md-colors="{background: 'blue'}" class="md-fab especial" aria-label="Eat cake" ng-click="vm.create_result();">
+                                <md-tooltip md-direction="top" md-visible="tooltipVisible">+ Resultado</md-tooltip>
+                                <md-icon md-font-icon="ion-plus-round"></md-icon>
+                            </md-button>
+                        </div>
+                    </div>
+                    <div flex="100" flex-gt-md="20" layout-align="center" layout-wrap>
+                        <ds-widget-clock theme="blue-light" show-digital digital-format="'EEE MMM d, hh:mm:ss a'"></ds-widget-clock>
+                    </div>
+                </div>
+                <!--  <span class="md-subhead">{{vm.project.title || ""}}</span>-->
+            </md-card-title-text>
+        </md-card-title>
+        <md-content layout="row">
+            <div flex>
+               <project-gantt></project-gantt>
+            </div>
+        </md-content>
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button>PDF</md-button>
+            <md-button>EMAIL</md-button>
+        </md-card-actions>
+    </md-card>
+    <div layout=row>
+        <div flex="100" layout-align="center">
+            <h3 class="text-center">RESULTADOS</h3>
+        </div>
+    </div>
+    <div ng-show="vm.results.length <= 0" layout="row" layout-fill layout-align="center center">
+         
+           <div ng-hide="vm.projects.length>0" class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-info"></i>No se han agregado resultados!</h4> 
+            Actualmente no hay resultados.
+            </div>
+            
+        
+    </div>
+    <div layout="row" layout-wrap layout-align="center center">
+        <result-item result="result" flex-gt-md="45" flex="100" ng-repeat="result in vm.results" layout-margin class="fx-fade-up fx-stagger-245"></result-item>
+    </div>
 </div>
 <!--
 <div class="project_dashboard" layout="row" layout-xs="column" >
@@ -47,20 +72,20 @@
 -->
 <!--Modal formulario de creación de proyecto!-->
 <script type="text/ng-template" id="myModalResult.html">
-<div role="dialog" aria-label="Eat me!" layout="column" layout-align="center" >
-  <md-toolbar>
-  <div class="md-toolbar-tools">
-    <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Crea Un Resultado! </h2>
-  </div>
-  </md-toolbar>
-  <div layout="column" layout-margin>
-    <p>Projecto: {{mvm.project_name}}</p>
-    <result-form closeparent="mvm.cancel()" flex></result-form>
-  </div>
-  <div layout="row" class="demo-dialog-button">
-    <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
-    Cancelar
-    </md-button>
-  </div>
-</div>
+    <div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">
+        <md-toolbar md-colors="{background: 'green'}">
+            <div class="md-toolbar-tools">
+                <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Crea Un Resultado! </h2>
+            </div>
+        </md-toolbar>
+        <div layout="column" layout-margin>
+            <p>Proyecto: {{mvm.project_name}}</p>
+            <result-form closeparent="mvm.cancel()" flex></result-form>
+        </div>
+        <div layout="row" class="demo-dialog-button">
+            <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
+                Cancelar
+            </md-button>
+        </div>
+    </div>
 </script>

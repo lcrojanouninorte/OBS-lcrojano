@@ -9,12 +9,14 @@ class EmpresarioFormController{
 
      
     this.formSubmitted = false
+    this.registerForm
     this.errors = []
   }
 
   $onInit () {
     this.name = ''
     this.email = ''
+    this.type=''
     
   }
 
@@ -23,16 +25,17 @@ class EmpresarioFormController{
       var user = {
         name: this.name,
         email: this.email,
+        type: this.type,
 
       }
-        this.API.all('empresarios').post(user).then((response) => {
+        this.API.all('users/add/custom').post(user).then((response) => {
             if(response.errors){
                 swal(response.message, '', 'error')
                 $log.debug(response);
-                 this.closeparent();
+                //this.closeparent();
             }else{
                 this.$state.reload()
-                swal('Empresario creado con exito!', '', 'success')
+                swal('Usuario creado con exito!', '', 'success')
 
                 this.closeparent();
                 $log.debug(response);
@@ -47,11 +50,11 @@ class EmpresarioFormController{
   }
 
   failedRegistration (response) {
-    if (response.status === 422) {
+    if (response.status != 200) {
       for (var error in response.data.errors) {
         this.errors[error] = response.data.errors[error][0]
-        this.$scope.registerForm[error].$invalid = true
-        this.closeparent();
+        this.registerForm[error].$invalid = true
+        //this.closeparent();
       }
     }
   }

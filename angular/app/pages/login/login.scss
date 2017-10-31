@@ -2,3 +2,20 @@
     margin-top: 80px;
     margin-bottom: 80px;
 }
+
+.login-page {
+	background: url(https://wallpaperscraft.com/image/green_light_spot_73367_2560x1440.jpg);
+	 background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.login-box-body{
+	border-radius: 5px!important;
+}
+.btn.btn-flat, select, html, textarea, input {
+    /* font-family: Roboto, "Helvetica Neue", sans-serif; */
+    font-family: "Open Sans"!important;
+    font-size: 16px!important;
+    border-radius: 5px!important;
+}

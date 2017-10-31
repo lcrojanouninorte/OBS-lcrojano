@@ -1,50 +1,107 @@
-
 <!-- 1. Add, 2. Edit-->
 <div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">
-
-    <md-toolbar class="text-center" layout="row">
+    <md-toolbar md-colors="{background: 'green'}"  class="text-center" layout="row">
         <div class="md-toolbar-tools">
-
             <h2><b>{{vm.product.desc}}</b></h2>
         </div>
         <md-icon layout-margin flex-aling="end center" md-font-icon="ion-close-round" aria-label="description" ng-click="vm.cancel()"></md-icon>
     </md-toolbar>
     <md-content class="text-center">
         <h1>{{vm.productBudget.budget_title }}</h1>
-
         <wizard hide-indicators="vm.isEditing()" on-finish="vm.finishedWizard()" on-cancel="vm.cancelledWizard()" indicators-position="top">
+            <!--Seleccionar Rubro General -->
+            <!--filter: si esta editando, solo muetra los rubros que pertenecen al producto-->
+            <!--pbudget: variable doble binding que contendra el rubro seleccionado-->
+            <!--desc: variable boleana para mostrar listado de desc rubros y no solo los rubros generales.-->
+          
             <wz-step wz-title="Selecciona">
-                <p>Escoja el rubro</p>
-                   
-                <budget-list wz-next value="Continue" product="vm.product" pbudget="vm.productBudget" filter="vm.isEditing()"></budget-list>
-                <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar
-                    <md-icon md-font-icon="ion-chevron-right" aria-label="description"></md-icon>
-                </md-button>
+                <h2>Escoja el rubro</h2>
+                <div>
+                    <h5 class="text-success">Ejecutado {{vm.product.product_wallet_total || 0 | currency}}
+                    de {{vm.product.budgets_total || 0 | currency}}</h5>
+                </div>
+
+                <!--Elejir productBudget-->
+                <budget-list 
+                    wz-next 
+                    value="Continue" 
+                    product="vm.product" 
+                    pbudget="vm.productBudget" 
+                    filter="vm.isEditing()"
+                >
+                </budget-list>
+               
             </wz-step>
-            
-            <!--Añadiendo rubro-->
+
+            <!--:::Habilitado Si esta Añadiendo rubros:::-->
+                    <!--  Formulario para añadir un rubro seleccionado al producto-->
             <wz-step wz-title="Entidad 1" wz-disabled="{{vm.isEditing()}}">
+                 
 
                 <budget-form pbudget="vm.productBudget"></budget-form>
 
-                <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar
+                <md-button   class="md-raised md-primary" wz-previous value="Previous">Atras
+                            <md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>
+                        </md-button>
+                <md-button ng-disabled="vm.productBudget.$invalid" type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar
                     <md-icon md-font-icon="ion-chevron-right" aria-label="description"></md-icon>
                 </md-button>
             </wz-step>
-            
-            <!--Editando rubro-->
-            <wz-step wz-title="Gastos" wz-disabled="{{vm.isAdding()}}">
-                
-                <div layout="column">
-                
-                    <budget-wallet  user-id="vm.users[0].id" product-id="vm.product.id" budget-id="vm.productBudget.budget_id"></budget-wallet>
 
-                </div>
+            <!--:::::Habilitado Si esta Editando gastos del rubro::::-->
+                    <!--  Paso 2: Mostrar y seleccionar Descripciones de rubros-->
+
+            <wz-step wz-title="Escojer Desc" wz-disabled="{{vm.isAdding()}}">
+                <div layout="column">
+                    <h3>Escoja la Descripción del rubro</h3>
+
                    
+                    <br>
+    <!--TODO cambiar por variable descripcion-->
+                    <!--//Se muestra solo si ya se ha seleccionado el rubro general-->
+                    <!--//filter: muestra solo los elementos que tienen valor,
+                        Desc: lista cada rubro descripcion, si es falso, solo muestra rubros a nivel general
+                    -->
+
+                    <!--verificar si ya elejimos productBudget en el paso anterior-->
+                    <budget-list 
+                        wz-next 
+                        value="Continue" 
+                        product="vm.product" 
+                        pbudget="vm.productBudget" 
+                        filter="vm.isEditing()" 
+                        desc="true"
+                        ng-if="vm.productBudget.id" 
+                    >
+
+                    </budget-list>
+                    <div layout="row" layout-align="center center">
+                        <md-button type="submit" class="md-raised md-primary" wz-previous value="Previous">Atras
+                            <md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>
+                        </md-button>
+                         
+                    </div>
+                    
+                </div>
             </wz-step>
+
+                    <!--  PAso 3: Formulario monedero para ñadir gastos a un Desc Rubro seleccionado-->
+            <wz-step wz-title="Gastos" wz-disabled="{{vm.isAdding()}}">
+                <div layout="column">
  
+
+                    <budget-wallet 
+                    user-id="vm.users[0].id" 
+                    product-id="vm.product.id" 
+                    pbudget="vm.productBudget"
+                    ></budget-wallet>
+                </div>
+                 <md-button   class="md-raised md-primary" wz-previous value="Previous">Atras
+                            <md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>
+                        </md-button>
+            </wz-step>
+
             <wz-step wz-title="Finaliza" wz-disabled="{{vm.isEditing()}}">
-             
                 <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Finalizar
                     <md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon>
                 </md-button>

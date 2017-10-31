@@ -1,82 +1,78 @@
-<div layout="row" layout-xs="column">
-  <div flex-xs="100" flex-gt-xs="10">
+    <md-toolbar  md-colors="{background: 'green'}" class="md-toolbar-tools md-whiteframe-1dp">
+ 
+        <div class="md-toolbar-tools">
+         
 
-   <div class="lock-size" layout="row" layout-align="center center">
-       <!--<md-button class="md-fab" aria-label="Eat cake" ng-click="vm.create_project();">
-            <md-icon md-font-icon="ion-plus-round"></md-icon>
-        </md-button>-->
-        <md-fab-speed-dial ng-show="vm.can('edit.project')" md-open="vm.isOpen" md-direction="{{vm.selectedDirection}}"
-                         ng-class="vm.selectedMode">
-        <md-fab-trigger>
-          <md-button aria-label="menu" class="md-fab md-warn">
-            <md-icon md-font-icon="ion-plus-round"></md-icon>
-          </md-button>
-        </md-fab-trigger>
+        <md-truncate> <i class="fa fa-line-chart"></i> Mis Proyectos</md-truncate>
 
-        <md-fab-actions>
-          <md-button aria-label="Twitter" class="md-fab md-raised md-mini md-primary " ng-click="vm.create_project();">
-            <md-tooltip md-direction="top" md-visible="tooltipVisible">+ Proyecto</md-tooltip>
-            <md-icon class="step img" md-font-icon="ion-stats-bars" aria-label="description"></md-icon>
-          </md-button>
-          <md-button aria-label="person" class="md-fab md-raised md-mini md-primary" ng-click="vm.create_empresario();">
-            <md-tooltip md-direction="top" md-visible="tooltipVisible">+ Empresario</md-tooltip>
-            <md-icon class="step img" md-font-icon="ion-person-add" aria-label="description"></md-icon>
-          </md-button>
-          
-        </md-fab-actions>
-      </md-fab-speed-dial>
+        <span flex></span>
+       
+
+        <div layout="row" layout-xs="column">
+    <div flex="10" layout-padding layout-aling="left center">
+        <div class="lock-size" layout="row" layout-align="center center">
+            <md-fab-speed-dial ng-show="vm.can('edit.project')" md-open="vm.isOpen" md-direction="{{vm.selectedDirection}}" ng-class="vm.selectedMode">
+                <md-fab-trigger>
+                    <md-button aria-label="menu" class="md-fab" md-colors="{background: 'light-green'}">
+                        <md-icon md-font-icon="ion-plus-round"></md-icon>
+                    </md-button>
+                </md-fab-trigger>
+                <md-fab-actions>
+                    <md-button md-colors="{background: 'blue'}" aria-label="Twitter" class="md-fab md-raised md-mini md-primary " ng-click="vm.create_project();">
+                        <md-tooltip md-direction="top" md-visible="tooltipVisible">+ Proyecto</md-tooltip>
+                        <md-icon class="step img" md-font-icon="ion-stats-bars" aria-label="description"></md-icon>
+                    </md-button>
+                    <md-button md-colors="{background: 'blue'}" aria-label="person" class="md-fab md-raised md-mini md-primary" ng-click="vm.create_empresario();">
+                        <md-tooltip md-direction="top" md-visible="tooltipVisible">+ Empresario/Asesor</md-tooltip>
+                        <md-icon class="step img" md-font-icon="ion-person-add" aria-label="description"></md-icon>
+                    </md-button>
+                </md-fab-actions>
+            </md-fab-speed-dial>
+        </div>
     </div>
-  </div>
+</div>
+         
+      </div>
+    </md-toolbar>
+<div layout="column">
 
-  <div flex-xs="100" flex-gt-xs="90">
 
-  <project-list ></project-list>
 
-  </div>
+<div  layout layout="center">
+        <project-list flex></project-list>
 </div>
 
+  
+</div>
 <!--Modal formulario de creación de proyecto!-->
 <script type="text/ng-template" id="myModalContent.html">
-<div role="dialog" aria-label="Eat me!" layout="column" layout-align="center" >
-  <md-toolbar>
-    <div class="md-toolbar-tools">
-      <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Crea Un proyecto!</h2>
+    <div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Crea Un proyecto!</h2>
+            </div>
+        </md-toolbar>
+        <project-form closeparent="mvm.cancel()"></project-form>
+        <div layout="row" class="demo-dialog-button">
+            <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
+                Cancelar
+            </md-button>
+        </div>
     </div>
-  </md-toolbar>
-
-  <project-form closeparent="mvm.cancel()"></project-form>
-
-  <div layout="row" class="demo-dialog-button">
-    <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
-      Cancelar
-    </md-button>
-  </div>
-</div>
-
 </script>
-
-
 <!--Modal formulario de creación de usuarip!-->
 <script type="text/ng-template" id="addempresario.html">
-<div role="dialog" aria-label="Eat me!" layout="column" layout-align="center" >
-  <md-toolbar>
-    <div class="md-toolbar-tools">
-      <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Añade un empresario!</h2>
+    <div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">
+        <md-toolbar md-colors="{background: 'green'}">
+            <div class="md-toolbar-tools">
+                <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Añade un empresario o un asesor!</h2>
+            </div>
+        </md-toolbar>
+        <empresario-form closeparent="mvm.cancel()"></empresario-form>
+        <div layout="row" class="demo-dialog-button">
+            <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
+                Cancelar
+            </md-button>
+        </div>
     </div>
-  </md-toolbar>
-
-  <empresario-form closeparent="mvm.cancel()"></empresario-form>
-
-  <div layout="row" class="demo-dialog-button">
-    <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
-      Cancelar
-    </md-button>
-  </div>
-</div>
-
 </script>
-
-
-
-
-

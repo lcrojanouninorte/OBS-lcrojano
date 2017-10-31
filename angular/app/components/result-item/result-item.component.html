@@ -1,3 +1,4 @@
+
 <md-card class="box box-success md-whiteframe-2dp" layout="column">
     <md-card-header style="padding-bottom: 0px!important;">
         <md-card-avatar>
@@ -15,11 +16,14 @@
             <span class="md-subhead">{{vm.result.total | currency}}</span>
         </md-card-header-text>
         <md-menu>
+            <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="vm.openMenu($mdMenu, $event)">
+                  <md-icon md-menu-origin md-font-icon="ion-plus-round"></md-icon>
+              </md-button>
             <md-menu-content layout="row">
                 <div layout-align="right" class="text-center">
                     <div>Asesor</div>
                     <md-checkbox class="result-color-{{vm.result.checkAsesor}}" aria-label="Checkbox 1" ng-model="vm.result.checkAsesor" ng-change="vm.update()" ng-true-value="1" ng-false-value="0" ng-disabled="vm.hasRole('empresario')">
-                        {{vm.result.checkAsesor ? 'Aprobado' : 'No Aprobado' }}
+                        {{vm.result.checkAsesor ? 'Verificado' : 'No Verificado' }}
                     </md-checkbox>
                 </div>
                 <div style="margin-left: 10px;"> </div>
@@ -36,9 +40,9 @@
     </md-card-header>
     <div class="text-right ">
         Opciones:
-        <md-button class="md-icon-button " aria-label="upload ">
+        <md-button class="md-icon-button " aria-label="upload " ng-click="vm.upload_modal();">
             <md-tooltip md-direction="top">Subir Fuente de Verificación</md-tooltip>
-            <md-icon md-font-icon="ion-paperclip "></md-icon>
+            <md-icon md-font-icon="ion-paperclip " ></md-icon>
         </md-button>
         <md-button ng-show="vm.can( 'edit.project') " class="md-icon-button " aria-label="edit ">
             <md-tooltip md-direction="top">Editar</md-tooltip>
@@ -64,3 +68,11 @@
         </div>
     </md-card-actions>
 </md-card>
+
+
+<!--Modal formulario de creación de proyecto!-->
+<script type="text/ng-template" id="UploadModal.html">
+
+<file-upload-form result="mvm.result" cancel="mvm.cancel()"></file-upload-form>
+
+</script>

@@ -12,7 +12,10 @@
         "laravelangular/generators": "2.7.x",
         "dingo/api": "1.0.0-beta5@dev",
         "laravel/socialite": "^2.0",
-        "bican/roles": "2.1.*"
+        "bican/roles": "2.1.*",
+        "spatie/flysystem-dropbox": "^1.0",
+        "laravel-notification-channels/backport": "^1.0",
+        "barryvdh/laravel-snappy": "^0.4.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

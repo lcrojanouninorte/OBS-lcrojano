@@ -11,8 +11,8 @@ class BudgetItemController{
     }
 
     select_budget(){
-        this.pbudget.budget_id = this.budget.id;
-        this.pbudget.budget_title = this.budget.titulo;
+        this.pbudget = this.budget;
+
     }
 }
 

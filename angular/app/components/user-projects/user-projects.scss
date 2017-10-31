@@ -20,23 +20,23 @@
   font-size: 14px;
   opacity: 0.54; }
 
-.md-fab {
+/*.md-fab.especial {
   top: auto;
   right: 20px;
   bottom: 20px;
   left: auto;
   position: fixed;
-}
+}*/
 
 
 
   @media only screen and (min-width: 768px) {
     /* For desktop: */
-    .md-fab {
+    /*.md-fab {
       top: auto;
-      /*right: 20px;*/
-       /*bottom: 20px;*/
+      right: auto;
+      bottom: auto;
       left: auto;
       position: relative;
-    }
+    }*/
 }

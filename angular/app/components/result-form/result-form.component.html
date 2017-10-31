@@ -1,21 +1,20 @@
-<div layout="column" >
+<div layout="column">
     <form name="resultForm">
-        <wizard  indicators-position="top" on-finish="vm.finishedWizard(resultForm)" on-cancel="cancelledWizard()" hide-indicators="false">
-            <wz-step  description="asdasdasdasd" wz-title="Resultado" canexit="vm.exitValidation(resultForm.titulo.$error)">
-                <h3 class="text-center">{{vm.userData.name}}, dinos el titulo del Resultado</h3>
-                <p>Un resultado es un objetivo especifico</p>
-                 
-                  
+        <wizard indicators-position="top" on-finish="vm.finishedWizard(resultForm)" on-cancel="cancelledWizard()" hide-indicators="false">
+            <wz-step description="asdasdasdasd" wz-title="Resultado" canexit="vm.exitValidation(resultForm.titulo.$error)">
+                <h3 class="text-center">{{vm.userData.name}}, escribe el titulo del Resultado</h3>
+                <p>Tip: Un resultado es un objetivo especifico</p>
                 <md-input-container class="md-icon-float md-block">
                     <!-- Use floating label instead of placeholder -->
                     <label>Titulo</label>
                     <md-icon md-font-icon="ion-ios-heart-outline" class="title"></md-icon>
-                    <input name="titulo" ng-model="vm.result.titulo" type="text" ng-required="true">
+                    <textarea name="titulo" ng-model="vm.result.titulo" type="text" ng-required="true" rows="5" md-select-on-focus></textarea>
+
+                    
                     <div ng-messages="resultForm.titulo.$error">
                         <div ng-message="required">Este campo es obligatorio.</div>
                     </div>
                 </md-input-container>
-                 
                 <div class="text-center">
                     <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar</md-button>
                 </div>
@@ -26,13 +25,13 @@
                     <!-- Use floating label instead of placeholder -->
                     <label>Indicador</label>
                     <md-icon md-font-icon="ion-ios-heart-outline" class="title"></md-icon>
-                    <input name="indicador" ng-model="vm.result.indicador" type="text" ng-required="true">
+                     
+                    <textarea name="indicador" ng-model="vm.result.indicador" type="text" ng-required="true" type="text" ng-required="true" rows="5" md-select-on-focus></textarea>
                     <div ng-messages="resultForm.indicador.$error">
                         <div ng-message="required">Este campo es obligatorio.</div>
                     </div>
                 </md-input-container>
-
-               <div class="text-center">
+                <div class="text-center">
                     <md-button type="submit" class="md-raised md-primary" wz-previous value="previus">
                         <md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>Atras</md-button>
                     <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar
@@ -42,12 +41,13 @@
             </wz-step>
             <wz-step wz-title="Fuente" canexit="vm.exitValidation(resultForm.fuenteverificacion.$error)">
                 <h3 class="text-center">Como puedes verificar este resultado?</h3>
-                <p>una descripcion breve es un resumen bla bla</p>
+                <p>Tip: escribe una descripción breve </p>
                 <md-input-container class="md-icon-float md-block">
                     <!-- Use floating label instead of placeholder -->
                     <label>Fuente de verificación</label>
                     <md-icon md-font-icon="ion-ios-heart-outline" class="title"></md-icon>
-                    <input name="fuenteverificacion" layout-align="center" ng-model="vm.result.fuenteverificacion" type="text" ng-required="true">
+                     
+                     <textarea name="fuenteverificacion" layout-align="center" ng-model="vm.result.fuenteverificacion" type="text" ng-required="true"   rows="5" md-select-on-focus></textarea>
                 </md-input-container>
                 <div class="text-center">
                     <md-button type="submit" class="md-raised md-primary" wz-previous value="previus">
@@ -59,13 +59,14 @@
             </wz-step>
             <wz-step wz-title="Meta" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
                 <h3 class="text-center">Cual es la meta de este resultado? </h3>
-                <p class="text-center" >Teniendo en cuenta que tu indicador es "<span>{{vm.result.indicador}}</span>"</p>
-                <p  class="text-center">Cual es la meta que esperas alcanzar para este resultado?</p>
+                <p class="text-center">Teniendo en cuenta que tu indicador es "<span>{{vm.result.indicador}}</span>"</p>
+                <p class="text-center">Cual es la meta que esperas alcanzar para este resultado?</p>
                 <md-input-container class="md-icon-float md-block">
                     <!-- Use floating label instead of placeholder -->
                     <label>Meta</label>
                     <md-icon md-font-icon="ion-ios-heart-outline" class="title"></md-icon>
-                    <input name="meta" layout-align="center" ng-model="vm.result.meta" type="text" ng-required="true">
+                
+                     <textarea name="meta" layout-align="center" ng-model="vm.result.meta"type="text" ng-required="true"   rows="5" md-select-on-focus></textarea>
                 </md-input-container>
                 <div class="text-center">
                     <md-button type="submit" class="md-raised md-primary" wz-previous value="previus">
@@ -80,18 +81,16 @@
                 <p>Resultado: {{vm.result.titulo}} </p>
                 <input date-range-picker options="vm.options" class="form-control date-picker" type="text" ng-model="vm.result.fecha_inicio" />
                 <div class="text-center">
-                <md-button type="submit" class="md-raised md-primary" wz-previous value="previus">
+                    <md-button type="submit" class="md-raised md-primary" wz-previous value="previus">
                         <md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>Atras</md-button>
                     <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar
                         <md-icon md-font-icon="ion-chevron-right" aria-label="description"></md-icon>
                     </md-button>
-                    
                 </div>
             </wz-step>
             <wz-step wz-title="Fin" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
-                <h3 class="text-center">Excelente! da clic en crear proyecto para finalizar</h3>
+                <h3 class="text-center">Excelente! da clic en crear para finalizar</h3>
                 <div class="text-center">
-                    
                     <md-button type="submit" class="md-raised md-primary" wz-previous value="previus">
                         <md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>Atras</md-button>
                     <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Crear Resultado
@@ -100,6 +99,5 @@
                 </div>
             </wz-step>
         </wizard>
-        
     </form>
 </div>

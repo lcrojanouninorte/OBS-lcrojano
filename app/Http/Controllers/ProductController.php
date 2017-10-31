@@ -67,7 +67,7 @@ class ProductController extends Controller
         $product = Product::find($product_id);
         
         if ($current_user->is('asesor')) {
-            $product->checkAsesor = $request->input('checkAsesor');
+            $product->checkAsesor = $request->input('checkEmpresario');
         } else {
             if ($current_user->is('empresario')) {
                 $product->checkEmpresario = $request->input('checkEmpresario');

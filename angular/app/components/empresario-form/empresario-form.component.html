@@ -29,10 +29,31 @@
     <p ng-show="vm.registerForm.email.$error.email && vm.registerForm.email.$touched" class="help-block">No es un email valido</p>
   </div>
   
+  <div layout="column"  class="form-group has-feedback" ng-class="{ 'has-error': vm.registerForm.type.$invalid && ( vm.formSubmitted || vm.registerForm.email.$touched) }">
+    <md-input-container  flex>
+      <label>Tipo</label>
+      <md-select name="type"  ng-model="vm.type" required>
+        <md-option value="empresario">Empresario</md-option>
+        <md-option value="asesor">Asesor</md-option>
+      </md-select>
+    </md-input-container>
+     
+
+    <span class="fa  fa-users form-control-feedback"></span>
+    
+    <p ng-show="vm.registerForm.type.$invalid && (vm.formSubmitted || vm.errors.email)" class="help-block">{{vm.errors.type}}</p>
+    <p ng-show="vm.registerForm.type.$error.required && ( vm.formSubmitted || vm.registerForm.type.$touched)" class="help-block">Se requiere Tipo</p>
+ 
+  </div>
+  
   
   <div class="row">
     <div class="col-xs-12">
-      <button type="submit" class="btn btn-primary btn-block btn-flat">Agregar Empresario</button>
+      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+        <md-button  md-colors="{background: 'green'}" type="submit">Agregar</md-button>
+       
+      </section>
+     
     </div>
   </div>
 </form>

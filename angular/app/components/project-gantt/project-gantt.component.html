@@ -1,0 +1,113 @@
+
+<div layout="column">
+<div class=" text-left" layout="row" layout-align="left center" layout-wrap style="margin-top: 5px;">
+    <div>
+        <a ui-sref="app.products({projectId: vm.id, date:vm.today})" class="btn btn-app">
+            <span ng-if="vm.project.delayed_products_count" class="badge bg-red">{{vm.project.delayed_products_count}}</span>
+            <i class="fa  fa-info"></i>Prod. Atrasados
+        </a>
+        <a ng-click="vm.milestones_open('')" class="btn btn-app">
+             <span class="badge badge-blue"></span>
+            <i class="fa fa-calendar-plus-o"></i> Hitos
+        </a>
+        <a ng-click="vm.milestones_open('delayed')" class="btn btn-app">
+            <span ng-if="vm.project.alerta_milestiones" class="badge bg-light-blue">{{vm.project.alerta_milestiones}}</span>
+            <i class="fa fa-bullhorn"></i> Prox. Hitos
+        </a>
+    </div>
+</div>
+
+    <div layout="row" layout-padding layout-aling="end center" layout-wrap>
+ 
+        <md-input-container style="margin-bottom:0;">
+            <label class="control-label"><i class="fa fa-search"></i>Escala</label>
+            <md-select ng-model="vm.options.scale">
+                <md-option value="day"><em>Dia</em></md-option>
+                <md-option value="week"><em>Semana</em></md-option>
+                <md-option value="month"><em>Mes</em></md-option>
+                <md-option value="year"><em>Año</em></md-option>
+            </md-select>
+        </md-input-container>
+        <div layout="row" layout-padding layout-aling="end center">
+        <div layout="row" >
+            <div class="cuadro color-3">
+            </div>
+            <div>
+                No Iniciado
+            </div>
+        </div>
+        <div layout="row" >
+            <div class="cuadro color-2 ">
+            </div>
+            <div>
+                En Ejecución
+            </div>
+        </div>
+        <div layout="row">
+            <div class="cuadro color-1">
+            </div>
+            <div>
+                Finalizado
+            </div>
+        </div>
+        <div layout="row">
+            <div class="cuadro color-4">
+            </div>
+            <div>
+                Atrasado
+            </div>
+        </div>
+        </div>
+
+        <div>
+            
+        </div>
+ 
+    </div>
+
+
+    <div flex api="registerApi" 
+    gantt data="data" 
+    view-scale="vm.options.scale" 
+    current-date="vm.options.currentDate"  
+    daily="vm.options.daily" 
+    auto-expand="vm.options.autoExpand" 
+    max-height="0" 
+    column-width="vm.getColumnWidth(vm.options.width, vm.options.scale, vm.options.zoom)" 
+    daily="vm.options.daily" 
+    time-frames="vm.timeFrames" 
+    date-frames="vm.dateFrames" 
+    side-min-width="250" 
+    side-width="250" 
+    task-content="vm.options.taskContent"
+    row-content="vm.options.rowContent"
+
+    >
+        <gantt-tree headers="vm.options.columnsHeaders" enabled="vm.options.sideMode === 'Tree' || vm.options.sideMode === 'TreeTable'" header-content="vm.options.treeHeaderContent" keep-ancestor-on-filter-row="true" expand-to-fit >
+        </gantt-tree>
+        <gantt-table 
+            columns="vm.options.treeTableColumns" 
+            headers="vm.options.columnsHeaders" 
+            contents="vm.options.columnsContents" 
+            header-contents="vm.options.columnsHeaderContents"
+            formatters="vm.options.formatters"
+           >
+        </gantt-table>
+        <gantt-groups></gantt-groups>
+        <gantt-tooltips></gantt-tooltips>
+        <gantt-bounds></gantt-bounds>
+        <gantt-progress></gantt-progress>
+        <!--<gantt-sortable></gantt-sortable>-->
+        <!--<gantt-movable enabled="vm.options.readOnly"></gantt-movable>-->
+        <!--<gantt-draw-task></gantt-draw-task>-->
+        <gantt-resize-sensor></gantt-resize-sensor>
+        <gantt-overlap></gantt-overlap>
+        <gantt-dependencies read-only="true"></gantt-dependencies>
+    </div>
+</div>
+<!--Modal formulario de creación de proyecto!-->
+<script type="text/ng-template" id="MilestonesModal.html">
+
+<milestones-dashboard mode="mvm.mode" cancel="mvm.cancel()"></milestones-dashboard>
+
+</script>

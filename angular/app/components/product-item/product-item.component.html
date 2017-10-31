@@ -7,7 +7,7 @@
         {{vm.product.fecha_inicio}} al {{vm.product.fecha_fin}}
         </i>
         <span>
-            <b>{{vm.product.product_wallet_total | currency}} / {{vm.product.total | currency}} </b>
+            <b>{{vm.product.product_wallet_total | currency}} / {{vm.product.budgets_total | currency}} </b>
         </span>
     </div>
     <div layout="row" flex>
@@ -21,10 +21,10 @@
         -->
         <div layout="column" flex>
 
-            <p class="text-center">Actualizado: {{vm.product.updated_at|json}}</p>
+            <p class="text-center">Actualizado: {{vm.product.updated_at}}</p>
             <div layout="row">
                 <div flex="90">
-                 <md-select  ng-disabled="vm.hasRole('asesor')" class="color-{{vm.product.checkEmpresario}}" ng-model="vm.product.checkEmpresario" ng-change="vm.update()">
+                 <md-select aria-label="select-check" ng-disabled="vm.hasRole('asesor')" class="color-{{vm.product.checkEmpresario}}" ng-model="vm.product.checkEmpresario" ng-change="vm.update()">
             <md-option class="{{state.color}}" ng-repeat="state in vm.statesEmpresario" ng-value="state.value" >
             {{state.name}}
 
@@ -59,7 +59,7 @@
         <md-icon md-font-icon="ion-social-usd " style="font-size:14px"></md-icon>
     </md-button>
     <md-button  class="md-icon-button md-mini md-primary" aria-label="Play" ng-click="vm.product_budget_open(vm.id, 2)" style="font-size:12px">
-        <md-tooltip md-direction="top"></md-tooltip>
+        <md-tooltip md-direction="top">Gastos</md-tooltip>
         <md-icon md-font-icon="ion-calculator" style="font-size:14px"></md-icon>
     </md-button>
     <md-button ng-show="vm.hasRole('asesor')" class="md-icon-button md-mini md-primary" aria-label="Play">
@@ -83,7 +83,7 @@
 <!-- aañdir producto acordeon-->
 <div class="products-list fx-fade-normal fx-ease-in-quad" ng-show="vm.view_products"  >
     <md-divider></md-divider>
-<actividades-list show="vm.view_products"></actividades-list>
+<!--<actividades-list show="vm.view_products"></actividades-list>-->
 </div>
 <md-divider></md-divider>
 <!--Modal formulario de creación de proyecto!-->
