@@ -23,4 +23,8 @@ class Project extends Model
     {
         return $this->hasMany(Milestone::class);
     }
+    public function projectsuser()
+    {
+        return $this->hasMany(ProjectUser::class);
+    }
 }
