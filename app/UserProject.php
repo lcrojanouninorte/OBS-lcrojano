@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProjectUser extends Model
+class UserProject extends Model
 {
     protected $table = 'project_user';
     //
