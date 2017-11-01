@@ -13,7 +13,7 @@ class ChangePivotUserProjectName extends Migration
     public function up()
     {
         //
-        Schema::rename('user_project', 'project_user');
+        //Schema::rename('user_project', 'project_user');
     }
 
     /**
