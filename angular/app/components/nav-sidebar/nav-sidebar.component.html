@@ -31,12 +31,8 @@
           <i class="fa fa-dashboard"></i> <span>Proyectos</span>
         </a>
       </li>
-      <li  ng-show="vm.can('manage.roles')">
-        <a ui-sref='app.kickstarter'>
-          <i class="fa fa-dashboard"></i> <span>Kickstarter</span>
-        </a>
-      </li>
-      <li ng-show="vm.can('manage.roles')">
+
+      <li ng-show="vm.can('view.draft')">
         <a ui-sref='app.landing'>
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
         </a>
@@ -44,22 +40,22 @@
   
       <li class="treeview" ng-show="vm.can('manage.users')">
         <a href="javascript:void(0)">
-          <i class="fa fa-users"></i> <span>Users</span> <i class="fa fa-angle-left pull-right"></i>
+          <i class="fa fa-users"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li ng-show="vm.can('manage.users')" class="active"><a ui-sref='app.userlist'><i class="fa fa-circle-o"></i> <span>User List</span></a></li>
+          <li ng-show="vm.can('manage.users')" class="active"><a ui-sref='app.userlist'><i class="fa fa-circle-o"></i> <span>Lista de usuarios</span></a></li>
         </ul>
       </li>
       <li class="treeview" ng-show="vm.can('manage.roles') || vm.can('manage.permissions')">
         <a href="javascript:void(0)">
-          <i class="fa fa-cog"></i> <span>Settings</span> <i class="fa fa-angle-left pull-right"></i>
+          <i class="fa fa-cog"></i> <span>Configuraciones</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li ng-show="vm.can('manage.roles')"><a ui-sref='app.userroles'><i class="fa fa-circle-o"></i> <span>User Roles</span></a></li>
-          <li ng-show="vm.can('manage.permissions')"><a ui-sref='app.userpermissions'><i class="fa fa-circle-o"></i> <span>User Permissions</span></a></li>
+          <li ng-show="vm.can('manage.roles')"><a ui-sref='app.userroles'><i class="fa fa-circle-o"></i> <span>Roles</span></a></li>
+          <li ng-show="vm.can('manage.permissions')"><a ui-sref='app.userpermissions'><i class="fa fa-circle-o"></i> <span>Permisos</span></a></li>
         </ul>
       </li>
-      <li class="treeview" ng-show="vm.can('manage.roles')">
+      <li class="treeview" ng-show="vm.can('view.draft')">
         <a href="javascript:void(0)">
           <i class="fa fa-files-o"></i>
           <span>Layout Options</span>
@@ -73,12 +69,12 @@
         </ul>
       </li>
       <li>
-        <a ui-sref="app.widgets" ng-show="vm.can('manage.roles')">
+        <a ui-sref="app.widgets" ng-show="vm.can('view.draft')">
           <i class="fa fa-th"></i> <span>Widgets</span>
           <small class="label pull-right bg-green">new</small>
         </a>
       </li>
-      <li class="treeview" ng-show="vm.can('manage.roles')">
+      <li class="treeview" ng-show="vm.can('view.draft')">
         <a href="javascript:void(0)">
           <i class="fa fa-pie-chart"></i>
           <span>Charts</span>
@@ -91,7 +87,12 @@
           <li><a ui-sref="app.comingsoon"><i class="fa fa-circle-o"></i> Inline charts</a></li>
         </ul>
       </li>
-      <li class="treeview" ng-show="vm.can('manage.roles')">
+      <li  ng-show="vm.can('manage.draft')">
+        <a ui-sref='app.kickstarter'>
+          <i class="fa fa-dashboard"></i> <span>Kickstarter</span>
+        </a>
+      </li>
+      <li class="treeview" ng-show="vm.can('view.draft')">
         <a href="javascript:void(0)">
           <i class="fa fa-laptop"></i>
           <span>UI Elements</span>
@@ -106,7 +107,7 @@
           <li><a ui-sref="app.uimodal"><i class="fa fa-circle-o"></i> Modals</a></li>
         </ul>
       </li>
-      <li class="treeview" ng-show="vm.can('manage.roles')">
+      <li class="treeview" ng-show="vm.can('view.draft')">
         <a href="javascript:void(0)">
           <i class="fa fa-edit"></i> <span>Forms</span>
           <i class="fa fa-angle-left pull-right"></i>
@@ -117,7 +118,7 @@
           <li><a ui-sref="app.comingsoon"><i class="fa fa-circle-o"></i> Editors</a></li>
         </ul>
       </li>
-      <li class="treeview" ng-show="vm.can('manage.roles')">
+      <li class="treeview" ng-show="vm.can('view.draft')">
         <a href="javascript:void(0)">
           <i class="fa fa-table"></i> <span>Tables</span>
           <i class="fa fa-angle-left pull-right"></i>
@@ -128,19 +129,19 @@
         </ul>
       </li>
       <li>
-        <a ui-sref="app.comingsoon" ng-show="vm.can('manage.roles')">
+        <a ui-sref="app.comingsoon" ng-show="vm.can('view.draft')">
           <i class="fa fa-calendar"></i> <span>Calendar</span>
           <small class="label pull-right bg-red">3</small>
         </a>
       </li>
       <li>
-        <a ui-sref="app.comingsoon" ng-show="vm.can('manage.roles')">
+        <a ui-sref="app.comingsoon" ng-show="vm.can('view.draft')">
           <i class="fa fa-envelope"></i> <span>Mailbox</span>
           <small class="label pull-right bg-yellow">12</small>
         </a>
       </li>
-      <li class="header" ng-show="vm.can('manage.roles')">LABELS</li>
-      <li class="treeview" ng-show="vm.can('manage.roles')">
+      <li class="header" ng-show="vm.can('view.drafts')">LABELS</li>
+      <li class="treeview" ng-show="vm.can('view.draft')">
         <a href="javascript:void(0)">
           <i class="fa fa-folder"></i> <span>Examples</span>
           <i class="fa fa-angle-left pull-right"></i>
