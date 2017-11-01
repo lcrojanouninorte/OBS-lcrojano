@@ -94,7 +94,7 @@ class UserController extends Controller
     public function getIndex($role = null)
     {
         $user = Auth::user();
-        if ($user->is('asesor')) {
+        if ($user->is('asesor')||$user->is('supervisor')) {
             if ($role!=null) {
                 $users = User::whereHas(
                     'roles',
