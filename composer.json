@@ -15,7 +15,8 @@
         "bican/roles": "2.1.*",
         "spatie/flysystem-dropbox": "^1.0",
         "laravel-notification-channels/backport": "^1.0",
-        "barryvdh/laravel-snappy": "^0.4.0"
+        "barryvdh/laravel-snappy": "^0.4.0",
+        "maatwebsite/excel": "~2.1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
