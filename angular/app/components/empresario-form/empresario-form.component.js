@@ -11,12 +11,17 @@ class EmpresarioFormController{
     this.formSubmitted = false
     this.registerForm
     this.errors = []
+    
+ 
+ 
   }
 
   $onInit () {
     this.name = ''
     this.email = ''
     this.type=''
+    this.password=''
+    this.password_confirmation = ''
     
   }
 
@@ -25,6 +30,7 @@ class EmpresarioFormController{
       var user = {
         name: this.name,
         email: this.email,
+        password: this.password,
         type: this.type,
 
       }
@@ -35,7 +41,7 @@ class EmpresarioFormController{
                 //this.closeparent();
             }else{
                 this.$state.reload()
-                swal('Usuario creado con exito!', '', 'success')
+                swal('Usuario creado con exito!', 'Se ha enviado un correo al usuario donde deberá elejir una contraseña', 'success')
 
                 this.closeparent();
                 $log.debug(response);
