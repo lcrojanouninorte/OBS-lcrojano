@@ -15,16 +15,14 @@ class CreateUserProjectTable extends Migration
         Schema::create('project_user', function (Blueprint $table) {
             //
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->index();
+            $table->integer('user_id')->unsigned();
+            $table->integer('project_id')->unsigned();
+            $table->string('role');
+            
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->integer('project_id')->unsigned()->index();
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
-
-            $table->string('role');
             $table->timestamps();
-
-           
         });
     }
 
@@ -35,7 +33,7 @@ class CreateUserProjectTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_project', function (Blueprint $table) {
+        Schema::drop('project_user', function (Blueprint $table) {
             //
         });
     }
