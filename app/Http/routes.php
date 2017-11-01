@@ -19,7 +19,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('auth/{provider}/callback', ['uses' => 'Auth\AuthController@handleProviderCallback']);
     Route::get('/api/authenticate/user', 'Auth\AuthController@getAuthenticatedUser');
     Route::get('api/challenges', 'ChallengeController@index');
-    Route::get('project/{project_id}/report', 'ProjectController@get_pdf');
+    
+    Route::get('project/{project_id}/pdf', 'ProjectController@get_pdf');
+    Route::get('project/{project_id}/excel', 'ProjectController@get_excel');
 });
 
 $api->group(['middleware' => ['api']], function ($api) {

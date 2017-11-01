@@ -20,6 +20,7 @@ use Response;
 use Storage;
 
 use PDF;
+use Excel;
 
 class ProjectController extends Controller
 {
@@ -85,7 +86,14 @@ class ProjectController extends Controller
         $result_total = 0;
         $budget_total = 0;
 
+
+
         //TODO: this can be change to only depend on projectsuser model
+        if ($user->is('supervisor')) {
+            $projects = Project::all();
+            $this->project_total($projects);
+            return response()->success(compact('projects'));
+        }
 
         if ($user->is("asesor")) {
           //If asesor, it will return all created by him,
@@ -102,6 +110,7 @@ class ProjectController extends Controller
                      $this->project_total($projects);
                  // $project;
                 }
+            } else {
             }
         }
       
@@ -215,6 +224,8 @@ class ProjectController extends Controller
                 }
 
 
+
+
                 //clonar el producto para convertirlo en una task de este producto
                 $tasks = clone $product;
                 //$tasks->id = $product->name;
@@ -302,6 +313,19 @@ class ProjectController extends Controller
         return PDF::loadFile('http://localhost:8000/')->inline('github.pdf');
     }
 
+    public function get_excel($project_id)
+    {
+        $project = Project::with('results')->find($project_id)->get();
+
+        //return response()->success($project);
+        Excel::create('Project', function ($excel) use ($project) {
+             
+            $excel->sheet('Project', function ($sheet) use ($project) {
+                $sheet->fromArray($project);
+            });
+        })->export('xlsx');
+    }
+
     //HELPERS
 
     function project_total($projects)
@@ -337,6 +361,8 @@ class ProjectController extends Controller
                     $product->product_wallet_total = $product_wallet_total;
                     $project_wallet_total += $product_wallet_total;
 
+                    
+
 
                     //Determinar fecha mas lejana para determinar fin del proyecto
                     $start_date = strtotime($project_fecha_fin);
@@ -352,6 +378,8 @@ class ProjectController extends Controller
                         $budgets_total += $budget->valor_unitario*$budget->cantidad;
                         $product->budgets_total += $budget->valor_unitario*$budget->cantidad;
                     }
+                    //Calcular procentaje ejecutado
+                    $product->progress =($product->budgets_total)? ($product_wallet_total/$product->budgets_total)*100:0;
                 }
 
                 //Actualizar fecha fin result

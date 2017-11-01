@@ -65,7 +65,7 @@
  
     </div>
 
-
+ <!--Monitorizar ng-if-->
     <div flex api="registerApi" 
     gantt data="data" 
     view-scale="vm.options.scale" 
@@ -81,6 +81,7 @@
     side-width="250" 
     task-content="vm.options.taskContent"
     row-content="vm.options.rowContent"
+    ng-if="vm.ready"
 
     >
         <gantt-tree headers="vm.options.columnsHeaders" enabled="vm.options.sideMode === 'Tree' || vm.options.sideMode === 'TreeTable'" header-content="vm.options.treeHeaderContent" keep-ancestor-on-filter-row="true" expand-to-fit >
