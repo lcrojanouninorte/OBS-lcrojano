@@ -10,13 +10,13 @@
     <div class="col-md-12">
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Empreados</h3>
+          <h3 class="box-title">Usuarios</h3>
           <div class="box-tools pull-right">
           <div class="box-tools pull-right">
-        <a ui-sref="app.userrolesadd" class="btn btn-block btn-success btn-xs"><i class="fa fa-plus"></i> Add New</a>
-      </div>
+        <a ng-click="vm.addUser();" class="btn btn-block btn-success btn-xs"><i class="fa fa-plus"></i> Añadir Usuario</a>
+          </div>
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+             
           </div>
         </div>
         <div class="box-body">
@@ -26,3 +26,19 @@
     </div>
   </div>
 </section>
+<!--Modal formulario de creación de usuarip!-->
+<script type="text/ng-template" id="adduser.html">
+    <div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">
+        <md-toolbar md-colors="{background: 'green'}">
+            <div class="md-toolbar-tools">
+                <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Añade un empresario o un asesor!</h2>
+            </div>
+        </md-toolbar>
+        <empresario-form closeparent="mvm.cancel()"></empresario-form>
+        <div layout="row" class="demo-dialog-button">
+            <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
+                Cancelar
+            </md-button>
+        </div>
+    </div>
+</script>

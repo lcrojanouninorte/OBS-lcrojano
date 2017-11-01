@@ -262,7 +262,12 @@
           </tr>
           <tr>
             <td class="free-text">
-              Gracias Por Registrarte, se te ha asignado una cuenta de usuario de tipo: .
+              Gracias Por Registrarte, se te ha asignado una cuenta.
+              <br>
+              <br>
+             <b> Usuario: {{ $email }}</b>
+              <br>
+             <b> Contraseña: {{ $password }}</b>
             </td>
           </tr>
           <tr>
@@ -286,9 +291,9 @@
         <table cellspacing="0" cellpadding="0" width="600" class="w320">
           <tr>
             <td style="padding: 25px 0 25px">
-              <strong>Awesome Inc</strong><br />
-              1234 Awesome St <br />
-              Wonderland <br /><br />
+              <strong>Awesome  </strong><br />
+                <br />
+                <br /><br />
             </td>
           </tr>
         </table>

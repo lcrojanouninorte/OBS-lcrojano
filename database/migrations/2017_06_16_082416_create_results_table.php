@@ -23,6 +23,11 @@ class CreateResultsTable extends Migration
             $table->string('estado');
             $table->string('progress')->nullable();
             $table->date('fecha_inicio');
+            $table->boolean('checkEmpresario');
+            $table->boolean('checkAsesor');
+            $table->string('fuente_file')->nullable();
+            
+            $table->date('fecha_inicio');
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
 
             $table->timestamps();
