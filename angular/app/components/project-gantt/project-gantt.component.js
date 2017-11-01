@@ -1,11 +1,12 @@
 class ProjectGanttController{
-    constructor(API, $scope, $stateParams,$timeout, $uibModal, $state, AclService){
+    constructor(API, $scope, $stateParams,$timeout, $uibModal, $state, AclService, $log){
         'ngInject';
 
         //
         this.API = API
         this.$scope = $scope
         this.$uibModal = $uibModal
+        this.$log = $log
         this.$state = $state
         this.isAsesor = AclService.hasRole("asesor");
         this.isEmpresario = AclService.hasRole("empresario");
@@ -135,7 +136,9 @@ class ProjectGanttController{
         let $scope = this.$scope;
         let $state = this.$state
         let IsEmpresario = this.isEmpresario
+
         this.$scope.handleTaskclick = function(task){
+          console.log(task);
           if(IsEmpresario){
             task = task.model
             //Change status
@@ -147,11 +150,11 @@ class ProjectGanttController{
             }
             API.all('products/check').post(task).then((response) => {
                     if(response.error){
-                        $log.debug(response);
+                        console.log(response);
                     }else{
                         //TODO update progress not reload
                         $state.reload()
-                        $log.debug(response);
+                        console.log(response);
 
 
                     }

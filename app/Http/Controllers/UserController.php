@@ -202,8 +202,8 @@ class UserController extends Controller
      */
     public function deleteUser($id)
     {
-        // $user = User::find($id);
-        // $user->delete();
+         $user = User::find($id);
+         $user->delete();
         return response()->success('success');
     }
 
@@ -386,7 +386,16 @@ class UserController extends Controller
                 $user->name = trim($request->name);
                 $user->email_verified = 1;
                 $user->email = trim(strtolower($request->email));
-                $user->password = bcrypt(str_random(6));
+
+                //Optional password
+                $pass = "";
+                if ($request->password) {
+                    $pass = $request->password;
+                    $user->password = bcrypt($pass);
+                } else {
+                    $pass = str_random(6);
+                    $user->password = bcrypt($pass);
+                }
                 $user->email_verification_code = $verificationCode;
                 $user->save();
 
@@ -395,7 +404,9 @@ class UserController extends Controller
                 $user->attachRole($role);
 
                 $data = array(
-                    'verificationCode'=>$user->email_verification_code
+                    'verificationCode'=>$user->email_verification_code,
+                    'password'=>$pass,
+                    'email'=>$user->email
                 );
 
                 $token = JWTAuth::fromUser($user);
