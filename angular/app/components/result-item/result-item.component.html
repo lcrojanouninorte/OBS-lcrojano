@@ -1,5 +1,5 @@
 
-<md-card class="box box-success md-whiteframe-2dp" layout="column">
+<md-card class="box box-success md-whiteframe-2dp" layout="column" >
     <md-card-header style="padding-bottom: 0px!important;">
         <md-card-avatar>
             <div class="progress-wrapper">
@@ -16,10 +16,8 @@
             <span class="md-subhead">{{vm.result.total | currency}}</span>
         </md-card-header-text>
         <md-menu>
-            <!--<md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="vm.openMenu($mdMenu, $event)">
-                  <md-icon md-menu-origin md-font-icon="ion-plus-round"></md-icon>
-              </md-button>-->
-            <md-menu-content layout="row">
+            
+            <md-menu-content layout="row"><!--Ya esto no se usa-->
                 <div layout-align="right" class="text-center">
                     <div>Asesor</div>
                     <md-checkbox class="result-color-{{vm.result.checkAsesor}}" aria-label="Checkbox 1" ng-model="vm.result.checkAsesor" ng-change="vm.update()" ng-true-value="1" ng-false-value="0" ng-disabled="vm.hasRole('empresario')">
@@ -40,11 +38,15 @@
     </md-card-header>
     <div class="text-right ">
         Opciones:
+        <md-button ng-if="vm.can( 'delete.project') " aria-label="Open phone interactions menu" class="md-icon-button" ng-click="vm.product_add_modal();">
+            <md-tooltip md-direction="top">Añadir Producto</md-tooltip>
+            <md-icon md-menu-origin md-font-icon="ion-plus-round"></md-icon>
+        </md-button>
         <md-button class="md-icon-button " aria-label="upload " ng-click="vm.upload_modal();">
             <md-tooltip md-direction="top">Subir Fuente de Verificación</md-tooltip>
             <md-icon md-font-icon="ion-paperclip " ></md-icon>
         </md-button>
-        <md-button ng-show="vm.can( 'edit.project') " class="md-icon-button " aria-label="edit ">
+        <md-button ng-if="vm.can( 'edit.project') " class="md-icon-button " aria-label="edit " ng-click="vm.edit_result();">
             <md-tooltip md-direction="top">Editar</md-tooltip>
             <md-icon md-font-icon="ion-edit "></md-icon>
         </md-button>
@@ -55,12 +57,20 @@
             <md-tooltip md-direction="top">Borrar Resultado</md-tooltip>
             <md-icon md-font-icon="ion-trash-a "></md-icon>
         </md-button>
+
+        <md-button class="md-icon-button md-mini md-primary" aria-label="Play" ng-click="vm.view_products = !vm.view_products">
+            <md-tooltip md-direction="top">Ver Productos</md-tooltip>
+            <md-icon md-font-icon="ion-chevron-down" style="font-size:14px"></md-icon>
+        </md-button>
     </div>
-    <product-list result-id="vm.result.id " products="vm.result.products "></product-list>
+    <div ng-if="vm.view_products" class="fx-fade-down fx-fade-up-245">
+        
+    <product-list  result-id="vm.result.id " products="vm.result.products " ></product-list>
+    </div>
     <md-card-actions layout="row " layout-align="center ">
         <div flex="33 ">
             <p class="text-bold ">
-                Estado : {{vm.process_id}}
+                <!--Estado : {{vm.process_id}}-->
             </p>
         </div>
         <div class="text-right " flex="66 ">
@@ -75,4 +85,31 @@
 
 <file-upload-form result="mvm.result" cancel="mvm.cancel()"></file-upload-form>
 
+</script>
+
+
+<script type="text/ng-template" id="ProductAddModal.html">
+ 
+    <product-form result-id="mvm.result.id" product-list="mvm.result.products" cancel="mvm.cancel()"></product-form>
+
+</script>
+
+<!--Modal formulario de creación de proyecto!-->
+<script type="text/ng-template" id="myModalResult.html">
+    <div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">
+        <md-toolbar md-colors="{background: 'green'}">
+            <div class="md-toolbar-tools">
+                <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Edita el Resultado! </h2>
+            </div>
+        </md-toolbar>
+        <div layout="column" layout-margin>
+            <p>Resultado: {{mvm.result.titulo}}</p>
+            <result-form result="mvm.result" closeparent="mvm.cancel()" flex></result-form>
+        </div>
+        <div layout="row" class="demo-dialog-button">
+            <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
+                Cancelar
+            </md-button>
+        </div>
+    </div>
 </script>

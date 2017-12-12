@@ -51,16 +51,15 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->get('budgets/{budget_id}/products/{product_id}', 'BudgetController@budget_desc_product');
     $api->post('product/budgets', 'ProductController@addBudget');
 
-     //RECURSO: WALLET
-    $api->resource('wallets', 'WalletController');
-    $api->get('wallets/{user_id}/{product_id}/{budget_product_id}', 'WalletController@walletList'); //TODO solo admin
-
+ 
         //Milestones
     $api->get('milestones/{project_id}', 'MilestoneController@index');
     $api->get('milestones/delayed/{project_id}', 'MilestoneController@delayed');
 });
 
 $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
+
+
     $api->get('users/me', 'UserController@getMe');
     $api->put('users/me', 'UserController@putMe');
 
@@ -69,6 +68,7 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     $api->get('projects', 'ProjectController@index');
      
     $api->delete('projects/{id}', 'ProjectController@delete');
+
 
     
 
@@ -97,6 +97,10 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
 
             //Milestones
     $api->post('milestone', 'MilestoneController@store');
+
+        //RECURSO: WALLET
+    $api->resource('wallets', 'WalletController');
+    $api->get('wallets/{user_id}/{product_id}/{budget_product_id}', 'WalletController@walletList'); //TODO solo admin
 });
 
 $api->group(['middleware' => ['api', 'api.auth', 'role:admin.super|admin.user']], function ($api) {

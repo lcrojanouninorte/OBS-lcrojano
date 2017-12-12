@@ -18,13 +18,27 @@ class ResultController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-        'titulo' => 'required',
-        'indicador' => 'required',
-        'meta' => 'required',
-        'fuenteverificacion' => 'required',
-        'fecha_inicio' => 'required'
+            'titulo' => 'required',
+            'indicador' => 'required',
+            'meta' => 'required',
+            'fuenteverificacion' => 'required',
+            'fecha_inicio' => 'required',
+            'id' => 'alpha_num'
         ]);
-        $result = new Result;
+
+
+        //check if send id
+        $id = $request->input('id');
+        if ($id) {
+            //editing
+            $result = Result::find($id);
+        } else {
+            $result = new Result;
+            $result->estado = "primary";
+            $result->checkEmpresario = 0;
+            $result->checkAsesor = 0;
+        }
+        
         $result->titulo = $request->input('titulo');
         $result->indicador = $request->input('indicador');
         $result->meta = $request->input('meta');
@@ -32,9 +46,7 @@ class ResultController extends Controller
         $result->project_id = $request->input('project_id');
         $result->fecha_inicio = $request->input('fecha_inicio');
 
-        $result->estado = "primary";
-        $result->checkEmpresario = 0;
-        $result->checkAsesor = 0;
+        
 
  
         $result->save();

@@ -1,4 +1,4 @@
-<div layout="column">
+<div layout="column" >
     <md-content  layout="column" style="min-height:500px; max-height: 500px">
         <div class="repeated-item" >
 
@@ -8,10 +8,8 @@
         </div>
     </md-content>
 
-    <!-- add product-->
-    <p ng-show="vm.can('edit.project')" class="text-center">Añadir producto</p>
-
+ 
 	
-		<product-form  ng-show="vm.can('edit.project')" result-id="vm.resultId" product-list="vm.products"></product-form>
+		
 	 
 </div>

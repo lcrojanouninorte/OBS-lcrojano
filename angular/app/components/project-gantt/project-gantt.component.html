@@ -1,21 +1,5 @@
 
 <div layout="column">
-<div class=" text-left" layout="row" layout-align="left center" layout-wrap style="margin-top: 5px;">
-    <div>
-        <a ui-sref="app.products({projectId: vm.id, date:vm.today})" class="btn btn-app">
-            <span ng-if="vm.project.delayed_products_count" class="badge bg-red">{{vm.project.delayed_products_count}}</span>
-            <i class="fa  fa-info"></i>Prod. Atrasados
-        </a>
-        <a ng-click="vm.milestones_open('')" class="btn btn-app">
-             <span class="badge badge-blue"></span>
-            <i class="fa fa-calendar-plus-o"></i> Hitos
-        </a>
-        <a ng-click="vm.milestones_open('delayed')" class="btn btn-app">
-            <span ng-if="vm.project.alerta_milestiones" class="badge bg-light-blue">{{vm.project.alerta_milestiones}}</span>
-            <i class="fa fa-bullhorn"></i> Prox. Hitos
-        </a>
-    </div>
-</div>
 
     <div layout="row" layout-padding layout-aling="end center" layout-wrap>
  
@@ -82,6 +66,8 @@
     task-content="vm.options.taskContent"
     row-content="vm.options.rowContent"
     ng-if="vm.ready"
+    sort-mode="'from'"
+
 
     >
         <gantt-tree headers="vm.options.columnsHeaders" enabled="vm.options.sideMode === 'Tree' || vm.options.sideMode === 'TreeTable'" header-content="vm.options.treeHeaderContent" keep-ancestor-on-filter-row="true" expand-to-fit >
@@ -105,6 +91,24 @@
         <gantt-overlap></gantt-overlap>
         <gantt-dependencies read-only="true"></gantt-dependencies>
     </div>
+
+    <div class=" text-left" layout="row" layout-align="left center" layout-wrap style="margin-top: 5px;">
+    <div>
+        <a ui-sref="app.products({projectId: vm.id, date:vm.today})" class="btn btn-app">
+            <span ng-if="vm.project.delayed_products_count" class="badge bg-red">{{vm.project.delayed_products_count}}</span>
+            <i class="fa  fa-info"></i>Prod. Atrasados
+        </a>
+        <a ng-click="vm.milestones_open('')" class="btn btn-app">
+             <span class="badge badge-blue"></span>
+            <i class="fa fa-calendar-plus-o"></i> Hitos
+        </a>
+        <a ng-click="vm.milestones_open('delayed')" class="btn btn-app">
+            <span ng-if="vm.project.alerta_milestiones" class="badge bg-light-blue">{{vm.project.alerta_milestiones}}</span>
+            <i class="fa fa-bullhorn"></i> Prox. Hitos
+        </a>
+    </div>
+</div>
+
 </div>
 <!--Modal formulario de creación de proyecto!-->
 <script type="text/ng-template" id="MilestonesModal.html">

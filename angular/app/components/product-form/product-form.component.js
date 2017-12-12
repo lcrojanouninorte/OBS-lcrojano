@@ -1,14 +1,27 @@
 class ProductFormController {
-    constructor(API, $state) {
+    constructor(API, $state, $log) {
         'ngInject';
 
         //
         this.API = API
-        this.product = {
-            dates : {"startDate": null, "endDate": null}
-        }
-        this.$state = $state;
+        this.$log = $log
+        this.product = null
+        this.isEditing = false
+        this.$state = $state
         this.options = {
+            applyClass: 'btn-green',
+            singleDatePicker: true,
+            locale: {
+                applyLabel: "Aplicar",
+                fromLabel: "Desde",
+                format: "D MMM YYYY", //will give you 2017-01-06
+        //format: "D-MMM-YY", //will give you 6-Jan-17
+        //format: "D-MMMM-YY", //will give you 6-January-17
+            toLabel: "al",
+            cancelLabel: 'Cancelar'
+          } 
+        }
+       /* this.options = {
             applyClass: 'btn-green',
             locale: {
                 applyLabel: "Aplicar",
@@ -20,40 +33,66 @@ class ProductFormController {
                 cancelLabel: 'Cancelar',
                 customRangeLabel: 'Custom range'
             }
-        }
+        }*/
 
 
     }
 
 
 $onInit() {
+    if(this.product==null){
+        this.isEditing = false
+        this.product = {
+            "fecha_inicio":  new Date(), 
+            "fecha_fin": new Date(),
+            "desc" :""
+        }
+    }else{
+        this.isEditing = true
+    }
 }
 
     add(){//add item from form controller
 
-        
-        let new_product = {
-            "desc":this.product.desc,
-            "fecha_inicio": moment(this.product.dates.startDate).format("YYYY/MM/DD") ,
-            "fecha_fin": moment(this.product.dates.endDate).format("YYYY/MM/DD"),
-            "checkEmpresario":3
+        //Check if it is an update
 
+        if(this.isEditing){
+            
+            this.API.service('products').post(this.product).then((response) => {
+                    if(response.errors){
+                       this.$log.debug(response);
+                    }else{
+                       
+                        swal('Producto editado con exito!', '', 'success')
+                        this.$state.reload()
+                        this.cancel()
+                        this.$log.debug(response)
+                    }
+            })
+        }else{
+            let new_product = {
+                "desc":this.product.desc,
+                "fecha_inicio": moment(this.product.fecha_inicio).format("YYYY/MM/DD") ,
+                "fecha_fin": moment(this.product.fecha_fin).format("YYYY/MM/DD"),
+                "checkEmpresario":3
+            }
+            new_product.result_id=this.resultId;
+            this.API.service('products').post(new_product).then((response) => {
+                    if(response.errors){
+                        $log.debug(response);
+                    }else{
+                       
+                        swal('Producto creado con exito!', '', 'success')
+                        this.$state.reload()
+                        this.productList.push(response.data.product)
+                        this.cancel()
+                        $log.debug(response)
+                    }
+            })
         }
 
-        new_product.result_id=this.resultId;
-        this.API.service('products').post(new_product).then((response) => {
-                if(response.errors){
-                    $log.debug(response);
-                }else{
-                   
-                    swal('Producto creado con exito!', '', 'success')
-                    this.$state.reload()
-                    this.productList.push(response.data.product)
-                    $log.debug(response)
-                }
-            }
 
-        )
+        
     }
  
 }
@@ -65,7 +104,9 @@ export const ProductFormComponent = {
     controllerAs: 'vm',
     bindings: {
         resultId: "<",
-        productList: "="
+        productList: "=",
+        product: "=?",
+        cancel:"&?"
  
     }
 }

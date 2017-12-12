@@ -3,7 +3,7 @@
         <wizard indicators-position="top" on-finish="vm.finishedWizard(resultForm)" on-cancel="cancelledWizard()" hide-indicators="false">
             <wz-step description="asdasdasdasd" wz-title="Resultado" canexit="vm.exitValidation(resultForm.titulo.$error)">
                 <h3 class="text-center">{{vm.userData.name}}, escribe el titulo del Resultado</h3>
-                <p>Tip: Un resultado es un objetivo especifico</p>
+                <br>
                 <md-input-container class="md-icon-float md-block">
                     <!-- Use floating label instead of placeholder -->
                     <label>Titulo</label>
@@ -41,7 +41,7 @@
             </wz-step>
             <wz-step wz-title="Fuente" canexit="vm.exitValidation(resultForm.fuenteverificacion.$error)">
                 <h3 class="text-center">Como puedes verificar este resultado?</h3>
-                <p>Tip: escribe una descripción breve </p>
+                <br>
                 <md-input-container class="md-icon-float md-block">
                     <!-- Use floating label instead of placeholder -->
                     <label>Fuente de verificación</label>
@@ -59,9 +59,8 @@
             </wz-step>
             <wz-step wz-title="Meta" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
                 <h3 class="text-center">Cual es la meta de este resultado? </h3>
-                <p class="text-center">Teniendo en cuenta que tu indicador es "<span>{{vm.result.indicador}}</span>"</p>
-                <p class="text-center">Cual es la meta que esperas alcanzar para este resultado?</p>
-                <md-input-container class="md-icon-float md-block">
+                <p class="text-center">Indicador: <span>{{vm.result.indicador}}</span>"</p>
+                 <md-input-container class="md-icon-float md-block">
                     <!-- Use floating label instead of placeholder -->
                     <label>Meta</label>
                     <md-icon md-font-icon="ion-ios-heart-outline" class="title"></md-icon>
