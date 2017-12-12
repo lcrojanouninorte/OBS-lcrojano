@@ -1,5 +1,11 @@
 <h3 class="text-center">Añadir Gasto</h3>
  
+<div layout="row">
+  <h4 flex="33" md-colors="{color:'green'}">Disponible: {{ vm.pbudget.total - vm.totalActual - vm.wallet.cantidad | currency}}</h4>
+  <h4 flex="33">Ejecutado: {{vm.totalActual | currency }}</h4>
+  <h4 flex="33">Presupuesto: {{vm.pbudget.total | currency}}</h4>
+</div>
+ 
 <md-content layout-gt-sm="row" layout-padding layout-align="center" >
     <div>
       <md-input-container>
@@ -12,7 +18,9 @@
         <input ng-model="vm.wallet.cantidad" ng-currency>
       </md-input-container> 
 
-      <md-button ng-disabled="vm.wallet.cantidad>vm.walletLimit" ng-click="vm.add()" class="md-raised md-primary">Agregar</md-button>
+      <md-button ng-disabled="(vm.pbudget.total - vm.totalActual - vm.wallet.cantidad) <0" ng-click="vm.add()" class="md-raised md-primary">Agregar
+<md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon>
+      </md-button>
 
        
     </div>

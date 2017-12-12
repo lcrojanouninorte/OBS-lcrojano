@@ -19,26 +19,39 @@ class ProductController extends Controller
           'fecha_inicio' => 'required',
           'fecha_fin' => 'required',
           'result_id' => 'required',
+          'id' => 'alpha_num'
         ]);
+
+       
+
+        //check if send id
+        $id = $request->input('id');
+        if ($id) {
+            //editing
+            $product = Product::find($id);
+        } else {
+            //adding
+            $product = new Product;
+            $product->estado = "nuevo";
+            $product->progress = 0;
+            $product->checkEmpresario = 3;
+            $product->checkAsesor =1;
+        }
        
  
-          $product = new Product;
+          
           $product->desc = $request->input('desc');
           $product->fecha_inicio = $request->input('fecha_inicio');
           $product->fecha_fin = $request->input('fecha_fin');
 
-            //calcular duracion
+          //calcular duracion
           $datetime1 = new \DateTime($request->input('fecha_inicio'));
           $datetime2 = new \DateTime($request->input('fecha_fin'));
 
           $interval =  $datetime2->diff($datetime1);
           $duracion = ($interval->format('%y') * 12) + $interval->format('%m');
           $product->duracion = ($duracion==0)?1:$duracion;
-          $product->estado = "nuevo";
-          $product->progress = 0;
           $product->result_id = $request->input('result_id');
-        $product->checkEmpresario = 3;
-        $product->checkAsesor =1;
 
           $product->save();
           return response()->success(compact('product'));

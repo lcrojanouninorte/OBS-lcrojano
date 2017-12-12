@@ -8,32 +8,34 @@
     </md-toolbar>
     <md-content class="text-center">
         <h1>{{vm.productBudget.budget_title }}</h1>
-        <wizard hide-indicators="vm.isEditing()" on-finish="vm.finishedWizard()" on-cancel="vm.cancelledWizard()" indicators-position="top">
+        <wizard hide-indicators="false && vm.isEditing()" on-finish="vm.finishedWizard()" on-cancel="vm.cancelledWizard()" indicators-position="top">
             <!--Seleccionar Rubro General -->
             <!--filter: si esta editando, solo muetra los rubros que pertenecen al producto-->
             <!--pbudget: variable doble binding que contendra el rubro seleccionado-->
             <!--desc: variable boleana para mostrar listado de desc rubros y no solo los rubros generales.-->
           
             <wz-step wz-title="Selecciona">
-                <h2>Escoja el rubro</h2>
+                <h2>Escoja un rubro</h2>
                 <div>
                     <h5 class="text-success">Ejecutado {{vm.product.product_wallet_total || 0 | currency}}
                     de {{vm.product.budgets_total || 0 | currency}}</h5>
                 </div>
 
                 <!--Elejir productBudget-->
+
                 <budget-list 
                     wz-next 
                     value="Continue" 
                     product="vm.product" 
                     pbudget="vm.productBudget" 
                     filter="vm.isEditing()"
+                    ng-click="vm.selectedBudget.titulo = vm.productBudget.titulo"
                 >
                 </budget-list>
                
             </wz-step>
 
-            <!--:::Habilitado Si esta Añadiendo rubros:::-->
+            <!--:::Habilitado Si esta Añadiendo rubros | ASESOR:::-->
                     <!--  Formulario para añadir un rubro seleccionado al producto-->
             <wz-step wz-title="Entidad 1" wz-disabled="{{vm.isEditing()}}">
                  
@@ -53,7 +55,9 @@
 
             <wz-step wz-title="Escojer Desc" wz-disabled="{{vm.isAdding()}}">
                 <div layout="column">
-                    <h3>Escoja la Descripción del rubro</h3>
+                    <h3 md-colors="{color:'green'}"><b>{{vm.selectedBudget.titulo | uppercase}}</b></h3>
+                    <h3>Escoja una descripción de este rubro</h3>
+                     
 
                    
                     <br>
@@ -64,6 +68,7 @@
                     -->
 
                     <!--verificar si ya elejimos productBudget en el paso anterior-->
+                     
                     <budget-list 
                         wz-next 
                         value="Continue" 
@@ -72,11 +77,12 @@
                         filter="vm.isEditing()" 
                         desc="true"
                         ng-if="vm.productBudget.id" 
-                    >
+                        ng-click="vm.loadWallet=true" 
+                    ><!--  ng-click="vm.loadWallet=true" lo hago por que al estar en un wizar. se instancia antes de haber seleccionado un rubro, por lo que lo mantengo oculto hasta que vayamos por el paso de wallets, pes aqui ya tenemos los datos necesarios para hacer el query, ademas, al aplicar ng-if, aseguramos que se ejecute el $init de budget-wallet, quien es el que carga el wallet del rubro seleccionado -->
 
                     </budget-list>
                     <div layout="row" layout-align="center center">
-                        <md-button type="submit" class="md-raised md-primary" wz-previous value="Previous">Atras
+                        <md-button ng-click="vm.productBudget=''" type="submit" class="md-raised md-primary" wz-previous value="Previous">Atras
                             <md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>
                         </md-button>
                          
@@ -88,21 +94,27 @@
                     <!--  PAso 3: Formulario monedero para ñadir gastos a un Desc Rubro seleccionado-->
             <wz-step wz-title="Gastos" wz-disabled="{{vm.isAdding()}}">
                 <div layout="column">
- 
+                    <h3 md-colors="{color:'green'}"><b>{{vm.productBudget.titulo | uppercase}}</b></h3>
+                    
 
                     <budget-wallet 
                     user-id="vm.users[0].id" 
                     product-id="vm.product.id" 
                     pbudget="vm.productBudget"
+                    ng-if="vm.loadWallet" 
                     ></budget-wallet>
                 </div>
-                 <md-button   class="md-raised md-primary" wz-previous value="Previous">Atras
+                 <md-button   class="md-raised md-primary" wz-previous value="Previous" ng-click="vm.loadWallet=false"  >Atras
                             <md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>
                         </md-button>
+                <md-button ng-click="vm.cancel()"   class="md-raised md-warning" value="Continue">Finalizar
+                    <md-icon md-font-icon="ion-close-round" aria-label="description"></md-icon>
+                </md-button>
+
             </wz-step>
 
             <wz-step wz-title="Finaliza" wz-disabled="{{vm.isEditing()}}">
-                <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Finalizar
+                <md-button ng-click="vm.cancel()"   class="md-raised md-primary" value="Continue">Finalizar
                     <md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon>
                 </md-button>
             </wz-step>

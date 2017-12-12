@@ -6,6 +6,7 @@ class BudgetWalletAddController{
 
         this.API = API
         this.$state = $state
+        this.wallet = {};
     }
 
     $onInit(){
@@ -29,7 +30,12 @@ class BudgetWalletAddController{
                    
                     swal('Gasto asignado con exito!', '', 'success')
                     this.$state.reload()
-                    this.walletList.push(response.data.wallet)
+                    this.walletList.push(angular.copy(response.data.wallet))
+                    this.wallet = response.data.wallet;
+                    this.totalActual = this.totalActual + this.wallet.cantidad;
+
+                    this.wallet.cantidad = "";
+                    this.wallet.desc  ="";
                     //Close modal
                     $log.debug(response)
                 }
@@ -49,6 +55,6 @@ export const BudgetWalletAddComponent = {
         productId:"<",
         pbudget:"<",
         userId:"<",
-        walletLimit:"<"
+        totalActual:"="
     }
 };

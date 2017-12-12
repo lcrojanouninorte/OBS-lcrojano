@@ -35,6 +35,8 @@ class ProductItemController{
             { color: 'color-1', name: 'Finalizado', value:1}
         ]
 
+        this.isEditing = false;
+
         
   
     }
@@ -50,14 +52,22 @@ class ProductItemController{
         this.checkAsesor = this.checkValues[++this.index % this.len];
     }
     status_info() {
+        let text_html = ""
+        if(this.product.checkEmpresario == 3){
+            text_html =  '<b>No Iniciado</b>: Indica que el producto aun no lo a empezado a ejecutar. <br><br>'
+        }
+        if(this.product.checkEmpresario == 2){
+            text_html = '<b>En Ejecución</b>: Indica que actualmente se encuentra ejecutando este producto <br><br>'
+        }
+        if(this.product.checkEmpresario == 1){
+            text_html = '<b>Finalizado</b>: Indica que ya ha finalizado el producto <br><br>'
+        }
         swal({
-          title: '<i>Estados del Producto</i>',
+          title: '<i>Estado del Producto</i>',
           type: 'info',
           html:
           '<div class="text-left">' +
-            '<b>No Iniciado</b>: Indica que el producto aun no lo a empezado a ejecutar. <br><br>' +
-            '<b>En Ejecución</b>: Indica que actualmente se encuentra ejecutando este producto <br><br>' +
-            '<b>Finalizado</b>: Indica que ya ha finalizado el producto <br><br>' +
+            text_html +
           '</div>',
           showCloseButton: true,
           focusConfirm: false,
@@ -108,6 +118,34 @@ class ProductItemController{
                mode:function() {
                    return Mode;
                }
+            }
+        })
+    }
+
+    product_edit_open(product_id) {
+        let $uibModal = this.$uibModal
+        
+        let product = this.product
+
+        let users = this.users
+
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: "ProductEditModal.html",
+            controller: this.modalcontroller ,
+            controllerAs: 'mvm',
+            size: 'md',
+            resolve: {
+               product: function() {
+                   return product;
+               },
+               users:function() {
+                   return users;
+               },
+
+               mode:function() {
+                   return "";
+               }  
             }
         })
     }
