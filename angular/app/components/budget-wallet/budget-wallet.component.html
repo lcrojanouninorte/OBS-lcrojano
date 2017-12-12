@@ -1,14 +1,11 @@
-
+{{pbudget|json}}
 
 <div>
-<h4>Maximo: {{vm.pbudget.total}}</h4>
-<h4>Actual: {{vm.total_actual }}</h4>
-<h4>quedan: {{vm.limit}}</h4>
 
- 
-<budget-wallet-add  user-id="vm.userId" product-id="vm.productId" pbudget="vm.pbudget" wallet-list="vm.walletList" wallet-limit="vm.limit" ></budget-wallet-add>
+ {{vm.totalActual}}
+<budget-wallet-add  user-id="vm.userId" product-id="vm.productId" pbudget="vm.pbudget" wallet-list="vm.walletList" total-actual="vm.totalActual" ></budget-wallet-add>
 
-<budget-wallet-list wallet-list="vm.walletList" ></budget-wallet-list>
+<budget-wallet-list wallet-list="vm.walletList" total-actual="vm.totalActual" ></budget-wallet-list>
 
 
 </div>

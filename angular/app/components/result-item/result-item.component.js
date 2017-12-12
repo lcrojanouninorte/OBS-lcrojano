@@ -9,6 +9,7 @@ class ResultItemController{
         this.hasRole = AclService.hasRole
         this.$state = $state
         this.$uibModal =$uibModal
+        this.view_products = false
     }
 
     $onInit(){
@@ -87,6 +88,41 @@ class ResultItemController{
         })
     }
 
+    product_add_modal() {
+        let $uibModal = this.$uibModal
+        let result = this.result
+
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: "ProductAddModal.html",
+            controller: this.modalcontroller ,
+            controllerAs: 'mvm',
+            size: 'sm',
+            resolve: {
+               result: function() {
+                   return result;
+               }
+            }
+        })
+    }
+    edit_result() {
+        let $uibModal = this.$uibModal
+        let result = this.result
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'myModalResult.html',
+            controller: this.modalcontroller,
+            controllerAs: 'mvm',
+            size: 'md',
+            resolve: {
+               result: function() {
+                   return result;
+               }
+            }
+
+        })
+    }
+
     modalcontroller($uibModalInstance, result) {
         'ngInject'
         this.result = result
@@ -100,6 +136,10 @@ class ResultItemController{
           $uibModalInstance.dismiss('cancel');
         }
   }
+
+
+      
+ 
 }
 
 export const ResultItemComponent = {

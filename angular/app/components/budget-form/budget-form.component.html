@@ -1,8 +1,9 @@
 <div layout="column" layout-padding layout-aling="center">
- 
+  <h3 md-colors="{color:'green'}"><b>{{vm.pbudget.titulo | uppercase}}</b></h3>
     <h4 flex>
-      Describe que necesitas?
+      Descripción del rubro
     </h4>
+   
     <div layout="column" layout-padding layout-align="center center" flex="80">
         <form name="projectForm">
             <div layout="row" flex layout-align="center">
@@ -43,9 +44,7 @@
                     </div>
                 </md-input-container>
             </div>
-            <h4 flex>
-      Describe Cuanto necesitas
-    </h4>
+            <h4 flex> Presupuesto </h4>
             <div layout="row" flex layout-align="center">
                 <md-input-container class="md-icon-float md-block">
                     <!-- Use floating label instead of placeholder -->
@@ -102,5 +101,4 @@ ng-show="
         </div>
     </div>
 </div>
-
-{{vm.pbudget.$invalid = (projectForm.$invalid || (vm.pbudget.valor_unitario*vm.pbudget.cantidad != vm.pbudget.c_efectivo+vm.pbudget.c_especie+vm.pbudget.financiacion_sena) )}}
+<!--{{vm.pbudget.$invalid = (projectForm.$invalid || (vm.pbudget.valor_unitario*vm.pbudget.cantidad != vm.pbudget.c_efectivo+vm.pbudget.c_especie+vm.pbudget.financiacion_sena) )}}-->

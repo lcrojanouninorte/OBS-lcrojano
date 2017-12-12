@@ -1,17 +1,65 @@
 class BudgetWalletListController{
-    constructor(API){
+    constructor(API, $state){
         'ngInject';
 
         //
 
          this.API = API
+         this.$state = $state
          this.wallet = [];
+
+
     }
 
     $onInit(){
 
                   
     }
+
+        delete (wallet_item) {
+            let API = this.API
+            let $state = this.$state
+            let walletList = this.walletList
+            let vm = this
+
+
+            swal({
+              title: 'Seguro?',
+              text: 'No sera posible recuperar estos datos!',
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#DD6B55',
+              confirmButtonText: 'Si Quiero borrarlo!',
+              //closeOnConfirm: false,
+              //showLoaderOnConfirm: true,
+              html: false
+            }).then(function () {
+
+              API.one('wallets').one('', wallet_item.id).remove()
+                .then((response) => {
+                    if(!response.error){
+                          vm.totalActual = vm.totalActual - wallet_item.cantidad;
+                          walletList.splice( walletList.indexOf(wallet_item), 1 );
+                      swal({
+                        title: 'Borrado!',
+                        text: 'Se ha borrado el gasto con exito.',
+                        type: 'success',
+                        confirmButtonText: 'OK',
+                        //closeOnConfirm: true
+                      }).then( function () {
+
+                        
+                        //totalActual = totalActual - wallet_item.cantidad;
+                        //$state.reload()
+                      })
+                    }
+                    else{
+                        this.$log.debug(response);
+                    }
+                })
+            
+          })
+        }
 }
 
 export const BudgetWalletListComponent = {
@@ -19,6 +67,7 @@ export const BudgetWalletListComponent = {
     controller: BudgetWalletListController,
     controllerAs: 'vm',
     bindings: {
-        walletList:"="
+        walletList:"=",
+        totalActual:"="
     }
 };

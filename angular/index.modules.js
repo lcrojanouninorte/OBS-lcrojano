@@ -29,7 +29,8 @@ angular.module('app', [
             'gantt.overlap',
             'gantt.dependencies',
 'ngFileUpload',
-'ds.clock'
+'ds.clock',
+'cuppaDatepickerDirective'
 ])
 
 angular.module('app.run', [])

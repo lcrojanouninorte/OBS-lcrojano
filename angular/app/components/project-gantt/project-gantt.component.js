@@ -19,7 +19,7 @@ class ProjectGanttController{
         this.ready = false
 
         this.options = {
-             scale: "week",
+             scale: "month",
              currentDate: "column",
              daily: true,
              readOnly: false,
@@ -63,7 +63,8 @@ class ProjectGanttController{
             },
             classes:{'model.name': 'gantt-column-name'},
             treeHeaderContent: "<i class='fa fa-align-justify'></i> {{getHeader()}}",
-            taskContent:"<span md-truncate ng-click='scope.handleTaskclick(task)'><i class='fa fa-clock-o'></i> {{task.model.name}}</span>",
+           // taskContent:"<span md-truncate ng-click='scope.handleTaskclick(task)'><i class='fa fa-clock-o'></i> {{task.model.name}}</span>",
+            taskContent: "<span md-truncate ng-click='scope.handleTaskclick(task)'><i class='fa fa-clock-o'></i></span>",
             rowContent:"<span md-truncate ng-click='scope.handleRowClick(row.model)'><i class='fa fa-tasks'></i> {{row.model.name}}</span>"
 
 

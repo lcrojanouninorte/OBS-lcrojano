@@ -1,23 +1,46 @@
- <md-whiteframe class="md-whiteframe-3dp"  layout>
-  <md-content  layout="row" flex layout-padding>
 
-      <md-input-container flex>
-        <label>Descripción</label>
-        <input ng-model="vm.product.desc">
-      </md-input-container>
+ <div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">
+        <md-toolbar md-colors="{background: 'green'}">
+            <div class="md-toolbar-tools">
+                <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Crea/Edita Un Resultado! </h2>
+            </div>
+        </md-toolbar>
 
-      <md-input-container flex>
-       <label>Fecha</label>
-      <input date-range-picker  options="vm.options" class="form-control date-picker" type="text" ng-model="vm.product.dates" />
-      </md-input-container>
-      <div flex="10" layout-align="center center">
-        
-      
-      <md-button class="md-fab md-mini md-primary " ng-click="vm.add()">
-        <md-icon md-font-icon="ion-android-send" aria-label="description"></md-icon>
-      </md-button>
+<md-whiteframe class="md-whiteframe-3dp" layout >
+
+    <md-content layout="column" flex layout-padding>
+      <div layout="column">
+        <md-input-container flex>
+            <label>Descripción</label>
+            <input ng-model="vm.product.desc" type="text" Required>
+        </md-input-container>
+
+        <md-input-container flex layout-align="center">
+                    <label>Fecha Inicio</label>
+                    <input date-range-picker  options="vm.options" class="form-control date-picker" type="text" ng-model="vm.product.fecha_inicio" />
+        </md-input-container>
+ 
+         <md-input-container flex layout-align="center">
+                    <label>Fecha Fin</label>
+                    <input date-range-picker  options="vm.options" class="form-control date-picker" type="text" ng-model="vm.product.fecha_fin" />
+        </md-input-container>
+ 
       </div>
 
-  </md-content>
-  </md-whiteframe>
- 
+        <div layout="row" layout-align="center center">
+            <div flex="10" layout-align="center center">
+            <md-button class=" md-mini md-primary " ng-click="vm.add()">
+                  Enviar
+                <md-icon md-font-icon="ion-android-send" aria-label="description"></md-icon>
+            </md-button>
+            </div>
+        </div>
+    </md-content>
+
+</md-whiteframe>
+        <div layout="row" class="demo-dialog-button">
+            <md-button md-autofocus flex class="md-primary" ng-click="  vm.cancel()">
+                Cancelar
+            </md-button>
+        </div>
+    </div>

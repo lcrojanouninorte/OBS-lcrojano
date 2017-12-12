@@ -6,6 +6,8 @@ class ResultFormController{
         this.WizardHandler = WizardHandler
         this.$state= $state;
         this.project_id = $stateParams.projectId
+        this.result = null;
+        this.isEditing = false;
         
 
         let navHeader = this
@@ -30,32 +32,41 @@ class ResultFormController{
     }
 
     $onInit(){
-         this.result = {
-          titulo: '',
-          desc: '',
-          user_id: "",
-          process_id: 1,
-          fecha_inicio:""
-        };
+        if(this.result ==null){
+            this.result = {
+              titulo: '',
+              desc: '',
+              user_id: "",
+              process_id: 1,
+              fecha_inicio:""
+            };
+            this.isEditing = false;  
+        }else{
+            this.isEditing = true;
+        }
     }
 
     finishedWizard(form) {
         if (form.$valid) {
-            this.result.user_id=this.userData.id;
-            this.result.project_id=this.project_id;
+            if(this.isEditing){
+
+            }else{
+                this.result.user_id=this.userData.id;
+                this.result.project_id=this.project_id;
+            }
+
             this.API.all('results').post(this.result).then((response) => {
                 if(response.error){
                     $log.debug(response);
                 }else{
                     this.$state.reload()
-                    swal('Resultado creado con exito!', '', 'success')
+                    swal('Resultado creado/editado con exito!', '', 'success')
 
                     this.closeparent();
                     $log.debug(response);
 
 
-                }
-                    
+                }    
             })
         }else{
             alert("Revisar formulario");
@@ -76,6 +87,7 @@ export const ResultFormComponent = {
     controllerAs: 'vm',
     bindings: {
         "closeparent" : "&",
+        result: "=?"
  
     }
 }
