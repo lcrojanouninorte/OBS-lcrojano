@@ -9,8 +9,10 @@ class ProductBudgetController{
         this.$scope = $scope
         this.API = API
 
-        this.users=this.$scope.$parent.mvm.users;
+        this.users=this.$scope.$parent.mvm.users
         this.$state = $state
+        this.loadWallet = false
+        this.selectedBudget = {}
         //this.$state = $state
 
     }

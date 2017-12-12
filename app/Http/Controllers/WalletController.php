@@ -41,6 +41,13 @@ class WalletController extends Controller
         return response()->success(compact('wallet'));
     }
 
+    public function destroy($id)
+    {
+         $wallet = Wallet::find($id);
+         $wallet->delete();
+        return response()->success('success');
+    }
+
 
     public function walletList($user_id, $product_id, $budget_product_id)
     {

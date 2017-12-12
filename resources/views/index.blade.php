@@ -37,7 +37,7 @@
 
 
 </head>
-<body route-bodyclass class="sidebar-collapse">
+<body route-bodyclass class="sidebar-collapse isEmpresario  skin-blue-light ">
     <div class="wrapper" >
         <div ui-view="layout"></div>
         <div class="control-sidebar-bg"></div>
