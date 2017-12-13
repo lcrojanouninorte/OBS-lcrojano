@@ -1,5 +1,5 @@
 class ProjectItemController{
-    constructor(API, $log, $state, AclService){
+    constructor(API, $log, $state, AclService,$uibModal){
         'ngInject';
 
         //
@@ -8,9 +8,12 @@ class ProjectItemController{
         this.$state = $state
         this.originatorEv = {}
         this.can = AclService.can
+        this.$uibModal =$uibModal
+        
     }
 
     $onInit(){
+
         this.titulo = this.project.titulo
         this.fecha_inicio = moment(this.project.fecha_inicio).format("DD  MMMM  YYYY");
         this.fecha_fin = moment(this.project.fecha_fin).format("DD  MMMM  YYYY") || "/";  
@@ -88,6 +91,40 @@ class ProjectItemController{
     
   })
 }
+
+edit_project() {
+        let $uibModal = this.$uibModal
+        let project = this.project
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'myModalProject.html',
+            controller: this.modalcontroller,
+            controllerAs: 'mvm',
+            size: 'md',
+            resolve: {
+               project: function() {
+                   return project;
+               }
+            }
+
+        })
+    }
+
+    modalcontroller($uibModalInstance, project) {
+        'ngInject'
+        this.project = project
+       
+        this.ok = () => {
+          $uibModalInstance.close($scope.selected.item)
+        }
+
+        this.cancel = () => {
+
+          $uibModalInstance.dismiss('cancel');
+        }
+  }
+
+
 }
 
 export const ProjectItemComponent = {

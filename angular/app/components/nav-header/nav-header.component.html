@@ -1,6 +1,6 @@
 <header class="main-header">
-    <md-toolbar class="md-hue-2" md-colors="{background: 'indigo'}" accent="accent" style="min-height: 40px!important; height: 40px!important">
-        <div class="md-toolbar-tools">
+    <md-toolbar layout="column"    class="md-hue-2" md-colors="{background: 'indigo'}" accent="accent" style="min-height: 40px!important; height: 40px!important">
+        <div class="md-toolbar-tools" >
             <a href="/" class="logo "  md-colors="{background: 'indigo'}" accent="accent">
               <span class="logo-mini" md-colors="{background: 'indigo'}" accent="accent"><img src="img/FFI-Logo.png"></span>
               <span class="logo-lg" md-colors="{background: 'indigo'}" accent="accent"><img src="img/FFI-Logo.png" ></span>
@@ -22,6 +22,11 @@
 
             <div class=" navbar-custom-menu">
                 <ul class="   nav navbar-nav " >
+                    <li class="dropdown " layout="row"  flex   uib-dropdown>
+                        <div flex="100" layout="column" flex layout-align="center center" layout-padding>
+                                    <ds-widget-clock theme="light" show-digital digital-format="'EEE MMM d, hh:mm:ss a'"></ds-widget-clock>
+                                </div>
+                    </li>
                   <!--
                     <li class="dropdown messages-menu" uib-dropdown>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle>
@@ -205,6 +210,7 @@
                         </ul>
                     </li>
                   -->
+                  
                     <li class="dropdown user user-menu" uib-dropdown>
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle>
             <img ng-show="vm.isEmpresario" src="{{vm.userData.avatar}}" class="user-image" alt="User Image" onError="this.src='//placeholdit.imgix.net/~text?txtfont=monospace,bold&bg=DD4B39&txtclr=ffffff&txt=E&w=45&h=45&txtsize=16'">
