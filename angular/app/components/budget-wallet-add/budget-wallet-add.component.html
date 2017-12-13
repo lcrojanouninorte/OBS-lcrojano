@@ -10,12 +10,17 @@
     <div>
       <md-input-container>
         <label>Detalle</label>
-        <input ng-model="vm.wallet.desc">
+        <input ng-model="vm.wallet.desc" type="text">
+      </md-input-container>
+
+      <md-input-container>
+        <label>Documento Soporte</label>
+        <input ng-model="vm.wallet.doc" type="text">
       </md-input-container>
 
       <md-input-container>
         <label>Gasto</label>
-        <input ng-model="vm.wallet.cantidad" ng-currency>
+        <input ng-model="vm.wallet.cantidad" type="number" ng-currency>
       </md-input-container> 
 
       <md-button ng-disabled="(vm.pbudget.total - vm.totalActual - vm.wallet.cantidad) <0" ng-click="vm.add()" class="md-raised md-primary">Agregar

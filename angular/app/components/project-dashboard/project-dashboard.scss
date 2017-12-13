@@ -16,6 +16,12 @@
 .project_dashboard .page p {
   line-height: 1.6rem; }
 
+.project_dashboard {
+     -webkit-transition:all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
 
 @import url('http://fonts.googleapis.com/css?family=Rationale');
 /* this import should be first line in css file else add as <link> in html*/
@@ -28,3 +34,4 @@
   color: #1da4eb;
 }
     
+

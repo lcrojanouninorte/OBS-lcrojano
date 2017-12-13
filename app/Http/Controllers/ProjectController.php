@@ -40,38 +40,57 @@ class ProjectController extends Controller
         'process_id' => 'required',
         'user_id' => 'required',
         'empresario_id' => 'required',
-        'fecha_inicio' => 'required'
+        'fecha_inicio' => 'required',
+        'id' => 'alpha_num'
         ]);
+
+
+        
         DB::transaction(function () use ($request, $user) {
-            $project = new Project;
+            //check if send id
+            $id = $request->input('id');
+            if ($id) {
+                $project = Project::find($id);
+            } else {
+                $project = new Project;
+                $project->user_id = $user->id; //Verificar;
+                $project->estado = "primary";
+                $project->progress = 0;
+            }
             $project->titulo = $request->input('titulo');
             $project->desc = $request->input('desc');
             $project->process_id = $request->input('process_id');
-            $project->user_id = $user->id;
             $project->fecha_inicio = new \DateTime($request->input('fecha_inicio'));
-
-            $project->estado = "primary";
-            $project->progress = 0;
             $project->save();
 
 
             //Set ownerships of empresario
-            $user_project = new ProjectUser;
+            //Limitado solo a un empresario por proyect
+            if ($id) {
+                //Cambiar de empresario
+                $role = Role::where("slug", "empresario")->get();
+                $user_project = ProjectUser::where("role", $role[0]->id)
+                                           ->where("project_id", $project->id)->get();
+                $user_project = $user_project[0];
+            } else {
+                $user_project = new ProjectUser;
+                $user_project->project_id = $project->id;
+                $role = Role::where("slug", "empresario")->get();
+                $user_project->role = $role[0]->id;
+            }
+
             $user_project->user_id = $request->input('empresario_id');
-            ;//Funcesi, se debe cambiar por seleccionado por usuario
-            $user_project->project_id = $project->id;
-            $role = Role::where("slug", "empresario")->get();
-            $user_project->role = $role[0]->id;
             $user_project->save();
 
-            //Set ownerships of asesor
-            $user_project = new ProjectUser;
-            $user_project->user_id = $request->input('user_id');
-            ;//Funcesi, se debe cambiar por seleccionado por usuario
-            $user_project->project_id = $project->id;
-            $role = Role::where("slug", "asesor")->get();
-            $user_project->role = $role[0]->id;
-            $user_project->save();
+            if (!$id) {
+                //Set ownerships of asesor
+                $user_project = new ProjectUser;
+                $user_project->user_id = $request->input('user_id');
+                $user_project->project_id = $project->id;
+                $role = Role::where("slug", "asesor")->get();
+                $user_project->role = $role[0]->id;
+                $user_project->save();
+            }
         }, 5);
     
         return response()->success(compact('project'));
