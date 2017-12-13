@@ -24,6 +24,7 @@ class WalletController extends Controller
     {
         $this->validate($request, [
             'desc' => 'required',
+            'doc' => 'alpha_num',
             'cantidad' => 'required',
             'product_id' => 'required',
             'budget_product_id' => 'required',
@@ -32,6 +33,7 @@ class WalletController extends Controller
 
         $wallet = new Wallet;
         $wallet->desc = $request->input('desc');
+        $wallet->doc = $request->input('doc');
         $wallet->cantidad = $request->input('cantidad');
         $wallet->product_id = $request->input('product_id');
         $wallet->budget_product_id = $request->input('budget_product_id');

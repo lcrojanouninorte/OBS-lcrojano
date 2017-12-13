@@ -7,6 +7,8 @@ class ProjectFormController{
         this.$state= $state
         this.users = null
         this.user = null
+        this.project = null
+        this.isEditing=false
      
         let navHeader = this
 
@@ -15,16 +17,16 @@ class ProjectFormController{
         })
 
          this.options = {
-        applyClass: 'btn-green',
-         singleDatePicker: true,
-        locale: {
-            applyLabel: "Aplicar",
-            fromLabel: "Desde",
-            format: "D MMM YYYY", //will give you 2017-01-06
-    //format: "D-MMM-YY", //will give you 6-Jan-17
-    //format: "D-MMMM-YY", //will give you 6-January-17
-        toLabel: "al",
-        cancelLabel: 'Cancelar'
+            applyClass: 'btn-green',
+            singleDatePicker: true,
+            locale: {
+                applyLabel: "Aplicar",
+                fromLabel: "Desde",
+                format: "D MMM YYYY", //will give you 2017-01-06
+                //format: "D-MMM-YY", //will give you 6-Jan-17
+                //format: "D-MMMM-YY", //will give you 6-January-17
+                toLabel: "al",
+                cancelLabel: 'Cancelar'
       } 
     }
 
@@ -32,13 +34,18 @@ class ProjectFormController{
     }
 
     $onInit(){
-         this.project = {
-          titulo: '',
-          desc: '',
-          user_id: "",
-          process_id: 1,
-          fecha_inicio:""
-        };
+        if( this.project == null){
+             this.project = {
+              titulo: '',
+              desc: '',
+              user_id: "",
+              process_id: 1,
+              fecha_inicio:""
+            }
+            this.isEditing=false
+        }else{
+            this.isEditing=true
+        }
       //  this.loadUsers();
 
     }
@@ -63,14 +70,17 @@ class ProjectFormController{
 
     finishedWizard(form) {
         if (form.$valid) {
-            this.project.user_id=this.userData.id;
+
+            if(!this.isEditing){
+                this.project.user_id=this.userData.id;
+            }
             this.project.empresario_id=this.user;
             this.API.all('projects').post(this.project).then((response) => {
                 if(response.error){
                     $log.debug(response);
                 }else{
                     this.$state.reload()
-                    swal('Proyecto creado con exito!', '', 'success')
+                    swal('Proyecto creado/editado con exito!', '', 'success')
 
                     this.closeparent();
                     $log.debug(response);
@@ -97,6 +107,7 @@ export const ProjectFormComponent = {
     controller: ProjectFormController,
     controllerAs: 'vm',
     bindings: {
-        "closeparent" : "&"
+        "closeparent" : "&",
+        "project":"=?"
     }
 }

@@ -1,6 +1,12 @@
-  <script src="js/cuppaDatePicker/datepicker-directive.js" async defer></script>
-<div ui-view="header"></div>
-<div class="content-wrapper"   >
-    <div ui-view="main" ></div>
+
+<div layout="column" layout-fill>
+	  <md-content flex layout="column">
+		<div  ui-view="header"></div>
+		 <md-content layout="column" flex>
+			<section class="content-wrapper"   >
+			    <div ui-view="main" ></div>
+			</section>
+		</md-content>
+		<div ui-view="footer"></div>
+	</md-content>
 </div>
-<div ui-view="footer"></div>
