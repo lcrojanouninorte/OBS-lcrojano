@@ -66,6 +66,10 @@
                 </p>
             </div>
             <div layout="row" flex layout layout-align="end">
+                <md-button ng-if="vm.can( 'edit.project') " class="md-icon-button " aria-label="edit " ng-click="vm.edit_project();">
+                    <md-tooltip md-direction="top">Editar</md-tooltip>
+                    <md-icon md-font-icon="ion-edit "></md-icon>
+                </md-button>
                 <md-button class="md-icon-button" aria-label="edit" ui-sref="app.project({projectId: vm.id})">
                     <md-icon md-font-icon="ion-eye"></md-icon>
                 </md-button>
@@ -78,3 +82,24 @@
         </md-card-actions>
     </div>
 </div>
+
+
+<!--Modal formulario de edicion de proyecto!-->
+<script type="text/ng-template" id="myModalProject.html">
+    <div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">
+        <md-toolbar md-colors="{background: 'green'}">
+            <div class="md-toolbar-tools">
+                <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Edita el Proyecto! </h2>
+            </div>
+        </md-toolbar>
+        <div layout="column" layout-margin>
+            <p>Proyecto: {{mvm.project.titulo}}</p>
+            <project-form project="mvm.project" closeparent="mvm.cancel()" flex></project-form>
+        </div>
+        <div layout="row" class="demo-dialog-button">
+            <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
+                Cancelar
+            </md-button>
+        </div>
+    </div>
+</script>

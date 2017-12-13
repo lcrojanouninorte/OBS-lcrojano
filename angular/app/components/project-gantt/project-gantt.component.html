@@ -91,20 +91,20 @@
         <gantt-overlap></gantt-overlap>
         <gantt-dependencies read-only="true"></gantt-dependencies>
     </div>
-
+ <md-divider md-inset hide-sm ng-if="!$last"></md-divider>
+                          <md-divider hide-gt-sm ng-if="!$last"></md-divider>
     <div class=" text-left" layout="row" layout-align="left center" layout-wrap style="margin-top: 5px;">
     <div>
-        <a ui-sref="app.products({projectId: vm.id, date:vm.today})" class="btn btn-app">
-            <span ng-if="vm.project.delayed_products_count" class="badge bg-red">{{vm.project.delayed_products_count}}</span>
-            <i class="fa  fa-info"></i>Prod. Atrasados
-        </a>
+        
+       
         <a ng-click="vm.milestones_open('')" class="btn btn-app">
              <span class="badge badge-blue"></span>
-            <i class="fa fa-calendar-plus-o"></i> Hitos
+            <i class="fa fa-calendar-plus-o"></i> Fechas Importantes
         </a>
+
         <a ng-click="vm.milestones_open('delayed')" class="btn btn-app">
             <span ng-if="vm.project.alerta_milestiones" class="badge bg-light-blue">{{vm.project.alerta_milestiones}}</span>
-            <i class="fa fa-bullhorn"></i> Prox. Hitos
+            <i class="fa fa-bullhorn"></i> Proximo
         </a>
     </div>
 </div>

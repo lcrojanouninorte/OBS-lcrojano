@@ -17,6 +17,7 @@ class BudgetWalletAddController{
         
         let new_wallet = {
             "desc":this.wallet.desc,
+            "doc":this.wallet.doc,
             "cantidad": this.wallet.cantidad,
             "product_id": this.productId,
             "budget_product_id": this.pbudget.id, //Cambiar por BudgetProduct

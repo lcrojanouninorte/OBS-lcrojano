@@ -63,20 +63,22 @@
             <md-icon md-font-icon="ion-chevron-down" style="font-size:14px"></md-icon>
         </md-button>
     </div>
-    <div ng-if="vm.view_products" class="fx-fade-down fx-fade-up-245">
+    <div ng-if="vm.view_products" class="products-list-wrapper fx-fade-down fx-fade-up-245">
         
     <product-list  result-id="vm.result.id " products="vm.result.products " ></product-list>
     </div>
+    <!--
     <md-card-actions layout="row " layout-align="center ">
         <div flex="33 ">
             <p class="text-bold ">
-                <!--Estado : {{vm.process_id}}-->
-            </p>
+                <!--Estado : {{vm.process_id}}
         </div>
         <div class="text-right " flex="66 ">
             <h2 class="md-display-1 ">{{vm.result.total | currency}}</h2>
         </div>
-    </md-card-actions>
+
+    </md-card-actions> 
+            </p>-->
 </md-card>
 
 

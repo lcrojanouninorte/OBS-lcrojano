@@ -19,6 +19,7 @@ class CreateWalletsTable extends Migration
             $table->integer('product_id')->unsigned()->index();
             $table->integer('budget_id')->unsigned()->index();
             $table->string('desc');
+            $table->string('doc')->nullable();
             $table->integer('cantidad');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
