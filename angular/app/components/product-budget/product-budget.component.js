@@ -13,6 +13,7 @@ class ProductBudgetController{
         this.$state = $state
         this.loadWallet = false
         this.selectedBudget = {}
+        this.step = 0;
         //this.$state = $state
 
     }
@@ -36,6 +37,9 @@ class ProductBudgetController{
     budget_desc_ready(){
         return (this.productBudget.budget_id != '')
     }
+    current_step(){
+        return this.WizardHandler.wizard().currentStepNumber();
+    }
 
     finishedWizard(form) {
         if (true) {
@@ -47,9 +51,11 @@ class ProductBudgetController{
                     $log.debug(response)
                 }else{
                     this.$state.reload()
+                    this.WizardHandler.wizard().goTo(0);
+                   
                     swal('Presupuesto añadido con exito!', '', 'success')
 
-                    this.cancel();
+                   // this.cancel();
                     $log.debug(response);
 
 

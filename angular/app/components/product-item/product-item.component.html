@@ -1,3 +1,5 @@
+
+
 <md-content layout="row" layout-padding layout-align="center">
     <div layout="row" flex>
         <div layout="column" flex="60">
@@ -26,13 +28,17 @@
                 <b class="text-center">Del {{vm.product.fecha_inicio | date:'dd-MMM-yyyy'}} al {{vm.product.fecha_fin | date:'dd-MMM-yyyy'}}</b>
                 <div layout="row">
                     <div flex="90">
+                        
                         <md-select aria-label="select-check" ng-disabled="vm.hasRole('asesor')" class="color-{{vm.product.checkEmpresario}}" ng-model="vm.product.checkEmpresario" ng-change="vm.update()">
+
+
                             <md-option class="{{state.color}}" ng-repeat="state in vm.statesEmpresario" ng-value="state.value">
+
                                 {{state.name}}
                             </md-option>
                         </md-select>
                     </div>
-                    <md-icon md-font-icon="ion-help-circled" ng-click="vm.status_info();"></md-icon>
+                   
                 </div>
             </div>
         </div>

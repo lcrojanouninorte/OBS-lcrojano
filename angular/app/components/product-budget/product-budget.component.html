@@ -8,6 +8,7 @@
     </md-toolbar>
     <md-content class="text-center">
         <h1>{{vm.productBudget.budget_title }}</h1>
+        {{vm.current_step();}}
         <wizard hide-indicators="false && vm.isEditing()" on-finish="vm.finishedWizard()" on-cancel="vm.cancelledWizard()" indicators-position="top">
             <!--Seleccionar Rubro General -->
             <!--filter: si esta editando, solo muetra los rubros que pertenecen al producto-->
@@ -23,13 +24,14 @@
 
                 <!--Elejir productBudget-->
 
-                <budget-list 
+                <budget-list  
                     wz-next 
                     value="Continue" 
                     product="vm.product" 
                     pbudget="vm.productBudget" 
                     filter="vm.isEditing()"
                     ng-click="vm.selectedBudget.titulo = vm.productBudget.titulo"
+                    ng-if="vm.current_step()==1;"
                 >
                 </budget-list>
                
@@ -114,7 +116,7 @@
             </wz-step>
 
             <wz-step wz-title="Finaliza" wz-disabled="{{vm.isEditing()}}">
-                <md-button ng-click="vm.cancel()"   class="md-raised md-primary" value="Continue">Finalizar
+                <md-button  wz-next  class="md-raised md-primary" value="Continue">Finalizar
                     <md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon>
                 </md-button>
             </wz-step>
