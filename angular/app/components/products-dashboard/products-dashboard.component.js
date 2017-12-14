@@ -3,8 +3,8 @@ class ProductsDashboardController{
         'ngInject';
 
         //
-        this.project_id = $stateParams.projectId
-        this.date = $stateParams.date
+        //this.project_id = $stateParams.projectId
+        //this.date = $stateParams.date
         this.API = API
         this.products = []
     }
@@ -12,11 +12,12 @@ class ProductsDashboardController{
     $onInit(){
         
         //get project and his results.
-        let Products = this.API.one('project', this.project_id).one('products', this.date)
+        let Products = this.API.one('project', this.projectId).one('products', this.date)
         Products.get()
           .then((response) => {
             if(!response.error){   
                 this.products = response.data.products
+                this.delayedCount = this.products.length
             }
         });
     }
@@ -26,5 +27,9 @@ export const ProductsDashboardComponent = {
     templateUrl: './views/app/components/products-dashboard/products-dashboard.component.html',
     controller: ProductsDashboardController,
     controllerAs: 'vm',
-    bindings: {}
+    bindings: {
+        projectId:"<",
+        date:"<",
+        delayedCount:"="
+    }
 };

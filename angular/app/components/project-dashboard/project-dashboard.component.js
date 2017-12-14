@@ -7,6 +7,8 @@ class ProjectDashboardController{
         this.$mdSticky = $mdSticky
         this.$state = $state
         this.can = AclService.can
+        this.today = moment().format("YYYY-MM-DD")
+
 
         //
         this.id = $stateParams.projectId

@@ -1,6 +1,6 @@
 
 <md-content layout="column">
-    <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs class="md-primary md-hue-2">
+    <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs class="md-primary md-hue-1">
         <md-tab label="Gantt" aria-controls="tab1-content"  >
              
             <div   layout="row"  layout-align=" center"   class="tabpanel-container" flex="noshrink">
@@ -41,8 +41,9 @@
                     <md-card-content>
                       <div layout="row" >
                         
-                        <h3 class="" >RESULTADOS</h3>
-                        <md-button md-colors="{background: 'blue'}" class="md-fab especial" aria-label="Eat cake" ng-click="vm.create_result();">
+                        <h3 class="" >RESULTADOS</h3
+                          >
+                        <md-button ng-if="vm.can( 'edit.project') " md-colors="{background: 'blue'}" class="md-fab especial" aria-label="Eat cake" ng-click="vm.create_result();">
                               
                                 <md-tooltip md-direction="top" md-visible="tooltipVisible">+ Resultado</md-tooltip>
                                 <md-icon md-font-icon="ion-plus-round"></md-icon>
@@ -69,23 +70,36 @@
                 </md-card>
             </div>
         </md-tab>
-        <md-tab label="Atrasados" >
-          <md-tab-label>
-            <h3></h3>
+        <md-tab label="Atrasados"  aria-controls="tab3-content" >
+          <md-tab-label ng-class="md-tab ng-scope ng-isolate-scope md-ink-ripple"> 
+            <h5> Atrasados <span ng-if="vm.project.delayed_products_count" class="badge bg-red">{{vm.project.delayed_products_count}}</span></h5>
           </md-tab-label>
           <md-tab-body>
-            <a ui-sref="app.products({projectId: vm.id, date:vm.today})" class="btn btn-app">
-            <span ng-if="vm.project.delayed_products_count" class="badge bg-red">{{vm.project.delayed_products_count}}</span>
-            <i class="fa  fa-info"></i>Prod. Atrasados
-        </a>
+              
+            <div class="inset" hide-sm=""></div>
+              <div layout="row" layout-align=" center" class="tabpanel-container" flex="noshrink">
+                  <md-card flex-gt-sm="100" flex-gt-md="80" class="md-default-theme">
+                      <md-card-content>
+                          <div ng-if="vm.id">
+
+                              <products-dashboard delayed-count="vm.project.delayed_products_count" project-id="vm.id" date="vm.today"></products-dashboard>
+                          </div>
+                      </md-card-content>
+                  </md-card>
+              </div>
+
+
+
+             
           </md-tab-body>
         </md-tab>
-        <md-tab label="Descripcion" >
-            <md-tab-label>
-                <h3></h3>
-            </md-tab-label>
+        <md-tab label="Descripción"  aria-controls="tab4-content" >
+            <!--<md-tab-label>
+                <h3>Descripción</h3>
+            </md-tab-label>-->
             <md-tab-body>
-                <div layout="row" flex="100" layout-align="center" layout-wrap>
+            <p>Nota: preguntas que podemos colcar aquí.</p>
+                <div layout="row" flex="100" layout-align="center center" layout-wrap>
                     <div class="alert alert-success alert-dismissible">
                         <h5 class="text-center" flex>Inicia: {{vm.project.fecha_inicio}}</h5>
                     </div>

@@ -15,7 +15,7 @@
 }
 
 .content-wrapper {
-	background-image: url(http://eskipaper.com/images/blur-background-1.jpg);
+ 
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -32,4 +32,9 @@ body {
 	 font-weight: "Regular";
      
      
+}
+.btn.btn-flat, select, html, textarea, input {
+    /* font-family: Roboto, "Helvetica Neue", sans-serif; */
+    font-family: "Open Sans"!important;
+ 
 }
