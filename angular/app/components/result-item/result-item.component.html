@@ -1,6 +1,5 @@
-
-<md-card class="box box-success md-whiteframe-2dp" layout="column" >
-    <md-card-header style="padding-bottom: 0px!important;">
+<md-card class="  box-default md-whiteframe-2dp" layout="column">
+    <md-card-header class="md-hue-2" style="padding-bottom: 0px!important;" md-colors="{background: 'indigo-A200'}">
         <md-card-avatar>
             <div class="progress-wrapper">
                 <div>
@@ -11,13 +10,13 @@
             </div>
         </md-card-avatar>
         <md-card-header-text style="position: relative;">
-            <span class="md-title">{{vm.result.titulo}}</span>
-            <span class="md-subhead">del {{vm.result.fecha_inicio| date:'yyyy-MM-dd'}} al {{vm.result.fecha_fin | date:'yyyy-MM-dd'}}</span>
+            <span class="md-title" ng-click="vm.view_products = !vm.view_products">{{vm.result.titulo}}  <md-icon md-font-icon="ion-chevron-down" style="font-size:12px; color: white;"></md-icon></span>
+            <span class="md-subhead" style="    color: rgb(255, 255, 255);"><b>Del {{vm.result.fecha_inicio| date:'yyyy-MM-dd'}} al {{vm.result.fecha_fin | date:'yyyy-MM-dd'}}</b></span>
             <span class="md-subhead">{{vm.result.total | currency}}</span>
         </md-card-header-text>
         <md-menu>
-            
-            <md-menu-content layout="row"><!--Ya esto no se usa-->
+            <md-menu-content layout="row" style="    padding: 0px;     background-color: transparent;">
+               
                 <div layout-align="right" class="text-center">
                     <div>Asesor</div>
                     <md-checkbox class="result-color-{{vm.result.checkAsesor}}" aria-label="Checkbox 1" ng-model="vm.result.checkAsesor" ng-change="vm.update()" ng-true-value="1" ng-false-value="0" ng-disabled="vm.hasRole('empresario')">
@@ -36,36 +35,65 @@
             </md-menu-content>
         </md-menu>
     </md-card-header>
-    <div class="text-right ">
-        Opciones:
-        <md-button ng-if="vm.can( 'delete.project') " aria-label="Open phone interactions menu" class="md-icon-button" ng-click="vm.product_add_modal();">
-            <md-tooltip md-direction="top">Añadir Producto</md-tooltip>
-            <md-icon md-menu-origin md-font-icon="ion-plus-round"></md-icon>
-        </md-button>
-        <md-button class="md-icon-button " aria-label="upload " ng-click="vm.upload_modal();">
-            <md-tooltip md-direction="top">Subir Fuente de Verificación</md-tooltip>
-            <md-icon md-font-icon="ion-paperclip " ></md-icon>
-        </md-button>
-        <md-button ng-if="vm.can( 'edit.project') " class="md-icon-button " aria-label="edit " ng-click="vm.edit_result();">
-            <md-tooltip md-direction="top">Editar</md-tooltip>
-            <md-icon md-font-icon="ion-edit "></md-icon>
-        </md-button>
-        <!--<md-button class="md-icon-button " aria-label="view ">
+    <div layout="row" layout-padding>
+        <div flex layout="row" layout-align="start center">
+            <div layout="row">
+                <md-tooltip md-direction="top">Indica que el producto aun no lo a empezado a ejecutar.</md-tooltip>
+                <div class="cuadro color-3">
+                    <md-icon ng-style="{'font-size':   '15px', 'line-height': '1', 'min-width': '0'} " md-font-icon="ion-ios-help-empty"></md-icon>
+                </div>
+                <div>
+                    No Iniciado
+                </div>
+            </div>
+            <div layout="row">
+                <md-tooltip md-direction="top">Indica que actualmente se encuentra ejecutando este producto</md-tooltip>
+                <div class="cuadro color-2 ">
+                    <md-icon ng-style="{'font-size':   '15px', 'line-height': '1', 'min-width': '0'} " md-font-icon="ion-ios-help-empty"></md-icon>
+                </div>
+                <div>
+                    En Ejecución
+                </div>
+            </div>
+            <div layout="row">
+                <md-tooltip md-direction="top"> Indica que ya ha finalizado el producto </md-tooltip>
+                <div class="cuadro color-1">
+                    <md-icon ng-style="{'font-size':   '15px', 'line-height': '1', 'min-width': '0'} " md-font-icon="ion-ios-help-empty"></md-icon>
+                </div>
+                <div>
+                    Finalizado
+                </div>
+            </div>
+        </div>
+        <div flex class="text-right " layout-align="end center">
+            Opciones:
+            <md-button ng-if="vm.can( 'delete.project') " aria-label="Open phone interactions menu" class="md-icon-button" ng-click="vm.product_add_modal();">
+                <md-tooltip md-direction="top">Añadir Producto</md-tooltip>
+                <md-icon md-font-icon="ion-plus-round"></md-icon>
+            </md-button>
+            <md-button class="md-icon-button " aria-label="upload " ng-click="vm.upload_modal();">
+                <md-tooltip md-direction="top">Subir Fuente de Verificación</md-tooltip>
+                <md-icon md-font-icon="ion-paperclip "></md-icon>
+            </md-button>
+            <md-button ng-if="vm.can( 'edit.project') " class="md-icon-button " aria-label="edit " ng-click="vm.edit_result();">
+                <md-tooltip md-direction="top">Editar</md-tooltip>
+                <md-icon md-font-icon="ion-edit "></md-icon>
+            </md-button>
+            <!--<md-button class="md-icon-button " aria-label="view ">
             <md-icon md-font-icon="ion-eye "></md-icon>
         </md-button>-->
-        <md-button ng-show="vm.can( 'delete.project') " class="md-icon-button " aria-label="delete " ng-click="vm.delete(vm.result.id) ">
-            <md-tooltip md-direction="top">Borrar Resultado</md-tooltip>
-            <md-icon md-font-icon="ion-trash-a "></md-icon>
-        </md-button>
-
-        <md-button class="md-icon-button md-mini md-primary" aria-label="Play" ng-click="vm.view_products = !vm.view_products">
-            <md-tooltip md-direction="top">Ver Productos</md-tooltip>
-            <md-icon md-font-icon="ion-chevron-down" style="font-size:14px"></md-icon>
-        </md-button>
+            <md-button ng-show="vm.can( 'delete.project') " class="md-icon-button " aria-label="delete " ng-click="vm.delete(vm.result.id) ">
+                <md-tooltip md-direction="top">Borrar Resultado</md-tooltip>
+                <md-icon md-font-icon="ion-trash-a "></md-icon>
+            </md-button>
+            <md-button class="md-icon-button md-mini md-primary" aria-label="Play" ng-click="vm.view_products = !vm.view_products">
+                <md-tooltip md-direction="top">Ver Productos</md-tooltip>
+                <md-icon md-font-icon="ion-chevron-down" style="font-size:14px"></md-icon>
+            </md-button>
+        </div>
     </div>
     <div ng-if="vm.view_products" class="products-list-wrapper fx-fade-down fx-fade-up-245">
-        
-    <product-list  result-id="vm.result.id " products="vm.result.products " ></product-list>
+        <product-list result-id="vm.result.id " products="vm.result.products "></product-list>
     </div>
     <!--
     <md-card-actions layout="row " layout-align="center ">
@@ -80,22 +108,13 @@
     </md-card-actions> 
             </p>-->
 </md-card>
-
-
 <!--Modal formulario de creación de proyecto!-->
 <script type="text/ng-template" id="UploadModal.html">
-
-<file-upload-form result="mvm.result" cancel="mvm.cancel()"></file-upload-form>
-
+    <file-upload-form result="mvm.result" cancel="mvm.cancel()"></file-upload-form>
 </script>
-
-
 <script type="text/ng-template" id="ProductAddModal.html">
- 
     <product-form result-id="mvm.result.id" product-list="mvm.result.products" cancel="mvm.cancel()"></product-form>
-
 </script>
-
 <!--Modal formulario de creación de proyecto!-->
 <script type="text/ng-template" id="myModalResult.html">
     <div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">

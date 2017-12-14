@@ -1,21 +1,54 @@
 
-{{vm.totalActual}}
-<h3 class="text-center">Lista de Gastos</h3>
+ 
 <md-content layout-margin layout-wrap layout="row" layout-align="center">
 	<div ng-show="vm.walletList.length==0">
 		<p>No hay gastos ingresados</p>
 	</div>
-    <div flex="33" flex-gt-md="20" ng-repeat="wallet_item in vm.walletList">
-     
-	    <div class="budget-item text-center"  layout="column">
-		    <span class="" flex>{{wallet_item.desc}} <i  class="ion-close-circled" ng-click="vm.delete(wallet_item)"></i></span>
 
-		    <md-card-avatar class="text-center parent" flex>
-		            <img  class="card img " src="img/business1d.png"  width="70"/>
-		    </md-card-avatar>
-		    <span class="text-success bold" flex> {{wallet_item.cantidad || 0.0 | currency }}</span>
-		</div>
-	</div>
+
+	 <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Lista de Gastos</h3>
+          <div class="box-tools">
+            <div class="input-group input-group-sm" style="width: 150px;">
+              <input ng-model="search_wallet" type="text" name="table_search" class="form-control pull-right" placeholder="Buscar">
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+              </div>
+
+            </div>
+          </div> 
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+          	 <tr>
+              <th>Descripción</th>
+              <th>Dcumento</th>
+              <th>Gasto</th>
+              <th>Borrar</th>
+            </tr>
+            <tr ng-repeat="wallet_item in vm.walletList | filter:search_wallet">
+
+              <th> <img  class="card img " src="img/business1d.png"  width="30"/> {{wallet_item.desc}}</th>
+              <th>{{wallet_item.doc}}</th>
+              <th><span class="text-success bold" flex> {{wallet_item.cantidad || 0.0 | currency }}</span></th>
+              <th> <span class="" flex> <i  class="ion-close-circled" ng-click="vm.delete(wallet_item)"></i></span></th>
+            </tr>
+   
+           
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+  </div>
+
+
+ 
 </md-content>
 
 
