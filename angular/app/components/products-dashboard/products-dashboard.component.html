@@ -6,7 +6,11 @@
 </md-toolbar>
 
 <div layout-padding>
-
+ <div ng-if="vm.delayedCount<=0">
+ 	<md-card layout="row" layout-align="center center">
+ 		No hay Productos Atrasados
+ 	</md-card>
+ </div>
 <product-list products="vm.products"></product-list>
 
 </div>
