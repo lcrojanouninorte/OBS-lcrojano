@@ -1,11 +1,10 @@
-{{pbudget|json}}
+ 
 
 <div>
+ 
+<budget-wallet-add  user-id="vm.userId" product-id="vm.productId" pbudget="vm.pbudget" wallet-list="vm.walletList" product-wallet-total="vm.productWalletTotal" total-actual="vm.totalActual" ></budget-wallet-add>
 
- {{vm.totalActual}}
-<budget-wallet-add  user-id="vm.userId" product-id="vm.productId" pbudget="vm.pbudget" wallet-list="vm.walletList" total-actual="vm.totalActual" ></budget-wallet-add>
-
-<budget-wallet-list wallet-list="vm.walletList" total-actual="vm.totalActual" ></budget-wallet-list>
+<budget-wallet-list wallet-list="vm.walletList" product-wallet-total="vm.productWalletTotal" total-actual="vm.totalActual" ></budget-wallet-list>
 
 
 </div>

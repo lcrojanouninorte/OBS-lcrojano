@@ -44,6 +44,9 @@ class ProductItemController{
     $onInit(){
         this.nombre = this.product.nombre
         this.users = this.$scope.$parent.$parent.$parent.$parent.$parent.users
+        if(!this.product.budgets_total){
+          this.product.budgets_total = 0
+        }
         
     }
 
@@ -145,16 +148,17 @@ class ProductItemController{
 
                mode:function() {
                    return "";
-               }  
+               }
             }
         })
     }
 
-    modalcontroller($uibModalInstance, product,users, mode) {
+    modalcontroller($uibModalInstance, product,users, mode,$state) {
         'ngInject'
         this.product = product
         this.users = users
         this.mode = mode
+        this.$state = $state
        
         this.ok = () => {
 
@@ -163,7 +167,8 @@ class ProductItemController{
 
         this.cancel = () => {
 
-          $uibModalInstance.dismiss('cancel');
+          $uibModalInstance.dismiss('cancel')
+          this.$state.reload()
         }
   }
 

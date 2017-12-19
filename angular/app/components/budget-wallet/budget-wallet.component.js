@@ -22,25 +22,7 @@ class BudgetWalletController{
             });
     }
 
-    $onChanges(changesObj) { 
-        //TODO: revisar evento, actualemnte se ejecuta cada vez que selecciono en product_badgets, 
-        //debido a que estamos escuchando la variable pbudget
-        /*if (changesObj.pbudget) {
-
-            console.log('wallets/'+this.userId+"/"+this.productId+"/"+this.pbudget.id)
-
-            //TODO: Cambiar por budgetsproduct
-            let Wallets = this.API.one('wallets/'+this.userId+"/"+this.productId+"/"+this.pbudget.id)
-            Wallets.get()
-              .then((response) => {
-                if(!response.error){   
-                    this.walletList = response.data.wallets
-                    this.total_actual = response.data.total
-                    this.limit = this.pbudget.total - this.total_actual
-                }
-            });
-        }*/
-    }
+    
 }
 
 export const BudgetWalletComponent = {
@@ -48,6 +30,7 @@ export const BudgetWalletComponent = {
     controller: BudgetWalletController,
     controllerAs: 'vm',
     bindings: {
+        productWalletTotal:"=",
         userId:"<",
         productId:"<",
         pbudget:"<"

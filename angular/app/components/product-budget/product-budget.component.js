@@ -51,6 +51,8 @@ class ProductBudgetController{
                     $log.debug(response)
                 }else{
                     this.$state.reload()
+                    //actualizar totales
+                    this.product.budgets_total = this.product.budgets_total + (response.data.budget_product.cantidad*response.data.budget_product.valor_unitario)
                     this.WizardHandler.wizard().goTo(0);
                    
                     swal('Presupuesto añadido con exito!', '', 'success')
@@ -77,7 +79,7 @@ export const ProductBudgetComponent = {
     controllerAs: 'vm',
     bindings: {
         cancel :"&",
-        product:"<",
+        product:"=",
         users:"<",
         mode:"<",
        

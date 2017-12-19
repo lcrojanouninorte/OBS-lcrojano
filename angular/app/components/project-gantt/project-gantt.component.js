@@ -65,7 +65,7 @@ class ProjectGanttController{
             treeHeaderContent: "<i class='fa fa-align-justify'></i> {{getHeader()}}",
            // taskContent:"<span md-truncate ng-click='scope.handleTaskclick(task)'><i class='fa fa-clock-o'></i> {{task.model.name}}</span>",
             taskContent: "<span md-truncate ng-click='scope.handleTaskclick(task)'><i class='fa fa-clock-o'></i></span>",
-            rowContent:"<span md-truncate ng-click='scope.handleRowClick(row.model)'><i class='fa fa-tasks'></i> {{row.model.name}}</span>"
+            rowContent:"<span  ng-click='scope.handleRowClick(row.model)'>  <h5 md-truncate> <i class='fa fa-tasks'></i> <md-tooltip md-direction='right'>{{row.model.name}}</md-tooltip> {{row.model.name}}</h5>  </span>"
 
 
         }

@@ -1,8 +1,12 @@
 class BudgetItemController{
-    constructor(){
+    constructor(API, $state, WizardHandler){
         'ngInject';
 
         //
+        this.API = API
+        this.$state = $state
+        this.WizardHandler = WizardHandler
+
         
     }
 
@@ -14,6 +18,56 @@ class BudgetItemController{
         this.pbudget = this.budget;
 
     }
+
+    delete (budget_item) {
+            let API = this.API
+            let $state = this.$state
+            let budgetList = this.budgetList
+            let vm = this
+            let WizardHandler = this.WizardHandler
+ 
+
+
+            swal({
+              title: 'Seguro?',
+              text: 'No sera posible recuperar estos datos!',
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#DD6B55',
+              confirmButtonText: 'Si Quiero borrarlo!',
+              //closeOnConfirm: false,
+              //showLoaderOnConfirm: true,
+              html: false
+            }).then(function () {
+
+              API.one('budgets').one('', budget_item.id).remove()
+                .then((response) => {
+                    if(!response.error){
+
+                          //vm.totalActual = vm.totalActual - budget_item.cantidad;
+                          vm.product.budgets_total = vm.product.budgets_total - budget_item.total
+                          budgetList.splice( budgetList.indexOf(budget_item), 1 )
+                          WizardHandler.wizard().goTo(0)
+                      swal({
+                        title: 'Borrado!',
+                        text: 'Se ha borrado el gasto con exito.',
+                        type: 'success',
+                        confirmButtonText: 'OK',
+                        //closeOnConfirm: true
+                      }).then( function () {
+
+                        
+                        //totalActual = totalActual - wallet_item.cantidad;
+                        //$state.reload()
+                      })
+                    }
+                    else{
+                        this.$log.debug(response);
+                    }
+                })
+            
+          })
+        }
 }
 
 export const BudgetItemComponent = {
@@ -22,6 +76,8 @@ export const BudgetItemComponent = {
     controllerAs: 'vm',
     bindings: {
         budget:"=",
-        pbudget : "="
+        pbudget : "=",
+        budgetList :"=",
+        product:"=?"
     }
 }
