@@ -46,10 +46,10 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->get('project/{id}/products/{date?}', 'ProjectController@get_products');
 
 
-   //$api->resource('budgets', 'BudgetController');
     $api->get('budgets/{product_id}', 'BudgetController@budget_product');
     $api->get('budgets/{budget_id}/products/{product_id}', 'BudgetController@budget_desc_product');
     $api->post('product/budgets', 'ProductController@addBudget');
+    $api->resource('budgets', 'BudgetController');
 
  
         //Milestones
