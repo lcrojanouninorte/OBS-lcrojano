@@ -9,7 +9,7 @@
                         <md-card-title-text>
                             <div layout="row" layout-align="right center" flex="100" layout-wrap>
                                 <div flex="100" flex-gt-md="80" layout="row" layout-align="end center">
-                                    <span class="text-left md-headline" md-truncate>{{vm.project.titulo}} </span>
+                                    <span class="text-left md-headline" md-truncate>  {{vm.project.titulo}} </span>
                                     
                                 </div>
                                 
@@ -70,9 +70,10 @@
                 </md-card>
             </div>
         </md-tab>
-        <md-tab label="Atrasados"  aria-controls="tab3-content" >
+
+        <md-tab ng-if="!(vm.project.delayed_products_count==0)" label="Atrasados"  aria-controls="tab3-content" >
           <md-tab-label ng-class="md-tab ng-scope ng-isolate-scope md-ink-ripple"> 
-            <h5> Atrasados <span ng-if="vm.project.delayed_products_count" class="badge bg-red">{{vm.project.delayed_products_count}}</span></h5>
+            Atrasados <span ng-if="vm.project.delayed_products_count" class="badge bg-red">{{vm.project.delayed_products_count}}</span> 
           </md-tab-label>
           <md-tab-body>
               
@@ -93,10 +94,11 @@
              
           </md-tab-body>
         </md-tab>
+        <!--
         <md-tab label="Descripción"  aria-controls="tab4-content" >
             <!--<md-tab-label>
                 <h3>Descripción</h3>
-            </md-tab-label>-->
+            </md-tab-label>
             <md-tab-body>
             <p>Nota: preguntas que podemos colcar aquí.</p>
                 <div layout="row" flex="100" layout-align="center center" layout-wrap>
@@ -111,7 +113,7 @@
                     </div>
                 </div>
             </md-tab-body>
-        </md-tab>
+        </md-tab>-->
          
             <!-- these require actual routing with ui-router or ng-route, so they
       won't work in the demo

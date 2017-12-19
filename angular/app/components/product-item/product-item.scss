@@ -35,3 +35,9 @@ md-select {
  
     margin: 0;
 }
+
+md-select.md-default-theme[disabled] .md-select-value, md-select[disabled] .md-select-value {
+ 
+    background-image: none;
+ 
+}
