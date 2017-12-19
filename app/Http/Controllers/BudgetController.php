@@ -24,6 +24,13 @@ class BudgetController extends Controller
         return response()->success(compact("budgets"));
     }
 
+    public function destroy($id)
+    {
+         $budget_product = BudgetProduct::find($id);
+         $budget_product->delete();
+        return response()->success('success');
+    }
+
     public function budget_project($project_id)
     {
 

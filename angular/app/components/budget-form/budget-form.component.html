@@ -25,15 +25,7 @@
                         <div ng-message="required">Este campo es obligatorio.</div>
                     </div>
                 </md-input-container>
-                <md-input-container class="md-icon-float md-block">
-                    <!-- Use floating label instead of placeholder -->
-                    <label>Cantidad</label>
-                    <md-icon md-font-icon="ion-ios-cart" class="title"></md-icon>
-                    <input name="cantidad" ng-model="vm.pbudget.cantidad" type="number" ng-required="true">
-                    <div ng-messages="projectForm.cantidad.$error">
-                        <div ng-message="required">Este campo es obligatorio.</div>
-                    </div>
-                </md-input-container>
+                
                 <md-input-container class="md-icon-float md-block">
                     <!-- Use floating label instead of placeholder -->
                     <label>Valor Unitario</label>
@@ -43,6 +35,18 @@
                         <div ng-message="required">Este campo es obligatorio.</div>
                     </div>
                 </md-input-container>
+                
+                <md-input-container class="md-icon-float md-block">
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Cantidad</label>
+                    <md-icon md-font-icon="ion-ios-cart" class="title"></md-icon>
+                    <input name="cantidad" ng-model="vm.pbudget.cantidad" type="number" ng-required="true">
+                    <div ng-messages="projectForm.cantidad.$error">
+                        <div ng-message="required">Este campo es obligatorio.</div>
+                    </div>
+                </md-input-container>
+
+                
             </div>
             <h4 flex> Presupuesto </h4>
             <div layout="row" flex layout-align="center">

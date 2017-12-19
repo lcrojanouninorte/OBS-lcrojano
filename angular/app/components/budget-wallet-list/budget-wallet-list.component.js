@@ -39,6 +39,8 @@ class BudgetWalletListController{
                 .then((response) => {
                     if(!response.error){
                           vm.totalActual = vm.totalActual - wallet_item.cantidad;
+                          //Actualizar total del procuto!
+                          vm.productWalletTotal = vm.productWalletTotal - wallet_item.cantidad
                           walletList.splice( walletList.indexOf(wallet_item), 1 );
                       swal({
                         title: 'Borrado!',
@@ -67,6 +69,7 @@ export const BudgetWalletListComponent = {
     controller: BudgetWalletListController,
     controllerAs: 'vm',
     bindings: {
+        productWalletTotal:"=",
         walletList:"=",
         totalActual:"="
     }

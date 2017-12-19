@@ -35,6 +35,9 @@ class BudgetWalletAddController{
                     this.wallet = response.data.wallet;
                     this.totalActual = this.totalActual + this.wallet.cantidad;
 
+                    //actualizar producto principal!
+                    this.productWalletTotal = this.productWalletTotal + this.wallet.cantidad;
+                    
                     this.wallet.cantidad = "";
                     this.wallet.desc  ="";
                     //Close modal
@@ -52,6 +55,7 @@ export const BudgetWalletAddComponent = {
     controller: BudgetWalletAddController,
     controllerAs: 'vm',
     bindings: {
+        productWalletTotal:"=",
         walletList:"=",
         productId:"<",
         pbudget:"<",

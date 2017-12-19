@@ -17,15 +17,15 @@ class CreateWalletsTable extends Migration
             
             $table->integer('user_id')->unsigned()->index();
             $table->integer('product_id')->unsigned()->index();
-            $table->integer('budget_id')->unsigned()->index();
+            $table->integer('budget_product_id')->unsigned()->index();
             $table->string('desc');
             $table->string('doc')->nullable();
             $table->integer('cantidad');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('budget_id')->references('id')->on('budgets')->onDelete('cascade');
-
+            $table->foreign('budget_product_id')->references('id')->on('budget_product')->onDelete('cascade');
+           
             $table->timestamps();
         });
     }

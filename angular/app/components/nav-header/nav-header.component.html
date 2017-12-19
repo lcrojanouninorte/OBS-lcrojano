@@ -5,11 +5,11 @@
               <span class="logo-mini" md-colors="{background: 'indigo'}" accent="accent"><img src="img/FFI-Logo.png"></span>
               <span class="logo-lg" md-colors="{background: 'indigo'}" accent="accent"><img src="img/FFI-Logo.png" ></span>
             </a>
-            <a href="javascript:void(0)" class="sidebar-toggle " data-toggle="offcanvas" role="button">
+            <a ng-show="vm.can('manage.users')" href="javascript:void(0)" class="sidebar-toggle " data-toggle="offcanvas" role="button">
               <span class="sr-only">Menú</span>
             </a>
             
-            <h2 flex md-truncate>Proyectos</h2>
+            <a ui-sref="app.landing" flex >Inicio</a>
             <!--
             <md-button class="md-icon-button" aria-label="Favorite">
                 <md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon>
