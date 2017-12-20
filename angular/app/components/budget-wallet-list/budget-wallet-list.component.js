@@ -71,6 +71,7 @@ export const BudgetWalletListComponent = {
     bindings: {
         productWalletTotal:"=",
         walletList:"=",
-        totalActual:"="
+        totalActual:"=",
+        pbudget:"<"
     }
 };

@@ -41,7 +41,8 @@ class ProjectController extends Controller
         'user_id' => 'required',
         'empresario_id' => 'required',
         'fecha_inicio' => 'required',
-        'id' => 'alpha_num'
+        'id' => 'alpha_num',
+        'asesor_id'  => 'alpha_num'
         ]);
 
 
@@ -70,8 +71,19 @@ class ProjectController extends Controller
                 //Cambiar de empresario
                 $role = Role::where("slug", "empresario")->get();
                 $user_project = ProjectUser::where("role", $role[0]->id)
-                                           ->where("project_id", $project->id)->get();
+                               ->where("project_id", $project->id)->get();
                 $user_project = $user_project[0];
+
+
+                //cambiar asesor
+
+                $role = Role::where("slug", "asesor")->get();
+                $asesor_project = ProjectUser::where("role", $role[0]->id)
+                               ->where("project_id", $project->id)->get();
+                $asesor_project = $asesor_project[0];
+                $asesor_project->user_id = $request->input('asesor_id');
+                $asesor_project->save();
+                $project->user_id = $request->input('asesor_id');
             } else {
                 $user_project = new ProjectUser;
                 $user_project->project_id = $project->id;
@@ -81,6 +93,7 @@ class ProjectController extends Controller
 
             $user_project->user_id = $request->input('empresario_id');
             $user_project->save();
+
 
             if (!$id) {
                 //Set ownerships of asesor

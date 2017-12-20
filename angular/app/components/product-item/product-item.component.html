@@ -1,10 +1,10 @@
-
-
+ 
+ 
 <md-content layout="row" layout-padding layout-align="center">
     <div layout="row" flex>
         <div layout="column" flex="60">
             <span ng-class="{strike: vm.product.checkEmpresario==1, bold: vm.important}">{{vm.product.desc}}</span>
-            <span>
+            <span ng-if="vm.product.product_wallet_total">
             <b>{{vm.product.product_wallet_total | currency}} / {{vm.product.budgets_total | currency}} </b>
         </span>
             <div layout>
@@ -89,7 +89,7 @@
 <md-divider></md-divider>
 <!--Modal formulario de creación de proyecto!-->
 <script type="text/ng-template" id="ProductEditModal.html">
-    <product-form users="mvm.users" product="mvm.product" cancel="mvm.cancel()"></product-form>
+    <product-form project-id="mvm.projectId" users="mvm.users" product="mvm.product" cancel="mvm.cancel()"></product-form>
 </script>
 <script type="text/ng-template" id="BudgetModal.html">
     <product-budget users="mvm.users" product="mvm.product" cancel="mvm.cancel()" mode="mvm.mode"></product-budget>

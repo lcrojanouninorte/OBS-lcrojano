@@ -8,6 +8,8 @@ class ProductFormController {
         this.product = null
         this.isEditing = false
         this.$state = $state
+        this.results = null
+        this.result = null
         this.options = {
             applyClass: 'btn-green',
             singleDatePicker: true,
@@ -40,6 +42,9 @@ class ProductFormController {
 
 
 $onInit() {
+
+    //cargar todos los resultados para el select!
+
     if(this.product==null){
         this.isEditing = false
         this.product = {
@@ -52,12 +57,26 @@ $onInit() {
     }
 }
 
+    loadResults(){
+        let Results = this.API.one('results', this.projectId)
+
+        Results.getList().then((response) => {
+            if(!response.error){
+                this.results = response
+            }
+          });
+    }
+
     add(){//add item from form controller
 
         //Check if it is an update
 
         if(this.isEditing){
-            
+            //Cambiar de reusltado si se ha cambado
+            if(this.result.id){
+
+                this.product.result_id = this.result.id
+            }
             this.API.service('products').post(this.product).then((response) => {
                     if(response.errors){
                        this.$log.debug(response);
@@ -70,6 +89,8 @@ $onInit() {
                     }
             })
         }else{
+
+            
             let new_product = {
                 "desc":this.product.desc,
                 "fecha_inicio": moment(this.product.fecha_inicio).format("YYYY/MM/DD") ,
@@ -103,7 +124,8 @@ export const ProductFormComponent = {
     controller: ProductFormController,
     controllerAs: 'vm',
     bindings: {
-        resultId: "<",
+        resultId: "<?",
+        projectId: "<",
         productList: "=",
         product: "=?",
         cancel:"&?"
