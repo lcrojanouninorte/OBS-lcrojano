@@ -92,8 +92,9 @@
             </md-button>
         </div>
     </div>
+     
     <div ng-if="vm.view_products" class="products-list-wrapper fx-fade-down fx-fade-up-245">
-        <product-list result-id="vm.result.id " products="vm.result.products "></product-list>
+        <product-list project-id="vm.result.project_id" result-id="vm.result.id " products="vm.result.products "></product-list>
     </div>
     <!--
     <md-card-actions layout="row " layout-align="center ">
@@ -113,7 +114,7 @@
     <file-upload-form result="mvm.result" cancel="mvm.cancel()"></file-upload-form>
 </script>
 <script type="text/ng-template" id="ProductAddModal.html">
-    <product-form result-id="mvm.result.id" product-list="mvm.result.products" cancel="mvm.cancel()"></product-form>
+    <product-form project-id="mvm.result.project_id" result-id="mvm.result.id" product-list="mvm.result.products" cancel="mvm.cancel()"></product-form>
 </script>
 <!--Modal formulario de creación de proyecto!-->
 <script type="text/ng-template" id="myModalResult.html">

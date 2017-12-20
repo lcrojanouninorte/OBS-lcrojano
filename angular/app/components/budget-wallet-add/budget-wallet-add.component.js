@@ -6,10 +6,21 @@ class BudgetWalletAddController{
 
         this.API = API
         this.$state = $state
-        this.wallet = {};
+        this.wallet = {}
+        this.wallets = {}
+ 
     }
 
     $onInit(){
+
+        //get total by type
+        this.wallets=this.pbudget.wallets 
+        //En la posicion 0: sena, 1: cp, 2: ce, bienen de un order by de la ruta 
+        //http://localhost:8000/api/budgets/1/products/53
+
+     
+
+
 
     }
     add(){//add item from form controller
@@ -17,6 +28,7 @@ class BudgetWalletAddController{
         
         let new_wallet = {
             "desc":this.wallet.desc,
+            "type":this.wallet.type,
             "doc":this.wallet.doc,
             "cantidad": this.wallet.cantidad,
             "product_id": this.productId,
@@ -40,6 +52,8 @@ class BudgetWalletAddController{
                     
                     this.wallet.cantidad = "";
                     this.wallet.desc  ="";
+                    this.wallet.type  ="";
+                    this.wallet.doc  ="";
                     //Close modal
                     $log.debug(response)
                 }

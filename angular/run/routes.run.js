@@ -2,7 +2,9 @@ export function RoutesRun ($rootScope, $state, $auth, AclService, $timeout, API,
   'ngInject'
 
   AclService.resume()
-moment.locale("es");
+  moment.locale("es");
+  let can = AclService.can
+  let isSupervisor = AclService.hasRole("supervisor");
 
   /*eslint-disable */
   let deregisterationCallback = $rootScope.$on('$stateChangeStart', function (event, toState) {
@@ -40,6 +42,12 @@ moment.locale("es");
             response = response.plain()
             $rootScope.me = response.data
           })
+
+          //set css if super admin
+          if(can('manage.users')){
+           var el =  angular.element(document.querySelectorAll(".sidebar-mini.sidebar-collapse .content-wrapper"));
+            el.addClass('sidebar-margin');
+          }
       }
     })
     

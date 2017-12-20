@@ -40,10 +40,21 @@ body {
 }
 
 @media (min-width: 768px){
-.sidebar-mini.sidebar-collapse .content-wrapper, 
-.sidebar-mini.sidebar-collapse .right-side, 
-.sidebar-mini.sidebar-collapse .main-footer {
-    margin-left: 0px !important;
-    
-}
+    .sidebar-mini.sidebar-collapse .content-wrapper.sidebar-margin{
+        margin-left: 50px !important;
+    }
+    .sidebar-mini.sidebar-collapse .right-side.sidebar-margin{
+        margin-left: 50px !important;
+    }
+    .sidebar-mini.sidebar-collapse .main-footer.sidebar-margin{
+        margin-left: 50px !important;
+    }
+
+    .sidebar-mini.sidebar-collapse .content-wrapper, 
+    .sidebar-mini.sidebar-collapse .right-side, 
+    .sidebar-mini.sidebar-collapse .main-footer {
+        margin-left: 0px !important;
+        
+    }
+
 }

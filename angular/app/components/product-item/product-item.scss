@@ -41,3 +41,6 @@ md-select.md-default-theme[disabled] .md-select-value, md-select[disabled] .md-s
     background-image: none;
  
 }
+md-select-menu.md-default-theme md-content md-option:not([disabled]):focus, md-select-menu md-content md-option:not([disabled]):focus, md-select-menu.md-default-theme md-content md-option:not([disabled]):hover, md-select-menu md-content md-option:not([disabled]):hover {
+     background: rgba(83, 109, 254, 0.72); 
+}

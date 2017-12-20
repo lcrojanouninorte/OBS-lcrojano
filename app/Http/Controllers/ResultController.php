@@ -8,6 +8,8 @@ use App\Http\Requests;
 
 use App\Result;
 
+use App\product;
+
 use Auth;
 
 use Storage;
@@ -55,8 +57,8 @@ class ResultController extends Controller
     public function index($project_id)
     {
 
-        $results = Result::where("project_id", $project_id)->get();
-        $results->products = $results->products;
+        $results = Result::where("project_id", $project_id)->with("products")->get();
+        //$results->products = $results->products;
         return response()->success(compact('results'));
     }
 
