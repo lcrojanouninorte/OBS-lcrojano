@@ -84,6 +84,18 @@ class BudgetController extends Controller
         ->select("budget_product.id", "descripcion as titulo", "product_id", "budget_id", "unidad", "cantidad", "valor_unitario", "financiacion_sena", "c_especie", "c_efectivo", "estado", DB::raw("cantidad*valor_unitario as total"))
         ->get();
 
+         $total_executed =
+        BudgetProduct::with(array("wallets"=>function ($q) use ($product_id) {
+            $q->select(DB::raw('id, product_id, budget_product_id, type, SUM(cantidad) total_executed'))->groupBy("type", "budget_product_id", "product_id")->orderBy('type', "DESC")->get();
+            //Orden de los totales para wallet: sena, cp, ce
+        }))
+        ->where("product_id", $product_id)
+        ->where("budget_id", $budget_id)
+        ->select("budget_product.id")
+        ->get();
+
+        $budgets[0]["wallets_executed"] = $total_executed[0]["wallets"];
+
 
 
         return response()->success(compact("budgets"));

@@ -105,6 +105,8 @@ class ProductItemController{
 
         let Mode = mode
 
+         let projectId = this.projectId
+
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: "BudgetModal.html",
@@ -120,6 +122,9 @@ class ProductItemController{
                },
                mode:function() {
                    return Mode;
+               },
+               projectId:function() {
+                   return projectId;
                }
             }
         })
@@ -131,6 +136,8 @@ class ProductItemController{
         let product = this.product
 
         let users = this.users
+
+        let projectId = this.projectId
 
         var modalInstance = $uibModal.open({
             animation: true,
@@ -148,16 +155,20 @@ class ProductItemController{
 
                mode:function() {
                    return "";
+               },
+               projectId:function() {
+                   return projectId;
                }
             }
         })
     }
 
-    modalcontroller($uibModalInstance, product,users, mode,$state) {
+    modalcontroller($uibModalInstance, product,users, mode,$state, projectId) {
         'ngInject'
         this.product = product
         this.users = users
         this.mode = mode
+        this.projectId = projectId
         this.$state = $state
        
         this.ok = () => {
@@ -184,6 +195,8 @@ export const ProductItemComponent = {
     controller: ProductItemController,
     controllerAs: 'vm',
     bindings: {
+        projectId:"<?",
+        resultId:"<?",
         product:"=",
         delete:"&"
          

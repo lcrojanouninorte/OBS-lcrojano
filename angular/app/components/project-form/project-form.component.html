@@ -98,7 +98,7 @@
                 <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Continuar<md-icon md-font-icon="ion-chevron-right" aria-label="description"></md-icon></md-button>
             </div>
         </wz-step>
-        <wz-step wz-title="Fin" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+        <wz-step wz-title="Fecha" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
         <div layout="column" layout-gt-sm="row">
             <div layout="column"  layout-align = "center center" flex="100" flex-gt-sm="20">
                 <img style="width: 125px;" src="https://www.shareicon.net/download/2016/08/19/817176_calendar_512x512.png">
@@ -117,7 +117,7 @@
             </div>
 
         </wz-step>
-        <wz-step wz-title="Fin" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+        <wz-step wz-title="EMpresario" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
              Seleccionar usuario existente o crear uno nuevo:
               <div layout="column" layout-align="center center">
                 <md-select placeholder="Assign to user" ng-model="vm.user" md-on-open="vm.loadUsers()" style="min-width: 200px;">
@@ -128,7 +128,21 @@
 
           <div class="text-center">
                 <md-button type="submit" class="md-raised md-primary" wz-previous value="previus"><md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>Atras</md-button>
-                <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Crear Proyecto<md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon></md-button>
+                <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Siguiente<md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon></md-button>
+            </div>
+        </wz-step>
+        <wz-step wz-disabled="{{!vm.projectEditing();}}" wz-title="Asesor" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+             Seleccionar asesor existente o crear uno nuevo:
+              <div layout="column" layout-align="center center">
+                <md-select placeholder="Asigna Asesor" ng-model="vm.asesor" md-on-open="vm.loadUsersAsesor()" style="min-width: 200px;">
+                  <md-option ng-value="asesor.id" ng-repeat="asesor in vm.asesores">{{asesor.name}}</md-option>
+                </md-select>
+                <p class="md-caption">Has asignado este projecto a : {{ vm.asesor ? vm.asesor : 'Por favor seleccionar' }}</p>
+              </div>
+
+          <div class="text-center">
+                <md-button type="submit" class="md-raised md-primary" wz-previous value="previus"><md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>Atras</md-button>
+                <md-button type="submit" class="md-raised md-primary" wz-next value="Continue">Siguiente<md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon></md-button>
             </div>
         </wz-step>
 

@@ -24,14 +24,16 @@
                     <label>Fecha Fin</label>
                     <input date-range-picker  options="vm.options" class="form-control date-picker" type="text" ng-model="vm.product.fecha_fin" />
         </md-input-container>
-
-        <md-input-container flex>
+ 
+ 
+        <md-input-container flex ng-if="!vm.resultId">
             <label>Resultado</label>
+             
             <div layout="column" layout-align="start center">
-                <md-select placeholder="Asignar a un Resultado" ng-model="vm.user" md-on-open="vm.loadUsers()" style="min-width: 300px;">
-                  <md-option ng-value="user.id" ng-repeat="user in vm.users">{{user.name}}</md-option>
+                <md-select placeholder="Asignar a un Resultado" ng-model="vm.result" md-on-open="vm.loadResults()" style="min-width: 300px;">
+                  <md-option ng-value="result" ng-repeat="result in vm.results">{{result.titulo}}</md-option>
                 </md-select>
-                <p class="md-caption">Has asignado este project a : {{ vm.user ? vm.user : 'Por favor seleccionar' }}</p>
+                <p style="max-width: 300px;" class="md-caption" md-truncate>Has asignado este project a : {{ vm.result.titulo ? vm.result.titulo : 'Por favor seleccionar' }}</p>
               </div>
         </md-input-container>
  

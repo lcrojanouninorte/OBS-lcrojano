@@ -7,8 +7,11 @@ class ProjectFormController{
         this.$state= $state
         this.users = null
         this.user = null
+        this.asesores = null
+        this.asesor = null
         this.project = null
         this.isEditing=false
+        this.mode = "project"
      
         let navHeader = this
 
@@ -58,6 +61,15 @@ class ProjectFormController{
             }
           }).catch(this.failedRegistration.bind(this))
     }
+    loadUsersAsesor(){
+        let Users = this.API.one('users',"asesor")
+
+        Users.getList().then((response) => {
+            if(!response.error){
+                this.asesores = response
+            }
+          }).catch(this.failedRegistration.bind(this))
+    }
     failedRegistration (response) {
     if (response.status === 422) {
       for (var error in response.data.errors) {
@@ -75,6 +87,7 @@ class ProjectFormController{
                 this.project.user_id=this.userData.id;
             }
             this.project.empresario_id=this.user;
+            this.project.asesor_id=this.asesor;
             this.API.all('projects').post(this.project).then((response) => {
                 if(response.error){
                     $log.debug(response);
@@ -96,6 +109,10 @@ class ProjectFormController{
 
     }
 
+    projectEditing(){
+       return this.mode=="edit"
+    }
+
 
     exitValidation(input){
         return angular.equals({}, input);
@@ -108,6 +125,7 @@ export const ProjectFormComponent = {
     controllerAs: 'vm',
     bindings: {
         "closeparent" : "&",
-        "project":"=?"
+        "project":"=?",
+        "mode":"=?"
     }
 }

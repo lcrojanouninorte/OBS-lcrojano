@@ -29,6 +29,7 @@ class WalletController extends Controller
             'product_id' => 'required',
             'budget_product_id' => 'required',
             'user_id' => 'required',
+            'type' => 'required',
         ]);
 
         $wallet = new Wallet;
@@ -38,6 +39,7 @@ class WalletController extends Controller
         $wallet->product_id = $request->input('product_id');
         $wallet->budget_product_id = $request->input('budget_product_id');
         $wallet->user_id = $request->input('user_id');
+        $wallet->type = $request->input('type');
 
         $wallet->save();
         return response()->success(compact('wallet'));
@@ -55,8 +57,8 @@ class WalletController extends Controller
     {
         $wallets = new \stdClass();
         ;
-        $wallets_data = Wallet::where("user_id", $user_id)
-                        ->where("product_id", $product_id)
+       // $wallets_data = Wallet::where("user_id", $user_id) ?? limitaba mostrar gastos solo del usuario creado
+         $wallets_data = Wallet::where("product_id", $product_id)
                         ->where("budget_product_id", $budget_product_id)
                         ->get();
         $wallet_total = 0;
