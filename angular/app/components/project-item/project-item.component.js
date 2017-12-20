@@ -110,6 +110,34 @@ edit_project() {
         })
     }
 
+    loadUsers(){
+        let Users = this.API.one('users',"empresario")
+
+        Users.getList().then((response) => {
+            if(!response.error){
+                this.users = response
+            }
+          }).catch(this.failedRegistration.bind(this))
+    }
+
+change_project_users() {
+        this.project.loadUsers = this.loadUsers
+        let $uibModal = this.$uibModal
+        let project = this.project
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'modalProjectUsers.html',
+            controller: this.modalcontroller,
+            controllerAs: 'mvm',
+            size: 'md',
+            resolve: {
+               project: function() {
+                   return project;
+               }
+            }
+
+        })
+    }
     modalcontroller($uibModalInstance, project) {
         'ngInject'
         this.project = project

@@ -75,6 +75,7 @@ export const ProductListComponent = {
     controller: ProductListController,
     controllerAs: 'vm',
     bindings: {
+        projectId:"<?",
         resultId:"<",
         products:"<"
     }
