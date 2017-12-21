@@ -94,7 +94,14 @@ class BudgetController extends Controller
         ->select("budget_product.id")
         ->get();
 
-        $budgets[0]["wallets_executed"] = $total_executed[0]["wallets"];
+
+        //format wallet executed: puede mejorar! pero por tiempo toco asi ...
+        $total=[];
+        $rubros_ejecutados = $total_executed[0]["wallets"];
+        foreach ($rubros_ejecutados as $key => $rubro_ejecutado) {
+            $total[$rubro_ejecutado["type"]] = $rubro_ejecutado;
+        }
+        $budgets[0]["wallets_executed"] = $total;
 
 
 

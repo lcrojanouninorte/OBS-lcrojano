@@ -45,7 +45,7 @@ export function RoutesRun ($rootScope, $state, $auth, AclService, $timeout, API,
 
           //set css if super admin
           if(can('manage.users')){
-           var el =  angular.element(document.querySelectorAll(".sidebar-mini.sidebar-collapse .content-wrapper"));
+           var el =  angular.element(document.querySelectorAll("#contenido"));
             el.addClass('sidebar-margin');
           }
       }

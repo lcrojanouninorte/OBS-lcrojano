@@ -38,9 +38,12 @@ class BudgetWalletListController{
               API.one('wallets').one('', wallet_item.id).remove()
                 .then((response) => {
                     if(!response.error){
-                          vm.totalActual = vm.totalActual - wallet_item.cantidad;
+                          vm.totalActual = parseInt(vm.totalActual) - parseInt(wallet_item.cantidad)
                           //Actualizar total del procuto!
-                          vm.productWalletTotal = vm.productWalletTotal - wallet_item.cantidad
+                          vm.productWalletTotal = parseInt(vm.productWalletTotal) - parseInt(wallet_item.cantidad)
+
+                          //actualizar degun el tipo
+                          vm.pbudget.wallets_executed[wallet_item.type].total_executed  =parseInt(vm.pbudget.wallets_executed[wallet_item.type].total_executed) - parseInt(wallet_item.cantidad)
                           walletList.splice( walletList.indexOf(wallet_item), 1 );
                       swal({
                         title: 'Borrado!',
@@ -72,6 +75,6 @@ export const BudgetWalletListComponent = {
         productWalletTotal:"=",
         walletList:"=",
         totalActual:"=",
-        pbudget:"<"
+        pbudget:"="
     }
 };
