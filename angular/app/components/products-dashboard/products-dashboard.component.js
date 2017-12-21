@@ -17,6 +17,7 @@ class ProductsDashboardController{
           .then((response) => {
             if(!response.error){   
                 this.products = response.data.products
+                this.results = response.data.results
                 this.delayedCount = this.products.length
             }
         });

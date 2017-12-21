@@ -1,10 +1,9 @@
  
- 
 <md-content layout="row" layout-padding layout-align="center">
     <div layout="row" flex>
         <div layout="column" flex="60">
             <span ng-class="{strike: vm.product.checkEmpresario==1, bold: vm.important}">{{vm.product.desc}}</span>
-            <span ng-if="vm.product.product_wallet_total">
+            <span  >
             <b>{{vm.product.product_wallet_total | currency}} / {{vm.product.budgets_total | currency}} </b>
         </span>
             <div layout>
