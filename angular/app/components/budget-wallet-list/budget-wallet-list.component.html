@@ -29,8 +29,8 @@
                                 <th align="center" valign="center" rowspan="2">Borrar</th>
                             </tr>
                             <tr>
-                                <th>C.P.</th>
-                                <th>C.E.</th>
+                                <th>Especie</th>
+                                <th>Efectivo</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,27 +47,27 @@
                                 <th> Total Ejecutado</th>
                                 <th></th>
                                 <th></th>
-                                <th><span class="text-success bold" flex> {{vm.pbudget.wallets_executed[0].total_executed | currency}}</span></th>
-                                <th><span class="text-success bold" flex> {{vm.pbudget.wallets_executed[1].total_executed | currency}}</span></th>
-                                <th><span class="text-success bold" flex> {{vm.pbudget.wallets_executed[2].total_executed | currency}}</span></th>
+                                <th><span class="text-success bold" flex> {{vm.pbudget.wallets_executed["sena"].total_executed || 0.0 | currency}}</span></th>
+                                <th><span class="text-success bold" flex> {{vm.pbudget.wallets_executed["cp"].total_executed || 0.0 | currency}}</span></th>
+                                <th><span class="text-success bold" flex> {{vm.pbudget.wallets_executed["ce"].total_executed || 0.0 | currency}}</span></th>
                                 <th> </th>
                             </tr>
                             <tr>
                                 <th> Total Plan</th>
                                 <th></th>
                                 <th></th>
-                                <th><span class="text-success bold" flex> {{vm.pbudget.financiacion_sena | currency}}</span></th>
-                                <th><span class="text-success bold" flex> {{vm.pbudget.c_especie | currency}}</span></th>
-                                <th><span class="text-success bold" flex> {{vm.pbudget.c_efectivo | currency}}</span></th>
+                                <th><span class="text-success bold" flex> {{vm.pbudget.financiacion_sena || 0.0 | currency}}</span></th>
+                                <th><span class="text-success bold" flex> {{vm.pbudget.c_especie || 0.0 | currency}}</span></th>
+                                <th><span class="text-success bold" flex> {{vm.pbudget.c_efectivo || 0.0 | currency}}</span></th>
                                 <th> </th>
                             </tr>
                             <tr>
                                 <th> Disponible</th>
                                 <th></th>
                                 <th></th>
-                                <th><span class="text-success bold" flex> {{vm.pbudget.financiacion_sena -vm.pbudget.wallets_executed[0].total_executed | currency}}</span></th>
-                                <th><span class="text-success bold" flex> {{vm.pbudget.c_especie - vm.pbudget.wallets_executed[1].total_executed | currency}}</span></th>
-                                <th><span class="text-success bold" flex> {{vm.pbudget.c_efectivo - vm.pbudget.wallets_executed[2].total_executed | currency}}</span></th>
+                                <th><span class="text-success bold" flex> {{vm.pbudget.financiacion_sena -vm.pbudget.wallets_executed["sena"].total_executed | currency}}</span></th>
+                                <th><span class="text-success bold" flex> {{vm.pbudget.c_especie - vm.pbudget.wallets_executed["cp"].total_executed | currency}}</span></th>
+                                <th><span class="text-success bold" flex> {{vm.pbudget.c_efectivo - vm.pbudget.wallets_executed["ce"].total_executed | currency}}</span></th>
                                 <th> </th>
                             </tr>
                         </tbody>
