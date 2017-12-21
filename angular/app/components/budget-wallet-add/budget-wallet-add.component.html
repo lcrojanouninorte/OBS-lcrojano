@@ -1,7 +1,4 @@
-<h3 class="text-center">Añadir Gasto</h3>
-  
- 
- 
+<h3 class="text-center">Añadir Gasto</h3>  
 <!--
 <div layout="row">
   <h4 flex="33" md-colors="{color:'green'}">Disponible: {{ vm.pbudget.total - vm.totalActual - vm.wallet.cantidad | currency}}</h4>
@@ -9,46 +6,56 @@
   <h4 flex="33">Presupuesto: {{vm.pbudget.total | currency}}</h4>
 </div>
  -->
-<md-content layout-gt-sm="column" layout-padding layout-align="center center" >
+<br>
+<md-content layout-gt-sm="column" layout-padding layout-align="center center">
     <div>
-      <md-input-container>
-        <label>Tipo</label>
-        <md-select ng-model="vm.wallet.type">
-            <md-option ng-value="'sena'" >
-              Sena
-            </md-option>
-            <md-option ng-value="'ce'" >
-              Contrapartida Especie
-            </md-option>
-            <md-option ng-value="'cp'" >
-              Contrapartida Efectivo
-            </md-option>
-          </md-select>
-      </md-input-container>
-      <md-input-container>
-        <label>Detalle</label>
-        <input ng-model="vm.wallet.desc" type="text">
-      </md-input-container>
-
-      <md-input-container>
-        <label>Documento Soporte</label>
-        <input ng-model="vm.wallet.doc" type="text">
-      </md-input-container>
-
-      <md-input-container>
-        <label>Gasto</label>
-        <input ng-model="vm.wallet.cantidad" type="number" ng-currency>
-      </md-input-container> 
-
-      <md-button 
-      ng-disabled="(vm.pbudget.total - vm.totalActual - vm.wallet.cantidad) <0" 
-      ng-click="vm.add()" class="md-raised md-primary">Agregar
-<md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon>
-      </md-button>
-
-       
+        <md-input-container>
+            <label>Tipo</label>
+            <md-select ng-model="vm.wallet.type">
+                <md-option ng-if="vm.pbudget.financiacion_sena>0" ng-value="'sena'">
+                    Sena
+                </md-option>
+                <md-option ng-if="vm.pbudget.c_especie>0" ng-value="'cp'">
+                    Contrapartida Especie
+                </md-option>
+                <md-option ng-if="vm.pbudget.c_efectivo>0" ng-value="'ce'">
+                    Contrapartida Efectivo
+                </md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container>
+            <label>Detalle</label>
+            <input ng-model="vm.wallet.desc" type="text">
+        </md-input-container>
+        <md-input-container>
+            <label>Documento Soporte</label>
+            <input ng-model="vm.wallet.doc" type="text">
+        </md-input-container>
+        <md-input-container>
+            <label>Gasto</label>
+            <input ng-model="vm.wallet.cantidad" type="number" ng-currency>
+        </md-input-container>
+        <br>
+        <div ng-if="vm.wallet.type=='sena'  && vm.pbudget.financiacion_sena>0">
+            <md-button ng-disabled="vm.pbudget.financiacion_sena - vm.pbudget.wallets_executed['sena'].total_executed - vm.wallet.cantidad <0" ng-click="vm.add()" class="md-raised md-primary">Agregar Sena
+                <md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon>
+            </md-button>
+            <div>Disponible: {{vm.pbudget.financiacion_sena - vm.pbudget.wallets_executed["sena"].total_executed - vm.wallet.cantidad}}</div>
+        </div>
+        <div ng-if="vm.wallet.type=='cp' && vm.pbudget.c_especie>0">
+            <md-button ng-disabled="vm.pbudget.c_especie - vm.pbudget.wallets_executed['cp'].total_executed - vm.wallet.cantidad <0" ng-click="vm.add()" class="md-raised md-primary">Agregar Especie
+                <md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon>
+            </md-button>
+            <div>Disponible: {{vm.pbudget.c_especie - vm.pbudget.wallets_executed["cp"].total_executed - vm.wallet.cantidad}}</div>
+        </div>
+        <div ng-if="vm.wallet.type=='ce'  && vm.pbudget.c_efectivo>0">
+            <md-button ng-disabled="vm.pbudget.c_efectivo - vm.pbudget.wallets_executed['ce'].total_executed - vm.wallet.cantidad <0" ng-click="vm.add()" class="md-raised md-primary">Agregar Efectivo
+                <md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon>
+            </md-button>
+            <div>Disponible: {{vm.pbudget.c_efectivo - vm.pbudget.wallets_executed["ce"].total_executed - vm.wallet.cantidad}}</div>
+        </div>
     </div>
-<!--  
+    <!--  
      <div class="row">
     <div class="col-xs-12">
       <div class="box">
