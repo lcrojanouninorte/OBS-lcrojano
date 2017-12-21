@@ -332,6 +332,28 @@ class ProjectController extends Controller
         } else {
             $project = Project::with("products")->find($id);
         }
+
+            $products_total = 0;
+            $product_wallet_total = 0;
+            $budgets_total = 0;
+        foreach ($project->products as $key => $product) {
+                $products_total++;
+
+                //calcular total wallet
+            foreach ($product->wallets as $key => $wallet) {
+                $product_wallet_total +=  $wallet->cantidad;
+            }
+                $product->product_wallet_total = $product_wallet_total;
+                
+
+ 
+            foreach ($product->budgetproducts as $key => $budget) {
+                $budgets_total += $budget->valor_unitario*$budget->cantidad;
+                $product->budgets_total += $budget->valor_unitario*$budget->cantidad;
+            }
+                //Calcular procentaje ejecutado
+                $product->progress =($product->budgets_total)? ($product_wallet_total/$product->budgets_total)*100:0;
+        }
         
 
         return response()->success($project);
