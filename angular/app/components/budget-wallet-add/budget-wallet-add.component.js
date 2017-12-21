@@ -42,13 +42,24 @@ class BudgetWalletAddController{
                 }else{
                    
                     swal('Gasto asignado con exito!', '', 'success')
-                    this.$state.reload()
+                   // this.$state.reload()
                     this.walletList.push(angular.copy(response.data.wallet))
                     this.wallet = response.data.wallet;
-                    this.totalActual = this.totalActual + this.wallet.cantidad;
+                    this.totalActual = parseInt(this.totalActual) + parseInt(this.wallet.cantidad)
 
                     //actualizar producto principal!
-                    this.productWalletTotal = this.productWalletTotal + this.wallet.cantidad;
+                    this.productWalletTotal = parseInt(this.productWalletTotal) + parseInt(this.wallet.cantidad)
+
+                    //actualizar segun tipo 
+                        //Si no se ha ingresado gastos de algun tipo hay que crear un modelo local, esto es solo para visualizar en tiempo real los cambios....
+                    if(!this.pbudget.wallets_executed[this.wallet.type]){
+                        this.pbudget.wallets_executed[this.wallet.type] = {
+                            "type" : this.wallet.type,
+                            "total_executed" : 0
+                        }
+                    }
+                     this.pbudget.wallets_executed[this.wallet.type].total_executed =parseInt(this.pbudget.wallets_executed[this.wallet.type].total_executed) + parseInt(this.wallet.cantidad)
+
                     
                     this.wallet.cantidad = "";
                     this.wallet.desc  ="";
@@ -61,6 +72,7 @@ class BudgetWalletAddController{
 
         )
     }
+ 
 
 }
 
@@ -72,7 +84,7 @@ export const BudgetWalletAddComponent = {
         productWalletTotal:"=",
         walletList:"=",
         productId:"<",
-        pbudget:"<",
+        pbudget:"=",
         userId:"<",
         totalActual:"="
     }
