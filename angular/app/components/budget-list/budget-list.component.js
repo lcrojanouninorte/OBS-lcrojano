@@ -33,7 +33,7 @@ class BudgetListController{
     }
 
     $onInit(){
-         if(this.desc){
+         if(this.desc){//Este es cuando se elije un desc_rubro
               //get all budges deagregated.
        
             let Budgets = this.API.one('budgets', this.pbudget.id).one('products', this.product.id)
