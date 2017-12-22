@@ -25,6 +25,12 @@ export function RoutesRun ($rootScope, $state, $auth, AclService, $timeout, API,
       var window_height = $(window).height()
       var sidebar_height = $('.sidebar').height()
 
+      //set css if super admin
+          if(can('manage.users')){
+           var el =  angular.element(document.querySelectorAll("#contenido"));
+            el.addClass('sidebar-margin');
+          }
+
       if ($('body').hasClass('fixed')) {
         $('.content-wrapper, .right-side').css('min-height', window_height - $('.main-footer').outerHeight())
       } else {
@@ -43,12 +49,10 @@ export function RoutesRun ($rootScope, $state, $auth, AclService, $timeout, API,
             $rootScope.me = response.data
           })
 
-          //set css if super admin
-          if(can('manage.users')){
-           var el =  angular.element(document.querySelectorAll("#contenido"));
-            el.addClass('sidebar-margin');
-          }
+          
       }
+
+
     })
     
   }

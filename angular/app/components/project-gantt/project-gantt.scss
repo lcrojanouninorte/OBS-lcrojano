@@ -56,3 +56,8 @@
 ol.gantt-tree-root.ng-pristine.ng-untouched.ng-valid.ng-scope.angular-ui-tree-nodes.ng-not-empty {
     width: 263px;
 }
+.project-item h5.md-truncate {
+    display: inline-block;
+    max-width: 220px;
+    margin: 0;
+}
