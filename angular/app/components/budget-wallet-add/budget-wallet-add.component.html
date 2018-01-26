@@ -36,6 +36,9 @@
             <input ng-model="vm.wallet.cantidad" type="number" ng-currency>
         </md-input-container>
         <br>
+     
+
+        {{vm.wallet.cantidad|json}}
         <div ng-if="vm.wallet.type=='sena'  && vm.pbudget.financiacion_sena>0">
             <md-button ng-disabled="vm.pbudget.financiacion_sena - vm.pbudget.wallets_executed['sena'].total_executed - vm.wallet.cantidad <0" ng-click="vm.add()" class="md-raised md-primary">Agregar Sena
                 <md-icon md-font-icon="ion-checkmark-round" aria-label="description"></md-icon>

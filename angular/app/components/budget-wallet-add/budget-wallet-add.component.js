@@ -52,11 +52,18 @@ class BudgetWalletAddController{
 
                     //actualizar segun tipo 
                         //Si no se ha ingresado gastos de algun tipo hay que crear un modelo local, esto es solo para visualizar en tiempo real los cambios....
+                    
+                    //Si es primer gasto ingresado es posible que no tenga la variable wallet_executed, so crearla.
+                    if(!this.pbudget.wallets_executed){
+                        this.pbudget.wallets_executed = []
+                    }
+
+                    //Verificar si ya existe una variable ocn cada tipo ce cp o sena, sino crearla
                     if(!this.pbudget.wallets_executed[this.wallet.type]){
-                        this.pbudget.wallets_executed[this.wallet.type] = {
-                            "type" : this.wallet.type,
-                            "total_executed" : 0
-                        }
+                            this.pbudget.wallets_executed[this.wallet.type] = {
+                                "type" : this.wallet.type,
+                                "total_executed" : 0
+                            }
                     }
                      this.pbudget.wallets_executed[this.wallet.type].total_executed =parseInt(this.pbudget.wallets_executed[this.wallet.type].total_executed) + parseInt(this.wallet.cantidad)
 
