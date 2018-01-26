@@ -74,16 +74,39 @@ class BudgetController extends Controller
     {
 
         //TODO AUTH
+
+        //Paso 1: Obtener solo los budgets/rubros que tiene gastos ingresados por el asesor
         $budgets =
         BudgetProduct::with("budgets_desc")
         ->with(array("wallets"=>function ($q) use ($product_id) {
             $q->select(DB::raw('id, product_id, budget_product_id, SUM(cantidad) as total'))->groupBy("budget_product_id", "product_id")->get();
+        }))
+        ->with(array("wallets_executed"=>function ($q) use ($product_id) {
+            //Paso 2:Para cada budgets/rubros obtener el total ejecutado desagregado por CP, CE, Sena
+
+            $q->select(DB::raw('id, product_id, budget_product_id, type, SUM(cantidad) total_executed'))->groupBy("type", "budget_product_id", "product_id")->orderBy('type', "DESC")->get();
+            //Orden de los totales para wallet: sena, cp, ce
         }))
         ->where("product_id", $product_id)
         ->where("budget_id", $budget_id)
         ->select("budget_product.id", "descripcion as titulo", "product_id", "budget_id", "unidad", "cantidad", "valor_unitario", "financiacion_sena", "c_especie", "c_efectivo", "estado", DB::raw("cantidad*valor_unitario as total"))
         ->get();
 
+
+
+        //organizar los resultado de la forma, "cp":"{}"
+
+        foreach ($budgets as $budget) {
+            foreach ($budget["wallets_executed"] as $key => $executed) {
+                $budget["wallets_executed"][$executed["type"]] = $executed;
+                unset($budget["wallets_executed"][$key]);
+            }
+        }
+
+        return response()->success(compact("budgets"));
+       //
+
+/*
          $total_executed =
         BudgetProduct::with(array("wallets"=>function ($q) use ($product_id) {
             $q->select(DB::raw('id, product_id, budget_product_id, type, SUM(cantidad) total_executed'))->groupBy("type", "budget_product_id", "product_id")->orderBy('type', "DESC")->get();
@@ -93,6 +116,8 @@ class BudgetController extends Controller
         ->where("budget_id", $budget_id)
         ->select("budget_product.id")
         ->get();
+
+        return response()->success(compact("total_executed"));
 
 
         //format wallet executed: puede mejorar! pero por tiempo toco asi ...
@@ -105,6 +130,6 @@ class BudgetController extends Controller
 
 
 
-        return response()->success(compact("budgets"));
+        return response()->success(compact("budgets"));*/
     }
 }
