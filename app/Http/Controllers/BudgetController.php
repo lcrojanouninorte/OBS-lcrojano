@@ -95,9 +95,10 @@ class BudgetController extends Controller
         ->get();
 
 
-        //format wallet executed: puede mejorar! pero por tiempo toco asi ...
+        //Obtener  wallet executed: puede mejorar! pero por tiempo toco asi ...
         $total=[];
         $rubros_ejecutados = $total_executed[0]["wallets"];
+        return response()->success(compact("rubros_ejecutados"));
         foreach ($rubros_ejecutados as $key => $rubro_ejecutado) {
             $total[$rubro_ejecutado["type"]] = $rubro_ejecutado;
         }

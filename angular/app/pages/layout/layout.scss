@@ -58,3 +58,27 @@ body {
     }
 
 }
+
+
+.table-report #cell {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.table-report .cell {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.table-report tr td {
+    background-color: #ffffff;
+}
+
+.table-report tr > td {
+    border: 1px solid #000000;
+}
+
+
+.table-report tr > th {
+    border: 1px solid #000000;
+}

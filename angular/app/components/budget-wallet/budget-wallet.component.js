@@ -33,6 +33,6 @@ export const BudgetWalletComponent = {
         productWalletTotal:"=",
         userId:"<",
         productId:"<",
-        pbudget:"<"
+        pbudget:"="
     }
 };

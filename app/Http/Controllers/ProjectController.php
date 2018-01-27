@@ -19,6 +19,8 @@ use DB;
 use Response;
 use Storage;
 
+
+
 use PDF;
 use Excel;
 
@@ -380,6 +382,84 @@ class ProjectController extends Controller
         })->export('xlsx');
     }
 
+     public function get_excel2($project_id)
+    {
+        //Traer MIS proyectos en los cuales tengo rol de empresario
+        $project = Project::
+        with("results.products.budgetproducts.budgets_desc", "results.products.wallets")
+        ->with(
+            array(
+            "results.products.budgetproducts.wallets"=>function ($q) {
+                $q->select(
+                    "wallets.desc",
+                    "wallets.cantidad",
+                    "wallets.doc",
+                    "wallets.type",
+                    "wallets.id",
+                    "wallets.budget_product_id"
+                );
+            },
+            "results"=>function ($q) {
+                $q->select(
+                    "results.titulo",
+                    "results.id",
+                    "results.project_id",
+                    "results.fecha_inicio"
+                );
+            },
+            "results.products"=>function ($q) {
+                $q->select(
+                    "products.desc",
+                    "products.fecha_inicio",
+                    "products.fecha_fin",
+                    "products.checkEmpresario",
+                    "products.id",
+                    "products.estado",
+                    "products.result_id",
+                    "products.progress",
+                    "products.checkEmpresario"
+                );
+            }
+
+            )
+        )
+        
+        ->with(
+            array("users"=>function ($q) {
+                $q->where("role", 7);//empresario
+            })
+        )
+        ->find($project_id);
+
+         $this->project_total([$project]);
+
+
+
+       // return response()->success($project);
+        Excel::create('Reporte', function($excel) use ($project) {
+              
+
+            $excel->sheet('Reporte', function($sheet) use ($project) {
+                $sheet->loadView('reports.financial_report')->with('project', $project);;
+                $sheet->setStyle(array(
+                    'font' => array(
+                        'name'      =>  'Calibri',
+                        'size'      =>  12,
+                        
+                    )
+                ));
+
+                 $sheet->setWidth('A', 20);
+                 $sheet->setWidth('B', 60);
+            });
+
+            $lastrow= $excel->getActiveSheet()->getHighestRow();  
+ 
+            $excel->getActiveSheet()->getStyle('A1:A'.$lastrow)->getAlignment()->setWrapText(true); 
+        })->download('xls');
+        
+        return Redirect::back()->withErrors(['msg', 'The Message']);
+    }
     //HELPERS
 
     function project_total($projects)
