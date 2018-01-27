@@ -2,11 +2,14 @@
 
 namespace App;
 
+use App\ProjectUser;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
     //
+
     public function users()
     {
         return $this->belongsToMany(User::class)->withTimestamps();
@@ -22,9 +25,5 @@ class Project extends Model
     public function milestones()
     {
         return $this->hasMany(Milestone::class);
-    }
-    public function projectsuser()
-    {
-        return $this->hasMany(ProjectUser::class);
     }
 }

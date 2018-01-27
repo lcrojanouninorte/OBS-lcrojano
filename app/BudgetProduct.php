@@ -28,4 +28,9 @@ class BudgetProduct extends Model
     {
         return $this->hasMany('App\Wallet', "budget_product_id", "id");
     }
+
+    public function wallets_executed()
+    {
+        return $this->hasMany('App\Wallet', "budget_product_id", "id");
+    }
 }

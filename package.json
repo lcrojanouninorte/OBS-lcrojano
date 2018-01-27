@@ -1,15 +1,24 @@
 {
   "private": true,
   "devDependencies": {
+<<<<<<< HEAD
     "angular-mocks": "^1.6.8",
+=======
+    "angular-mocks": "^1.6.7",
+>>>>>>> 22d1e3038c81849cb645b631da47ba68ae0a2d60
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "bower": "^1.7.9",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-phpcs": "^1.4.0",
+<<<<<<< HEAD
     "gulp-uglify-es": "^0.1.11",
     "jasmine-core": "^2.9.1",
+=======
+    "gulp-uglify-es": "^0.1.8",
+    "jasmine-core": "^2.4.1",
+>>>>>>> 22d1e3038c81849cb645b631da47ba68ae0a2d60
     "karma": "^0.13.22",
     "karma-babel-preprocessor": "~4.0.0",
     "karma-browserify": "^4.0.0",
@@ -54,7 +63,11 @@
     "laravel-elixir": "^4.2.1",
     "laravel-elixir-karma": "^0.2.2",
     "main-bower-files": "^2.1.0",
+<<<<<<< HEAD
     "uglify-es": "^3.3.8",
+=======
+    "uglify-es": "^3.2.2",
+>>>>>>> 22d1e3038c81849cb645b631da47ba68ae0a2d60
     "underscore": "^1.8.3",
     "webpack": "^1.12.11",
     "webpack-dev-server": "^1.14.1",
@@ -64,6 +77,6 @@
     "npm": ">=3"
   },
   "scripts": {
-    "postinstall": "bower install && gulp --production"
+    "postinstall": "bower install --allow-root && gulp --production"
   }
 }

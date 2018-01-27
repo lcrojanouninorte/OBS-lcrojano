@@ -34,17 +34,20 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'password', 'remember_token', 'oauth_provider_id', 'oauth_provider',
     ];
 
-    public function projects(){
+    public function projects()
+    {
         return $this->hasMany(Project::class)->orderBy('updated_at', 'desc');
     }
-    public function answers(){
+    public function answers()
+    {
         return $this->hasMany(Answer::class);
     }
-    public function challenges(){
+    public function challenges()
+    {
         return $this->hasMany(Challenge::class);
     }
-    public function projectsuser(){
+    public function projectsuser()
+    {
         return $this->hasMany(ProjectUser::class);
     }
-    
 }
