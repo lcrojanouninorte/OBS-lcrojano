@@ -22,6 +22,7 @@ Route::group(['middleware' => ['web']], function () {
     
     Route::get('project/{project_id}/pdf', 'ProjectController@get_pdf');
     Route::get('project/{project_id}/excel', 'ProjectController@get_excel');
+    Route::get('report/{project_id}/excel', 'ProjectController@get_excel2');
 });
 
 $api->group(['middleware' => ['api']], function ($api) {
