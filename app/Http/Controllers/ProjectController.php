@@ -120,8 +120,6 @@ class ProjectController extends Controller
         $result_total = 0;
         $budget_total = 0;
 
-
-
         //TODO: this can be change to only depend on projectsuser model
         if ($user->is('supervisor')) {
             $projects = Project::all();
@@ -130,8 +128,13 @@ class ProjectController extends Controller
         }
 
         if ($user->is("asesor")) {
-          //If asesor, it will return all created by him,
-            $projects = $user->projects;
+
+            $projects = Project::whereHas('users.projectsuser', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })->get();
+             
+          ////If asesor, it will return all created by him,
+           // $projects = $user->projects;
             $this->project_total($projects);
         } else {
           //if empresario, it wil first chech the relation projectsuser, to find all project where hi is participating as empresario
@@ -433,10 +436,12 @@ class ProjectController extends Controller
 
          $this->project_total([$project]);
 
+         $today =  date('Y-m-j h_i_s');
 
 
-       // return response()->success($project);
-        Excel::create('Reporte', function($excel) use ($project) {
+
+        return response()->success($project);
+        Excel::create('Reporte Finaciero ' .$today, function($excel) use ($project) {
               
 
             $excel->sheet('Reporte', function($sheet) use ($project) {
