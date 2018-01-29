@@ -1,5 +1,5 @@
-class ProjectDashboardController{
-    constructor($uibModal, $mdSticky, $state,$stateParams, API, $scope, AclService) {
+class ProjectDashboardController {
+    constructor($uibModal, $mdSticky, $state, $stateParams, API, $scope, AclService, $mdBottomSheet, $mdToast) {
         'ngInject';
 
         //
@@ -8,6 +8,8 @@ class ProjectDashboardController{
         this.$state = $state
         this.can = AclService.can
         this.today = moment().format("YYYY-MM-DD")
+        this.$mdBottomSheet = $mdBottomSheet
+        this.$mdToast = $mdToast
 
 
         //
@@ -21,22 +23,22 @@ class ProjectDashboardController{
         this.results = []
         this.$scope = $scope;
 
-         
 
-        
+
+
     }
 
-    $onInit(){
+    $onInit() {
         //get project and his results.
         let Project = this.API.one('project', this.id)
         Project.get()
-          .then((response) => {
-            if(!response.error){   
-                this.project = response.data
-                this.results = this.project.results
-                this.$scope.users = this.project.users //pasar solo los usuarios a los componentes hijos
-            }
-        });
+            .then((response) => {
+                if (!response.error) {
+                    this.project = response.data
+                    this.results = this.project.results
+                    this.$scope.users = this.project.users //pasar solo los usuarios a los componentes hijos
+                }
+            });
     }
 
 
@@ -51,30 +53,69 @@ class ProjectDashboardController{
             controllerAs: 'mvm',
             size: 'md',
             resolve: {
-               project: function() {
-                   return project;
-               }
+                project: function() {
+                    return project;
+                }
             }
 
         })
     }
 
-    modalcontroller ($uibModalInstance, project) {
-    'ngInject'
+
+
+    modalcontroller($uibModalInstance, project) {
+        'ngInject'
         this.project_id = project.id;
         this.project_name = project.titulo;
         this.ok = () => {
 
-          $uibModalInstance.close($scope.selected.item)
+            $uibModalInstance.close($scope.selected.item)
         }
 
         this.cancel = () => {
 
-          $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss('cancel');
 
         }
 
         this.project = this.id;
+    }
+
+
+    showGridBottomSheet() {
+        this.alert = '';
+        this.$mdBottomSheet.show({
+            templateUrl: 'bottomSheetGridTtemplate.html',
+            controller: this.gridcontroller,
+            controllerAs: 'mvm',
+            clickOutsideToClose: true,
+            locals: {
+                'project': this.project
+            }
+        }).then(function(clickedItem) {
+            this.$mdToast.show(
+                 this.$mdToast.simple()
+                    .textContent(clickedItem['name'] + ' clicked!')
+                    .position('top right')
+                    .hideDelay(1500)
+            );
+        }).catch(function(error) {
+            // User clicked outside or hit escape
+        });
+    }
+
+    gridcontroller($scope, $mdBottomSheet, project) {
+        $scope.project = project
+        $scope.items = [
+            { name: 'Financiero (En Desarrollo)', icon: 'excel' },
+            { name: 'General (En Desarrollo)', icon: 'pdf' },
+          
+        ];
+
+        $scope.listItemClick = function($index) {
+            var clickedItem = $scope.items[$index];
+            $mdBottomSheet.hide(clickedItem);
+        };
     }
 
 }

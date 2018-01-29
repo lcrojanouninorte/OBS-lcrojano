@@ -17,7 +17,7 @@
 		<tr></tr>
 	</table>
 
-
+{{$project->results}}
 @foreach ($project->results as $result)
 
 	@foreach ($result->products as $product)

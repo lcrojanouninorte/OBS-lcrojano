@@ -5,8 +5,11 @@ import { LoadingBarConfig } from './config/loading_bar.config'
 import { SatellizerConfig } from './config/satellizer.config'
 
 angular.module('app.config')
-	.config(LocalizationConfig)
+  .config(LocalizationConfig)
   .config(AclConfig)
   .config(RoutesConfig)
   .config(LoadingBarConfig)
   .config(SatellizerConfig)
+
+
+

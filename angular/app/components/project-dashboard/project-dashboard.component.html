@@ -1,121 +1,123 @@
-
 <md-content layout="column">
     <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs class="md-primary md-hue-1">
-        <md-tab label="Gantt" aria-controls="tab1-content"  >
-             
-            <div   layout="row"  layout-align=" center"   class="tabpanel-container" flex="noshrink">
-                <md-card md-theme-watch flex-gt-sm="100" flex-gt-md="100">
-                    <md-card-title style="padding: 0px 0px 0px;">
-                        <md-card-title-text>
-                            <div layout="row" layout-align="right center" flex="100" layout-wrap>
-                                <div flex="100" flex-gt-md="80" layout="row" layout-align="end center">
-                                    <span class="text-left md-headline" md-truncate>  {{vm.project.titulo}} </span>
-                                    
+        <md-button style="color: white;" class="md-warn" ng-click="vm.showGridBottomSheet()" aria-label="toggle fullscreen">
+            <md-icon style="color: white;" md-font-icon class="ion-ios-cloud-download"></md-icon>DESCARGAR REPORTES
+        </md-button>
+        <md-tab label="Gantt" aria-controls="tab1-content">
+            <md-tab-label>
+                <md-icon href="/report/{{vm.project.id}}/excel" class="ion-pull-request" md-font-icon="ion-document-text" aria-label="description"></md-icon> GANTT </md-tab-label>
+            <md-tab-body>
+                <div layout="row" layout-align=" center" class="tabpanel-container" flex="noshrink">
+                    <md-card md-theme-watch flex-gt-sm="100" flex-gt-md="100">
+                        <md-card-title style="padding: 0px 0px 0px;">
+                            <md-card-title-text>
+                                <div layout="row" layout-align="right center" flex="100" layout-wrap>
+                                    <div flex="100" flex-gt-md="80" layout="row" layout-align="end center">
+                                        <span class="text-left md-headline" md-truncate>  {{vm.project.titulo}} </span>
+                                    </div>
                                 </div>
-                                
+                                <!--  <span class="md-subhead">{{vm.project.title || ""}}</span>-->
+                            </md-card-title-text>
+                        </md-card-title>
+                        <md-content layout="row">
+                            <div flex>
+                                <project-gantt></project-gantt>
                             </div>
-                            <!--  <span class="md-subhead">{{vm.project.title || ""}}</span>-->
-                        </md-card-title-text>
-                    </md-card-title>
-                    <md-content layout="row">
-                        <div flex>
-                            <project-gantt></project-gantt>
-                        </div>
-                         
-                    </md-content>
-                    <md-card-actions layout="row" layout-align="end center">
-                         
-                            
-                         
-                        <!-- <a href="/project/{{vm.id}}/excel"><md-button >EXCEL</md-button></a> 
+                        </md-content>
+                        <md-card-actions layout="row" layout-align="end center">
+                            <!-- <a href="/project/{{vm.id}}/excel"><md-button >EXCEL</md-button></a> 
                         <md-button>PDF</md-button>
                         <md-button>EMAIL</md-button>-->
-                    </md-card-actions>
-                </md-card>
-            </div>
-        </md-tab>
-        <md-tab label="Resultados" aria-controls="tab2-content"   >
-            <div class="inset" hide-sm=""></div>
-            <div layout="row"  layout-align=" center"   class="tabpanel-container" flex="noshrink">
-                <md-card flex-gt-sm="100" flex-gt-md="80" class="md-default-theme">
-                    <md-card-content>
-                      <div layout="row" >
-                        
-                        <h3 class="" >RESULTADOS</h3
-                          >
-                        <md-button ng-if="vm.can( 'edit.project') " md-colors="{background: 'blue'}" class="md-fab especial" aria-label="Eat cake" ng-click="vm.create_result();">
-                              
-                                <md-tooltip md-direction="top" md-visible="tooltipVisible">+ Resultado</md-tooltip>
-                                <md-icon md-font-icon="ion-plus-round"></md-icon>
-                            </md-button>
-                      </div>
-                        <md-list>
-                            <md-item ng-if="vm.results.length <= 0" layout="row" layout-fill layout-align="center">
-                                <md-item-content>
-                                    <div ng-hide="vm.projects.length>0" class="alert alert-info alert-dismissible">
-                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                        <h4><i class="icon fa fa-info"></i>No se han agregado resultados!</h4> Actualmente no hay resultados.
-                                    </div>
-                                </md-item-content>
-                            </md-item>
-                            <md-item layout="column" layout-wrap layout-align="center ">
-                                <md-item-content>
-                                    <result-item result="result" flex="100" ng-repeat="result in vm.results" class="fx-fade-up fx-stagger-245"></result-item>
-                                </md-item-content>
-                                <md-divider md-inset hide-sm ng-if="!$last"></md-divider>
-                                <md-divider hide-gt-sm ng-if="!$last"></md-divider>
-                            </md-item>
-                        </md-list>
-                    </md-card-content>
-                </md-card>
-            </div>
-        </md-tab>
-
-        <md-tab ng-if="!(vm.project.delayed_products_count==0)" label="Atrasados"  aria-controls="tab3-content" >
-          <md-tab-label ng-class="md-tab ng-scope ng-isolate-scope md-ink-ripple"> 
-            Atrasados <span ng-if="vm.project.delayed_products_count" class="badge bg-red">{{vm.project.delayed_products_count}}</span> 
-          </md-tab-label>
-          <md-tab-body>
-              
-            <div class="inset" hide-sm=""></div>
-              <div layout="row" layout-align=" center" class="tabpanel-container" flex="noshrink">
-                  <md-card flex-gt-sm="100" flex-gt-md="60" class="md-default-theme">
-                      <md-card-content>
-                          <div ng-if="vm.id">
-
-                              <products-dashboard delayed-count="vm.project.delayed_products_count" project-id="vm.id" date="vm.today"></products-dashboard>
-                          </div>
-                      </md-card-content>
-                  </md-card>
-              </div>
-
-
-
-             
-          </md-tab-body>
-        </md-tab>
-        <!--
-        <md-tab label="Descripción"  aria-controls="tab4-content" >
-            <!--<md-tab-label>
-                <h3>Descripción</h3>
-            </md-tab-label>
-            <md-tab-body>
-            <p>Nota: preguntas que podemos colcar aquí.</p>
-                <div layout="row" flex="100" layout-align="center center" layout-wrap>
-                    <div class="alert alert-success alert-dismissible">
-                        <h5 class="text-center" flex>Inicia: {{vm.project.fecha_inicio}}</h5>
-                    </div>
-                    <div class="alert alert-success alert-dismissible">
-                        <h5 class="text-center" flex>Finaliza: {{vm.project.fecha_fin}}</h5>
-                    </div>
-                    <div class="alert alert-success alert-dismissible">
-                        <h5 class="text-center" flex>Ejecutado: {{vm.project.project_wallet_total | currency}} de  {{vm.project.budgets_total | currency}} </h5>
-                    </div>
+                        </md-card-actions>
+                    </md-card>
                 </div>
             </md-tab-body>
+        </md-tab>
+        <md-tab label="Resultados" aria-controls="tab2-content">
+            <md-tab-label>
+                <md-icon href="/report/{{vm.project.id}}/excel" class="ion-social-usd" md-font-icon="ion-social-usd" aria-label="description"></md-icon> Resultados </md-tab-label>
+            <md-tab-body>
+                <div class="inset" hide-sm=""></div>
+                <div layout="row" layout-align=" center" class="tabpanel-container" flex="noshrink">
+                    <md-card flex-gt-sm="100" flex-gt-md="80" class="md-default-theme">
+                        <md-card-content>
+                            <div layout="row">
+                                <h3 class="">RESULTADOS</h3
+                          >
+                          <md-button ng-if="vm.can( 'edit.project') " md-colors="{background: 'blue'}" class="md-fab especial" aria-label="Eat cake" ng-click="vm.create_result();">
+
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible">+ Resultado</md-tooltip>
+                            <md-icon md-font-icon="ion-plus-round"></md-icon>
+                        </md-button>
+                    </div>
+                    <md-list>
+                        <md-item ng-if="vm.results.length <= 0" layout="row" layout-fill layout-align="center">
+                            <md-item-content>
+                                <div ng-hide="vm.projects.length>0" class="alert alert-info alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <h4><i class="icon fa fa-info"></i>No se han agregado resultados!</h4> Actualmente no hay resultados.
+                                </div>
+                            </md-item-content>
+                        </md-item>
+                        <md-item layout="column" layout-wrap layout-align="center ">
+                            <md-item-content>
+                                <result-item result="result" flex="100" ng-repeat="result in vm.results" class="fx-fade-up fx-stagger-245"></result-item>
+                            </md-item-content>
+                            <md-divider md-inset hide-sm ng-if="!$last"></md-divider>
+                            <md-divider hide-gt-sm ng-if="!$last"></md-divider>
+                        </md-item>
+                    </md-list>
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-tab-body>
+    </md-tab>
+
+    <md-tab ng-if="!(vm.project.delayed_products_count==0)" label="Atrasados"  aria-controls="tab3-content" >
+      <md-tab-label ng-class="md-tab ng-scope ng-isolate-scope md-ink-ripple"> 
+        Atrasados <span ng-if="vm.project.delayed_products_count" class="badge bg-red">{{vm.project.delayed_products_count}}</span> 
+    </md-tab-label>
+    <md-tab-body>
+         <div class="inset" hide-sm=""></div>
+
+        <div class="inset" hide-sm=""></div>
+        <div layout="row" layout-align=" center" class="tabpanel-container" flex="noshrink">
+          <md-card flex-gt-sm="100" flex-gt-md="60" class="md-default-theme">
+              <md-card-content>
+                  <div ng-if="vm.id">
+
+                      <products-dashboard delayed-count="vm.project.delayed_products_count" project-id="vm.id" date="vm.today"></products-dashboard>
+                  </div>
+              </md-card-content>
+          </md-card>
+      </div>
+
+
+
+  </md-tab-body>
+</md-tab>
+ 
+      <!-- 
+        <md-tab label="Descripción"  aria-controls="tab4-content" >
+            <md-tab-label>
+                <h3>Descripción</h3>
+                                </md-tab-label>
+                                <md-tab-body>
+                                    <p>Nota: preguntas que podemos colcar aquí.</p>
+                                    <div layout="row" flex="100" layout-align="center center" layout-wrap>
+                                        <div class="alert alert-success alert-dismissible">
+                                            <h5 class="text-center" flex>Inicia: {{vm.project.fecha_inicio}}</h5>
+                                        </div>
+                                        <div class="alert alert-success alert-dismissible">
+                                            <h5 class="text-center" flex>Finaliza: {{vm.project.fecha_fin}}</h5>
+                                        </div>
+                                        <div class="alert alert-success alert-dismissible">
+                                            <h5 class="text-center" flex>Ejecutado: {{vm.project.project_wallet_total | currency}} de  {{vm.project.budgets_total | currency}} </h5>
+                                        </div>
+                                    </div>
+                                </md-tab-body>
         </md-tab>-->
-         
-            <!-- these require actual routing with ui-router or ng-route, so they
+        <!-- these require actual routing with ui-router or ng-route, so they
       won't work in the demo
       <md-nav-item md-nav-href="#page4" name="page5">Page Four</md-nav-item>
       <md-nav-item md-nav-sref="app.page5" name="page4">Page Five</md-nav-item>
@@ -123,10 +125,10 @@
       <md-nav-item md-nav-sref="page6" sref-opts="{reload:true, notify:true}">
         Page Six
       </md-nav-item>
-      -->
+  -->
     </md-tabs>
-    </md-content>
-    <!--<md-toolbar md-scroll-shrink md-colors="{background: 'blue'}" class="md-toolbar-tools  ">
+</md-content>
+<!--<md-toolbar md-scroll-shrink md-colors="{background: 'blue'}" class="md-toolbar-tools  ">
     <div layout="row" layout-align="start center" class="md-toolbar-tools">
         <md-button ui-sref="app.projects" md-colors="{background: 'lime'}" aria-label="Projects">
             <i class="fa fa-chevron-left"></i>
@@ -137,7 +139,7 @@
     </div>
 </md-toolbar>
 -->
-    <!--
+<!--
 <div class="project_dashboard" layout="row" layout-xs="column" >
   <md-content class="page-container" flex="100">
   <md-card class="page" >
@@ -148,22 +150,43 @@
   </md-content>
 </div>
 -->
-    <!--Modal formulario de creación de proyecto!-->
-    <script type="text/ng-template" id="myModalResult.html">
-        <div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">
-            <md-toolbar md-colors="{background: 'green'}">
-                <div class="md-toolbar-tools">
-                    <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Crea Un Resultado! </h2>
-                </div>
-            </md-toolbar>
-            <div layout="column" layout-margin>
-                <p>Proyecto: {{mvm.project_name}}</p>
-                <result-form closeparent="mvm.cancel()" flex></result-form>
+<!--Modal formulario de creación de proyecto!-->
+<script type="text/ng-template" id="myModalResult.html">
+    <div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">
+        <md-toolbar md-colors="{background: 'green'}">
+            <div class="md-toolbar-tools">
+                <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Crea Un Resultado! </h2>
             </div>
-            <div layout="row" class="demo-dialog-button">
-                <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
-                    Cancelar
-                </md-button>
-            </div>
+        </md-toolbar>
+        <div layout="column" layout-margin>
+            <p>Proyecto: {{mvm.project_name}}</p>
+            <result-form closeparent="mvm.cancel()" flex></result-form>
         </div>
-    </script>
+        <div layout="row" class="demo-dialog-button">
+            <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
+                Cancelar
+            </md-button>
+        </div>
+    </div>
+</script>
+<!--Modal GRID-->
+<script type="text/ng-template" id="bottomSheetGridTtemplate.html">
+    <md-bottom-sheet class="md-grid" layout="column">
+        <div layout="row" layout-align="center center" ng-cloak>
+            <h4>Selecciona un tipo de reporte para descargar</h4>
+        </div>
+        <div ng-cloak>
+            <md-list flex layout="row" layout-align="center center">
+                <md-list-item ng-repeat="item in items">
+                    <div>
+                        <a href="#" class="md-grid-item-content" ng-click="listItemClick($index)">
+                            <div class="{{item.icon}}"></div>
+                            
+                            <div class="md-grid-text"> {{ item.name }} </div>
+                        </a>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </div>
+    </md-bottom-sheet>
+</script>

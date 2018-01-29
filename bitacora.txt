@@ -1,0 +1,4 @@
+al subir a serivodor: 
+composer install & npm install, luego bower... 
+
+Important epara que gulp-uglify funcione debe estar instalado node 7
