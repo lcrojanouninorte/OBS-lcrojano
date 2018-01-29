@@ -83,7 +83,7 @@ class ProjectDashboardController {
 
 
     showGridBottomSheet() {
-        this.alert = '';
+       
         this.$mdBottomSheet.show({
             templateUrl: 'bottomSheetGridTtemplate.html',
             controller: this.gridcontroller,

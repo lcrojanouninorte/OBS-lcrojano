@@ -47,7 +47,6 @@ class ProjectController extends Controller
         'asesor_id'  => 'alpha_num'
         ]);
 
-
         
         DB::transaction(function () use ($request, $user) {
             //check if send id
@@ -60,6 +59,8 @@ class ProjectController extends Controller
                 $project->estado = "primary";
                 $project->progress = 0;
             }
+
+
             $project->titulo = $request->input('titulo');
             $project->desc = $request->input('desc');
             $project->process_id = $request->input('process_id');
@@ -67,37 +68,65 @@ class ProjectController extends Controller
             $project->save();
 
 
+
+
+
             //Set ownerships of empresario
             //Limitado solo a un empresario por proyect
             if ($id) {
-                //Cambiar de empresario
+                //Si se esta editando el proyecto
+                //Pre-condicion, solo hay un asesor y un solo empresario, y estos pueden haber sido borrados
+
+                //::::buscar y Cambiar de empresario si existe
                 $role = Role::where("slug", "empresario")->get();
                 $user_project = ProjectUser::where("role", $role[0]->id)
                                ->where("project_id", $project->id)->get();
-                $user_project = $user_project[0];
 
+                //Primero verificar si tiene epmresario, pues este pudo ser borrado
+                if(count($user_project) > 0){
+                    //Si ya tenia empresario, solo se necesita cambiar el user:id
+                    $user_project = $user_project[0];
+                }else{
+                     //Si no tenia empresario, se debe crear el registo
+                    $user_project = new ProjectUser;
+                    $user_project->project_id = $project->id;
+                    $role = Role::where("slug", "empresario")->get();
+                    $user_project->role = $role[0]->id;
+                }
+                $user_project->user_id = $request->input('empresario_id');
+                $user_project->save();
 
-                //cambiar asesor
-
+                //::::Buscar y cambiar asesor si existe
                 $role = Role::where("slug", "asesor")->get();
                 $asesor_project = ProjectUser::where("role", $role[0]->id)
                                ->where("project_id", $project->id)->get();
-                $asesor_project = $asesor_project[0];
+                
+                //Primero verificar si tiene asesor, pues este pudo ser borrado
+                if(count($asesor_project) > 0){
+                    //Si ya tenia asesor, solo se necesita cambiar el user:id
+                    $asesor_project = $asesor_project[0];
+                }else{
+                     //Si no tenia asesor, se debe crear el registo
+                    $asesor_project = new ProjectUser;
+                    $asesor_project->project_id = $project->id;
+                    $role = Role::where("slug", "asesor")->get();
+                    $asesor_project->role = $role[0]->id;
+
+                }
                 $asesor_project->user_id = $request->input('asesor_id');
                 $asesor_project->save();
+
                 $project->user_id = $request->input('asesor_id');
             } else {
+
+                //Si Se esta creando por primera vez el proyecto
                 $user_project = new ProjectUser;
                 $user_project->project_id = $project->id;
                 $role = Role::where("slug", "empresario")->get();
                 $user_project->role = $role[0]->id;
-            }
+                $user_project->user_id = $request->input('empresario_id');
+                $user_project->save();
 
-            $user_project->user_id = $request->input('empresario_id');
-            $user_project->save();
-
-
-            if (!$id) {
                 //Set ownerships of asesor
                 $user_project = new ProjectUser;
                 $user_project->user_id = $request->input('user_id');
@@ -106,6 +135,7 @@ class ProjectController extends Controller
                 $user_project->role = $role[0]->id;
                 $user_project->save();
             }
+ 
         }, 5);
     
         return response()->success(compact('project'));

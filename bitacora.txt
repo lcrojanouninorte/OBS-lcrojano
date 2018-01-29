@@ -2,3 +2,13 @@ al subir a serivodor:
 composer install & npm install, luego bower... 
 
 Important epara que gulp-uglify funcione debe estar instalado node 7
+
+
+
+sudo chown -R www-data:www-data /var/www/gestorproyectos_lcrojano/
+sudo usermod -a -G www-data lcrojano
+sudo chmod -R ug+rwx storage bootstrap/cache
+sudo find /var/www/gestorproyectos_lcrojano/ -type f -exec chmod 644 {} \;
+sudo find /var/www/gestorproyectos_lcrojano/ -type d -exec chmod 755 {} \;
+sudo chgrp -R www-data storage bootstrap/cache
+sudo chmod -R ug+rwx storage bootstrap/cache
