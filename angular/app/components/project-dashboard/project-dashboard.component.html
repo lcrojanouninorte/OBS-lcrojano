@@ -1,6 +1,6 @@
 <md-content layout="column">
     <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs class="md-primary md-hue-1">
-        <md-button style="color: white;" class="md-warn" ng-click="vm.showGridBottomSheet()" aria-label="toggle fullscreen">
+        <md-button ng-if="vm.project.id" style="color: white;" class="md-warn" ng-click="vm.showGridBottomSheet()" aria-label="toggle fullscreen">
             <md-icon style="color: white;" md-font-icon class="ion-ios-cloud-download"></md-icon>DESCARGAR REPORTES
         </md-button>
         <md-tab label="Gantt" aria-controls="tab1-content">

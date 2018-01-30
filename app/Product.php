@@ -19,4 +19,9 @@ class Product extends Model
     {
         return $this->hasMany(Wallet::class);
     }
+    // Booking model
+    public function budgets()
+    {
+      return $this->belongsToMany('App\Budget' ,'budget_product', 'product_id', 'budget_id');
+    }
 }
