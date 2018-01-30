@@ -113,7 +113,7 @@
                     ng-if="vm.loadWallet" 
                     ></budget-wallet>
                 </div>
-                 <md-button   class="md-raised md-primary" wz-previous value="Previous" ng-click="vm.loadWallet=false"  >Atras
+                 <md-button   class="md-raised md-primary" wz-previous value="Previous" ng-click="vm.loadWallet=false; setStep(1)"  >Atras
                             <md-icon md-font-icon="ion-chevron-left" aria-label="description"></md-icon>
                         </md-button>
                 <md-button ng-click="vm.cancel()"   class="md-raised md-warning" value="Continue">Finalizar
