@@ -468,11 +468,12 @@ class ProjectController extends Controller
 
          $today =  date('Y-m-j h_i_s');
 
-
+         $product_rowspan =0;
          foreach ($project->results as $result) {
              foreach ($result->products as $product) {
                 $product_id = $product->id;
-                $budgets = Budget::with(array("budgetproducts"=>function ($q) use ($product_id) {
+                $budgets = 
+                Budget::with(array("budgetproducts"=>function ($q) use ($product_id) {
                             $q->select(DB::raw('id, product_id, budget_id, descripcion, financiacion_sena, c_especie, c_efectivo, cantidad*valor_unitario as total'))
                             ->where("product_id", $product_id)->get();
                 },
@@ -484,7 +485,13 @@ class ProjectController extends Controller
                         "wallets.type",
                         "wallets.id",
                         "wallets.budget_product_id"
-                    );}
+                    );},
+                    "budgetproducts.wallets_executed"=>function ($q) use ($product_id) {
+            //Paso 2:Para cada budgets/rubros obtener el total ejecutado desagregado por CP, CE, Sena
+
+            $q->select(DB::raw('id, product_id, budget_product_id, type, SUM(cantidad) total_executed'))->groupBy("type", "budget_product_id", "product_id")->orderBy('type', "DESC")->get();
+            //Orden de los totales para wallet: sena, cp, ce
+        }
             )
                 
             )->whereHas('budgetproducts', function ($q) use ($product_id) {
@@ -492,9 +499,84 @@ class ProjectController extends Controller
             })  
                 ->get();
 
+                //organizar los resultado de la forma, "cp":"{}"
+
+                $total_budget = 0;
+                
+
+                foreach ($budgets as $budget) {
+                    $total_budget = 0;
+                    foreach ($budget->budgetproducts as $key => $budgetproduct) {
+                        # code...
+
+                        foreach ($budgetproduct->wallets_executed as $key => $executed) {
+                            $total_budget = $total_budget +  $executed->total_executed;
+                            
+                            $budgetproduct->wallets_executed[$executed["type"]] = $executed;
+                            unset($budgetproduct["wallets_executed"][$key]);
+                        }
+                        
+                    }
+
+                     $budget->total_executed = $total_budget;
+
+                     
+                }
+
+
+
+                // para calcular el rowspan :V
+                $product_rowspan = 0;
+                if(count($product->wallets)>0){
+                    $product_rowspan++;
+                    foreach ($budgets as $budget) {
+                        $budget_rowspan = 0;
+
+                        if($budget->total_executed>0){
+                            $budget_rowspan++;
+                            $product_rowspan++;
+                            foreach ($budget->budgetproducts as $key => $budgetproduct) {
+                                if( count($budgetproduct->wallets)>0){
+                                    $product_rowspan++;
+                                    $product_rowspan++;
+
+                                    $budget_rowspan++;
+                                    $budget_rowspan++;
+                                }
+
+                                foreach ($budgetproduct->wallets as $key => $wallets) {
+                                    $product_rowspan++;
+
+                                    $budget_rowspan++;
+                                }
+                                $product_rowspan++;
+                                $product_rowspan++;
+
+                                $budget_rowspan++;
+                                $budget_rowspan++;
+                                
+                            }
+                        }
+                    $budget["rowspan"] = $budget_rowspan-1;
+                    }
+                }
+                
+
+                //dummy
+
+
+                $product["rowspan"] =  $product_rowspan-1;
                 $product["budgets"] = $budgets;
+
+                
+
+                //Calcular totales
+
+
              }
+
          }
+
 
 
         //return view('reports.financial_report', ['project' => $project]);
@@ -521,12 +603,7 @@ class ProjectController extends Controller
 
                 //Rellenos
                 // Set background color for a specific cell
-                $sheet->getStyle('A1')->applyFromArray(array(
-                    'fill' => array(
-                        'type'  => \PHPExcel_Style_Fill::FILL_SOLID,
-                        'color' => array('rgb' => 'FF0000')
-                    )
-                ));
+               
 
                  $sheet->setWidth('A', 4);
                  $sheet->setWidth('B', 4);
@@ -535,6 +612,10 @@ class ProjectController extends Controller
                  $sheet->setHeight(array(
                     6     =>  25
                 ));
+
+                 $sheet->getColumnDimension('H')->setAutoSize(true) ;
+                 $sheet->getColumnDimension('I')->setAutoSize(true) ;
+                 $sheet->getColumnDimension('J')->setAutoSize(true) ;
 
 
             });
