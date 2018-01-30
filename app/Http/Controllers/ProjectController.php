@@ -469,10 +469,44 @@ class ProjectController extends Controller
          $today =  date('Y-m-j h_i_s');
 
 
+         foreach ($project->results as $result) {
+             foreach ($result->products as $product) {
+                $product_id = $product->id;
+                $budgets = Budget::with(array("budgetproducts"=>function ($q) use ($product_id) {
+                            $q->select(DB::raw('id, product_id, budget_id, descripcion, financiacion_sena, c_especie, c_efectivo, cantidad*valor_unitario as total'))
+                            ->where("product_id", $product_id)->get();
+                },
+                "budgetproducts.wallets"=>function ($q) {
+                    $q->select(
+                        "wallets.desc",
+                        "wallets.cantidad",
+                        "wallets.doc",
+                        "wallets.type",
+                        "wallets.id",
+                        "wallets.budget_product_id"
+                    );}
+            )
+                
+            )->whereHas('budgetproducts', function ($q) use ($product_id) {
+                $q->where('product_id', $product_id);
+            })  
+                ->get();
 
-        return response()->success($project);
-        Excel::create('Reporte Finaciero ' .$today, function($excel) use ($project) {
-              
+                $product["budgets"] = $budgets;
+             }
+         }
+
+
+        //return view('reports.financial_report', ['project' => $project]);
+
+        //return response()->success($project);
+
+
+
+
+
+
+        Excel::create('Reporte Finaciero ' .$today, function($excel) use ($project) {              
 
             $excel->sheet('Reporte', function($sheet) use ($project) {
                 $sheet->loadView('reports.financial_report')->with('project', $project);;
@@ -484,13 +518,32 @@ class ProjectController extends Controller
                     )
                 ));
 
-                 $sheet->setWidth('A', 20);
-                 $sheet->setWidth('B', 60);
+
+                //Rellenos
+                // Set background color for a specific cell
+                $sheet->getStyle('A1')->applyFromArray(array(
+                    'fill' => array(
+                        'type'  => \PHPExcel_Style_Fill::FILL_SOLID,
+                        'color' => array('rgb' => 'FF0000')
+                    )
+                ));
+
+                 $sheet->setWidth('A', 4);
+                 $sheet->setWidth('B', 4);
+                 $sheet->setWidth('C', 4);
+
+                 $sheet->setHeight(array(
+                    6     =>  25
+                ));
+
+
             });
 
-            $lastrow= $excel->getActiveSheet()->getHighestRow();  
+
+
+            //$lastrow= $excel->getActiveSheet()->getHighestRow();  
  
-            $excel->getActiveSheet()->getStyle('A1:A'.$lastrow)->getAlignment()->setWrapText(true); 
+            //$excel->getActiveSheet()->getStyle('A1:A'.$lastrow)->getAlignment()->setWrapText(true); 
         })->download('xls');
         
         return Redirect::back()->withErrors(['msg', 'The Message']);
