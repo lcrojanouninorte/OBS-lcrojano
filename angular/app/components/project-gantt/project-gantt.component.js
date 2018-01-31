@@ -84,7 +84,7 @@ class ProjectGanttController{
                         color:"red",
                         classes: ['gantt-important-date'] // Give one or many class names to customize using CSS.
                     },
-                    noon: {
+                   /* noon: {
                         start: moment('12:00', 'HH:mm'),
                         end: moment('14:00', 'HH:mm'),
                         magnet: false, // This will disable magnet snapping
@@ -94,7 +94,7 @@ class ProjectGanttController{
                     closed: {
                         magnet: false, // This will disable magnet snapping
                         working: false // We don't work when it's closed
-                    }
+                    }*/
         };
 
          this.dateFrames = {
