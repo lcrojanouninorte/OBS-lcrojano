@@ -83,7 +83,6 @@ class ProjectDashboardController {
 
 
     showGridBottomSheet() {
-       
         this.$mdBottomSheet.show({
             templateUrl: 'bottomSheetGridTtemplate.html',
             controller: this.gridcontroller,
@@ -94,10 +93,10 @@ class ProjectDashboardController {
             }
         }).then(function(clickedItem) {
             this.$mdToast.show(
-                 this.$mdToast.simple()
-                    .textContent(clickedItem['name'] + ' clicked!')
-                    .position('top right')
-                    .hideDelay(1500)
+                this.$mdToast.simple()
+                .textContent(clickedItem['name'] + ' clicked!')
+                .position('top right')
+                .hideDelay(1500)
             );
         }).catch(function(error) {
             // User clicked outside or hit escape
@@ -107,9 +106,9 @@ class ProjectDashboardController {
     gridcontroller($scope, $mdBottomSheet, project) {
         $scope.project = project
         $scope.items = [
-            { name: 'Financiero (En Desarrollo)', icon: 'excel' },
+            { name: 'Financiero', icon: 'excel' },
             { name: 'General (En Desarrollo)', icon: 'pdf' },
-          
+
         ];
 
         $scope.listItemClick = function($index) {

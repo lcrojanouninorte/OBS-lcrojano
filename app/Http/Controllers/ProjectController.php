@@ -274,6 +274,8 @@ class ProjectController extends Controller
         foreach ($project->results as $key => $result) {
             $result_id = $result->id;
             foreach ($result->products as $key => $product) {
+
+                $product->progress = ['percent' =>  $product->progress   , "color" => "#ab54a0"];
                 //Calcular si el producto esta atrasado y asignar un color para le gantt
                 $today =  date('Y-m-j');
                 $productTo = date("Y-m-j", strtotime($product->to));
@@ -387,7 +389,7 @@ class ProjectController extends Controller
                 $product->budgets_total += $budget->valor_unitario*$budget->cantidad;
             }
                 //Calcular procentaje ejecutado
-                $product->progress =($product->budgets_total)? ($product_wallet_total/$product->budgets_total)*100:0;
+                $product->progress = ($product->budgets_total)? ($product_wallet_total/$product->budgets_total)*100:0;
         }
         
 
@@ -528,51 +530,33 @@ class ProjectController extends Controller
                 // para calcular el rowspan :V
                 $product_rowspan = 0;
                 if(count($product->wallets)>0){
-                    $product_rowspan++;
+                    $product_rowspan +=1 ; //Si tiene gastos, es seguro que se escribira el producto
                     foreach ($budgets as $budget) {
                         $budget_rowspan = 0;
-
                         if($budget->total_executed>0){
-                            $budget_rowspan++;
-                            $product_rowspan++;
+                            //Verificamos que el rubro tengalgun gasto
+                            $budget_rowspan +=1 ;  //Si el rubro tiene algun gasto es seguro que se escribirá
                             foreach ($budget->budgetproducts as $key => $budgetproduct) {
+                                //Escribiremos exactamente los desc_rubros con gastos asignados.
                                 if( count($budgetproduct->wallets)>0){
-                                    $product_rowspan++;
-                                    $product_rowspan++;
 
-                                    $budget_rowspan++;
-                                    $budget_rowspan++;
+                                    $budget_rowspan += 4; // el texto descripcion y la cabecera del listado + dos totales
+ 
                                 }
 
                                 foreach ($budgetproduct->wallets as $key => $wallets) {
-                                    $product_rowspan++;
-
-                                    $budget_rowspan++;
+                                    $budget_rowspan += 1;
                                 }
-                                $product_rowspan++;
-                                $product_rowspan++;
 
-                                $budget_rowspan++;
-                                $budget_rowspan++;
                                 
                             }
                         }
-                    $budget["rowspan"] = $budget_rowspan-1;
+                    $budget["rowspan"] = $budget_rowspan;
+                    $product_rowspan += $budget_rowspan;
                     }
                 }
-                
-
-                //dummy
-
-
-                $product["rowspan"] =  $product_rowspan-1;
+                $product["rowspan"] =  $product_rowspan ;
                 $product["budgets"] = $budgets;
-
-                
-
-                //Calcular totales
-
-
              }
 
          }
@@ -605,9 +589,10 @@ class ProjectController extends Controller
                 // Set background color for a specific cell
                
 
-                 $sheet->setWidth('A', 4);
                  $sheet->setWidth('B', 4);
                  $sheet->setWidth('C', 4);
+                 $sheet->setWidth('D', 4);
+                 $sheet->setWidth('F', 20);
 
                  $sheet->setHeight(array(
                     6     =>  25
@@ -616,6 +601,10 @@ class ProjectController extends Controller
                  $sheet->getColumnDimension('H')->setAutoSize(true) ;
                  $sheet->getColumnDimension('I')->setAutoSize(true) ;
                  $sheet->getColumnDimension('J')->setAutoSize(true) ;
+
+          
+
+                  
 
 
             });
