@@ -124,7 +124,7 @@ change_project_users() {
         this.project.loadUsers = this.loadUsers
         let $uibModal = this.$uibModal
         let project = this.project
-        var modalInstance = $uibModal.open({
+         $uibModal.open({
             animation: true,
             templateUrl: 'modalProjectUsers.html',
             controller: this.modalcontroller,
@@ -143,7 +143,7 @@ change_project_users() {
         this.project = project
        
         this.ok = () => {
-          $uibModalInstance.close($scope.selected.item)
+          //$uibModalInstance.close($scope.selected.item)
         }
 
         this.cancel = () => {

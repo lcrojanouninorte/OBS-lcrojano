@@ -29,7 +29,8 @@ angular.module('app', [
             'gantt.overlap',
             'gantt.dependencies',
 'ngFileUpload',
-'ds.clock'
+'ds.clock',
+'mdPickers'
 ])
 
 angular.module('app.run', [])

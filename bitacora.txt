@@ -12,3 +12,11 @@ sudo find /var/www/gestorproyectos_lcrojano/ -type f -exec chmod 644 {} \;
 sudo find /var/www/gestorproyectos_lcrojano/ -type d -exec chmod 755 {} \;
 sudo chgrp -R www-data storage bootstrap/cache
 sudo chmod -R ug+rwx storage bootstrap/cache
+
+
+pasar el table.css manualmente!
+
+
+CAMBIAR EN PROD
+ //CAMBIAR EN PRODUCCION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        var url = 'http://gestorffi.lcrojano.com/api/result/upload/'+this.result.id

@@ -20,7 +20,7 @@ class FileUploadFormController{
 
 
     //CAMBIAR EN PRODUCCION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        var url = 'http://gestorcesi.lcrojano.com/api/result/upload/'+this.result.id
+        var url = 'http://gestorffi.lcrojano.com/api/result/upload/'+this.result.id
         this.$scope.f = file;
         this.$scope.errFile = errFiles && errFiles[0];
         if (file) {

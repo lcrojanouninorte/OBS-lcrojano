@@ -1,3 +1,4 @@
+import {BotFormComponent} from './app/components/bot-form/bot-form.component';
 import {MilestonesDashboardComponent} from './app/components/milestones-dashboard/milestones-dashboard.component';
 import {MilestonesListComponent} from './app/components/milestones-list/milestones-list.component';
 import {MilestonesAddComponent} from './app/components/milestones-add/milestones-add.component';
@@ -70,6 +71,7 @@ import { LoginFormComponent } from './app/components/login-form/login-form.compo
 import { RegisterFormComponent } from './app/components/register-form/register-form.component'
 
 angular.module('app.components')
+	.component('botForm', BotFormComponent)
 	.component('milestonesDashboard', MilestonesDashboardComponent)
 	.component('milestonesList', MilestonesListComponent)
 	.component('milestonesAdd', MilestonesAddComponent)

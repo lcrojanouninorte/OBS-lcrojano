@@ -1,12 +1,112 @@
-<div layout="row" layout-wrap layout-margin layout-align="center ">
+<div layout="row" layout-wrap layout-margin layout-align=" center">
     
    
-  	<div ng-hide="vm.projects.length>0" class="alert alert-info alert-dismissible">
+  	<div ng-if="!vm.bots.length>0" class="alert alert-info alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h4><i class="icon fa fa-info"></i> No hay Proyectos!</h4> 
-            Actualmente no hay proyectos.
+            <h4><i class="icon fa fa-info"></i>There are no bots!</h4> 
+            you have to create one bot.
     </div>
 
 
-    <project-item class="fx-fade-up fx-stagger-245" project="project" ng-repeat="project in vm.projects" flex="100" flex-gt-sm="30"></project-item>
-</div>
+    <div class="row" ng-if="vm.bots.length>0">
+            <div class="col-xs-12">
+              <div class="box box-primary">
+                <div class="box-header">
+                  <h3 class="box-title">Robots</h3>
+                  <div class="box-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                      <input ng-model="vm.robotFilter" type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                      <div class="input-group-btn">
+                          
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tr>
+                        <th>City</th>
+                        <th>E-mail</th>
+                        <th>Pass</th>
+                        <th>News</th>
+                        <th>Minutes</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Status</th>
+                        <th>Update</th>
+                        <th>Config</th>
+                        <th>Delete</th>
+                    </tr>
+                    <tr ng-repeat="bot in vm.bots | filter:vm.robotFilter | orderBy: 'city.name'">
+                            <td>{{bot.city.name}}</td>
+                            <td>{{bot.username}}</td>
+                            <td>{{bot.password}}</td>
+                            <td>
+                                    <md-input-container style="padding: 0; margin: 0;" flex-gt-sm>
+                                        <input type="number" name="ads_limit" ng-model="bot.ads_limit"  />
+                                    </md-input-container>
+                                
+                                </td>
+                            <td><md-input-container style="padding: 0; margin: 0;" flex-gt-sm>
+                                    <input type="number" name="minutes" ng-model="bot.minutes"  />
+                                </md-input-container> </td>
+                            <td>{{bot.start}}</td>
+                            <td>{{bot.end}}</td>
+                            <td>
+                                    <md-switch ng-change="vm.update(bot);" class="text-center" ng-model="bot.active" aria-label="Switch 2" ng-true-value="1" ng-false-value="2" class="md-warn">
+                                         
+                                        </md-switch>
+                            </td>
+                            <td>
+                                    <div>
+                                        <md-button class="md-icon-button" aria-label="edit" ng-click="vm.update(bot);">
+                                            <md-icon md-font-icon="ion-ios-refresh-empty"></md-icon>
+                                        </md-button>
+                                    </div>
+                                </td>
+                                 
+                            <td>
+                                <md-button  class="md-icon-button " aria-label="edit " ng-click="vm.edit_bot(bot);">
+                                    <md-tooltip md-direction="top">Edit</md-tooltip> 
+                                     <md-icon md-font-icon="ion-android-settings "></md-icon>
+                                 </md-button></td>
+                            <td>
+                                <div  >
+                                            <md-button class="md-icon-button" aria-label="edit" ng-click="vm.delete(bot.id)">
+                                                <md-icon md-font-icon="ion-trash-a"></md-icon>
+                                            </md-button>
+                                </div>
+                            </td>
+                             
+                       
+                     
+                    </tr>
+                  </table>
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!-- /.box -->
+            </div>
+          </div>
+
+<!--     <project-item class="fx-fade-up fx-stagger-245" project="bot" ng-repeat="bot in vm.bots" flex="100" flex-gt-sm="30"></project-item>
+ --></div>
+<!--Modal formulario de edicion de proyecto!-->
+<script type="text/ng-template" id="myModalBot.html">
+    <div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">
+        <md-toolbar md-colors="{background: 'green'}">
+            <div class="md-toolbar-tools">
+                <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Edit Bot! </h2>
+            </div>
+        </md-toolbar>
+        <div layout="column" layout-margin>
+            <bot-form mode="'edit'" bot="mvm.bot" closeparent="mvm.cancel()" flex></bot-form>
+        </div>
+        <div layout="row" class="demo-dialog-button">
+            <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
+                Cancelar
+            </md-button>
+        </div>
+    </div>
+</script>

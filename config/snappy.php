@@ -6,7 +6,7 @@ return array(
     'pdf' => array(
         'enabled' => true,
         //'binary'  => '/usr/local/bin/wkhtmltopdf', //default
-        'binary' => '"d:\Program Files\wkhtmltopdf\bin\wkhtmltopdf"', //windows
+        'binary' => '"e:\Program Files\wkhtmltopdf\bin\wkhtmltopdf"', //windows
         //'binary'  => '/usr/local/bin/wkhtmltopdf-amd64', //vagrant
          'timeout' => false,
         'options' => array(),
