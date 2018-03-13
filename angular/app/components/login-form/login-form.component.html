@@ -1,23 +1,23 @@
  
 <form ng-submit="vm.login()" method="post" name="vm.loginForm" >
   <div class="callout callout-danger" ng-if="vm.loginfailederror">
-    <h4>Login Falló</h4>
+    <h4>Login Fail</h4>
     <p>{{ vm.loginfailederror }}</p>
   </div>
   <div class="callout callout-danger" ng-if="vm.loginfailed">
-    <h4>Login Falló</h4>
+    <h4>Login Fail</h4>
     <p>Correo Incorrecto/Usuario o contraseña.</p>
   </div>
   <div class="callout callout-danger" ng-if="vm.unverified">
-    <h4>Email No verificado</h4>
-    <p>Por Favor revise su e-mail para confirmar su cuenta .</p>
+    <h4>Email Not Verified</h4>
+    <p>Please Review Your E-mail .</p>
   </div>
   <div class="callout callout-success" ng-if="vm.registerSuccess">
-    <h4>Registrado correctamente!</h4>
-    <p>Se ha enviado un correo de confirmación</p>
+    <h4>Sucess Registration!</h4>
+    <p>You have a mail, please review</p>
   </div>
   <div class="callout callout-success" ng-if="vm.successMsg">
-    <h4>Éxito!</h4>
+    <h4>Success!</h4>
     <p>{{ vm.successMsg }}</p>
   </div>
   <div class="form-group has-feedback">
@@ -31,7 +31,7 @@
   <div class="row">
     <div class="col-xs-12" layout layout-align="center center">
       <md-button class="md-raised" type="submit" flex-gt-md="50" flex="30" md-colors="{background: 'blue'}">
-      Ingresar
+      Sign In
      </md-button>
       
     </div>
@@ -52,7 +52,7 @@
 <div class="row">
   <div class="col-xs-6">
     <div class="pull-left">
-      <a ui-sref="forgot_password">Olvidaste el password?</a>
+      <a ui-sref="forgot_password">Forgot Your Password?</a>
     </div>
   </div>
   <!--

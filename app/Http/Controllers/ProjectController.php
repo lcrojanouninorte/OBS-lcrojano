@@ -210,7 +210,22 @@ class ProjectController extends Controller
         
 
        //   $budgets = Budget::with("budgetproducts.results")->get();
-      
+        $fecha_fin_result = '';
+        foreach ($project->results as $key => $result){
+            if(count($result->products)>0){
+                $result->fecha_fin = $result->products[0]->fecha_fin;
+                if(count($result->products)>1){
+                    foreach ($result->products as $key => $product) {
+                        $fecha_fin_new = $product->fecha_fin;
+                        if($result->fecha_fin < $fecha_fin_new){
+                           $result->fecha_fin =$fecha_fin_new;
+                        }
+                        
+                    }
+                }
+            }
+            
+        }
    
         return response()->success($project);
     }
@@ -471,8 +486,42 @@ class ProjectController extends Controller
          $today =  date('Y-m-j h_i_s');
 
          $product_rowspan =0;
+
+
+         //   $budgets = Budget::with("budgetproducts.results")->get();
+        $fecha_fin_result = '';
+        foreach ($project->results as $key => $result){
+            if(count($result->products)>0){
+                $result->fecha_fin = $result->products[0]->fecha_fin;
+                if(count($result->products)>1){
+                    foreach ($result->products as $key => $product) {
+                        $fecha_fin_new = $product->fecha_fin;
+                        if($result->fecha_fin < $fecha_fin_new){
+                           $result->fecha_fin =$fecha_fin_new;
+                        }
+                        
+                    }
+                }
+            }
+            
+        }
+
+
          foreach ($project->results as $result) {
+             if(count($result->products)>0){
+                 $result->fecha_fin = $result->products[0]->fecha_fin;
+             }
              foreach ($result->products as $product) {
+
+                //Fecha Fin
+                $fecha_fin_new = $product->fecha_fin;
+                if($result->fecha_fin < $fecha_fin_new){
+                    $result->fecha_fin =$fecha_fin_new;
+                }
+                        
+
+
+
                 $product_id = $product->id;
                 $budgets = 
                 Budget::with(array("budgetproducts"=>function ($q) use ($product_id) {
@@ -623,9 +672,10 @@ class ProjectController extends Controller
     function project_total($projects)
     {
 
-        $project_fecha_fin = "1000-02-20";//Para buscar la fecha final.
+      
 
         foreach ($projects as $project) {
+            $project_fecha_fin = "1000-02-20";//Para buscar la fecha final.
             $products_total = 0;
             $budgets_total = 0;
             $project->results=$project->results;
