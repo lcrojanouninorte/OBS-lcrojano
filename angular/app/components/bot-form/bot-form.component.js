@@ -42,7 +42,7 @@ class BotFormController{
 
         //Todo: Cargar de la base de datos
         this.cities = [
-            { "id": 1, "name" :  "Remorques en Direct Qu̩ebec"},
+          /*   { "id": 1, "name" :  "Remorques en Direct Qu̩ebec"},
             { "id": 2, "name" :  "Remorques en Direct Montreal"},
             { "id": 3, "name" :  "Remorques en Direct Rive-Nord"},
             { "id": 4, "name" :  "Remorques en Direct Rive-Sud"},
@@ -50,7 +50,7 @@ class BotFormController{
             { "id": 6, "name" :  "Remorques en Direct Trois-Rivieres"},
             { "id": 7, "name" :  "Remorques en Direct Drummondville"},
             { "id": 8, "name" :  "Remorques en Direct New Brunswick"},
-            { "id": 9, "name" :  "Remorques en Direct Saguenay"}
+            { "id": 9, "name" :  "Remorques en Direct Saguenay"} */
         ]
     }
 
@@ -124,6 +124,16 @@ class BotFormController{
         }
 
 
+    }
+
+    loadCities(){
+        let Cities = this.API.one('cities')
+
+        Cities.getList().then((response) => {
+            if(!response.error){
+                this.cities = response
+            }
+          }).catch(this.failedRegistration.bind(this))
     }
 
     projectEditing(){
