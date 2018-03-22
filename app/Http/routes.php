@@ -36,6 +36,7 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->post('auth/register', 'Auth\AuthController@postRegister');
 
     $api->resource('bots', 'BotController');
+    $api->resource('cities', 'CityController');
     //$api->get('answer', 'AnswerController@store');
     //$api->get('survey/{type}', 'SurveyController@show');
     //$api->get('answers/{type}', 'AnswerController@chartData');
