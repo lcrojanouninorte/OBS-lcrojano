@@ -12,6 +12,7 @@ export class ContextService {
     if ($auth.isAuthenticated()) {
       let API = this.API
       let UserData = API.service('me', API.all('users'))
+      UserData.avatar = "/img/avatar.png"
 
       return UserData.one().get()
     } else {
