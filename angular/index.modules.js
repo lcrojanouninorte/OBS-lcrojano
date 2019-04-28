@@ -30,7 +30,8 @@ angular.module('app', [
             'gantt.dependencies',
 'ngFileUpload',
 'ds.clock',
-'mdPickers'
+'mdPickers',
+'ngFileUpload'
 ])
 
 angular.module('app.run', [])

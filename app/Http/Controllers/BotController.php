@@ -12,6 +12,8 @@ use Auth;
 
 use DB;
 
+use Storage;
+
 class BotController extends Controller
 {
     /**
@@ -47,11 +49,10 @@ class BotController extends Controller
     {
         //
         $user = Auth::user();
-
         $this->validate($request, [
         'username' => 'required',
         'password' => 'required',
-        'city_id' => 'required',
+        //'city_id' => 'required',
         'ads_limit' => 'required',
         'minutes' => 'required',
         'start' => 'required',
@@ -59,10 +60,18 @@ class BotController extends Controller
         'active'  => 'required'
         ]);
 
-        
+        //check if have file
         DB::transaction(function () use ($request, $user) {
             $bot = new Bot;
-            $bot->id = $request->input('id'); //Verificar;
+
+            if($request->has('id')){
+                $bot =  Bot::find($request->input('id'));
+             }
+            //LesPac exclusive:
+            $bot->type = $request->input('type');
+            $bot->current_index = $request->input('current_index');
+
+            //$bot->id = $request->input('id'); //Verificar;
             $bot->username = $request->input('username');
             $bot->password = $request->input('password');
             $bot->city_id = $request->input('city_id');
@@ -71,7 +80,25 @@ class BotController extends Controller
             $bot->start = $request->input('start');
             $bot->end =  $request->input('end');
             $bot->active =  $request->input('active');
-            $bot->save();
+            
+        
+            if($bot->save()){
+                $destinationPath = "";
+                
+                if($request->hasFile('file')){
+                    $file  = $request->file('file');
+                    $fileName = $file->getClientOriginalName();
+                    $destinationPath = "/".$request->input('type')."/".$bot->id."/".$fileName;
+                    $path = Storage::put(
+                        $destinationPath,
+                        file_get_contents($file->getRealPath())
+                    );
+                    $bot->file_path = $destinationPath;
+                    $bot->save();
+            }
+            };
+
+
         });
         return response()->success(compact('bot'));
     }
@@ -115,7 +142,7 @@ class BotController extends Controller
         $this->validate($request, [
             'username' => 'required',
             'password' => 'required',
-            'city_id' => 'required',
+            //'city_id' => 'required',
             'ads_limit' => 'required',
             'minutes' => 'required',
             'start' => 'required',
