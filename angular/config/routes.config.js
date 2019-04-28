@@ -11,7 +11,7 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
     return `./views/app/pages/layout/${layout}.page.html`
   }
 
-  $urlRouterProvider.otherwise('/projects')
+  $urlRouterProvider.otherwise('/')
 
   $stateProvider
     .state('app', {
@@ -33,7 +33,7 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
       }
     })
     .state('app.landing', {
-      url: '/:botsType',
+      url: '/',
       data: {
         auth: true
       },
@@ -41,9 +41,20 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
         'main@app': {
               templateUrl: getView('projects')
             }
+      } 
+    })
+    .state('app.bots', {
+      url: '/botsType',
+      data: {
+        auth: true
       },
-      params: {
-        botsType: "LesPac"
+      views: {
+        'main@app': {
+          template: '<project-list></project-list>'
+        }
+      },
+      params:{
+        botsType: null
       }
     })
     .state('app.tablessimple', {

@@ -1,5 +1,5 @@
  
-<aside class="main-sidebar     disabled" ng-show="vm.can('manage.users')">
+<aside class="main-sidebar     disabled" >
   <section class="sidebar"  >
     <div class="user-panel">
       <div class="pull-left image">
@@ -26,29 +26,29 @@
     -->
     <ul class="sidebar-menu">
       <li class="header">OPCIONES</li>
-      <li>
-        <a ui-sref='app.projects'>
+      <!--<li>
+        <a ui-sref='app.projects' ng-show="vm.isAsesor">
           <i class="fa fa-dashboard"></i> <span>Proyectos</span>
         </a>
-      </li>
-      <li ng-show="vm.can('view.draft')">
-        <a ui-sref="app.landing({botsType: 'LesPac'})">
+      </li>-->
+      <li ng-show="vm.isAsesor">
+        <a ui-sref="app.bots({botsType: 'LesPac'})">
           <i class="fa fa-dashboard"></i> <span>LesPAC</span>
         </a>
-      </li>
+      </li> 
 
-      <li ng-show="vm.can('view.draft')">
-        <a ui-sref="app.landing({botsType: 'Kijiji'})">
+      <li ng-show="vm.isAsesor">
+        <a ui-sref="app.bots({botsType: 'Kijiji'})">
           <i class="fa fa-dashboard"></i> <span>Kijiji</span>
         </a>
       </li>
   
-      <li class="treeview" ng-show="vm.can('manage.users')">
+      <li class="treeview" ng-show="vm.can('manage.users') || vm.isAsesor">
         <a href="javascript:void(0)">
           <i class="fa fa-users"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li ng-show="vm.can('manage.users')" class="active"><a ui-sref='app.userlist'><i class="fa fa-circle-o"></i> <span>Lista de usuarios</span></a></li>
+          <li ng-show="vm.can('manage.users') || vm.isAsesor" class="active"><a ui-sref='app.userlist'><i class="fa fa-circle-o"></i> <span>Lista de usuarios</span></a></li>
         </ul>
       </li>
       <li class="treeview" ng-show="vm.can('manage.roles') || vm.can('manage.permissions')">
