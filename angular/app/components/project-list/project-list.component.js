@@ -1,9 +1,10 @@
 class ProjectListController{
-    constructor(API,AclService ,$scope, $state, $uibModal, $log){
+    constructor(API,AclService ,$scope, $state, $uibModal, $log, Upload, $timeout, $window){
         'ngInject';
         //
 
         this.API = API
+        this.$window =$window
         this.$log = $log
         this.$state = $state
         this.originatorEv = {}
@@ -11,11 +12,23 @@ class ProjectListController{
         this.$uibModal =$uibModal
         let Bots = this.API.all('bots');
         this.robotFilter = ""
+        this.bot = {
+          current_index: 1,
+          active:1, 
+          type :this.$state.params.botsType
+
+        }
+        this.bot_origin = angular.copy(this.bot)
+        this.cities = {}
+        this.Upload = Upload
+        this.$timeout =$timeout
+        this.errorMsg=""
+        this.add_check = false
         Bots.getList()
           .then((response) => {
             this.bots = response.plain()
           })
-
+        
           //Todo: Let agregate
         this.cities = [
             { "id": 1, "name" :  "Remorques en Direct Qu̩ebec"},
@@ -29,10 +42,59 @@ class ProjectListController{
             { "id": 9, "name" :  "Remorques en Direct Saguenay"}
         ]
     }
-
+    
     $onInit(){
+      this.bot = {
+        current_index: 1,
+        active:1, 
+        type :this.$state.params.botsType
+      }
+    }
 
-       
+    uploadExcel() {
+      let bot = this.bot
+      let bot_origin = this.bot_origin 
+      let bots = this.bots
+      //let add_check = this.add_check
+      let $state = this.$state
+      var hders = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/x.laravel.v1+json'
+      }
+      var token = this.$window.localStorage.satellizer_token
+      if (token) {
+        hders.Authorization = 'Bearer ' + token
+      }
+      
+      bot.upload = this.Upload.upload({
+        url: 'http://robot.lcrojano.com/api/bots',
+        data: bot,
+        headers: hders
+      });
+  
+      bot.upload.then(function (response) {
+        //this.$timeout(function () {
+          if(bot.type=="LesPac"){ // si es lespac, guardar archivo
+            bot.file.result = response.data;
+          }
+         
+          //ajustes
+          bots.push(angular.copy(bot))
+          bot = angular.copy(bot_origin)
+          //add_check = false
+          $state.reload()
+       // });
+      }, function (response) {
+        if (response.status > 0)
+          this.errorMsg = response.status + ': ' + response.data;
+          this.$log.debug(response)
+              }, function (evt) {
+        // Math.min is to fix IE which reports 200% sometimes
+        if(bot.type=="LesPac"){ // si es lespac, guardar archivo
+          bot.file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+        }
+         
+      });
     }
 
     delete(botID) {
@@ -72,22 +134,54 @@ class ProjectListController{
     }
 
     update(bot){
-      //update
-      this.API.one('bots').customPUT(bot,bot.id).then((response) => {
-        if(response.error){
-            this.$log.debug(response);
-        }else{
-            this.$state.reload()
-            swal('Bot updated!', '', 'success')
-
-            this.closeparent();
-            this.$log.debug(response);
-
-
+ 
+      if(bot.type == "LesPac" && bot.file!=null){
+        let $state = this.$state
+        var hders = {
+          'Content-Type': 'application/json',
+          'Accept': 'application/x.laravel.v1+json'
         }
-            
-    })
+        var token = this.$window.localStorage.satellizer_token
+        if (token) {
+          hders.Authorization = 'Bearer ' + token
+        }
+        
+        bot.upload = this.Upload.upload({
+          url: 'http://robot.lcrojano.com/api/bots', //CHANGE
+          data: bot,
+          headers: hders
+        });
+    
+        bot.upload.then(function (response) {
+          //this.$timeout(function () {
+            $state.reload()
+        // });
+        }, function (response) {
+          if (response.status > 0)
+            this.errorMsg = response.status + ': ' + response.data;
+          }, function (evt) {
+             bot.file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+        });
+      }else{
+        //update    
+        this.API.one('bots').customPUT(bot,bot.id).then((response) => {
+          if(response.error){
+              this.$log.debug(response);
+          }else{
+              this.$state.reload()
+              this.$log.debug(response);
+              swal('Bot updated!', '', 'success')
+
+              this.closeparent();
+              this.$log.debug(response);
+
+          }
+              
+        })
+      }
+
     }
+
     edit_bot(bot) {
         let $uibModal = this.$uibModal
         let Bot = bot
@@ -104,6 +198,32 @@ class ProjectListController{
             }
 
         })
+    }
+
+    loadCities(){
+      let Cities = this.API.one('cities')
+
+      Cities.getList().then((response) => {
+          if(!response.error){
+              this.cities = response
+          }
+        }).catch(this.errorMsg = "fail cities")
+    }
+    
+    download_fuente(f_path){  
+        this.API.one('projects/file_download')
+            .withHttpConfig({responseType: 'blob' })
+            .customPOST({"filePath":f_path})
+            .then(function(response) {
+                //TODO recueprar nombre
+                if(response.errors){
+                    this.$log.debug(response);
+                }else{
+                    var url = (window.URL || window.webkitURL).createObjectURL(response);
+
+                    window.open(url,"_self");
+                }
+            });
     }
 
     modalcontroller($uibModalInstance, bot) {

@@ -3,8 +3,6 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
 
   $qProvider.errorOnUnhandledRejections(false);
 
-
-
   var getView = (viewName) => {
     return `./views/app/pages/${viewName}/${viewName}.page.html`
   }
@@ -35,7 +33,7 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
       }
     })
     .state('app.landing', {
-      url: '/',
+      url: '/:botsType',
       data: {
         auth: true
       },
@@ -43,6 +41,9 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
         'main@app': {
               templateUrl: getView('projects')
             }
+      },
+      params: {
+        botsType: "LesPac"
       }
     })
     .state('app.tablessimple', {
@@ -488,5 +489,15 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
               template: '<challenge-add></challenge-add>'
             }
           }
-      })
+      }).state('app.lespac', {
+        url: '/lespac',
+        data: {
+          auth: true
+        },
+        views: {
+          'main@app': {
+            template: "<lespac-dashboard></lespac-dashboard>"
+          }
+        }
+    })
 }

@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+ 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'AngularController@serveApp');
     Route::get('/unsupported-browser', 'AngularController@unsupported');
@@ -35,7 +35,7 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->post('auth/password/reset', 'Auth\PasswordResetController@reset');
     $api->post('auth/register', 'Auth\AuthController@postRegister');
 
-    $api->resource('bots', 'BotController');
+    //$api->resource('bots', 'BotController');
     $api->resource('cities', 'CityController');
     //$api->get('answer', 'AnswerController@store');
     //$api->get('survey/{type}', 'SurveyController@show');
@@ -64,7 +64,7 @@ $api->group(['middleware' => ['api']], function ($api) {
 
 $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
 
-
+    $api->resource('bots', 'BotController');
     $api->get('users/me', 'UserController@getMe');
     $api->put('users/me', 'UserController@putMe');
 
@@ -79,8 +79,8 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     //$api->get('challenge', 'ChallengeController@index');
 
     $api->get('results/{project_id}', 'ResultController@index');
-    $api->post('result/upload/{result_id}', 'ResultController@upload_document');
-    $api->post('projects/file_download', 'ProjectController@file_download'); */
+    $api->post('result/upload/{result_id}', 'ResultController@upload_document');*/
+    $api->post('projects/file_download', 'ProjectController@file_download'); 
     
     
     //$api->get('answers/{type}', 'AnswerController@chartData');

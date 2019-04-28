@@ -1,3 +1,4 @@
+import {LespacDashboardComponent} from './app/components/lespac-dashboard/lespac-dashboard.component';
 import {BotFormComponent} from './app/components/bot-form/bot-form.component';
 import {MilestonesDashboardComponent} from './app/components/milestones-dashboard/milestones-dashboard.component';
 import {MilestonesListComponent} from './app/components/milestones-list/milestones-list.component';
@@ -71,6 +72,7 @@ import { LoginFormComponent } from './app/components/login-form/login-form.compo
 import { RegisterFormComponent } from './app/components/register-form/register-form.component'
 
 angular.module('app.components')
+	.component('lespacDashboard', LespacDashboardComponent)
 	.component('botForm', BotFormComponent)
 	.component('milestonesDashboard', MilestonesDashboardComponent)
 	.component('milestonesList', MilestonesListComponent)

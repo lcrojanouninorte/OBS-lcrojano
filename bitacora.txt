@@ -1,3 +1,7 @@
+tre sporyecto: kijiji_web_scraper es un laravel dusksecure que tiene el scrip de kijiji_web_scraper
+kijiji: dashboard o v2, tiene la app kijiji_web_scraper
+y un scrip phyton en lcrojano que tiene el selenium de lespac
+
 al subir a serivodor: 
 composer install & npm install, luego bower... 
 
@@ -20,3 +24,47 @@ pasar el table.css manualmente!
 CAMBIAR EN PROD
  //CAMBIAR EN PRODUCCION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         var url = 'http://gestorffi.lcrojano.com/api/result/upload/'+this.result.id
+
+
+        Nota: 0
+
+estamos utilizando laravel dusksecure, una version "mas segura" de laravel dusk, con laravel 5.5
+Nota 1: 
+- Se debe actualizar la version de chrome drive a la mas reciente, la ultima funcional es la 2.3.5
+
+Nota 2: 
+Paso 1: se crea un test dusk
+paso 2: se crea un comando, 
+Paso 3: se crea un schedule,
+Paso 4: se coloca en un cron
+
+
+Nota 3: Como hacer funcionar headles en servidor remoto¡?
+instalar chrome y ademas tener el chrome driver ultimas versiones.
+
+NOTA 4: Solucion a tiempo de espera de chrome driver
+agregar el comando --no-sandbox, revisar probiles problemas de seguridad
+
+
+Nota 5:
+Listar CRON JOBS laravel Scheduleing
+
+https://github.com/hmazter/laravel-schedule-list
+
+NOTA6: 
+
+al subir a serivodor: 
+composer install & npm install, luego bower... 
+es posible que tenga que instalar gulp global, y probar entre gulp-uglify y gulp uglify-es
+
+NOTA IMPRTANTE:
+a veces la versiones de chrome van a fallar con multiples errores,
+solucion es usar al menos la 63, en mi cao utilice crhomiun, alternativamtne.
+
+
+NOTA 7: si actualizo el repocitorio, hay que arreglar el chrome-driver de travoltron en vendor, por la ultima version
+
+SERVIDOR LOCAL
+crear tunel ssh -L 33006:127.0.0.1:3306 lcrojano@167.99.186.23 clave 23veces23
+
+php artisan serve
