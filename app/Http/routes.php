@@ -60,11 +60,11 @@ $api->group(['middleware' => ['api']], function ($api) {
         //Milestones
    // $api->get('milestones/{project_id}', 'MilestoneController@index');
     //$api->get('milestones/delayed/{project_id}', 'MilestoneController@delayed');
+    $api->resource('bots', 'BotController');
 });
 
 $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
 
-    $api->resource('bots', 'BotController');
     $api->get('users/me', 'UserController@getMe');
     $api->put('users/me', 'UserController@putMe');
 

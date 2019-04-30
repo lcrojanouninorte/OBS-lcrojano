@@ -11,6 +11,10 @@ class ProjectListController{
         this.can = AclService.can
         this.$uibModal =$uibModal
         let Bots = this.API.all('bots');
+        Bots.getList()
+          .then((response) => {
+            this.bots = response.plain()
+        })
         this.robotFilter = ""
         this.bot = {
           current_index: 1,
@@ -24,10 +28,6 @@ class ProjectListController{
         this.$timeout =$timeout
         this.errorMsg=""
         this.add_check = false
-        Bots.getList()
-          .then((response) => {
-            this.bots = response.plain()
-          })
         
           //Todo: Let agregate
         this.cities = [
@@ -67,7 +67,7 @@ class ProjectListController{
       }
       
       bot.upload = this.Upload.upload({
-        url: 'http://robot.lcrojano.com/api/bots',
+        url: 'http://robot.lcrojano.com/api/bots', //Change: emote: http://robot.lcrojano.com/api/bots local: http://localhost:8000/api
         data: bot,
         headers: hders
       });

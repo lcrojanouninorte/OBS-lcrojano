@@ -8,6 +8,8 @@ use App\Http\Requests;
 
 use App\Bot;
 
+use App\Watcher;
+
 use Auth;
 
 use DB;
@@ -24,7 +26,7 @@ class BotController extends Controller
     public function index()
     {
         //
-        $bots = Bot::with('city')->get();
+        $bots = Bot::with('city')->with('watcher.bot')->get();
         return response()->success(compact('bots'));
     }
 
@@ -50,10 +52,10 @@ class BotController extends Controller
         //
         $user = Auth::user();
         $this->validate($request, [
-        'username' => 'required',
-        'password' => 'required',
+        //'username' => 'required',
+        //'password' => 'required',
         //'city_id' => 'required',
-        'ads_limit' => 'required',
+        //'ads_limit' => 'required',
         'minutes' => 'required',
         'start' => 'required',
         'end' => 'required',
@@ -71,6 +73,8 @@ class BotController extends Controller
             $bot->type = $request->input('type');
             $bot->current_index = $request->input('current_index');
 
+            
+
             //$bot->id = $request->input('id'); //Verificar;
             $bot->username = $request->input('username');
             $bot->password = $request->input('password');
@@ -85,7 +89,7 @@ class BotController extends Controller
             if($bot->save()){
                 $destinationPath = "";
                 
-                if($request->hasFile('file')){
+                if($request->hasFile('file') && $bot->type=="LesPac"){
                     $file  = $request->file('file');
                     $fileName = $file->getClientOriginalName();
                     $destinationPath = "/".$request->input('type')."/".$bot->id."/".$fileName;
@@ -95,7 +99,19 @@ class BotController extends Controller
                     );
                     $bot->file_path = $destinationPath;
                     $bot->save();
-            }
+                }
+
+                //watcher exclusive
+                if($bot->type == "Watcher"){
+                    $watcher = new Watcher;
+                    $watcher->text = $request->input('text');
+                    $watcher->zip_code = $request->input('zip_code');
+                    $watcher->action = $request->input('action');
+                    $watcher->active = $request->input('active');
+                    $watcher->bot_id = $request->input('bot_id');
+                    $watcher->bot_ref = $bot->id;
+                    $watcher->save();
+                }
             };
 
 
@@ -140,10 +156,10 @@ class BotController extends Controller
         $user = Auth::user();
 
         $this->validate($request, [
-            'username' => 'required',
-            'password' => 'required',
+            //'username' => 'required',
+            //'password' => 'required',
             //'city_id' => 'required',
-            'ads_limit' => 'required',
+            //'ads_limit' => 'required',
             'minutes' => 'required',
             'start' => 'required',
             'end' => 'required',
@@ -153,6 +169,12 @@ class BotController extends Controller
         
         DB::transaction(function () use ($request, $user, $id) {
             $bot =  Bot::find($id);
+
+            //LesPac exclusive:
+            //$bot->type = $request->input('type');
+            $bot->current_index = $request->input('current_index');
+
+            
             
             $bot->username = $request->input('username');
             $bot->password = $request->input('password');
@@ -162,7 +184,20 @@ class BotController extends Controller
             $bot->start = $request->input('start');
             $bot->end =  $request->input('end');
             $bot->active =  $request->input('active');
+            
             $bot->save();
+
+            //watcher exclusive
+            if($bot->save() && $bot->type == "Watcher"){
+                $watcher =  $watcher = Watcher::where('bot_ref',$bot->id)->first();
+                $watcher->text = $request->input('text');
+                $watcher->zip_code = $request->input('zip_code');
+                $watcher->action = $request->input('action');
+                $watcher->active = $request->input('active');
+                $watcher->bot_id = $request->input('bot_id');
+                $watcher->bot_ref = $bot->id;
+                $watcher->save();
+            }
         });
         return response()->success(compact('bot'));
 
@@ -178,7 +213,17 @@ class BotController extends Controller
     {
         //
         $bot = Bot::find($id);
-        $bot->delete();
+        
+        if($bot->type =="Watcher"){
+            $watcher = Watcher::where('bot_ref',$bot->id)->first();
+            if($watcher->delete()){
+                $bot->delete();
+            }
+
+        }else{
+            $bot->delete();
+
+        }
         return response()->success('success');
     }
 }

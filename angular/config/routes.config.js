@@ -44,7 +44,7 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
       } 
     })
     .state('app.bots', {
-      url: '/:botsType',
+      url: '/:botsType', 
       data: {
         auth: true
       },
