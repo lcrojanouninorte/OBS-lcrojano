@@ -46,24 +46,33 @@
                         <tr>
                             <!--All-->
                             <th>Type</th>
-                            <th ng-if="vm.bot.type != 'LesPac' || vm.bot.type == ''">City</th>
-                            <th>E-mail</th>
-                            <th>Pass</th>
-                            <th>News</th>
+                            <th ng-if="vm.bot.type == 'Kijiji'">City</th>
+                            <th ng-if="vm.bot.type!='Watcher'">E-mail</th>
+                            <th ng-if="vm.bot.type!='Watcher'">Pass</th>
+                            <th ng-if="vm.bot.type!='Watcher'">News</th>
+
+                            <!--Watachet Exclusive-->
+                            <th ng-if="vm.bot.type == 'Watcher'">Text</th>
+                            <th ng-if="vm.bot.type == 'Watcher'">Zip</th>
+                            <th ng-if="vm.bot.type == 'Watcher'">Bot</th>
+                            <th ng-if="vm.bot.type == 'Watcher'">Action</th>
+                           
+                            <!--End Watcher Exclusive-->
+
                             <th>Minutes</th>
                             <th>Start</th>
                             <th>End</th>
                             <th>Status</th>
-                            <!--<th>Update</th>-->
-                            <th></th>
+                       
                             <!--Lespac exclisve-->
-                            <th ng-if="vm.bot.type == 'LesPac' || vm.bot.type == ''">Current</th>
-                            <th ng-if="vm.bot.type == 'LesPac' || vm.bot.type == ''">File</th>
+                            <th ng-if="vm.bot.type == 'LesPac'">Current</th>
+                            <th ng-if="vm.bot.type == 'LesPac'">File</th>
                             <th>Save</th>
                         </tr>
                         <tr>
                             <!--formulario para agregar robot-->
                             <div ng-form="botForm">
+                                <!--type-->
                                 <td>
                                     <!--<label>type</label>-->
                                     <md-select ng-model="vm.bot.type" disabled>
@@ -73,12 +82,15 @@
                                         <md-option value="LesPac">
                                             LesPac
                                         </md-option>
+                                        <md-option value="Watcher">
+                                            Watcher
+                                        </md-option>
                                     </md-select>
 
 
                                 </td>
-
-                                <td ng-if="vm.bot.type != 'LesPac'">
+                                <!--City-->
+                                <td ng-if="vm.bot.type == 'Kijiji'">
                                     <md-select ng-model="vm.bot.city_id" md-on-open="vm.loadCities()">
                                         <md-option ng-repeat="city in vm.cities" value="{{city.id}}">
                                             {{city.name}}
@@ -89,7 +101,8 @@
                                        <!-- <div ng-message="required"> Este campo es obligatorio. </div>-->
                                     </div>
                                 </td>
-                                <td>
+                                <!--username-->
+                                <td ng-if="vm.bot.type!='Watcher'">
                                     <div>
                                         <md-input-container style="min-width:180px; padding: 0; margin: 0;" flex-gt-sm>
                                             <input type="text" name="username" ng-model="vm.bot.username" />
@@ -99,7 +112,8 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                <!--Pass-->
+                                <td ng-if="vm.bot.type!='Watcher'">
                                     <div>
                                         <md-input-container style="min-width:100px; padding: 0; margin: 0;" flex-gt-sm>
                                             <input type="text" name="password" ng-model="vm.bot.password" />
@@ -110,7 +124,8 @@
                                     </div>
 
                                 </td>
-                                <td>
+                                <!--news-->
+                                <td ng-if="vm.bot.type!='Watcher'">
 
                                     <div>
                                         <md-input-container style="min-width:55px; padding: 0; margin: 0;" flex-gt-sm>
@@ -121,6 +136,49 @@
                                         </div>
                                     </div>
                                 </td>
+
+                                <!--Watachet Exclusive-->
+                                 <!--text-->
+                                <td ng-if="vm.bot.type=='Watcher'">
+                                    <div>
+                                            <md-input-container style="min-width:100px; padding: 0; margin: 0;" flex-gt-sm>
+                                            <input type="text" name="text" ng-model="vm.bot.text" />
+                                            </md-input-container>
+                                        
+                                    </div>
+                                </td>
+                                <!--Zip Code-->
+                                <td ng-if="vm.bot.type=='Watcher'">
+                                    <div>
+                                        <md-input-container style="min-width:80px; padding: 0; margin: 0;" flex-gt-sm>
+                                        <input type="text" name="zip_code" ng-model="vm.bot.zip_code" />
+                                        </md-input-container>
+                                    
+                                    </div>
+                                </td>
+                                <!--Bot-->
+                                <td ng-if="vm.bot.type=='Watcher'">
+                                    <md-select style="width: 100px;" ng-model="vm.bot.bot_id" md-on-open="vm.bots">
+                                            <md-option ng-repeat="bot in vm.bots | filter:{ type: 'LesPac'  }" value="{{bot.id}}">
+                                                    {{bot.username.split("@")[0]}}||{{bot.file_path.split("/")[3]}}
+                                            </md-option>
+                                    </md-select>
+                                </td>
+                                <!--Action-->
+                                <td ng-if="vm.bot.type=='Watcher'">
+                                     <!--<label>type</label>-->
+                                     <md-select ng-model="vm.bot.action" >
+                                            <md-option value="1">
+                                                Start Bot
+                                            </md-option>
+                                            <md-option value="2">
+                                                Send Mail
+                                            </md-option>
+                                    </md-select>
+                                </td>
+                                <!--End Watcher Exclusive-->
+
+                                <!--minutest-->
                                 <td>
                                     <div>
                                         <md-input-container style="min-width:0;padding: 0; margin: 0;" flex-gt-sm>
@@ -131,6 +189,7 @@
                                         </div>
                                     </div>
                                 </td>
+                                <!--start-->
                                 <td>
 
                                     <div>
@@ -142,6 +201,7 @@
                                         </div>
                                     </div>
                                 </td>
+                                <!--end-->
                                 <td>
 
                                     <div>
@@ -153,6 +213,7 @@
                                         </div>
                                     </div>
                                 </td>
+                                <!--status-->
                                 <td>
                                     <md-switch class="text-center" ng-model="vm.bot.active" aria-label="Switch 2"
                                         ng-true-value="1" ng-false-value="2" class="md-warn">
@@ -160,16 +221,8 @@
                                     </md-switch>
                                 </td>
 
-
-                                <td>
-
-                                    <!--
-                                                    <md-button class="md-icon-button " aria-label="edit " ng-click="vm.edit_bot(bot);">
-                                                        <md-tooltip md-direction="top">Edit</md-tooltip>
-                                                        <md-icon md-font-icon="ion-android-settings "></md-icon>
-                                                    </md-button>
-                                                    -->
-                                </td>
+                                
+                                <!--Current Index-->
                                 <td ng-if="vm.bot.type == 'LesPac'">
                                     <div>
                                         <md-input-container style="padding: 0; margin: 0;" flex-gt-sm>
@@ -180,6 +233,7 @@
                                         </div>
                                     </div>
                                 </td>
+                                <!--File-->
                                 <td ng-if="vm.bot.type == 'LesPac' ">
                                     <div layout="row">
                                         <md-button ng-if="!vm.bot.file" class="md-icon-button " aria-label="upload"
@@ -205,7 +259,7 @@
                                         </div>
                                     </div>
                                 </td>
-
+                                <!--Edit-->
                                 <td>
                                     <div>
                                         <md-button class="md-icon-button" aria-label="edit" ng-click="vm.uploadExcel()">
@@ -230,12 +284,20 @@
 
                         <tr>
                             <th ng-if="vm.bot.type == 'LesPac' ">Type</th>
+                            <th ng-if="vm.bot.type == 'Kijiji'">City</th>
+                            <th ng-if="vm.bot.type !='Watcher'">E-mail</th>
+                            <th ng-if="vm.bot.type !='Watcher'">Pass</th>
+                            <th ng-if="vm.bot.type !='Watcher'">News</th>
 
-                            <!--All exclisve-->
-                            <th ng-if="vm.bot.type != 'LesPac'">City</th>
-                            <th>E-mail</th>
-                            <th>Pass</th>
-                            <th>News</th>
+                            <!--Watachet Exclusive-->
+                            <th ng-if="vm.bot.type == 'Watcher'">Text</th>
+                            <th ng-if="vm.bot.type == 'Watcher'">Zip</th>
+                            <th ng-if="vm.bot.type == 'Watcher'">Bot</th>
+                            <th ng-if="vm.bot.type == 'Watcher'">Action</th>
+                            <th ng-if="vm.bot.type == 'Watcher'">Last</th>
+                            <th ng-if="vm.bot.type == 'Watcher'">at</th>
+                            <!--End Watcher Exclusive-->
+
                             <th>Minutes</th>
                             <th>Start</th>
                             <th>End</th>
@@ -249,10 +311,12 @@
                         </tr>
                         <!--Robots Creados-->
                         <tr
-                            ng-repeat="bot in vm.bots | filter:vm.robotFilter | filter:vm.bot.type  | orderBy: 'bot.created_at':true">
+                            ng-repeat="bot in vm.bots | filter:vm.robotFilter | filter:{ type: vm.bot.type  } | orderBy: 'bot.created_at':true">
                             <div ng-form="botForm{{bot.id}}">
 
                                 <div style="display: none;"> {{bot.edit=false;}}</div>
+
+                                <!--Percent-->
                                 <td  layout="column" ng-if="vm.bot.type == 'LesPac' " >
                                  
                                 <md-card-avatar ng-if="bot.type=='LesPac'" flex>
@@ -264,9 +328,9 @@
                                             </div>
                                         </div>
                                     </md-card-avatar>
-                            </td>
-
-                                <td ng-if="vm.bot.type != 'LesPac'">
+                                </td>
+                                <!--City-->
+                                <td ng-if="vm.bot.type == 'Kijiji'">
                                     <span ng-if="!bot.edit">{{bot.city.name}}</span>
                                     <md-select  ng-if="bot.edit" ng-model="bot.city_id" md-on-open="vm.loadCities()">
                                             <md-option ng-repeat="city in vm.cities" value="{{city.id}}">
@@ -274,7 +338,8 @@
                                             </md-option>
                                     </md-select>
                                 </td>
-                                <td >
+                                <!--username-->
+                                <td ng-if="vm.bot.type!='Watcher'">
                                     <span ng-if="!bot.edit">{{bot.username}}</span>
 
                                     <div ng-if="bot.edit">
@@ -286,7 +351,8 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td  >
+                                <!--PAss-->
+                                <td   ng-if="vm.bot.type!='Watcher'">
                                     <span ng-if="!bot.edit">{{bot.password}}</span>
 
                                     <div ng-if="bot.edit">
@@ -299,7 +365,8 @@
                                     </div>
 
                                 </td>
-                                <td>
+                                <!--News-->
+                                <td ng-if="vm.bot.type!='Watcher'">
                                     <span ng-if="!bot.edit">{{bot.ads_limit}}</span>
 
                                     <div ng-if="bot.edit">
@@ -311,6 +378,68 @@
                                         </div>
                                     </div>
                                 </td>
+
+<!--Watachet Exclusive-->
+                                 <!--text-->
+                                 <td ng-if="vm.bot.type=='Watcher'">
+                                        <span ng-if="!bot.edit">{{bot.text = bot.watcher[0].text}}</span>
+                                        <div ng-if="bot.edit">
+                                                <md-input-container style="min-width:100px; padding: 0; margin: 0;" flex-gt-sm>
+                                                <input type="text" name="text" ng-model="bot.text" />
+                                                </md-input-container>
+                                            
+                                        </div>
+                                    </td>
+                                    <!--Zip Code-->
+                                    <td ng-if="vm.bot.type=='Watcher'">
+                                        <span ng-if="!bot.edit">{{bot.zip_code = bot.watcher[0].zip_code}}</span>
+                                        <div ng-if="bot.edit">
+                                            <md-input-container style="min-width:80px; padding: 0; margin: 0;" flex-gt-sm>
+                                            <input type="text" name="zip_code" ng-model="bot.zip_code" />
+                                            </md-input-container>
+                                        
+                                        </div>
+                                    </td>
+                                    <!--Bot-->
+                                    
+                                    <td ng-if="vm.bot.type=='Watcher'">
+                                        <div style="display:none;">{{bot.bot_id=bot.watcher[0].bot_id}}</div>
+                                        <span style=" min-width:100px;" ng-if="!bot.edit">{{bot.watcher[0].bot.username.split("@")[0]}} <br> {{bot.watcher[0].bot.file_path.split("/")[3]}}</span>
+                                        <md-select ng-if="bot.edit" style="width: 100px;" ng-model="bot.bot_id" md-on-open="vm.bots">
+                                                <md-option ng-repeat="botw in vm.bots | filter:{ type: 'LesPac'  }" value="{{botw.id}}">
+                                                        {{botw.username.split("@")[0]}}-{{botw.file_path.split("/")[3]}}
+                                                </md-option>
+                                        </md-select>
+                                    </td>
+                                    <!--Action-->
+                                    <td ng-if="vm.bot.type=='Watcher'">
+                                         <!--<label>type</label>-->
+                                         <div style="display:none;">{{bot.action=bot.watcher[0].action}}</div>
+                                         <span ng-if="!bot.edit">{{bot.watcher[0].action == 1 ? 'Start Bot' : 'Send Mail' }}</span>
+                                         <md-select ng-if="bot.edit" ng-model="bot.action" >
+                                                <md-option value="1">
+                                                    Start Bot
+                                                </md-option>
+                                                <md-option value="2">
+                                                    Send Mail
+                                                </md-option>
+                                        </md-select>
+                                    </td>
+                                    <!--Last Total-->
+                                    <td ng-if="vm.bot.type=='Watcher'">
+                                             <!--<label>type</label>-->
+                                            <span >{{bot.watcher[0].last_total }}</span>
+                                             
+                                       </td>
+                                    <!--Last Time-->
+                                    <td ng-if="vm.bot.type=='Watcher'">
+                                            <!--<label>type</label>-->
+                                            <span >{{bot.watcher[0].updated_at}}</span>
+                                            
+                                       </td>
+                                    <!--End Watcher Exclusive-->
+
+                                <!--Minutes-->
                                 <td>
                                     <span ng-if="!bot.edit">{{bot.minutes}}</span>
 
@@ -323,6 +452,7 @@
                                         </div>
                                     </div>
                                 </td>
+                                <!--start-->
                                 <td>
                                     <span ng-if="!bot.edit">{{bot.start}}</span>
 
@@ -335,6 +465,7 @@
                                         </div>
                                     </div>
                                 </td>
+                                <!--End-->
                                 <td>
                                     <span ng-if="!bot.edit">{{bot.end}}</span>
 
@@ -348,7 +479,7 @@
                                     </div>
                                 </td>
                                 
-                               
+                                <!--Current Index-->
                                 <td ng-if="vm.bot.type  == 'LesPac'">
                                     <span ng-if="!bot.edit">{{bot.current_index}}</span>
 
@@ -361,7 +492,7 @@
                                         </div>
                                     </div>
                                 </td>
-                             
+                                <!--File-->
                                 <td ng-if="vm.bot.type  == 'LesPac'">
                                      
                                     <md-button ng-if="!bot.edit"  class="md-icon-button " aria-label="edit " ng-click="vm.download_fuente(bot.file_path)">
@@ -390,7 +521,7 @@
                                         </span>
 
                                 </td>
-
+                                <!--Status-->
                                 <td>
                                     <md-switch  ng-if="bot.edit" class="text-center" ng-model="bot.active"
                                     aria-label="Switch 2" ng-true-value="1" ng-false-value="2" class="md-warn" >
@@ -400,7 +531,7 @@
                                             <span ng-if="bot.active == 2">Off</span>
                                     </span>
                                 </td>
-
+                                <!--Edit-->
                                 <td >
                                     <md-button ng-if="!bot.edit" class="md-icon-button " aria-label="edit " ng-click="bot.edit=!bot.edit">
                                         <md-tooltip md-direction="top">Edit</md-tooltip>
@@ -425,7 +556,7 @@
                                 -->
                                 </td>
                                 
-    
+                                <!--Delete-->
                                 <td>
                                     <div>
                                         <md-button class="md-icon-button" aria-label="edit"
@@ -434,6 +565,8 @@
                                         </md-button>
                                     </div>
                                 </td>
+
+
 
 
 
