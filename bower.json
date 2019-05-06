@@ -21,7 +21,7 @@
     "angular-bootstrap": "^1.3.1",
     "bootstrap": "^3.3.6",
     "AdminLTE": "admin-lte#^2.3.3",
-    "angular-chart.js": "^0.10.0",
+    "angular-chart.js": "^1.1.1",
     "angular-acl": "^0.1.5",
     "angular-datatables": "^0.5.4",
     "sweetalert": "^1.1.3",
@@ -47,7 +47,8 @@
     "ng-file-upload": "^12.2.13",
     "angular-ui-clock": "^0.7.0",
     "angular_locale_es-mx": "angular-locale_es-mx#*",
-    "md-pickers": "^1.1.1"
+    "md-pickers": "^1.1.1",
+    "angular-mapboxgl-directive": "^0.44.0"
   },
   "resolutions": {
     "angular": "~1.6.x"

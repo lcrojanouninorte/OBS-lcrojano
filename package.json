@@ -8,6 +8,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-phpcs": "^1.4.0",
+    "gulp-uglify": "^3.0.2",
     "gulp-uglify-es": "^0.1.11",
     "jasmine-core": "^2.9.1",
     "karma": "^0.13.22",
@@ -25,6 +26,7 @@
     "vinyl-source-stream": "~1.0.0"
   },
   "dependencies": {
+    "angular-mapboxgl-directive": "^0.46.0",
     "angular-material-time-picker": "^1.0.7",
     "angular-percent-circle-directive": "^1.1.1",
     "babel": "^4.0.2",

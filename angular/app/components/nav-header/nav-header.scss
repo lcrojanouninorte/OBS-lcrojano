@@ -1,28 +1,35 @@
 .logo-mini img {
-    width: 30px;
+    width: 160px;
     height: auto;
 }
  
 .logo-lg img {
-    width: 30px;
+    width: 50px;
     height: auto;
+}
+.main-header{
+    
+}
+.main-header md-toolbar{
+    min-height: 50px!important; 
+    height: 56px!important;
+    background-color: #00363a;
+
+}
+.md-toolbar-tools {
+    height: 56px!important;
+
 }
 
 .main-header .logo {
     -webkit-transition: width .3s ease-in-out;
     -o-transition: width .3s ease-in-out;
     transition: width .3s ease-in-out;
-    display: block;
-    float: left;
-    height: 40px;
-    font-size: 20px;
-    line-height: 40px;
-    text-align: center;
-    width: 230px;
-    font-family: sans-serif;
-    padding: 0 15px;
-    font-weight: 300;
-    overflow: hidden;
+    
+    width: 160px!important;
+   
+    margin-right:4px;
+    background-color: #00363a!important;
 }
  
 .md-toolbar-tools a {
@@ -30,16 +37,25 @@
     text-decoration: none;
 }
  
-a {
-    color: #337ab7;
-}
- 
- 
  .widget-clock.light .time {
   font-family:   sans-serif;
   font-size: 0.8em;
   color: white;
 }
-      
 
- 
+.nav>li>a:hover, .nav>li>a:active, .nav>li>a:focus {
+    color: #fff;
+    background: #4CAF50;
+}
+
+@media (min-width: 768px){
+    .navbar-nav>li>a {
+        padding-top: 17px;
+        padding-bottom: 17px;
+    }
+
+}
+
+.dropdown:hover>.dropdown-menu {
+    display: block;
+  }

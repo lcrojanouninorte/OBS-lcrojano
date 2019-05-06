@@ -1,3 +1,5 @@
+import {ObsMapComponent} from './app/components/obs-map/obs-map.component';
+import {ObsDashboardComponent} from './app/components/obs-dashboard/obs-dashboard.component';
 import {LespacDashboardComponent} from './app/components/lespac-dashboard/lespac-dashboard.component';
 import {BotFormComponent} from './app/components/bot-form/bot-form.component';
 import {MilestonesDashboardComponent} from './app/components/milestones-dashboard/milestones-dashboard.component';
@@ -38,7 +40,7 @@ import {ResultListComponent} from './app/components/result-list/result-list.comp
 import {ResultItemComponent} from './app/components/result-item/result-item.component';
 import {ProjectDashboardComponent} from './app/components/project-dashboard/project-dashboard.component';
 import {ProjectItemComponent} from './app/components/project-item/project-item.component';
-import {ProjectListComponent} from './app/components/project-list/project-list.component';
+import {StationsListComponent} from './app/components/stations-list/stations-list.component';
 import {ProjectDetailComponent} from './app/components/project-detail/project-detail.component';
 import {UserProjectsComponent} from './app/components/user-projects/user-projects.component';
 import {ProjectFormComponent} from './app/components/project-form/project-form.component';
@@ -72,6 +74,8 @@ import { LoginFormComponent } from './app/components/login-form/login-form.compo
 import { RegisterFormComponent } from './app/components/register-form/register-form.component'
 
 angular.module('app.components')
+	.component('obsMap', ObsMapComponent)
+	.component('obsDashboard', ObsDashboardComponent)
 	.component('lespacDashboard', LespacDashboardComponent)
 	.component('botForm', BotFormComponent)
 	.component('milestonesDashboard', MilestonesDashboardComponent)
@@ -112,7 +116,7 @@ angular.module('app.components')
 	.component('resultItem', ResultItemComponent)
 	.component('projectDashboard', ProjectDashboardComponent)
 	.component('projectItem', ProjectItemComponent)
-	.component('projectList', ProjectListComponent)
+	.component('StationsList', StationsListComponent)
 	.component('projectDetail', ProjectDetailComponent)
 	.component('userProjects', UserProjectsComponent)
 	.component('projectForm', ProjectFormComponent)

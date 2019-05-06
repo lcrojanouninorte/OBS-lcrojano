@@ -1,0 +1,73 @@
+
+<div
+    layout-fill 
+    flex
+    mapboxgl
+    gl-controls="vm.glControls"
+    gl-zoom="{ value: 9 }"
+    gl-center="{ lng: -74.9, lat: 9.8 }"
+    gl-pitch="{ value: 65 }"
+    gl-bearing="{ value: 55 }"
+    gl-markers="vm.glMarkers">
+</div>
+
+ 
+
+<!--Modal formulario de edicion de proyecto!-->
+<script type="text/ng-template" id="station-dialog.html">
+  
+<md-dialog    aria-label="Datos de la estacióm {{station.name}}">
+        <form ng-cloak  >
+            <md-toolbar  flex>
+                <div class="md-toolbar-tools">
+                    <h2>Estación {{station.name}}</h2>
+                    
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-font-icon="ion-close-circled" aria-label="Close"></md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+    
+             
+    
+            <md-dialog-content   layout-align="center " flex>
+                <div layout-align="center " class="md-dialog-content">
+    
+                    <div >
+                        <h2>Graficos de la Estación {{station.name}}</h2>
+                    </div>
+                    <div >
+                        Exportar a CSV   
+                        <md-button class="md-icon-button" href="{{station.file}}" target="_blank" download>
+                            <md-icon md-font-icon="ion-android-download" aria-label="download"></md-icon>
+                        </md-button> 
+                    </div>
+                    
+    
+    
+                    <div flex>
+                        <h3 >Gráfico de Duración</h3>
+                        <img  width="600px" height="300px" src="{{station.duration}}" onError="this.src='/img/gdummy.png'">
+                    </div>
+                    
+    
+                    <div >
+                        <h3>Gráfico de Frecuencias</h3>
+                        <img width="600px" height="300px" src="{{station.frequency}}" onError="this.src='/img/gdummy.png'">
+                    </div>
+                </div>
+            </md-dialog-content>
+    
+    
+            <md-dialog-actions  >
+            <md-button href="https://www.uninorte.edu.co/web/observatorio-del-rio-magdalena/niveles" target="_blank" md-autofocus>
+                Más en nuestro portal
+            </md-button>
+            <span flex></span>
+            <md-button ng-click="answer('closed')">
+                Cerrar
+            </md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog>  
+</script>
