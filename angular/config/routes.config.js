@@ -35,26 +35,34 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
     .state('app.landing', {
       url: '/',
       data: {
-        auth: true
+        auth: false
       },
       views: {
         'main@app': {
-              templateUrl: getView('projects')
+              templateUrl: getView('obs-landing')
             }
       } 
     })
-    .state('app.bots', {
-      url: '/:botsType', 
+    .state('app.admin', {
+      url: '/admin',
       data: {
         auth: true
       },
       views: {
         'main@app': {
-          template: '<project-list></project-list>'
-        }
+              templateUrl: getView('obs-landing')
+            }
+      } 
+    })
+    .state('app.stations', {
+      url: '/stations',
+      data: {
+        auth: true
       },
-      params:{
-        botsType: null
+      views: {
+        'main@app': {
+          template: '<stations-list></<stations-list>'
+        }
       }
     })
     .state('app.tablessimple', {
@@ -500,15 +508,5 @@ export function RoutesConfig ($stateProvider, $urlRouterProvider, $qProvider) {
               template: '<challenge-add></challenge-add>'
             }
           }
-      }).state('app.lespac', {
-        url: '/lespac',
-        data: {
-          auth: true
-        },
-        views: {
-          'main@app': {
-            template: "<lespac-dashboard></lespac-dashboard>"
-          }
-        }
-    })
+      })
 }

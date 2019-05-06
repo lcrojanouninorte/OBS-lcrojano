@@ -10,6 +10,10 @@ export class ProjectCreateDialogController{
         this.DialogService.hide();
     }
 
+    show(){
+        this.DialogService.show();
+    }
+
     cancel(){
         this.DialogService.cancel();
     }

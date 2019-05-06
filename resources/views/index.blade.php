@@ -35,8 +35,12 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
- 
+    <!--Mapboxgl js-->
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/0.53.1/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/0.53.1/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.css">
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.js"></script>
 
 </head>
 <body route-bodyclass class="sidebar-collapse isEmpresario  skin-blue-light ">
@@ -54,7 +58,6 @@
     <script type='text/javascript' src="//unpkg.com/css-element-queries@^0.4.0/src/ElementQueries.js"></script>
     <script type='text/javascript' src="//unpkg.com/css-element-queries@^0.4.0/src/ResizeSensor.js"></script>
     
-   
-
+  
 </body>
 </html>

@@ -1,12 +1,12 @@
 
  
-	 
-		<div  ui-view="header"></div>
-		  
-			<section id="contenido" class="content-wrapper" >
-			    <div ui-view="main" ></div>
-			</section>
-		 
-		<div ui-view="footer"></div>
+
+<div  ui-view="header"></div>
+	
+<md-content layout="column" flex id="contenido" class="content-wrapper" >
+	<div layout="column" layout-fill flex ui-view="main"  ></div>
+</md-content >
+	
+<!--<div ui-view="footer"></div>-->
 	 
  

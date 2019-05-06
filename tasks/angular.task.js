@@ -26,7 +26,7 @@ Elixir.extend('angular', function (src, output, outputFilename) {
       .pipe(gulpif(!config.production, sourcemaps.init()))
       .pipe(webpack(webpackConfig))
       .pipe(ngAnnotate())
-      .pipe(gulpif(config.production, uglify()))
+     //.pipe(gulpif(config.production, uglify()))
       .pipe(gulpif(!config.production, sourcemaps.write()))
       .pipe(gulp.dest(output || config.js.outputFolder))
       .pipe(notify({

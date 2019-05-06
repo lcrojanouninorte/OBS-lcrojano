@@ -1,4 +1,4 @@
-class ProjectListController{
+class StationsListController{
     constructor(API,AclService ,$scope, $state, $uibModal, $log, Upload, $timeout, $window){
         'ngInject';
         //
@@ -242,9 +242,9 @@ class ProjectListController{
 
 }
 
-export const ProjectListComponent = {
-    templateUrl: './views/app/components/project-list/project-list.component.html',
-    controller: ProjectListController,
+export const SatationsListComponent = {
+    templateUrl: './views/app/components/stations-list/stations-list.component.html',
+    controller: StationsListController,
     controllerAs: 'vm',
     bindings: {}
 }

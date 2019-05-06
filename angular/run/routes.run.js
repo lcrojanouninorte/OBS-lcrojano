@@ -3,6 +3,8 @@ export function RoutesRun ($rootScope, $state, $auth, AclService, $timeout, API,
 
   AclService.resume()
   moment.locale("es");
+  mapboxgl.accessToken = 'pk.eyJ1IjoibGNyb2phbm8iLCJhIjoiY2pvcWR3cW5mMDN6bzN3bW80aWJxdjNpcSJ9.I5uw6wlR0_mhp4LRHwD6lg';
+
   let can = AclService.can
   let isSupervisor = AclService.hasRole("supervisor");
 
@@ -49,9 +51,7 @@ export function RoutesRun ($rootScope, $state, $auth, AclService, $timeout, API,
             $rootScope.me = response.data
           })
 
-          
       }
-
 
     })
     

@@ -61,6 +61,7 @@ $api->group(['middleware' => ['api']], function ($api) {
    // $api->get('milestones/{project_id}', 'MilestoneController@index');
     //$api->get('milestones/delayed/{project_id}', 'MilestoneController@delayed');
     $api->resource('bots', 'BotController');
+    $api->resource('stations', 'StationController');
 });
 
 $api->group(['middleware' => ['api', 'api.auth']], function ($api) {

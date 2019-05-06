@@ -31,7 +31,7 @@ angular.module('app', [
 'ngFileUpload',
 'ds.clock',
 'mdPickers',
-'ngFileUpload'
+'mapboxgl-directive'
 ])
 
 angular.module('app.run', [])

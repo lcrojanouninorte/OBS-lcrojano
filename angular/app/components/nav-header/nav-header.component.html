@@ -1,245 +1,154 @@
 <header class="main-header">
-    <md-toolbar layout="column"    class="md-hue-1" md-colors="{background: 'indigo'}" accent="accent" style="min-height: 40px!important; height: 40px!important">
-        <div class="md-toolbar-tools" >
-            <a href="/" class="logo "  md-colors="{background: 'indigo'}" accent="accent">
-              <span class="logo-mini" md-colors="{background: 'indigo'}" accent="accent"></span>
-              <span class="logo-lg" md-colors="{background: 'indigo'}" accent="accent"></span>
+    <md-toolbar layout="column">
+        <div class="md-toolbar-tools">
+            <a href="/" class="logo">
+                <span class="logo-mini">
+                    <img src="/img/LogoOBSTexto.jpg" alt="OBS">
+                </span>
+                <span class="logo-lg">
+                    <img src="/img/LogoOBS.jpg" alt="OBS">
+
+                </span>
             </a>
-            <a ng-show="vm.can('manage.users')" href="javascript:void(0)" class="sidebar-toggle " data-toggle="offcanvas" role="button">
-              <span class="sr-only">Menú</span>
-            </a>
-            
-            <a ui-sref="app.landing" flex >Start</a>
             <!--
-            <md-button class="md-icon-button" aria-label="Favorite">
-                <md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon>
-            </md-button>
-            <md-button class="md-icon-button" aria-label="More">
-                <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
-            </md-button>-->
-            <div>
-            </div>
+            <a ng-show="vm.can('manage.users')" href="javascript:void(0)" class="sidebar-toggle "
+                data-toggle="offcanvas" role="button">
+                <span class="sr-only">Menú</span>
+            </a>
+            -->
+            <a ui-sref="app.landing" flex>  </a>
+
 
             <div class=" navbar-custom-menu">
-                <ul class="   nav navbar-nav " >
-                    <li class="dropdown " layout="row"  flex   uib-dropdown>
+                <ul class="   nav navbar-nav ">
+                    <!--<li class="dropdown " layout="row" flex uib-dropdown>
                         <div flex="100" layout="column" flex layout-align="center center" layout-padding>
-                                    <ds-widget-clock theme="light" show-digital digital-format="'EEE MMM d, hh:mm:ss a'"></ds-widget-clock>
-                                </div>
+                            <ds-widget-clock theme="light" show-digital digital-format="'MMM d, hh:mm:ss a'">
+                            </ds-widget-clock>
+                        </div>
                     </li>
-                  <!--
+                -->
+
+
                     <li class="dropdown messages-menu" uib-dropdown>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle>
-            <i class="fa fa-envelope-o"></i>
-            <span class="label label-success">4</span>
-          </a>
+                            <i class="fa fa-envelope-o"></i>
+                            contribuciones
+                         </a>
                         <ul class="dropdown-menu" uib-dropdown-menu>
-                            <li class="header">You have 4 messages</li>
                             <li>
                                 <ul class="menu">
                                     <li>
                                         <a href="#">
                                             <div class="pull-left">
-                                                <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                                                <md-icon md-font-icon="ion-android-friends" aria-label="contribuyentes">
+                                                </md-icon>
                                             </div>
                                             <h4>
-                      Support Team
-                      <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                    </h4>
-                                            <p>Why not buy a new awesome theme?</p>
+                                                Contribuyentes
+
+                                            </h4>
+
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
                                             <div class="pull-left">
-                                                <img src="/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                                                <md-icon md-font-icon="ion-card" aria-label="donacion"></md-icon>
                                             </div>
                                             <h4>
-                      AdminLTE Design Team
-                      <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                    </h4>
-                                            <p>Why not buy a new awesome theme?</p>
+                                                Donaciones
+                                            </h4>
+
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                      Developers
-                      <small><i class="fa fa-clock-o"></i> Today</small>
-                    </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                      Sales Department
-                      <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                    </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                      Reviewers
-                      <small><i class="fa fa-clock-o"></i> 2 days</small>
-                    </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
+
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
+
                         </ul>
                     </li>
-                    <li class="dropdown notifications-menu" uib-dropdown>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle>
-            <i class="fa fa-bell-o"></i>
-            <span class="label label-warning">10</span>
-          </a>
+                    <li class="dropdown messages-menu" uib-dropdown>
+                        <a  href="#" class="dropdown-toggle " data-toggle="dropdown" uib-dropdown-toggle>
+                            <i class="fa fa-info-circle"></i>
+                            Información
+                         </a>
                         <ul class="dropdown-menu" uib-dropdown-menu>
-                            <li class="header">You have 10 notifications</li>
                             <li>
                                 <ul class="menu">
                                     <li>
                                         <a href="#">
-                    <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                  </a>
+                                            <div class="pull-left">
+                                                <i class="fa fa-gavel"></i> </div>
+                                            <h4>
+                                                Aviso Legal
+                                            </h4>
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                    <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the page and may cause design problems
-                  </a>
+                                            <div class="pull-left">
+                                              <i class="fa fa-book"></i>
+                                            </div>
+                                            <h4>
+                                                Glosario
+                                            </h4>
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                    <i class="fa fa-users text-red"></i> 5 new members joined
-                  </a>
+                                            <div class="pull-left">
+                                              <i class="fa fa-users"></i>
+                                            </div>
+                                            <h4>
+                                                Colaboradores
+                                            </h4>
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                    <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                  </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                    <i class="fa fa-user text-red"></i> You changed your username
-                  </a>
+                                                <div class="pull-left">
+                                                  <i class="fa fa-terminal"></i>
+                                                </div>
+                                                <h4>
+                                                    Desarrollado por
+                                                </h4>
+                                            </a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">View all</a></li>
+
                         </ul>
                     </li>
-                    <li class="dropdown tasks-menu" uib-dropdown>
-                        <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
-            <i class="fa fa-flag-o"></i>
-            <span class="label label-danger">9</span>
-          </a>
-                        <ul class="dropdown-menu" uib-dropdown-menu>
-                            <li class="header">You have 9 tasks</li>
-                            <li>
-                                <ul class="menu">
-                                    <li>
-                                        <a href="#">
-                                            <h3>
-                      Design some buttons
-                      <small class="pull-right">20%</small>
-                    </h3>
-                                            <div class="progress xs">
-                                                <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                    <span class="sr-only">20% Complete</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <h3>
-                      Create a nice theme
-                      <small class="pull-right">40%</small>
-                    </h3>
-                                            <div class="progress xs">
-                                                <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                    <span class="sr-only">40% Complete</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <h3>
-                      Some task I need to do
-                      <small class="pull-right">60%</small>
-                    </h3>
-                                            <div class="progress xs">
-                                                <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                    <span class="sr-only">60% Complete</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <h3>
-                      Make beautiful transitions
-                      <small class="pull-right">80%</small>
-                    </h3>
-                                            <div class="progress xs">
-                                                <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                    <span class="sr-only">80% Complete</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer">
-                                <a href="#">View all tasks</a>
-                            </li>
-                        </ul>
-                    </li>
-                  -->
-                  
+
+
+
+
+
                     <li class="dropdown user user-menu" uib-dropdown>
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle>
-            <img ng-show="vm.isEmpresario" src="{{vm.userData.avatar}}" class="user-image" alt="User Image" onError="this.src='//assets.imgix.net/~text?txtfont=monospace,bold&bg=DD4B39&txtclr=ffffff&txt=E&w=45&h=45&txtsize=16'" >
-            <img ng-show="!vm.isEmpresario" src="{{vm.userData.avatar}}" class="user-image" alt="User Image" onError="this.src='//assets.imgix.net/~text?txtfont=monospace,bold&bg=DD4B39&txtclr=ffffff&txt=A&w=45&h=45&txtsize=16'" >
-            <span class="hidden-xs">{{vm.userData.name | capitalize}}</span>
-          </a>
-                        <ul class="dropdown-menu" uib-dropdown-menu>
+                        <a ng-if="vm.isLogged" href="" class="dropdown-toggle" data-toggle="dropdown"
+                            uib-dropdown-toggle>
+                            <img src="{{vm.userData.avatar}}" class="user-image" alt="User Image"
+                                onError="this.src='/img/avatar0.png'">
+                            <span class="hidden-xs">{{vm.userData.name | capitalize}}</span>
+
+                        </a>
+                        <a ng-if="!vm.isLogged" href="" class="dropdown-toggle" ui-sref="login">
+                            <img src="/img/avatar0.png" class="user-image" alt="User Image">
+                            <span class="hidden-xs">Ingresar</span>
+
+                        </a>
+                        <ul class="dropdown-menu" uib-dropdown-menu ng-if="vm.isLogged">
                             <li class="user-header">
-                                <img src="{{vm.userData.avatar}}" class="img-circle" alt="User Image" onError="this.src='//assets.imgix.net/~text?txtfont=monospace,bold&bg=DD4B39&txtclr=ffffff&txt=A&w=45&h=45&txtsize=16'">
+                                <img src="{{vm.userData.avatar}}" class="img-circle" alt="User Image"
+                                    onError="this.src='/img/avatar0.png'">
                                 <p>
                                     {{vm.userData.name | capitalize}}
-                                    <small>Usuario desde {{vm.userData.created_at | datemillis |date:'MMMM yyyy' }}</small>
+                                    <small>Usuario desde
+                                        {{vm.userData.created_at | datemillis |date:'MMMM yyyy' }}</small>
                                 </p>
                             </li>
-                            <!--
-            <li class="user-body">
-              <div class="row">
-                <div class="col-xs-4 text-center">
-                  <a href="#">Followers</a>
-                </div>
-                <div class="col-xs-4 text-center">
-                  <a href="#">Sales</a>
-                </div>
-                <div class="col-xs-4 text-center">
-                  <a href="#">Friends</a>
-                </div>
-              </div>
-            </li>
-          -->
                             <li class="user-footer">
                                 <div class="pull-left">
                                     <a ui-sref="app.profile" class="btn btn-default btn-flat">Editar Perfil</a>
@@ -249,6 +158,18 @@
                                 </div>
                             </li>
                         </ul>
+                    </li>
+                    <li>
+                        <a href="/" class="logo">
+                            <span class="logo-mini">
+                                <img src="/img/uninorte-logo.png" alt="OBS">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="/img/uninorte-logo.png" alt="OBS">
+
+                            </span>
+                        </a>
+
                     </li>
                 </ul>
             </div>
