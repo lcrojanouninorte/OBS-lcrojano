@@ -356,8 +356,10 @@ class ProjectController extends Controller
         $parts = explode('/', $filePath);
         $filename = array_pop($parts);
 
-        $file = Storage::disk('local')->get($filePath);
-        return response()->download(storage_path()."/"."app"."/".$filePath);
+        $storagePath = Storage::disk('plataforma')->getDriver()->getAdapter()->getPathPrefix();
+         
+
+        return response()->download($storagePath.$filePath  );
 
         return (new Response($file, 200))
            // ->header('Content-Type', 'application/vnd.ms-excel')

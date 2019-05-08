@@ -1,9 +1,9 @@
 class NavHeaderController {
-  constructor ($rootScope, ContextService,AclService, $auth, $mdMenu) {
+  constructor ($rootScope, ContextService,AclService, $auth, $mdDialog) {
     'ngInject'
 
     let navHeader = this
-    this.$mdMenu =$mdMenu
+    this.$mdDialog = $mdDialog
     this.can = AclService.can
     this.isAsesor = AclService.hasRole("asesor");
     this.isEmpresario = AclService.hasRole("empresario");
@@ -15,6 +15,15 @@ class NavHeaderController {
   }
 
   $onInit () {}
+
+  show_dialog(ev,selector){
+    this.$mdDialog.show({
+      contentElement: selector,
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  }
 }
 
 export const NavHeaderComponent = {

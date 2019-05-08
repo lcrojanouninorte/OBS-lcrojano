@@ -412,8 +412,8 @@ class UserController extends Controller
                 $token = JWTAuth::fromUser($user);
 
                 Mail::send('emails.userverification', $data, function ($m) use ($user) {
-                    $m->from('fficaribe@uninorte.edu.co', 'Fondo de Fomento a La Innovación - FFI');
-                    $m->to($user->email)->subject('Confirmación Plataforma FFI');
+                    $m->from('obsriomagdalena@uninorte.edu.co', 'Observatorio del Río Magdalena ');
+                    $m->to($user->email)->subject('Confirmación Plataforma OBS');
                 });
 
                 return $data;

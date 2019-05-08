@@ -6,55 +6,81 @@
     gl-controls="vm.glControls"
     gl-zoom="{ value: 9 }"
     gl-center="{ lng: -74.9, lat: 9.8 }"
-    gl-pitch="{ value: 65 }"
-    gl-bearing="{ value: 55 }"
-    gl-markers="vm.glMarkers">
+    gl-pitch="{ value: 50 }"
+    gl-bearing="{ value: 60   }"
+    gl-markers="vm.glMarkers" >
 </div>
 
- 
+<div id="logos">
+
+        <a href="http://www.uninorte.edu.co" target="_blank"><img src="img/unok.png"></a>
+        <!-- <a href="http://www.atlantico.gov.co" target="_blank"><img class="logogob" src="images/gobernacionok.gif"></a>
+    <a href="https://www.sgr.gov.co" target="_blank"><img class="logosgr" src="images/sgrok.png"></a>
+    <a href="http://www.colciencias.gov.co" target="_blank"><img src="images/colcienciasok.png"></a>-->
+      </div>
+<div id="redes" layout="column">
+
+        <ul  flex class="socialnetwork " layout="row">
+          <!--<p class="diahora">Válido: <span data-bind="text: datetime"></span></p>-->
+          <!-- <li><a href="https://www.facebook.com/pluvial.co" target="_blank"><img src="images/face.png"></a></li>-->
+          <li flex><a href="https://www.instagram.com/obsriomagdalena/" target="_blank"><img src="img/instagram.png"></a></li>
+          <li flex><a href="https://www.youtube.com/channel/UCYIPAkNxbPptJPtAmG_WO7Q?view_as=subscriber" target="_blank"><img
+                src="img/youtube.png"></a></li>
+          <li flex><a href="https://twitter.com/obsriomagdalena" target="_blank"><img src="img/twitter.png"></a></li>
+          <li flex><a href="http://www.uninorte.edu.co/web/guest/home;jsessionid=FEAD291220E96143E0E741E25F29F04B"
+              target="_blank"><img src="img/web.png"></a></li>
+          <li flex><a href="mailto:obsriomagdalena@uninorte.edu.co"><img src="img/contact.png"></a>
+             
+          </li>
+        </ul>
+        <a flex href="http://www.uninorte.edu.co" target="_blank">
+          <p>Instituto de Estudios Hidráulicos y Ambientales - IDEHA</p>
+        </a>
+      </div>
 
 <!--Modal formulario de edicion de proyecto!-->
 <script type="text/ng-template" id="station-dialog.html">
   
 <md-dialog    aria-label="Datos de la estacióm {{station.name}}">
         <form ng-cloak  >
-            <md-toolbar  flex>
+            <md-toolbar>
                 <div class="md-toolbar-tools">
-                    <h2>Estación {{station.name}}</h2>
-                    
+                    <h2 >Estación {{station.name}}</h2>
+                    <span flex></span>
                     <md-button class="md-icon-button" ng-click="cancel()">
-                    <md-icon md-font-icon="ion-close-circled" aria-label="Close"></md-icon>
+                            <md-icon md-font-icon="ion-close-circled" aria-label="download"></md-icon>
                     </md-button>
                 </div>
             </md-toolbar>
-    
-             
-    
-            <md-dialog-content   layout-align="center " flex>
+ 
+            <md-dialog-content >
                 <div layout-align="center " class="md-dialog-content">
     
                     <div >
-                        <h2>Graficos de la Estación {{station.name}}</h2>
+                        <h2>Gráficos de la Estación {{station.name}}</h2>
                     </div>
+                    <br>
                     <div >
                         Exportar a CSV   
-                        <md-button class="md-icon-button" href="{{station.file}}" target="_blank" download>
+                        <md-button class="md-icon-button" href="{{station.readings_csv}}" target="_blank" download>
                             <md-icon md-font-icon="ion-android-download" aria-label="download"></md-icon>
                         </md-button> 
                     </div>
-                    
+                    <br>
     
     
                     <div flex>
                         <h3 >Gráfico de Duración</h3>
-                        <img  width="600px" height="300px" src="{{station.duration}}" onError="this.src='/img/gdummy.png'">
+                        <img style="margin: auto; max-width: 100%;" width="700" alt="Grafico duración" src="{{station.duration}}" onError="this.src='/img/gdummy.png'">
                     </div>
-                    
+                    <br>
     
                     <div >
                         <h3>Gráfico de Frecuencias</h3>
-                        <img width="600px" height="300px" src="{{station.frequency}}" onError="this.src='/img/gdummy.png'">
+                        <img style="margin: auto; max-width: 100%;" width="700"  alt="Grafico frecuencias" src="{{station.frequencies}}" onError="this.src='/img/gdummy.png'">
                     </div>
+                    <br>
+                    <br>
                 </div>
             </md-dialog-content>
     
