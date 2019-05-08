@@ -291,7 +291,7 @@
         <table cellspacing="0" cellpadding="0" width="600" class="w320">
           <tr>
             <td style="padding: 25px 0 25px">
-              <strong>Awesome  </strong><br />
+              <strong>OBS Rio Magdalena  </strong><br />
                 <br />
                 <br /><br />
             </td>

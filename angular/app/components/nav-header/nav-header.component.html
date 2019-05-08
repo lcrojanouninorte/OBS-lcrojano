@@ -16,7 +16,7 @@
                 <span class="sr-only">Menú</span>
             </a>
             -->
-            <a ui-sref="app.landing" flex>  </a>
+            <a ui-sref="app.landing" flex> </a>
 
 
             <div class=" navbar-custom-menu">
@@ -34,15 +34,15 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle>
                             <i class="fa fa-envelope-o"></i>
                             contribuciones
-                         </a>
+                        </a>
                         <ul class="dropdown-menu" uib-dropdown-menu>
                             <li>
                                 <ul class="menu">
-                                    <li>
+                                    <li ng-click="vm.show_dialog($event, '#contribuyentes')">
                                         <a href="#">
                                             <div class="pull-left">
 
-                                                <md-icon md-font-icon="ion-android-friends" aria-label="contribuyentes">
+                                                <md-icon md-font-icon="ion-person-stalker" aria-label="contribuyentes">
                                                 </md-icon>
                                             </div>
                                             <h4>
@@ -52,7 +52,7 @@
 
                                         </a>
                                     </li>
-                                    <li>
+                                    <li ng-click="vm.show_dialog($event, '#donations')">
                                         <a href="#">
                                             <div class="pull-left">
                                                 <md-icon md-font-icon="ion-card" aria-label="donacion"></md-icon>
@@ -70,14 +70,14 @@
                         </ul>
                     </li>
                     <li class="dropdown messages-menu" uib-dropdown>
-                        <a  href="#" class="dropdown-toggle " data-toggle="dropdown" uib-dropdown-toggle>
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" uib-dropdown-toggle>
                             <i class="fa fa-info-circle"></i>
                             Información
-                         </a>
+                        </a>
                         <ul class="dropdown-menu" uib-dropdown-menu>
                             <li>
                                 <ul class="menu">
-                                    <li>
+                                    <li ng-click="vm.show_dialog($event, '#disclaimer')">
                                         <a href="#">
                                             <div class="pull-left">
                                                 <i class="fa fa-gavel"></i> </div>
@@ -86,35 +86,35 @@
                                             </h4>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li ng-click="vm.show_dialog($event, '#glosary')">
                                         <a href="#">
                                             <div class="pull-left">
-                                              <i class="fa fa-book"></i>
+                                                <i class="fa fa-book"></i>
                                             </div>
                                             <h4>
                                                 Glosario
                                             </h4>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li ng-click="vm.show_dialog($event, '#colaboradores')">
                                         <a href="#">
                                             <div class="pull-left">
-                                              <i class="fa fa-users"></i>
+                                                <i class="fa fa-users"></i>
                                             </div>
                                             <h4>
                                                 Colaboradores
                                             </h4>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li ng-click="vm.show_dialog($event, '#credits')">
                                         <a href="#">
-                                                <div class="pull-left">
-                                                  <i class="fa fa-terminal"></i>
-                                                </div>
-                                                <h4>
-                                                    Desarrollado por
-                                                </h4>
-                                            </a>
+                                            <div class="pull-left">
+                                                <i class="fa fa-terminal"></i>
+                                            </div>
+                                            <h4>
+                                                Desarrollado por
+                                            </h4>
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
@@ -178,3 +178,94 @@
 
 
 </header>
+
+
+<!-- Modals-->
+<!--Contribuyentes-->
+
+<div style="visibility: hidden">
+    <div id="disclaimer"  class=" md-dialog-container reveal-modal full-screen modal" data-reveal>
+        <md-dialog layout-padding>
+            <h2 class="text-center">Renuncia de responsabilidades</h2>
+            <p>Toda la información en este sitio web se publica de buena fe y como información general solamente. No
+                hacemos ninguna garantía sobre la exactitud, fiabilidad y precisión de la información. Cualquier acción
+                que usted tome de la información en nuestra web es estrictamente a su propio riesgo, y no será
+                responsable por las pérdidas y daños y perjuicios en relación con el uso de nuestro sitio web.</br>Desde
+                nuestro sitio web, usted puede visitar otros sitios web siguiendo los hipervínculos a esos sitios.
+                Mientras que nos esforzamos en ofrecer sólo los enlaces a sitios web útiles y éticos, no tenemos ningún
+                control sobre el contenido y la naturaleza de estos sitios y los enlaces a otras páginas web no implican
+                una recomendación para todo el contenido de estos sitios.</br>Por favor, hay que tener en cuenta que
+                cuando usted sale de nuestro sitio web, otros sitios pueden tener diferentes políticas de privacidad y
+                términos que están más allá de nuestro control.</p>
+         </md-dialog>
+    </div>
+
+    <div id="glosary" class=" md-dialog-container reveal-modal full-screen modal" data-reveal>
+        <md-dialog layout-padding>
+            <h2 class="text-center">Glosario</h2>
+            <p>Estos son enlaces que direccionan hacia otras paginas.</p>
+            <!-- <p><strong> <a href="http://es.wikipedia.org/wiki/Precipitaci%C3%B3n_(meteorolog%C3%ADa)" target="_blank">Precipitación</a></strong></p>
+                <p><strong><a href="http://es.wikipedia.org/wiki/Lluvia" target="_blank">Lluvia</a></strong></p>
+                <p><strong><a href="http://es.wikipedia.org/wiki/Lluvia" target="_blank">Medición de la lluvia</a></strong></p>
+                <p><strong><a href="http://es.wikipedia.org/wiki/Pluvi%C3%B3metro" target="_blank">Pluviómetro</a></strong></p>
+                <p><strong><a href="http://es.wikipedia.org/wiki/Red_de_monitoreo" target="_blank">Red de monitoreo</a></strong></p> -->
+        </md-dialog>
+    </div>
+
+    <div id="credits" class=" md-dialog-container reveal-modal full-screen modal" data-reveal>
+        <md-dialog layout-padding>
+            <h2 class="text-center">Equipo Uninorte</h2></br>
+            <p>Humberto Avila, PhD. Director, Investigador Diseño de Sistema</p>
+            <p>Wilson Nieto, PhD. Investigador Desarrollo Software</p>
+            <p>Augusto Sisa, MSc. Investigador Hidrología</p>
+            <p>Luis Rojano, Est. MSc. Investigador Desarrollo Software</p>
+            <!--<p>Danilo Garcia, Ing. Sistemas. Asistente de Investigación</p>
+                    <p>Brayan Garcia, Ing. Sistemas. Asistente de Investigación</p>
+                <p>Leandro Avila, Ing. Civil. Asistente de Investigación</p>
+                <p>Tatiana De Alba, Ing. Civil. Asistente de Investigación</p>
+                <p>Leydis Villadiego, Ing. Sanitaria. Asistente de Investigación</p>
+                <p>Andrea Perez, Estudiante Ing. Civil. Auxiliar de Investigación</p>
+                <p><strong>Instituto de Estudios Hidráulicos y Ambientales – IDEHA</strong></p>
+                <p><strong>Grupo Redes de Computadores e Ingeniería de Software - GReCIS</strong></p>-->
+
+        </md-dialog>
+    </div>
+
+    <div id="colaboradores" class=" md-dialog-container reveal-modal full-screen modal" data-reveal>
+        <md-dialog layout-padding>
+            <h2>Colaboradores</h2></br>
+            <!-- <p>Triple A S.A E.S.P</p>
+                    <p>Parroquia Espíritu Santo</p>
+                    <p>Parroquia Nuestra Señora de Chiquinquirá</p>
+                    <p>Parroquia Nuestra Señora de las Gracias Torcoroma</p>
+                    <p>Cuerpo Oficial de Bomberos Barranquilla</p>
+                    <p>Condominio Brisas del Norte</p>
+                    <p>Edificio Máximo</p>  -->
+        </md-dialog>
+    </div>
+
+    <div id="contribuyentes" class=" md-dialog-container reveal-modal full-screen modal medium text-center" data-reveal>
+        <md-dialog layout-padding>
+            <h2 class="text-center">Contribuyentes</h2></br>
+            <!-- <a href="http://www.atlantico.gov.co" target="_blank"><img src="images/gobernacionok.gif"></a>
+                    <a href="https://www.sgr.gov.co" target="_blank"><img src="images/sgrok.png"></a>
+                    <a href="http://www.colciencias.gov.co" target="_blank"><img src="images/colcienciasok.png"></a>-->
+            <a href="http://www.uninorte.edu.co" target="_blank"><img src="img/unok.png"></a>
+            <a href="http://www.uninorte.edu.co" target="_blank">
+                <h3>Instituto de Estudios Hidráulicos y Ambientales - IDEHA</h3>
+            </a>
+        </md-dialog>
+    </div>
+
+    <div id="donations" class=" md-dialog-container reveal-modal full-screen modal medium" data-reveal>
+        <md-dialog layout-padding>
+            <h2 class="text-center">Donaciones</h2></br>
+            <p>Usted o su empresa puede contribuir con el desarrollo de obsriomagdalena.co mediante su vinculación como
+                donante o contribuyente.</p>
+            <p>Para mayores informes contactar a: <strong>obsriomagdalena@uninorte.edu.co</strong></p>
+
+        </md-dialog>
+    </div>
+
+
+</div>

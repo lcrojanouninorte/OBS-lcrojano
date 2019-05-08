@@ -72,11 +72,69 @@
   }
 
   span.marker-title {
-	position: absolute;
-	top: 11px;
-	left: 44px;
-	width: 100px;
-	/* text-align: center; */
-	text-shadow: 0px -1px 0px rgb(105, 136, 155);
-	color: blue;
+		position: absolute;
+    top: 11px;
+    left: 44px;
+    width: 120px;
+    /* text-align: center; */
+    text-shadow: 0px -1px 0px #ffffff;
+    color: #00363a;
+    font-weight: bold;
+    font-style: italic;
 }
+
+.socialnetwork{
+ 
+    opacity: 0.8;
+    overflow: hidden;
+    margin: 0;
+   
+}
+.socialnetwork li{
+		list-style: none;
+		display: inline-block;
+		margin-left: 10px;	
+	}
+
+.socialnetwork li:hover{
+	opacity:0.9;
+}	
+
+.mm{
+	font-size: 18px!important;
+}
+#redes {
+	position: absolute;
+    right: 1%;
+    bottom: 1% !important;
+	}
+
+	#logos{
+ 
+    position: absolute;
+    left: 2%;
+		opacity:0.8;
+		bottom: 10%;
+		width: 200px;
+	}
+	#redes img{
+		width: 60px;
+		margin-left: 10px;
+	}
+	#logos h3{
+		margin: 0 0 0 8px;
+		font-size: 10px!important;
+	}
+
+	@media only screen and (max-width: 50em) {
+		#logos{
+			display:none;
+		}
+		.logo{
+			display:none!important;
+		}
+		#redes img{
+			width: 30px;
+			margin-left: 5px;
+		}
+	}

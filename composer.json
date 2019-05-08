@@ -17,7 +17,8 @@
         "spatie/flysystem-dropbox": "^1.0",
         "laravel-notification-channels/backport": "^1.0",
         "barryvdh/laravel-snappy": "^0.4.0",
-        "maatwebsite/excel": "~2.1.0"
+        "maatwebsite/excel": "~2.1.0",
+        "unisharp/laravel-filemanager": "~1.8"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -262,7 +262,7 @@
           </tr>
           <tr>
             <td class="free-text">
-              Please click the link below to reset your password.
+              Click en este link para recuperar su contraseña.
             </td>
           </tr>
           <tr>
@@ -286,9 +286,9 @@
         <table cellspacing="0" cellpadding="0" width="600" class="w320">
           <tr>
             <td style="padding: 25px 0 25px">
-              <strong>Awesome Inc</strong><br />
-              1234 Awesome St <br />
-              Wonderland <br /><br />
+              <strong>OBS Rio Magdalena</strong><br />
+              Uninorte <br />
+              Km5 <br /><br />
             </td>
           </tr>
         </table>

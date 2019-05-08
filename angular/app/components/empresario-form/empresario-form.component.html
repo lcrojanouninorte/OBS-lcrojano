@@ -1,6 +1,6 @@
 <div layout="column" layout-margin layout-align="center center">
   <div class="callout callout-danger" ng-if="vm.loginfailederror">
-    <h4>No se pudo crear el empresario</h4>
+    <h4>No se pudo crear el usuario</h4>
     <p>{{ vm.errors }}</p>
   </div>
    
@@ -51,8 +51,9 @@
     <md-input-container  flex>
       <label>Tipo</label>
       <md-select name="type"  ng-model="vm.type" required>
-        <md-option value="empresario">Empresario</md-option>
-        <md-option value="asesor">Asesor</md-option>
+        <md-option value="admin.super">Super Admin (Desarrollador)</md-option>
+        <md-option value="director">Director (Manejo usuarios y Estaciones)</md-option>
+        <md-option value="asistente">Asistente (Manejo estaciones)</md-option>
       </md-select>
     </md-input-container>
      

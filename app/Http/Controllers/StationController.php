@@ -8,7 +8,7 @@ use App\Http\Requests;
 
 use App\Station;
 
-use App\Watcher;
+use App\Log;
 
 use Auth;
 
@@ -52,70 +52,79 @@ class StationController extends Controller
         //
         $user = Auth::user();
         $this->validate($request, [
-        //'username' => 'required',
-        //'password' => 'required',
-        //'city_id' => 'required',
-        //'ads_limit' => 'required',
-        'minutes' => 'required',
-        'start' => 'required',
-        'end' => 'required',
-        'active'  => 'required'
-        ]);
+        'name' => 'required',
+        'latitude' => 'required',
+        'longitude' => 'required',
+        'state' => 'required'
+         ]);
 
+        try {
+            $station = [];
         //check if have file
-        DB::transaction(function () use ($request, $user) {
+        // DB::transaction(function () use ($request, $user,  $station) {
             $station = new Station;
+            $log = new Log;
+            $log->desc = "User ($user->id, $user->name): ADD ";
+            $log->user_id = $user->id;
+            $log->table = "stations";
 
             if($request->has('id')){
                 $station =  Station::find($request->input('id'));
-             }
-            //LesPac exclusive:
-            $station->type = $request->input('type');
-            $station->current_index = $request->input('current_index');
-
-            
-
-            //$station->id = $request->input('id'); //Verificar;
-            $station->username = $request->input('username');
-            $station->password = $request->input('password');
-            $station->city_id = $request->input('city_id');
-            $station->ads_limit = $request->input('ads_limit');
-            $station->minutes = $request->input('minutes');
-            $station->start = $request->input('start');
-            $station->end =  $request->input('end');
-            $station->active =  $request->input('active');
-            
-        
-            if($station->save()){
-                $destinationPath = "";
+                $log->desc = "User ($user->id, $user->name): UPDATE ";
                 
-                if($request->hasFile('file') && $station->type=="LesPac"){
-                    $file  = $request->file('file');
+            }
+            //add or update station
+            $station->name = $request->input('name');
+            $station->latitude = $request->input('latitude');
+            $station->longitude = $request->input('longitude');
+            $station->state = $request->input('state'); 
+            $station->icon = "river3"; 
+           
+            
+            if($request->hasFile('files')){
+                $files  = $request->file('files');
+                foreach ($files as $key => $file) {
+                    
+                    $destinationPath = "";
                     $fileName = $file->getClientOriginalName();
-                    $destinationPath = "/".$request->input('type')."/".$station->id."/".$fileName;
-                    $path = Storage::put(
+                    $extencion = explode(".", $fileName)[1];
+                    $station->name = trim($station->name);
+                    switch ($key) {//Siempre se debe enviar en orden duración, frecuencia y txt
+                        case 0:
+                            $destinationPath = "$station->name/duracion.$extencion";
+                            $station->duration = $destinationPath;
+                            break;
+                        case 1:
+                            $destinationPath = "$station->name/frecuencia.$extencion";
+                            $station->frequencies = $destinationPath;
+                            break;
+                        case 2:
+                            $destinationPath = "$station->name/serie.$extencion";
+                            $station->readings_csv = $destinationPath;
+                            break;
+                        default:
+                            # code...
+                            break;
+                    }
+                    $path = Storage::disk('plataforma')->put(
                         $destinationPath,
                         file_get_contents($file->getRealPath())
                     );
-                    $station->file_path = $destinationPath;
-                    $station->save();
+                    
+
                 }
-
-                //watcher exclusive
-                if($station->type == "Watcher"){
-                    $watcher = new Watcher;
-                    $watcher->text = $request->input('text');
-                    $watcher->zip_code = $request->input('zip_code');
-                    $watcher->action = $request->input('action');
-                    $watcher->active = $request->input('active');
-                    $watcher->station_id = $request->input('station_id');
-                    $watcher->station_ref = $station->id;
-                    $watcher->save();
-                }
-            };
-
-
-        });
+                
+                
+            }
+            if($station->save()){
+                $log->table_id = $station->id;
+                $log->desc = $log->desc." station ($station->id, $station->name).";
+                $log->save();
+            }
+       // });
+        } catch (Exception $e) {
+            return response()->error($e->getMessage());
+        }
         return response()->success(compact('station'));
     }
 
@@ -212,18 +221,23 @@ class StationController extends Controller
     public function destroy($id)
     {
         //
+        $user = Auth::user();
+
         $station = Station::find($id);
-        
-        if($station->type =="Watcher"){
-            $watcher = Watcher::where('station_ref',$station->id)->first();
-            if($watcher->delete()){
-                $station->delete();
-            }
-
-        }else{
-            $station->delete();
-
+        //Delete folder and files
+        if($station->delete()){
+            Storage::disk('plataforma')->deleteDirectory($station->name);
+            $log = new Log;
+            $log->desc = "($user->id, $user->name): DELETE station ($station->id, $station->name).";
+            $log->user_id = $user->id;
+            $log->table = "stations";
+            $log->table_id = $station->id;
+            $log->save();
         }
+
+      
+
+ 
         return response()->success('success');
     }
 }

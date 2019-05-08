@@ -73,7 +73,8 @@ class ObsMapController{
             attribution: {
                 enabled: true,
                 options: {
-                    position: 'bottom-right'
+                    position: 'bottom-right',
+                    customAttribution:"contributors/ OBSRIOMAGDALENA.CO - Plataforma de Monitoreo del Río Magdalena"
                 }
             },
             geolocate: {
@@ -133,13 +134,13 @@ class ObsMapController{
           }
 
         _DialogController($scope, $mdDialog, station) {
-            let upload_url = "http://167.99.186.23/folder/"
+            let files_url = "/files/shares/plataforma/" //Folder in laravel where files are
             
             $scope.station = station
-            //TODO: esto puede ser manejado por administrador
-            station.duration = upload_url+"/" + station.name + "/duracion.png"
-            station.frequency = upload_url+"/" + station.name + "/frecuencia.png"
-            station.file = upload_url+"SERIES/" + station.name + ".txt"
+            //TODO: esto puede ser manejadopor administrador
+            station.duration = files_url + station.duration
+            station.frequencies = files_url + station.frequencies
+            station.readings_csv = files_url+ station.readings_csv
             $scope.hide = function() {
               $mdDialog.hide();
             };
