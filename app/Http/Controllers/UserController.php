@@ -94,7 +94,7 @@ class UserController extends Controller
     public function getIndex($role = null)
     {
         $user = Auth::user();
-        if ($user->is('asesor')||$user->is('supervisor')) {
+        if ($user->can('manage.users')) {
             if ($role!=null) {
                 $users = User::whereHas(
                     'roles',
@@ -121,7 +121,7 @@ class UserController extends Controller
     public function getUsersByRole($role)
     {
         $user = Auth::user();
-        if ($user->is('asesor')) {
+        if ($user->can('manage.users')) {
             $users = User::whereHas(
                 'roles',
                 function ($q) use ($role) {
@@ -368,10 +368,10 @@ class UserController extends Controller
 
     public function postUser(Request $request)
     {
-        //Verificar que es un usuario tipo asesor
+        //Verificar que es un usuario tipo admin
         $current_user = Auth::user();
         
-        if ($current_user->is('asesor')) {
+        if ($user->can('manage.users')) {
             $this->validate($request, [
                 'name'       => 'required|min:3',
                 'email'      => 'required|email|unique:users',
@@ -399,7 +399,7 @@ class UserController extends Controller
                 $user->email_verification_code = $verificationCode;
                 $user->save();
 
-                //asignar rol de empresario al nuevo usuario
+                //asignar rol  al nuevo usuario
                 $role = Role::where("slug", $request->type)->get();
                 $user->attachRole($role);
 
