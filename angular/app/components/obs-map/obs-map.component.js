@@ -29,7 +29,7 @@ class ObsMapController{
                             station
                         ),
                         options: {
-                            anchor: 'bottom',
+                            anchor: 'bottom'
                           //  offset: [0, 5]
 
                         }, // Optional --> https://www.mapbox.com/mapbox-gl-js/api/#Marker
