@@ -29,7 +29,9 @@ class ObsMapController{
                             station
                         ),
                         options: {
-                            anchor: 'right'
+                            anchor: 'bottom'
+                          //  offset: [0, 5]
+
                         }, // Optional --> https://www.mapbox.com/mapbox-gl-js/api/#Marker
                         popup: {
                             enabled: false,
