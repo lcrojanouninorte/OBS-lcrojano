@@ -89,6 +89,7 @@ class StationController extends Controller
                     $fileName = $file->getClientOriginalName();
                     $extencion = explode(".", $fileName)[1];
                     $station->name = trim($station->name);
+                    //$station->name = str_replace(" ", "\ ", $station->name);
                     switch ($key) {//Siempre se debe enviar en orden duración, frecuencia y txt
                         case 0:
                             $destinationPath = "$station->name/duracion.$extencion";
@@ -106,6 +107,7 @@ class StationController extends Controller
                             # code...
                             break;
                     }
+                  
                     $path = Storage::disk('plataforma')->put(
                         $destinationPath,
                         file_get_contents($file->getRealPath())

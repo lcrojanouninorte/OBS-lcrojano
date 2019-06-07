@@ -47,7 +47,7 @@ class StationsListController{
       }
       
       station.upload = this.Upload.upload({
-        url: 'http://localhost:8000/api/stations', //Change: emote: http://rostation.lcrojano.com/api/stations local: http://localhost:8000/api
+        url: 'http://obsriomagdalena.lcrojano.com/api/stations', //Change: emote: http://rostation.lcrojano.com/api/stations local: http://localhost:8000/api
         data: station,
         headers: hders
       });
