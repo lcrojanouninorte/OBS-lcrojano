@@ -257,7 +257,7 @@
         <table cellspacing="0" cellpadding="0" width="600" class="w320">
           <tr>
             <td class="header-lg">
-              Bienvenido a FFI - Caribe!
+              Bienvenido al Observatorio del Río Magdalena!
             </td>
           </tr>
           <tr>
