@@ -48,7 +48,8 @@
     "angular-ui-clock": "^0.7.0",
     "angular_locale_es-mx": "angular-locale_es-mx#*",
     "md-pickers": "^1.1.1",
-    "angular-mapboxgl-directive": "^0.44.0"
+    "angular-mapboxgl-directive": "^0.44.0",
+    "ng-bootstrap-lightbox": "^1.0.2"
   },
   "resolutions": {
     "angular": "~1.6.x"
