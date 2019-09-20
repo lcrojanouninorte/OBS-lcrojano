@@ -2,7 +2,7 @@ class StationsListController{
     constructor(API,AclService, $scope, $state, $uibModal, $log, Upload, $timeout, $window){
         'ngInject';
         //
-
+        this.$scope = $scope
         this.API = API
         this.$window =$window
         this.$log = $log
@@ -10,6 +10,8 @@ class StationsListController{
         this.originatorEv = {}
         this.can = AclService.can
         this.$uibModal =$uibModal
+
+        //Stations
         let Stations = this.API.all('stations');
         Stations.getList()
           .then((response) => {
@@ -25,10 +27,21 @@ class StationsListController{
         this.errorMsg=""
         this.add_check = false
 
+        //Columns
+        this.columns = {}
+        let Columns = this.API.all('columns');
+        Columns.getList()
+          .then((response) => {
+            this.columns = response.plain()
+        })
+
+        //FAB
+        this.isOpen = false;
+        
     }
-    
+   
     $onInit(){
-      
+
     }
 
     uploadExcel(station) {
@@ -126,12 +139,126 @@ class StationsListController{
             });
     }
 
-    modalcontroller($uibModalInstance, station) {
+    openDialog($event, item) {
+
+      let $uibModal = this.$uibModal
+      let template = ""
+      let $log = this.$log
+      let API  = this.API
+      let $state = this.$state
+
+      if(item==1){
+        template = "addStationTemp.html"
+      }else{
+        template = "addColumnTemp.html"
+      }
+
+      var modalInstance = $uibModal.open({
+          animation: true,
+          templateUrl: template,
+          controller: this.modalcontroller ,
+          controllerAs: 'mvm',
+          size: 'lg',
+          resolve: {
+             option: function() {
+                 return item
+             }
+          }
+      })
+      modalInstance.result.then(function(answer) {
+        //Add Column or station
+        if(answer.type == "column"){
+            API.all('columns').post(answer).then((response) => {
+            if(response.errors){
+                $log.debug(response);
+            }else{
+                $state.reload()
+                swal('Columna Agregada Correctamente!', '', 'success')
+
+                this.closeparent();
+                $log.debug(response);
+
+            }
+                
+          })
+        }else{
+
+        }
+      }, function() {
+          this.$log.debug('You cancelled the dialog COLUMN.');
+      });
+    }
+
+    editColumn(column){
+      let $log = this.$log
+      this.API.all('columns').post(column).then((response) => {
+        if(response.errors){
+          $log.debug(response);
+        }else{
+            //this.$state.reload()
+            //swal('Columna Agregada Correctamente!', '', 'success')
+
+            $log.debug(response)
+            column.edit=false
+
+        }
+            
+      })
+    }
+
+    deleteColumn(column){
+      let API = this.API
+      let $state = this.$state
+  
+      swal({
+        title: 'Seguro?',
+        text: 'No será posible recuperar la información!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Si, borrar.',
+        //closeOnConfirm: false,
+        //showLoaderOnConfirm: true,
+        html: false
+      }).then(function () {
+        API.one('columns').one('', column.id).remove()
+          .then((response) => {
+              if(!response.error){
+                swal({
+                  title: 'Columna Borrada!',
+                  text: 'Se ha eliminado correctamente la columna.',
+                  type: 'success',
+                  confirmButtonText: 'OK'
+                  //closeOnConfirm: true
+                }).then( function () {
+                  $state.reload()
+                })
+              }
+              else{
+                  this.$log.debug(response);
+              }
+          })
+      
+    })
+    }
+
+    modalcontroller($uibModalInstance, option) {
         'ngInject'
-        this.station = station
-       
-        this.ok = () => {
-          //$uibModalInstance.close($scope.selected.item)
+        this.option = option
+        this.column = {
+          type:"column",
+          name:""
+        }
+
+        this.station = {
+          type:"station",
+          name:""
+        }
+        let column = this.column
+        this.addColumn = () => {
+          
+          $uibModalInstance.close(column);
+
         }
 
         this.cancel = () => {

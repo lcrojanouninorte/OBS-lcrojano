@@ -9,3 +9,33 @@
 form .progress {
     line-height: 15px;
 }
+
+.box.box-primary {
+    overflow: auto;
+    overflow-y: hidden;
+}
+
+.delete-col{
+     min-height: 12px;
+     height: 12px;
+     margin: 0px;
+ }
+ .custom-column{
+
+ }
+
+ a[ng-click]{
+    cursor: pointer;
+}
+
+.stick-fab {
+    top: auto !important;
+    right: 20px !important;
+    bottom: 10px !important;
+    left: auto !important;
+    position: fixed !important;
+}
+
+th.custom-column.ng-scope {
+    min-width: 115px;
+}

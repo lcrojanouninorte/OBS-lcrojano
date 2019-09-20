@@ -31,7 +31,8 @@ angular.module('app', [
 'ngFileUpload',
 'ds.clock',
 'mdPickers',
-'mapboxgl-directive'
+'mapboxgl-directive',
+'ngBootstrapLightbox'
 ])
 
 angular.module('app.run', [])

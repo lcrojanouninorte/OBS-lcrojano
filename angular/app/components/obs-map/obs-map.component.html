@@ -1,83 +1,134 @@
-
-<div
-    layout-fill 
-    flex
-    mapboxgl
-    gl-controls="vm.glControls"
-    gl-zoom="{ value: 9 }"
-    gl-center="{ lng: -74.9, lat: 9.8 }"
-    gl-pitch="{ value: 50 }"
-    gl-bearing="{ value: 60   }"
-    gl-markers="vm.glMarkers" >
+<div layout-fill flex mapboxgl gl-controls="vm.glControls" gl-zoom="{ value: 9 }" gl-center="{ lng: -74.9, lat: 9.8 }"
+    gl-pitch="{ value: 50 }" gl-bearing="{ value: 60   }" gl-markers="vm.glMarkers"
+    gl-style="'mapbox://styles/mapbox/dark-v9'">
 </div>
+
+
 
 <div id="logos">
 
-        <a href="http://www.uninorte.edu.co" target="_blank"><img src="img/unok.png"></a>
-        <!-- <a href="http://www.atlantico.gov.co" target="_blank"><img class="logogob" src="images/gobernacionok.gif"></a>
+    <a href="http://www.uninorte.edu.co" target="_blank"><img src="img/unok.png"></a>
+    <!-- <a href="http://www.atlantico.gov.co" target="_blank"><img class="logogob" src="images/gobernacionok.gif"></a>
     <a href="https://www.sgr.gov.co" target="_blank"><img class="logosgr" src="images/sgrok.png"></a>
     <a href="http://www.colciencias.gov.co" target="_blank"><img src="images/colcienciasok.png"></a>-->
-      </div>
+</div>
 <div id="redes" layout="column">
 
-        <ul  flex class="socialnetwork " layout="row">
-          <!--<p class="diahora">Válido: <span data-bind="text: datetime"></span></p>-->
-          <!-- <li><a href="https://www.facebook.com/pluvial.co" target="_blank"><img src="images/face.png"></a></li>-->
-          <li flex><a href="https://www.instagram.com/obsriomagdalena/" target="_blank"><img src="img/instagram.png"></a></li>
-          <li flex><a href="https://www.youtube.com/channel/UCYIPAkNxbPptJPtAmG_WO7Q?view_as=subscriber" target="_blank"><img
-                src="img/youtube.png"></a></li>
-          <li flex><a href="https://twitter.com/obsriomagdalena" target="_blank"><img src="img/twitter.png"></a></li>
-          <li flex><a href="http://www.uninorte.edu.co/web/guest/home;jsessionid=FEAD291220E96143E0E741E25F29F04B"
-              target="_blank"><img src="img/web.png"></a></li>
-          <li flex><a href="mailto:obsriomagdalena@uninorte.edu.co"><img src="img/contact.png"></a>
-             
-          </li>
-        </ul>
-        <a flex href="http://www.uninorte.edu.co" target="_blank">
-          <p>Instituto de Estudios Hidráulicos y Ambientales - IDEHA</p>
-        </a>
-      </div>
+    <ul flex class="socialnetwork " layout="row">
+        <!--<p class="diahora">Válido: <span data-bind="text: datetime"></span></p>-->
+        <!-- <li><a href="https://www.facebook.com/pluvial.co" target="_blank"><img src="images/face.png"></a></li>-->
+        <li flex><a href="https://www.instagram.com/obsriomagdalena/" target="_blank"><img src="img/instagram.png"></a>
+        </li>
+        <li flex><a href="https://www.youtube.com/channel/UCYIPAkNxbPptJPtAmG_WO7Q?view_as=subscriber"
+                target="_blank"><img src="img/youtube.png"></a></li>
+        <li flex><a href="https://twitter.com/obsriomagdalena" target="_blank"><img src="img/twitter.png"></a></li>
+        <li flex><a href="http://www.uninorte.edu.co/web/guest/home;jsessionid=FEAD291220E96143E0E741E25F29F04B"
+                target="_blank"><img src="img/web.png"></a></li>
+        <li flex><a href="mailto:obsriomagdalena@uninorte.edu.co"><img src="img/contact.png"></a>
 
-<!--Modal formulario de edicion de proyecto!-->
-<script type="text/ng-template" id="station-dialog.html">
+        </li>
+    </ul>
+    <a flex href="http://www.uninorte.edu.co" target="_blank">
+        <p>Instituto de Estudios Hidráulicos y Ambientales - IDEHA</p>
+    </a>
+</div>
+
+
+<!--FAB colocado en la mitad de la pantalla al bottom-->
+<md-fab-speed-dial ng-click="vm.toggleSidenav(); " md-open="vm.isOpen" md-direction="left"
+    class="md-scale md-fab-up-right stick-fab-center-bottom">
+    <md-fab-trigger>
+        <md-button aria-label="menu" class="md-fab md-primary">
+            <md-tooltip md-direction="left" md-autohide="false">Menu</md-tooltip>
+            <md-icon md-svg-src="/img/shp1.svg"></md-icon>
+        </md-button>
+    </md-fab-trigger>
+</md-fab-speed-dial>
+
+
+<!--Side Nav, se activa con el FAB anterior-->
+<md-sidenav class="md-sidenav-left" md-disable-backdrop  md-component-id="closeEventsDisabled" 
+md-whiteframe="4" md-disable-close-events>
+
+    <md-toolbar layout="row"  class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">Capas de Información</h1>
+        <md-icon    md-font-icon="ion-plus-round" aria-label="add"></md-icon>
+    </md-toolbar>
+    
+         <p layout-margin="">
+            Acontinuación encontrará las distintas capas de información que podrá observar sobre el mapa
+            Seleccione y luego de clic en ver.
+        </p>
+        <md-list>
+            <div ng-repeat="category in vm.categories">
+                <md-subheader  class="md-no-sticky ">
+                        <md-list-item>
+                                <span> {{category.name | uppercase}} </span>
+                                 <md-icon class="md-secondary"  md-font-icon="ion-plus-circled" 
+                                aria-label="download"></md-icon>
+                              </md-list-item>
+                   
+
+                </md-subheader>
+                <md-list-item ng-repeat="layer in category.layers" class="noright">
+                    <div class="md-avatar" style="background-color:  {{layer.icon}}"></div>
+                    <p> {{ layer.name | capitalize}} </p>
+                    <md-icon ng-click="" md-svg-src="/img/edit.svg" aria-label="edit" class="md-secondary md-hue-3" ></md-icon>
+                    <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
+
+                <md-divider></md-divider>
   
-<md-dialog    aria-label="Datos de la estacióm {{station.name}}">
+            </div>
+        </md-list>
+ 
+
+
+
+
+</md-sidenav>
+
+
+<!--Modal formulario!-->
+<script type="text/ng-template" id="station-dialog.html">
+
+    <md-dialog aria-label="Datos de la estación {{station.name}}">
         <form ng-cloak  >
             <md-toolbar>
                 <div class="md-toolbar-tools">
                     <h2 >Estación {{station.name}}</h2>
+                    <md-icon md-font-icon="ion-plus-round" aria-label="Send Email" ></md-icon>
+
                     <span flex></span>
                     <md-button class="md-icon-button" ng-click="cancel()">
                             <md-icon md-font-icon="ion-close-circled" aria-label="download"></md-icon>
                     </md-button>
                 </div>
             </md-toolbar>
- 
+
+            <!--Recibir todos los archivos de la estacion, y filtrar por cada tipo, 
+                mostrar las imagenes y el resto solo descarga-->
+
+                
+                  
+                        
+               
             <md-dialog-content >
+                
                 <div layout-align="center " class="md-dialog-content">
     
-                    <div >
-                        <h2>Gráficos de la Estación {{station.name}}</h2>
-                    </div>
-                    <br>
-                    <div >
-                        Exportar a CSV   
-                        <md-button class="md-icon-button" href="{{station.readings_csv}}" target="_blank" download>
+                    <div layout="row">
+                        <div flex="30">
+                            <h4>Archivos descargables </h4>
+                        </div>
+                        <md-button flex="10" ng-repeat="file in station.otherFiles" class="md-icon-button" href="{{station.files_url + file.file_path}}" target="_blank" download>
                             <md-icon md-font-icon="ion-android-download" aria-label="download"></md-icon>
                         </md-button> 
                     </div>
                     <br>
-    
-    
-                    <div flex>
-                        <h3 >Gráfico de Duración</h3>
-                        <img style="margin: auto; max-width: 100%;" width="700" alt="Grafico duración" src="{{station.duration}}" onError="this.src='/img/gdummy.png'">
-                    </div>
-                    <br>
-    
-                    <div >
-                        <h3>Gráfico de Frecuencias</h3>
-                        <img style="margin: auto; max-width: 100%;" width="700"  alt="Grafico frecuencias" src="{{station.frequencies}}" onError="this.src='/img/gdummy.png'">
+                     
+                    <div ng-click = "open($index)" ng-repeat="image in station.imgFiles" flex>
+                        <h3 >Gráfico: {{image.file_path}}</h3>
+                        <img style="margin: auto; max-width: 100%;" width="700" alt="Grafico duración" src="{{station.files_url + image.file_path}}" onError="this.src='/img/gdummy.png'">
                     </div>
                     <br>
                     <br>

@@ -3,7 +3,7 @@
 /**
  * Laravel - A PHP Framework For Web Artisans.
  *
- * @author   Taylor Otwell <taylorotwell@gmail.com>
+ * @author  Luis Rojano <lcrojano@gmail.com>
  */
 
 /*

@@ -34,6 +34,11 @@ $api->group(['middleware' => ['api']], function ($api) {
  
     $api->resource('cities', 'CityController');
     $api->get('stations', 'StationController@index');
+    $api->get('columns', 'ColumnController@index');//AKA variables de una estacion
+    $api->get('layers', 'LayerController@index');
+    $api->get('categories', 'CategoryController@index');
+
+
 
 });
 
@@ -44,6 +49,12 @@ $api->group(['middleware' => ['auth']], function ($api) {
 
 $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     $api->resource('stations', 'StationController', ['except'=> ['index']]);
+    $api->resource('columns', 'ColumnController', ['except'=> ['index']]);
+    $api->resource('layers', 'LayerController', ['except'=> ['index']]);
+    $api->resource('categories', 'CategoryController', ['except'=> ['index']]);
+
+
+
 
     $api->get('users/me', 'UserController@getMe');
     $api->put('users/me', 'UserController@putMe');
