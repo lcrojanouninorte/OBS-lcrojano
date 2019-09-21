@@ -52,7 +52,6 @@ class LayerController extends Controller
         'name' => 'required',
         'category_id' => 'required',
         'shp_zip_path' => 'required',
-        'icon' => 'required',
         'state' => 'required',
 
          ]);
@@ -143,5 +142,24 @@ class LayerController extends Controller
     public function destroy($id)
     {
         //
+  
+        $user = Auth::user();
+
+        $layer = Layer::find($id);
+        //Di categoria es 1, es decir sensor en tiempo real no borrar, 
+        
+        //Delete folder and files
+        if($layer->delete()){
+            $log = new Log;
+            $log->desc = "($user->id, $user->name): DELETE category ($layer->id, $layer->name).";
+            $log->user_id = $user->id;
+            $log->table = "layers";
+            $log->table_id = $layer->id;
+            $log->save();
+        }
+
+    
+ 
+        return response()->success('success');
     }
 }

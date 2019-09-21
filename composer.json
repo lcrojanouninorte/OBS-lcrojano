@@ -18,7 +18,8 @@
         "laravel-notification-channels/backport": "^1.0",
         "barryvdh/laravel-snappy": "^0.4.0",
         "maatwebsite/excel": "~2.1.0",
-        "unisharp/laravel-filemanager": "~1.8"
+        "unisharp/laravel-filemanager": "~1.8",
+        "laravolt/avatar": "^2.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

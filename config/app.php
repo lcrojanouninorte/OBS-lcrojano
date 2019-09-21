@@ -176,6 +176,9 @@ return [
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
+        Laravolt\Avatar\ServiceProvider::class,
+
+
 
     ],
 
@@ -232,6 +235,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
 
         'Image' => Intervention\Image\Facades\Image::class,
+        'Avatar'=> Laravolt\Avatar\Facade::class,
+
 
 
     ],
