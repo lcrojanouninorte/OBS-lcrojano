@@ -50,9 +50,12 @@
 <md-sidenav class="md-sidenav-left" md-disable-backdrop  md-component-id="closeEventsDisabled" 
 md-whiteframe="4" md-disable-close-events>
 
-    <md-toolbar layout="row"  class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">Capas de Información</h1>
-        <md-icon    md-font-icon="ion-plus-round" aria-label="add"></md-icon>
+    <md-toolbar class="md-theme-indigo">
+        <div  class="md-toolbar-tools">
+            <h1>Capas de Información</h1>
+            <span flex></span>
+            <md-icon ng-click="vm.add_nav_item($event, 'category')" md-font-icon="ion-plus-circled" aria-label="add"><md-tooltip md-direction="left">Refresh</md-tooltip></md-icon>
+        </div>
     </md-toolbar>
     
          <p layout-margin="">
@@ -63,34 +66,136 @@ md-whiteframe="4" md-disable-close-events>
             <div ng-repeat="category in vm.categories">
                 <md-subheader  class="md-no-sticky ">
                         <md-list-item>
-                                <span> {{category.name | uppercase}} </span>
-                                 <md-icon class="md-secondary"  md-font-icon="ion-plus-circled" 
+                                <img src="{{category.icon}}" class="md-avatar" alt="{{category.name}}">
+                                <span  ng-dblclick="category.edit=true" ng-if="!category.edit || category.id==1"><a>{{category.name | uppercase}} </a> </span>
+                                
+                                <div layout="row" flex ng-if="category.edit && category.id!=1">
+                                    <md-input-container style="min-width:100px; padding: 0; margin: 0;" flex-gt-sm>
+                                        <input type="text" name="name" ng-model="category.name" />
+                                    </md-input-container>
+                                    <div flex>
+                                        <md-icon ng-click="vm.editCategory(category)" class="delete-col" md-svg-src="/img/edit-col.svg" aria-label="edit col "></md-icon>
+                                        <md-icon ng-click="vm.deleteCategory(category, $index)" class="delete-col" md-svg-src="/img/del-col.svg" aria-label="del col "></md-icon>
+                                    </div>
+                                 </div>
+                                
+                                <span flex></span>
+                                 
+                                 <md-icon ng-click="vm.add_nav_item($event, 'layer', $index)" class="md-secondary"  md-font-icon="ion-plus-circled" 
                                 aria-label="download"></md-icon>
-                              </md-list-item>
-                   
-
+                        </md-list-item>
                 </md-subheader>
                 <md-list-item ng-repeat="layer in category.layers" class="noright">
                     <div class="md-avatar" style="background-color:  {{layer.icon}}"></div>
                     <p> {{ layer.name | capitalize}} </p>
                     <md-icon ng-click="" md-svg-src="/img/edit.svg" aria-label="edit" class="md-secondary md-hue-3" ></md-icon>
                     <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
-
                 <md-divider></md-divider>
   
             </div>
         </md-list>
- 
-
-
-
-
 </md-sidenav>
 
 
-<!--Modal formulario!-->
-<script type="text/ng-template" id="station-dialog.html">
 
+
+<!--TEMPLATES FOR MODALS-->
+
+    <!--MODAL AÑADIR CATEGORIA-->
+    <script type="text/ng-template" id="add-category-dialog.html">
+        <md-dialog aria-label="Añadir Categoria">
+            <form ng-cloak   >
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <h2>Añadir Nueva Categoria</h2>
+                        <span flex></span>
+                        <md-button class="md-icon-button" ng-click="cancel()">
+                                <md-icon md-font-icon="ion-close-circled" aria-label="download"></md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>     
+                <md-dialog-content style="min-width:400px; ">
+                        <div class="md-dialog-content">
+
+                        <br/>
+                           <md-input-container class="md-icon-float md-block">
+                            <!-- Use floating label instead of placeholder -->
+                            <label>Nombre</label>
+                            <input ng-model="category.name" type="text">
+                          </md-input-container>
+
+                          <md-input-container class="md-block">
+                                <label>Descripción para visitantes</label>
+                                <textarea ng-model="category.public_desc" md-maxlength="150" rows="2" md-select-on-focus></textarea>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Descripción para Administradores</label>
+                                <textarea ng-model="category.admin_desc" md-maxlength="150" rows="2" md-select-on-focus></textarea>
+                            </md-input-container>
+                      
+                           <md-checkbox name="tos" ng-model="category.state" required>
+                                Categoria visible para visitantes?
+                            </md-checkbox> 
+                      
+                     </div>
+                </md-dialog-content>
+                <md-dialog-actions layout="row" >
+                <md-button flex="100" ng-click="add_category(category)" layout-fill="" class="md-primary">Guardar</md-button>
+
+                  
+                </md-dialog-actions>
+            </form>
+        </md-dialog>  
+    </script>
+    
+    <!--MODAL AÑADIR LAYER-->
+    <script type="text/ng-template" id="add-layer-dialog.html">
+        <md-dialog aria-label="Añadir Categoria">
+            <form ng-cloak   >
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <h2>Añadir Nueva Capa</h2>
+                        <span flex></span>
+                        <md-button class="md-icon-button" ng-click="cancel()">
+                                <md-icon md-font-icon="ion-close-circled" aria-label="download"></md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>     
+                <md-dialog-content style="min-width:400px; ">
+                        <div class="md-dialog-content">
+                            <h2>Categoria: {{category.name}}</h2>
+                            
+
+                        <br/>
+                           <md-input-container class="md-icon-float md-block">
+                            <!-- Use floating label instead of placeholder -->
+                            <label>Nombre</label>
+                            <input ng-model="layer.name" type="text">
+                          </md-input-container>
+
+                          SHP file_path
+
+                          geojson
+ 
+                      
+                           <md-checkbox name="tos" ng-model="layer.state" required>
+                                Capa visible para visitantes?
+                            </md-checkbox> 
+                      
+                     </div>
+                </md-dialog-content>
+                <md-dialog-actions layout="row" >
+                <md-button flex="100" ng-click="add_layer(layer)" layout-fill="" class="md-primary">Guardar</md-button>
+
+                  
+                </md-dialog-actions>
+            </form>
+        </md-dialog>  
+    </script>
+    
+
+    <!--MODAL DE ESTACIONES!-->
+<script type="text/ng-template" id="station-dialog.html">
     <md-dialog aria-label="Datos de la estación {{station.name}}">
         <form ng-cloak  >
             <md-toolbar>
@@ -103,15 +208,7 @@ md-whiteframe="4" md-disable-close-events>
                             <md-icon md-font-icon="ion-close-circled" aria-label="download"></md-icon>
                     </md-button>
                 </div>
-            </md-toolbar>
-
-            <!--Recibir todos los archivos de la estacion, y filtrar por cada tipo, 
-                mostrar las imagenes y el resto solo descarga-->
-
-                
-                  
-                        
-               
+            </md-toolbar>     
             <md-dialog-content >
                 
                 <div layout-align="center " class="md-dialog-content">

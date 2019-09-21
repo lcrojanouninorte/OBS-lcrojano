@@ -18,6 +18,8 @@ class CreateCategoriesTable extends Migration
             $table->string('public_desc');
             $table->string('admin_desc');
             $table->string('state');
+            $table->string('icon');
+
             $table->timestamps();
         });
     }

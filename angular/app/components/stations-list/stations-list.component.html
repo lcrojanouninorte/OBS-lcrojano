@@ -42,9 +42,8 @@
                             <th>Delete</th>
                             <th class="custom-column" ng-repeat="column in vm.columns">
                                 <div layout="row"> 
-                                    {{column.id}}
-                                    <span ng-dblclick="column.edit=true" flex ng-if="!column.edit"><a>{{column.name}}</a></span>
-                                    <div layout="row" flex ng-if="column.edit">
+                                     <span ng-dblclick="column.edit=true" flex ng-if="!column.edit"><a>{{column.name}}</a></span>
+                                     <div layout="row" flex ng-if="column.edit">
                                         <md-input-container style="min-width:180px; padding: 0; margin: 0;" flex-gt-sm>
                                             <input type="text" name="name" ng-model="column.name" />
                                         </md-input-container>
@@ -54,7 +53,7 @@
 
                                         </div>
                                      </div>
-                                </div>
+                               </div>
 
                             </th>
                             
