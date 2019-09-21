@@ -10,7 +10,12 @@ use App\Layer;
 
 use Auth;
 
+
+use App\Log;
+
 use DB;
+
+use Avatar;
 
 class LayerController extends Controller
 {
@@ -51,7 +56,6 @@ class LayerController extends Controller
         $this->validate($request, [
         'name' => 'required',
         'category_id' => 'required',
-        'shp_zip_path' => 'required',
         'state' => 'required',
 
          ]);
@@ -72,7 +76,12 @@ class LayerController extends Controller
             $layer->name = trim($request->input('name'));
             $layer->category_id = $request->input('category_id');
             $layer->state = $request->input('state');
-            $layer->icon = $request->input('icon'); 
+
+              
+
+            $img = Avatar::create($layer->name.'@obsriomagdalena.com')
+                            ->toGravatar(['d' => 'identicon', 'r' => 'g', 's' => 48]);
+            $layer->icon = $img;
 
             //Custom case: REAL TIME categoria 1
             if($layer->category_id==1){

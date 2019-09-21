@@ -61,6 +61,7 @@ md-whiteframe="4" md-disable-close-events>
          <p layout-margin="">
             Acontinuación encontrará las distintas capas de información que podrá observar sobre el mapa
             Seleccione y luego de clic en ver.
+
         </p>
         <md-list>
             <div ng-repeat="category in vm.categories">
@@ -81,13 +82,17 @@ md-whiteframe="4" md-disable-close-events>
                                 
                                 <span flex></span>
                                  
-                                 <md-icon ng-click="vm.add_nav_item($event, 'layer', $index)" class="md-secondary"  md-font-icon="ion-plus-circled" 
+                                 <md-icon ng-click="vm.add_nav_item($event, 'layer', category)" class="md-secondary"  md-font-icon="ion-plus-circled" 
                                 aria-label="download"></md-icon>
+                                <md-icon ng-if="category.hide==true" ng-click="category.hide=false" class="md-secondary"  md-font-icon="ion-chevron-down" 
+                                aria-label="up"></md-icon>
+                                <md-icon ng-if="category.hide!=true" ng-click="category.hide=true" class="md-secondary"  md-font-icon="ion-chevron-up" 
+                                aria-label="down"></md-icon>
                         </md-list-item>
                 </md-subheader>
-                <md-list-item ng-repeat="layer in category.layers" class="noright">
-                    <div class="md-avatar" style="background-color:  {{layer.icon}}"></div>
-                    <p> {{ layer.name | capitalize}} </p>
+                <md-list-item ng-if="category.hide!==true" ng-repeat="layer in category.layers" class="noright">
+                        <img src="{{category.icon}}" class="md-avatar layer-avatar" alt="{{category.name}}">
+                        <p> {{ layer.name | capitalize}} </p>
                     <md-icon ng-click="" md-svg-src="/img/edit.svg" aria-label="edit" class="md-secondary md-hue-3" ></md-icon>
                     <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
                 <md-divider></md-divider>
