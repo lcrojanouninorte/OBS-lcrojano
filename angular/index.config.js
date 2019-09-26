@@ -3,6 +3,7 @@ import { AclConfig } from './config/acl.config'
 import { RoutesConfig } from './config/routes.config'
 import { LoadingBarConfig } from './config/loading_bar.config'
 import { SatellizerConfig } from './config/satellizer.config'
+import { MaterialConfig } from './config/material.config'
 
 angular.module('app.config')
   .config(LocalizationConfig)
@@ -10,6 +11,5 @@ angular.module('app.config')
   .config(RoutesConfig)
   .config(LoadingBarConfig)
   .config(SatellizerConfig)
-
-
-
+  .config(MaterialConfig)
+  

@@ -16,9 +16,12 @@ class CreateLayersTable extends Migration
             $table->increments('id')->unsigned();
             $table->string('category_id');
             $table->string('name');
-            $table->string('shp_zip_path');
-            $table->string('geojson_file_path');
+            $table->string('source');
+            $table->string('sourceType');
             $table->string('icon');
+            $table->boolean('state');
+            $table->string('glSource');
+            $table->string('glLayers');
             $table->string('state');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 

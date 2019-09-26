@@ -1,7 +1,29 @@
-<div layout-fill flex mapboxgl gl-controls="vm.glControls" gl-zoom="{ value: 9 }" gl-center="{ lng: -74.9, lat: 9.8 }"
-    gl-pitch="{ value: 50 }" gl-bearing="{ value: 60   }" gl-markers="vm.glMarkers"
-    gl-style="'mapbox://styles/mapbox/dark-v9'">
+ <!--
+<div>{{vm.glLayers|json}}
+    <br>
+        {{vm.glSources|json}}
+        </div> -->
+<div id="obsMap" layout-fill flex 
+mapboxgl 
+gl-controls="vm.glControls" 
+gl-zoom="{ value: 8 }" 
+gl-center="{ lng: -75, lat:9 }"
+gl-pitch="{ value:70 }" 
+gl-bearing="{ value: 40   }" 
+gl-markers="vm.glMarkers" 
+gl-sources="vm.glSources"
+gl-layers="vm.glLayers" gl-style="vm.glStyle">
 </div>
+ <div id='menu' layout="row" layout-align="center center" ng-show="vm.showStyles">
+        <md-radio-group layout="row" >
+                <md-radio-button id='streets-v11' type='radio'  name='rtoggle' value='mapbox://styles/mapbox/basic-v8'     ng-click="vm.changeStyle('basic-v8')" >streets</md-radio-button>
+                <md-radio-button id='light-v10' type='radio'    name='rtoggle' value='mapbox://styles/mapbox/light-v10'    ng-click="vm.changeStyle('light-v10')" >light</md-radio-button>
+                <md-radio-button id='dark-v10' type='radio'     name='rtoggle' value='mapbox://styles/mapbox/dark-v10'     ng-click="vm.changeStyle('dark-v10')" >dark</md-radio-button>
+                <md-radio-button id='outdoors-v11' type='radio' name='rtoggle' value='mapbox://styles/mapbox/satellite-v9' ng-click="vm.changeStyle('satellite-v9')" >satellite</md-radio-button>
+                <md-radio-button id='satellite-v9' type='radio' name='rtoggle' value='mapbox://styles/mapbox/outdoors-v11' ng-click="vm.changeStyle('outdoors-v11')" >outdoors</md-radio-button>
+        </md-radio-group>
+</div>
+<!--gl-center="{ lat: 45.53, lng: -73.58 }"-->
 
 
 
@@ -38,7 +60,7 @@
 <md-fab-speed-dial ng-click="vm.toggleSidenav(); " md-open="vm.isOpen" md-direction="left"
     class="md-scale md-fab-up-right stick-fab-center-bottom">
     <md-fab-trigger>
-        <md-button aria-label="menu" class="md-fab md-primary">
+        <md-button aria-label="menu" class="md-fab md-secondary">
             <md-tooltip md-direction="left" md-autohide="false">Menu</md-tooltip>
             <md-icon md-svg-src="/img/shp1.svg"></md-icon>
         </md-button>
@@ -47,58 +69,66 @@
 
 
 <!--Side Nav, se activa con el FAB anterior-->
-<md-sidenav class="md-sidenav-left" md-disable-backdrop  md-component-id="closeEventsDisabled" 
-md-whiteframe="4" md-disable-close-events>
+<md-sidenav class="md-sidenav-left" md-disable-backdrop md-component-id="closeEventsDisabled" md-whiteframe="4"
+    md-disable-close-events>
 
     <md-toolbar class="md-theme-indigo">
-        <div  class="md-toolbar-tools">
-            <h1>Capas de Información</h1>
+        <div class="md-toolbar-tools">
+            <h1>CAPAS</h1>
             <span flex></span>
-            <md-icon ng-click="vm.add_nav_item($event, 'category')" md-font-icon="ion-plus-circled" aria-label="add"><md-tooltip md-direction="left">Refresh</md-tooltip></md-icon>
+            <md-icon ng-click="vm.add_nav_item($event, 'category')" md-font-icon="ion-plus-circled" aria-label="add">
+                <md-tooltip md-direction="left">Refresh</md-tooltip>
+            </md-icon>
         </div>
     </md-toolbar>
-    
-         <p layout-margin="">
-            Acontinuación encontrará las distintas capas de información que podrá observar sobre el mapa
-            Seleccione y luego de clic en ver.
 
-        </p>
-        <md-list>
-            <div ng-repeat="category in vm.categories">
-                <md-subheader  class="md-no-sticky ">
-                        <md-list-item>
-                                <img src="{{category.icon}}" class="md-avatar" alt="{{category.name}}">
-                                <span  ng-dblclick="category.edit=true" ng-if="!category.edit || category.id==1"><a>{{category.name | uppercase}} </a> </span>
-                                
-                                <div layout="row" flex ng-if="category.edit && category.id!=1">
-                                    <md-input-container style="min-width:100px; padding: 0; margin: 0;" flex-gt-sm>
-                                        <input type="text" name="name" ng-model="category.name" />
-                                    </md-input-container>
-                                    <div flex>
-                                        <md-icon ng-click="vm.editCategory(category)" class="delete-col" md-svg-src="/img/edit-col.svg" aria-label="edit col "></md-icon>
-                                        <md-icon ng-click="vm.deleteCategory(category, $index)" class="delete-col" md-svg-src="/img/del-col.svg" aria-label="del col "></md-icon>
-                                    </div>
-                                 </div>
-                                
-                                <span flex></span>
-                                 
-                                 <md-icon ng-click="vm.add_nav_item($event, 'layer', category)" class="md-secondary"  md-font-icon="ion-plus-circled" 
-                                aria-label="download"></md-icon>
-                                <md-icon ng-if="category.hide==true" ng-click="category.hide=false" class="md-secondary"  md-font-icon="ion-chevron-down" 
-                                aria-label="up"></md-icon>
-                                <md-icon ng-if="category.hide!=true" ng-click="category.hide=true" class="md-secondary"  md-font-icon="ion-chevron-up" 
-                                aria-label="down"></md-icon>
-                        </md-list-item>
-                </md-subheader>
-                <md-list-item ng-if="category.hide!==true" ng-repeat="layer in category.layers" class="noright">
-                        <img src="{{category.icon}}" class="md-avatar layer-avatar" alt="{{category.name}}">
-                        <p> {{ layer.name | capitalize}} </p>
-                    <md-icon ng-click="" md-svg-src="/img/edit.svg" aria-label="edit" class="md-secondary md-hue-3" ></md-icon>
-                    <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
+     
+    <md-list>
+        <div ng-repeat="category in vm.categories">
+            <md-subheader flex class="md-primary">
+               <!-- <md-list-item class="noright">-->
+                <div   layout="row">
+                    <!--<img src="{{category.icon}}" class="md-avatar category-avatar" alt="{{category.name}}">-->
+                    <span flex="70" ng-dblclick="category.edit=true"
+                        ng-if="!category.edit || category.id==1"> {{category.name | uppercase}}   </span>
+
+                    <div  layout="row"  ng-if="category.edit && category.id!=1">
+                        <md-input-container   style="min-width:100px; width: 250px; padding: 0; margin: 0;" flex-gt-sm>
+                            <input type="text" name="name" ng-model="category.name" />
+                        </md-input-container>
+                        <div >
+                            <md-icon ng-click="vm.editCategory(category)" class="delete-col "
+                                md-svg-src="/img/edit-col.svg" aria-label="edit col "></md-icon>
+                            <md-icon ng-click="vm.deleteCategory(category, $index)" class="delete-col"
+                                md-svg-src="/img/del-col.svg" aria-label="del col "></md-icon>
+                        </div>
+                    </div>
+
+                    <span flex class="flex"></span>
+                    <md-icon flex ng-click="vm.add_nav_item($event, 'layer', category)" class="md-secondary"
+                        md-font-icon="ion-plus-circled" aria-label="download"></md-icon>
+                    <md-icon flex ng-if="category.hide==true" ng-click="category.hide=false" class="md-secondary"
+                        md-font-icon="ion-chevron-down" aria-label="up"></md-icon>
+                    <md-icon flex ng-if="category.hide!=true" ng-click="category.hide=true" class="md-secondary"
+                        md-font-icon="ion-chevron-up" aria-label="down"></md-icon>
+                </div>
+                <!--</md-list-item>-->
+            </md-subheader>
+            <md-list-item hm-swipeleft="layer.showDelete = false"
+                hm-manager-options='{"enabled":true,"preventGhosts":true}' hm-swiperight="layer.showDelete = true"
+                ng-if="category.hide!==true" ng-repeat="layer in category.layers" class="noright">
+                <img src="{{category.icon}}" class="md-avatar layer-avatar" alt="{{category.name}}">
+                <p> {{ layer.name | capitalize}} </p>
+                <md-icon ng-show="layer.showDelete" ng-click="vm.deleteLayer(layer, category, $index)"
+                    md-svg-src="/img/del.svg" aria-label="delete layer" class="md-secondary md-hue-3"></md-icon>
+                <md-checkbox ng-true-value="true" ng-false-value="false" ng-checked="layer.state" ng-model="layer.state"
+                    ng-change="vm.showLayer(layer,$index)" class="md-secondary"></md-checkbox>
                 <md-divider></md-divider>
-  
-            </div>
-        </md-list>
+
+        </div>
+    </md-list>
+
+
 </md-sidenav>
 
 
@@ -106,8 +136,8 @@ md-whiteframe="4" md-disable-close-events>
 
 <!--TEMPLATES FOR MODALS-->
 
-    <!--MODAL AÑADIR CATEGORIA-->
-    <script type="text/ng-template" id="add-category-dialog.html">
+<!--MODAL AÑADIR CATEGORIA-->
+<script type="text/ng-template" id="add-category-dialog.html">
         <md-dialog aria-label="Añadir Categoria">
             <form ng-cloak   >
                 <md-toolbar>
@@ -152,9 +182,9 @@ md-whiteframe="4" md-disable-close-events>
             </form>
         </md-dialog>  
     </script>
-    
-    <!--MODAL AÑADIR LAYER-->
-    <script type="text/ng-template" id="add-layer-dialog.html">
+
+<!--MODAL AÑADIR LAYER-->
+<script type="text/ng-template" id="add-layer-dialog.html">
         <md-dialog aria-label="Añadir Categoria">
             <form ng-cloak   >
                 <md-toolbar>
@@ -166,27 +196,52 @@ md-whiteframe="4" md-disable-close-events>
                         </md-button>
                     </div>
                 </md-toolbar>     
-                <md-dialog-content style="min-width:400px; ">
-                        <div class="md-dialog-content">
-                            <h2>Categoria: {{category.name}}</h2>
+                <md-dialog-content layout="column" style="min-width:400px; ">
+                    <div class="md-dialog-content">
+                        <h2>Categoria: {{category.name}}</h2>
                             
 
                         <br/>
-                           <md-input-container class="md-icon-float md-block">
+                        <md-input-container class="md-icon-float md-block">
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Nombre</label>
+                        <input ng-model="layer.name" type="text">
+                        </md-input-container>
+
+                        <p>Seleccione una opción: <span class="radioValue">{{ layer.sourceType }}</span> </p>
+                        <md-radio-group layout="row" ng-model="layer.sourceType">
+                                <md-radio-button value="file" class="md-primary">Subir archivo</md-radio-button>
+                                <md-radio-button value="url"> GeoJson desde Url </md-radio-button>
+                                <md-radio-button value="realtime"> API Rest </md-radio-button>
+                        </md-radio-group>
+
+                        <md-input-container ng-if="layer.sourceType=='url' || layer.sourceType=='realtime'" class="md-icon-float md-block">
                             <!-- Use floating label instead of placeholder -->
-                            <label>Nombre</label>
-                            <input ng-model="layer.name" type="text">
-                          </md-input-container>
+                            <label>Url</label>
+                            <input ng-model="layer.url" type="text">
+                        </md-input-container>
+                
+                        <md-input-container ng-if="layer.sourceType=='file'" class="md-icon-float md-block">
+                            <label> GeoJson File</label>
+                            <md-button ng-if="!layer.file" class="md-icon-button "
+                                aria-label="upload" ngf-select ng-model="layer.file" 
+                                name="shpfile"
+                                accept=".geojson" ngf-max-size="100MB" required
+                                ngf-model-invalid="vm.errorFile2">
+                                <md-tooltip md-direction="top">Subir imagen</md-tooltip>
+                                <md-icon md-font-icon="ion-upload"></md-icon>
+                            </md-button>
 
-                          SHP file_path
-
-                          geojson
- 
-                      
-                           <md-checkbox name="tos" ng-model="layer.state" required>
-                                Capa visible para visitantes?
-                            </md-checkbox> 
-                      
+                            <img flex ng-if="layer.file" src="/img/zip-file.svg" class="thumb">
+                            <md-button flex ng-click="layer.file = null"
+                                ng-show="layer.file" class="md-icon-button " aria-label="delete">
+                                <md-tooltip md-direction="top">Borrar Archivo</md-tooltip>
+                                <md-icon md-font-icon="ion-close-circled"></md-icon>
+                            </md-button>
+                            <span class="progress" ng-show="layer.file.progress >= 0">
+                                <div ng-bind="layer.file.progress + '%'"></div>
+                            </span>
+                        </md-input-container>
                      </div>
                 </md-dialog-content>
                 <md-dialog-actions layout="row" >
@@ -197,9 +252,9 @@ md-whiteframe="4" md-disable-close-events>
             </form>
         </md-dialog>  
     </script>
-    
 
-    <!--MODAL DE ESTACIONES!-->
+
+<!--MODAL DE ESTACIONES!-->
 <script type="text/ng-template" id="station-dialog.html">
     <md-dialog aria-label="Datos de la estación {{station.name}}">
         <form ng-cloak  >
