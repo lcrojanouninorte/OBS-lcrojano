@@ -1,5 +1,5 @@
 <header class="main-header">
-    <md-toolbar layout="column">
+    <md-toolbar md-whiteframe="4" layout="column">
         <div class="md-toolbar-tools">
             <a href="/" class="logo">
                 <span class="logo-mini">
@@ -139,6 +139,7 @@
                             <span class="hidden-xs">Ingresar</span>
 
                         </a>
+                   
                         <ul class="dropdown-menu" uib-dropdown-menu ng-if="vm.isLogged">
                             <li class="user-header">
                                 <img src="{{vm.userData.avatar}}" class="img-circle" alt="User Image"
