@@ -6,6 +6,7 @@ angular.module('app', [
   'app.routes',
   'app.config',
   'app.partials',
+
   'ngMaterial',
   'mgo-angular-wizard',
   'angular-svg-round-progressbar',
@@ -15,25 +16,15 @@ angular.module('app', [
   'daterangepicker',
   'ng-fx',
   'ng-currency',
-  'gantt',
-            'gantt.sortable',
-            'gantt.movable',
-            'gantt.drawtask',
-            'gantt.tooltips',
-            'gantt.bounds',
-            'gantt.progress',
-            'gantt.table',
-            'gantt.tree',
-            'gantt.groups',
-            'gantt.resizeSensor',
-            'gantt.overlap',
-            'gantt.dependencies',
-'ngFileUpload',
-'ds.clock',
-'mdPickers',
-'mapboxgl-directive',
-'ngBootstrapLightbox',
-'hmTouchEvents'
+  'ngFileUpload',
+  'ds.clock',
+  'mdPickers',
+  'mapboxgl-directive',
+  'ngBootstrapLightbox',
+  'hmTouchEvents',
+  'ngAnimate',
+  'angular-joyride'
+  
 ]).config(function($mdThemingProvider) {
   $mdThemingProvider.definePalette('amazingPaletteName', {
     '50': '#006064',
@@ -45,17 +36,17 @@ angular.module('app', [
     '600': 'e8f5f9',
     '700': 'd32f2f',
     '800': 'c62828',
-    '900': '#4CAF50',
+    '900': '#006064',
     'A100': '#006064',
     'A200': 'ff5252',
     'A400': 'ff1744',
     'A700': '#e8f5e9',
-    'contrastDefaultColor': 'light',    // whether, by default, text (contrast)
+    'contrastDefaultColor': 'dark',    // whether, by default, text (contrast)
                                         // on this palette should be dark or light
 
     'contrastDarkColors': [ '100', //hues which contrast should be 'dark' by default
      '200', '300', '400', 'A100'],
-    'contrastLightColors': ['50']    // could also specify this if default was 'dark'
+    'contrastLightColors': ['50', '900']    // could also specify this if default was 'dark'
   });
 
   $mdThemingProvider.theme('default')

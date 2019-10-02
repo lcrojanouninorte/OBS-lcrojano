@@ -200,9 +200,23 @@ class AuthController extends Controller
 
         $token = JWTAuth::fromUser($user);
 
-        /*Mail::send('emails.userverification', ['verificationCode' => $verificationCode], function ($m) use ($request) {
-            $m->to($request->email, 'test')->subject('Email Confirmation');
-        });*/
+        //asignar rol  al nuevo usuario
+        $role = Role::where("slug", 'visitor')->get();
+        $user->attachRole($role);
+
+        $data = array(
+            'verificationCode'=>$user->email_verification_code,
+            'password'=> $request->password,
+            'email'=>$user->email
+        );
+
+        $token = JWTAuth::fromUser($user);
+
+        Mail::send('emails.userverification', $data, function ($m) use ($user) {
+            $m->from('obsriomagdalena@uninorte.edu.co', 'Observatorio del Río Magdalena ');
+            $m->to($user->email)->subject('Confirmación Plataforma OBS');
+        });
+
 
         return response()->success(compact('user', 'token'));
     }

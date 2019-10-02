@@ -178,6 +178,7 @@ return [
 
         Laravolt\Avatar\ServiceProvider::class,
 
+        Hmazter\LaravelScheduleList\ScheduleListServiceProvider::class,
 
 
     ],
