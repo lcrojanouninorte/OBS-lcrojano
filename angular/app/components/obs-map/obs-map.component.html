@@ -1,5 +1,6 @@
- <!--
-<div>{{vm.glLayers|json}}
+<!--<div style="max-height: 200px; overflow: auto;"> {{vm.glMarkers|json}} </div>
+ 
+<div> {{vm.glLayersNames|json}}
     <br>
         {{vm.glSources|json}}
         </div> -->
@@ -7,8 +8,8 @@
 mapboxgl 
 gl-controls="vm.glControls" 
 gl-zoom="{ value: 8 }" 
-gl-center="{ lng: -75, lat:9 }"
-gl-pitch="{ value:70 }" 
+gl-center="{ lng: -75, lat:10.5 }"
+gl-pitch="{ value:30 }" 
 gl-bearing="{ value: 40   }" 
 gl-markers="vm.glMarkers" 
 gl-sources="vm.glSources"
@@ -55,12 +56,11 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
     </a>
 </div>
 
-
 <!--FAB colocado en la mitad de la pantalla al bottom-->
-<md-fab-speed-dial ng-click="vm.toggleSidenav(); " md-open="vm.isOpen" md-direction="left"
+<md-fab-speed-dial id="md-fab-layers" ng-click="vm.toggleSidenav(); " md-open="vm.isOpen" md-direction="left"
     class="md-scale md-fab-up-right stick-fab-center-bottom">
     <md-fab-trigger>
-        <md-button aria-label="menu" class="md-fab md-secondary">
+        <md-button id="menu_fab" aria-label="menu" class="md-fab md-secondary">
             <md-tooltip md-direction="left" md-autohide="false">Menu</md-tooltip>
             <md-icon md-svg-src="/img/shp1.svg"></md-icon>
         </md-button>
@@ -112,16 +112,19 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
                     <md-icon flex ng-if="category.hide!=true" ng-click="category.hide=true" class="md-secondary"
                         md-font-icon="ion-chevron-up" aria-label="down"></md-icon>
                 </div>
-                <!--</md-list-item>-->
+                <!--</md-list-item>                 
+                    ng-if="category.hide!==true" 
+ -->
             </md-subheader>
             <md-list-item hm-swipeleft="layer.showDelete = false"
-                hm-manager-options='{"enabled":true,"preventGhosts":true}' hm-swiperight="layer.showDelete = true"
-                ng-if="category.hide!==true" ng-repeat="layer in category.layers" class="noright">
+                hm-manager-options='{"enabled":true,"preventGhosts":true}' 
+                hm-swiperight="layer.showDelete = true"
+                ng-repeat="layer in category.layers" class="noright">
                 <img src="{{category.icon}}" class="md-avatar layer-avatar" alt="{{category.name}}">
                 <p> {{ layer.name | capitalize}} </p>
                 <md-icon ng-show="layer.showDelete" ng-click="vm.deleteLayer(layer, category, $index)"
                     md-svg-src="/img/del.svg" aria-label="delete layer" class="md-secondary md-hue-3"></md-icon>
-                <md-checkbox ng-true-value="true" ng-false-value="false" ng-checked="layer.state" ng-model="layer.state"
+                <md-checkbox ng-true-value="1" ng-false-value="0" ng-checked="layer.state == 1" ng-model="layer.state"
                     ng-change="vm.showLayer(layer,$index)" class="md-secondary"></md-checkbox>
                 <md-divider></md-divider>
 
@@ -305,3 +308,6 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
         </form>
     </md-dialog>  
 </script>
+
+
+<joyride></joyride>

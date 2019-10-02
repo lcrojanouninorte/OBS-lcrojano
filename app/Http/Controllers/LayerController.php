@@ -71,6 +71,7 @@ class LayerController extends Controller
 
          ]);
 
+
         try {
             $layer = [];
             $layer = new Layer;
@@ -81,99 +82,115 @@ class LayerController extends Controller
             //add or update layer
             if($request->has('id')){
                 $layer =  layer::find($request->input('id'));
-                    $log->desc = "User ($user->id, $user->name): UPDATE  ";
-            }
-            $layer->name = trim($request->input('name'));
-            $layer->category_id = $request->input('category_id');
-            $layer->state = false;
-            $layer->sourceType = $request->input('sourceType');
-            $layer->icon = "layer.svg";
-            //Id antes de salvar
-            $tempId =  $this->getNextId('layers');
-            $layer->id = $tempId;
-            
-            //Save file and get local source (when is file)
-            if($request->hasFile('file')){
-                $file  = $request->file('file');
-                //PASO 1: descargar el archivo ZIP en el folder 
-                //Guardaremos en Layers/Category/layer/file.geojson
-                $destinationPath = "";
-                $fileCompleteName = $file->getClientOriginalName();
-                $fileName = explode(".", $fileCompleteName)[0];
-                $extension = explode(".", $fileCompleteName)[1];
-                $category = Category::find($layer->category_id);
-                $cat_name = $category->name;
-                $layer_name = $layer->name;
-                $unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
-                        'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
-                        'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
-                        'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
-                        'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
-                $cat_name = strtr( $cat_name, $unwanted_array );
-                $layer_name = strtr( $layer_name, $unwanted_array );
-                $destinationPath = "LAYERS/$cat_name/$layer_name/"; //./relative to mapbox
-                $file_saved = Storage::disk('plataforma')->put(
-                    $destinationPath.$fileCompleteName,
-                    file_get_contents($file->getRealPath())
-                );
-                $layer->source = $destinationPath.$fileCompleteName;   
-            }
-            
-            //Crear glLayer y glSource para no sobrecargar al cliente
-            //GLSOURCE
-            $glSource = (object) [
-                "id"    => 'Source'.$layer->id,
-                "type"  => "geojson"
-            ];
-            $jsonString ="";
-            switch ($layer->sourceType) { //Obtener el paraetro Data (URL, FIle o gejson creado)
-                case 'file':
-                    $glSource->data = './files/shares/plataforma/'.$layer->source;
-                    $disk_path = Storage::disk('plataforma')->getAdapter()->getPathPrefix();
-                    $jsonString = file_get_contents($disk_path.'/'.$layer->source);
-                    break;
-                case 'url':
-                    $layer->source = $request->input('url'); 
-                    $glSource->data = $layer->source;
-                    $jsonString = file_get_contents($layer->source);
-                    break;
-                case 'realtime':
-                    $layer->source = $request->input('url'); 
-                    $glSource->data = $this->toGeoJSON($layer->source);
-                    $jsonString = json_encode($glSource->data);
-                    break;
+                $log->desc = "User ($user->id, $user->name): UPDATE  ";
+                $layer->state =  $request->input('state') ;
                 
-                default:
-                    # code...
-                    break;
-            }
-            //return response()->error()
-            $layer->glSource = json_encode($glSource,JSON_UNESCAPED_SLASHES);
-            //GLLAYERS
-            //Buscamos caso estandar: features->geometry->type en el geojson obtenido
-            $geoJson = json_decode($jsonString, true);
-            $geoTypes = [];
-            $geoLayers = [];
-            if(!array_key_exists("GeometryCollection", $geoJson)){
-                foreach ($geoJson['features']  as $key => $feature) {
-                    if(!in_array($feature["geometry"]["type"], $geoTypes) ){
-                        $layerStyle = $this->getGeoTypesStyles($feature["geometry"], $layer);
-                        array_push($geoTypes,$feature["geometry"]["type"]);
-                        array_push($geoLayers,$layerStyle);
-                    }
-                }
-            }else{
-                //pero puede ser caso especial de geometries
-                foreach ($geoJson['geometries']  as $key => $geometry) {
-                    if(!in_array($geometry["type"], $geoTypes) ){
-                        $layerStyle = $this->getGeoTypesStyles($geometry, $layer);
-                        array_push($geoTypes,$geometry["type"]);
-                        array_push($geoLayers,$layerStyle);
-                    }
-                }
-            }
-            $layer->glLayers =  json_encode($geoLayers, JSON_UNESCAPED_SLASHES);
+               // return response()->error($request->input('state'));  
 
+            }
+            //Id antes de salvar
+            if(!$layer->id){
+                $tempId =  $this->getNextId('layers');
+                $layer->id = $tempId;
+                $layer->name = trim($request->input('name'));
+                $layer->category_id = $request->input('category_id');
+                $layer->state = false;
+
+                $layer->sourceType = $request->input('sourceType');
+                $layer->icon = "layer.svg";
+                
+                //Save file and get local source (when is file)
+
+                if($request->hasFile('file') ){
+                    $file  = $request->file('file');
+                    //PASO 1: descargar el archivo ZIP en el folder 
+                    //Guardaremos en Layers/Category/layer/file.geojson
+                    $destinationPath = "";
+                    $fileCompleteName = $file->getClientOriginalName();
+                    $fileName = explode(".", $fileCompleteName)[0];
+                    $extension = explode(".", $fileCompleteName)[1];
+                    $category = Category::find($layer->category_id);
+                    $cat_name = $category->name;
+                    $layer_name = $layer->name;
+                    $unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+                            'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
+                            'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
+                            'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
+                            'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
+                    $cat_name = strtr( $cat_name, $unwanted_array );
+                    $layer_name = strtr( $layer_name, $unwanted_array );
+                    $destinationPath = "LAYERS/$cat_name/$layer_name/"; //./relative to mapbox
+                    $file_saved = Storage::disk('plataforma')->put(
+                        $destinationPath.$fileCompleteName,
+                        file_get_contents($file->getRealPath())
+                    );
+                    $layer->source = $destinationPath.$fileName.".".$extension;   
+                }
+                
+                //Crear glLayer y glSource para no sobrecargar al cliente
+                //GLSOURCE
+                $glSource = (object) [
+                    "id"    => 'Source'.$layer->id,
+                    "type"  => "geojson"
+                ];
+                $jsonString ="";
+
+                switch ($layer->sourceType) { //Obtener el paraetro Data (URL, FIle o gejson creado)
+                    case 'file':
+
+                        $glSource->data = './files/shares/plataforma/'.$layer->source;
+                        $disk_path = Storage::disk('plataforma')->getAdapter()->getPathPrefix();
+                        $jsonString = file_get_contents($disk_path.'/'.$layer->source);
+
+                        break;
+                    case 'url':
+                        $layer->source = $request->input('url'); 
+                        $glSource->data = $layer->source;
+                        $jsonString = file_get_contents($layer->source);
+                        break;
+                    case 'realtime':
+                        $layer->source = $request->input('url'); 
+                        $glSource->data = $this->toGeoJSON($layer->source);
+                        $jsonString = json_encode($glSource->data);
+                        //Create cron job
+                        
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                }
+                //return response()->error()
+                $layer->glSource = json_encode($glSource,JSON_UNESCAPED_SLASHES);
+                //GLLAYERS
+                //Buscamos caso estandar: features->geometry->type en el geojson obtenido
+                $geoJson = json_decode($jsonString, true);
+                $geoTypes = [];
+                $geoLayers = [];
+                    foreach ($geoJson['features']  as $key => $feature) {
+                        if($feature["geometry"]["type"] == "GeometryCollection") {
+                            //pero puede ser caso especial de geometries
+                            foreach ($feature["geometry"]['geometries']  as $key => $geometry) {
+                                if(!in_array($geometry["type"], $geoTypes) ){
+                                    $layerStyle = $this->getGeoTypesStyles($geometry, $layer, $feature);
+                                    array_push($geoTypes,$geometry["type"]);
+                                    array_push($geoLayers,$layerStyle);
+                                }
+                            }
+                        }else{
+
+                            if(!in_array($feature["geometry"]["type"], $geoTypes) ){
+    
+                                $layerStyle = $this->getGeoTypesStyles($feature["geometry"], $layer,$feature);
+                                array_push($geoTypes,$feature["geometry"]["type"]);
+                                array_push($geoLayers,$layerStyle);
+                            }
+                        }
+                    }
+                
+                $layer->glLayers =  json_encode($geoLayers, JSON_UNESCAPED_SLASHES);
+        }
+            
             if($layer->save()){
                 $log->table_id = $layer->id;
                 $log->desc = $log->desc." Layer ($layer->id, $layer->name).";
@@ -216,6 +233,7 @@ class LayerController extends Controller
                         ]
                     ]
                 ];
+                //Convertir los demas elementos en array de propiedades
                 foreach($items as $key => $item) { 
                     $feature->properties[$key] = $item;       
                 }   
@@ -232,7 +250,7 @@ class LayerController extends Controller
     
     }
 
-    public function getGeoTypesStyles($geometry, $layer){
+    public function getGeoTypesStyles($geometry, $layer,$feature){
         $geoStyles =[];
         //background, fill, line, symbol, raster, circle, fill-extrusion, heatmap, hillshade.
         //https://docs.mapbox.com/mapbox-gl-js/style-spec/#layers    
@@ -247,21 +265,41 @@ class LayerController extends Controller
             //TODO: verificar caso en el que hay un circulo en ves de un marcador
             //TODO: verificar caso heatmap
 
-            return  (object) [
-                        //"target" => $target,
-                        "layer_id" => $layer->id,
-                        "id" => "Layer".$geoType.$layer->id,
-                        "interactive" => true,
-                        "source"  =>"Source".$layer->id,
-                        "type" => "symbol",
-                        "layout" => [
-                            "icon-image"  => "marker-stroked-11",
-                            "icon-size"  => 2, 
-                            "visibility" => 'visible'
- 
-                        ],
-                        "filter"  => ["==", "\$type", $geoType]
+            $style =  (object) [ //Basic
+                "layer_id" => $layer->id,
+                "id" => "Layer".$geoType.$layer->id,
+                "source"  =>"Source".$layer->id,
+                "filter"  => ["==", "\$type", $geoType]
+            ];
+                    //Crear layout segun pripiedades comunes:
+                    //Name, Icon
+                    $layout =  [
+                        "visibility" => "visible"
                     ];
+
+                    if(!array_key_exists("properties",$feature)){
+                        $feature["properties"] = ["name"=>"point"];
+                    }
+                    if(array_key_exists("icon", $feature["properties"])){
+                        $layout["icon-size"] = 0.25;
+                        $layout["icon-image"] = $feature["properties"]["icon"];
+                        $style->type ="symbol";
+                        if(array_key_exists("name", $feature["properties"])){
+                            $layout["text-field"] = "{".$feature['properties']['name']."}";
+                        }
+                    }else{
+                        $style->type="circle";
+                        $style->paint = [
+                            'circle-radius'=> 5,
+                            'circle-color'=> '#088',
+                            'circle-opacity'=> 0.7,
+                            'circle-stroke-width'=> 2,
+                            'circle-stroke-color'=> '#887'
+                        ];
+                    }
+
+                    $style->layout=$layout;
+                    return $style;
                 break;
                 
             case "MultiLineString":
@@ -280,7 +318,7 @@ class LayerController extends Controller
                             "line-cap"=> "round",
                             "visibility"=> "visible"
                         ],
-                        "filter"  => ["==", "\$type", $geoType]
+                        "filter"  => ["==", "\$type", "LineString"] //Revisar si incluir multiline string
                     ];
                 break;
                       
@@ -294,6 +332,7 @@ class LayerController extends Controller
                     "type" => "fill",
                     "paint" => [
                         "fill-color" => "#088",
+                        "fill-outline-color" =>"#883",
                         "fill-opacity"=> 0.6,
                     ],
                     "layout" => [
@@ -322,6 +361,9 @@ class LayerController extends Controller
      */
     public function show($id)
     {
+
+        $layer = Layer::find($id);
+        return response()->success($layer);
         //
              /*
 CODIGO PARA UNZIP Y ENCONTRAR UN ARCHIVO ZIP RAP COMPRIMIDO

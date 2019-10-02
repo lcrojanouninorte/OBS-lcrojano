@@ -1,7 +1,7 @@
 {
   "name": "laravel-angularjs-admin",
   "authors": [
-    "luis <alexquiambao@gmail.com>"
+    "luis <lcrojano@gmail.com>"
   ],
   "ignore": [
     "**/.*",
@@ -50,9 +50,10 @@
     "md-pickers": "^1.1.1",
     "angular-mapboxgl-directive": "^0.44.0",
     "ng-bootstrap-lightbox": "^1.0.2",
-    "AngularHammer": "ryanmullins-angular-hammer#^2.2.0"
+    "AngularHammer": "ryanmullins-angular-hammer#^2.2.0",
+    "angular-joyride": "^1.0.10"
   },
   "resolutions": {
-    "angular": "~1.6.x"
+    "angular": "~1.7.x"
   }
 }

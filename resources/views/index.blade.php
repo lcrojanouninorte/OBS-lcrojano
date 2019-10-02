@@ -24,7 +24,7 @@
 
 
 
-    <title>Plataforma FFI </title>
+    <title>Plataforma Río Magdalena </title>
     <!-- DESARROLLADO POR LUIS ROJANO -->
     <!-- @mail: lcrojano@gmail.com -->
     <!-- @web: lcrojano.com -->

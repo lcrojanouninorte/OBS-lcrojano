@@ -1,10 +1,14 @@
 class ObsMapController {
-  constructor(API, AclService, $log, $compile, $scope, $mdDialog, $mdSidenav, lightbox, $timeout, Upload,$window, mapboxglMapsData, $interval) {
+  constructor(API, AclService, $auth, $log, $compile, $scope, $mdDialog, $mdSidenav, lightbox, $timeout, Upload,$window, mapboxglMapsData, $interval, $state,joyrideService, $http) {
     'ngInject';
 
     //
     this.API = API
+    this.$http = $http
+ 
+    this.$state =$state
     this.map = null
+    this.$auth = $auth
     this.mapboxglMapsData = mapboxglMapsData
     this.$log = $log
     this.$timeout = $timeout
@@ -22,7 +26,9 @@ class ObsMapController {
     this.glMarkers = []
     this.glSources =[]//contendra el geojson de cada capa
     this.glLayers = []//contendra cada capa
-    this.glStyle = 'mapbox://styles/mapbox/satellite-v9'
+    this.glLayersNames = []//contiene nombres de las capas para filtrar en onclick map
+    this.glApiLayers = [] //contine capas tipo API  las cuales se cargarán como markers
+    this.glStyle = 'mapbox://styles/mapbox/basic-v8'
     this.categories = {}
     this.glControls = {
       geocoder: {
@@ -65,8 +71,16 @@ class ObsMapController {
             position: 'top-left'
           },
           events: ['buttonClick']
-        }
-      ]
+        },
+        /*{
+          constructor: this.CustomControl2,
+          name: 'CustomControl2',
+          options: {
+            position: 'top-left'
+          },
+          events: ['buttonClick']
+        }*/
+      ] 
 
     }
     this.showStyles = false
@@ -86,7 +100,7 @@ class ObsMapController {
           let marker = {
             coordinates: [station.latitude, station.longitude],
             element: this.createElement(
-              station
+              station,station
             ),
             options: {
               anchor: 'bottom'
@@ -111,52 +125,148 @@ class ObsMapController {
 
       }
     })
+
+    this.joyride = joyrideService;
+    this.joyride.start = false;
+    let openSidenav =this.openSidenav
+    this.joyride.config = {
+      overlay: false,
+
+      steps : [
+        {
+          
+          title: "Bienvenido",
+          content: "<p>Bienvenidos al visor del Río Magdalena!</p><p> A continuación podrá observar las opciones que tiene disponible.</p>"
+        },
+         {
+          type: 'element',
+          selector: '#md-fab-layers',
+          placement: 'right',
+          title: 'Capas',
+          content: '<p>Al dar clic aquí, puede seleccionar entre las distintas capas disponibles.</p> '
+
+        },
+        {
+          type: 'element',
+          selector: '.md-sidenav-left',
+          placement: 'right',
+          title: 'Capas',
+          content: '<p>En este menú puede obsercar categorias y dentro de ellas capas que puede seleccionar para visualizar sobre el mapa.</p> ',
+          beforeStep: openSidenav
+
+        }, 
+        {
+          type: 'element',
+          selector: '.mapboxgl-ctrl-group',
+          placement: 'right',
+          title: 'Control del Mapa',
+          content: '<p>Controle el Zoom y el ángulo de  rotación del Mapa</p> ',
+
+        }, 
+        {
+          type: 'element',
+          selector: '.mapboxgl-ctrl-geolocate',
+          placement: 'right',
+          title: 'Encuentra tu posicion',
+          content: '<p>Encuentra tu posición actual con base en su IP</p> '
+        },
+        {
+          type: 'element',
+          selector: '.mapboxgl-ctrl-icon-layers',
+          placement: 'right',
+          title: 'Tipo de Mapa',
+          content: '<p>Puede elegir entre varios tipos de mapa al dar clic en este icono</p> '
+        }
+         
+      ]
+    } 
+  
+  }
+
+  openSidenav(){
+    let joyride = this.joyride
+    this.toggleSidenav().then(function(){
+      joyride.resumeJoyride();
+    });
+    
+  }
+  customNext(){
+      this.joyride.next();
+  }
+
+  go(index){
+    this.joyride.goTo(index)
+  }
+  
+  startJoyride(){
+    //console.log(true);
+    this.joyride.start = true;
   }
 
   //CUSTOM CONTROL FOR CHANGE MAPS STYLEs
     CustomControl(options) {
       this.options = this.options || {};
-
       angular.extend(this.options, options);
     }
-
+    CustomControl2(options) {
+      this.options = this.options || {};
+      angular.extend(this.options, options);
+    }
+     
     $onInit(){
       this.toggleSidenav = this.buildToggler('closeEventsDisabled');
-
       let Category = this.API.all('categories');
       let glLayers = this.glLayers
+      let glLayersNames = this.glLayersNames
       let glSources = this.glSources
-      let $timeout = this.$timeout
+      let glSymbols = this.glSymbols
+      let vm = this
+      //let $timeout = this.$timeout
       Category.getList()
         .then((response) => {
           this.categories = response.plain()
           angular.forEach(this.categories, function(category) {
             category.hide = true
             angular.forEach(category.layers, function(layer) {
-              if(layer.glSource!==null && layer.glLayers!==null){
-                  let jsonGlLayers = JSON.parse(layer.glLayers)
-                  angular.forEach(jsonGlLayers, function(glLayer) {
-                    glLayers.push(glLayer);
-                  });
-                glSources.push(JSON.parse(layer.glSource));
-              }
+                if(layer.glSource!=null && layer.glLayers!=null){
+                    let jsonGlLayers = JSON.parse(layer.glLayers)
+                    angular.forEach(jsonGlLayers, function(glLayer) {
+                      if(glLayer.type=="symbol"){
+                        //Si es tipo API (symbol) guardar para luego, cuando el mapa esta cargado, colocarlos en el mapa y hacer update periodico
+                        vm.glApiLayers.push(layer)
+                      }else{
+                        //Normal layer 
+                        if(layer.state == false){
+                          if(angular.isUndefined( glLayer.layout)){
+                            glLayer.layout = {"visibility":"none"}
+                          }else{
+                            glLayer.layout.visibility="none"
+                          }
+                        }
+                        glLayers.push(glLayer);
+                        glLayersNames.push(glLayer.id);
+                      }
+                    });
+                  
+                }
+               
+              glSources.push(JSON.parse(layer.glSource));
               
             });
           });
-        })
+      })
 
       this.$scope.$on('mapboxglMap:load', function (event, mapboxglMapEvent) {
-      /* map.loadImage('https://upload.wikimedia.org/wikipedia/commons/8/88/Map_marker.svg', function(error, image) {
-          map.addImage('obsmarker', image);
-        })*/
-          
         event.currentScope.vm.map  = event.currentScope.vm.mapboxglMapsData.getMapById('obsMap');
         event.currentScope.$apply();
+        let map = event.currentScope.vm.map
         let tglLayers = event.currentScope.vm.glLayers
         let tglSources =  event.currentScope.vm.glSources
         let currentScope = event.currentScope
+        
+        //Al Cambiar de stilo se debe volver a cargar las capas activas
         event.currentScope.vm.map.on('style.load', function (obj) {
-          // Triggered when `setStyle` is called.
+          //Capas glLayer
           currentScope.vm.glSources = []
           currentScope.vm.glLayers = []
           currentScope.$apply();
@@ -166,20 +276,93 @@ class ObsMapController {
           currentScope.$apply();   
           
         });
-
+        //Cargar capas tipo API si las hay, y update cada minuto
+        angular.forEach(vm.glApiLayers, function(layer, key) {
+            
+            vm.updateMarkers(layer, vm);
+            let interval = vm.$interval(function() {
+              layer.interval = interval
+              if(layer.state == true){
+                vm.updateMarkers(layer, vm);
+              }
+            } , 30000);
+        
+        })
         //actualizar sensores tiempo real
-      // var angularInterval = $interval(dataTime, 10000);
+     
+      }); 
 
-      });    
-    
+      this.$scope.$on('mapboxglMap:click', function (angularEvent, mapboxglEvent) {
+         
+        // Use featuresAt to get features within a given radius of the click event
+       // Use layer option to avoid getting results from other layers
+       let map = angularEvent.currentScope.vm.map
+       // Find all features within a bounding box around a point
+        var width = 10;
+        var height = 10;
+        var features = map.queryRenderedFeatures([
+          [mapboxglEvent.point.x - width / 2, mapboxglEvent.point.y - height / 2],
+          [mapboxglEvent.point.x + width / 2, mapboxglEvent.point.y + height / 2]
+        ],   
+        { 
+          layers: angularEvent.currentScope.vm.glLayersNames
+         // layers:[ "LayerPolygon52", "LayerMulti53", "LayerLineString53",  "LayerPoint76", "LayerMultiLineString77", "LayerLineString54", "LayerPolygon59" ]
+
+        }
+        );
+
+        if (features.length) {
+          // Get coordinates from the symbol and center the map on those coordinates
+/*map.flyTo({center: features[0].geometry.coordinates[0][0],
+                   // zoom: 9,
+                    bearing: 0,
+                    speed: 0.2, // make the flying slow
+                    curve: 1, // change the speed at which it zooms out
+                    easing: function (t) { return t; }
+          });*/
+          //var featureName = features[0].properties.name;
+          var text = '<div layout="column" layout-align="center">'
+          var hideKyes = ["Shape_Leng", "Shape_Area", "OBJECTID", "featureId"]
+          angular.forEach(features[0].properties, function(val, key) {
+            if(hideKyes.indexOf(key) == -1) {
+              text = text + '<p>'+ key + ": "+ val + '</p>'
+            }
+             
+          })
+          text = text+ '</div>'
+          var tooltip = new mapboxgl.Popup()
+              .setLngLat(mapboxglEvent.lngLat)
+              .setHTML(text)
+              .addTo(map);
+      }
+
+             // Use the same approach as above to indicate that the symbols are clickable
+      // by changing the cursor style to 'pointer'.
+     /* map.on('mousemove', function (e) {
+        var width = 10;
+        var height = 20;
+        var features = map.queryRenderedFeatures([
+          [mapboxglEvent.point.x - width / 2, mapboxglEvent.point.y - height / 2],
+          [mapboxglEvent.point.x + width / 2, mapboxglEvent.point.y + height / 2]
+        ] );
+        if (features.length) {
+         map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+        }
+
+      });*/
+
+      });
+
+    //FOR CUSTOM CONTROLS INSIDE MAPS
+        
       this.CustomControl.prototype = new mapboxgl.Evented();
-
       this.CustomControl.prototype.onAdd = function (map) {
         var self = this;
         self.map = map;
         var container = document.createElement('div');
         container.className = 'mapboxgl-ctrl'
         map.getContainer().appendChild(container);
+        
         var buttonContainer = document.createElement('div');
         var button = document.createElement('button');
         button.className = 'mapboxgl-ctrl-icon-layers';
@@ -197,15 +380,106 @@ class ObsMapController {
         buttonContainer.appendChild(button);
         container.appendChild(buttonContainer);
         return container;
-      };
+      }
+
+      this.CustomControl2.prototype = new mapboxgl.Evented();
+      this.CustomControl2.prototype.onAdd = function (map) {
+        var self = this;
+        self.map = map;
+        var container = document.createElement('div');
+        container.className = 'mapboxgl-ctrl'
+        map.getContainer().appendChild(container);
+        var buttonContainer = document.createElement('div');
+        var button = document.createElement('button');
+        button.className = 'mapboxgl-ctrl-icon-help';
+        button.style.height = '30px';
+        button.style.width = '30px';
+        button.style.borderRadius = '5px';
+        button.style.border = 'white';
+        button.style['background-color'] = '#FFFFFF';
+      
+        button.addEventListener('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          self.fire('buttonClick', event);
+        });
+        buttonContainer.appendChild(button);
+        container.appendChild(buttonContainer);
+        return container;
+      }
+
       this.$scope.$on('mapboxgl:CustomControl1:buttonClick', function (event, controlEvent) {
         event.currentScope.vm.showStyles =  !event.currentScope.vm.showStyles 
         event.currentScope.$apply();
-      }); 
-      
+      })
+
+      this.$scope.$on('mapboxgl:CustomControl2:buttonClick', function (event, controlEvent) {
+        event.currentScope.vm.joyride.start =  !event.currentScope.vm.joyride.start 
+        event.currentScope.$apply();
+      })
     }
 
-    createElement(marker) {
+    updateMarkers(layer, vm){ //viene de un timeout
+
+      //Borrar los datos anteriores de esta capa
+      for (var j = vm.glMarkers.length - 1; j >= 0; j--) {
+        if(angular.isDefined(vm.glMarkers[j].layerId)){
+          if(vm.glMarkers[j].layerId == layer.id){
+            vm.glMarkers.splice(j,1);
+          }
+        }
+      }
+
+      let Layers = vm.API.one('layers',layer.id)
+      .get().then((response) => {
+        if (response.error) {
+          //vm.$log.debug(response);
+        } else {
+          let layer = response.data
+          vm.addeMarkersToMap(layer,vm)
+          //vm.$log.debug(layer)
+        }
+      }) 
+
+    }
+    addeMarkersToMap(layer, vm){
+      let glSource = JSON.parse(layer.glSource)
+      angular.forEach(glSource.data.features, function(feature) {
+        let lon = feature.properties.lon
+        let lat = feature.properties.lat
+        let icon = feature.properties.icon
+        let name = feature.properties.name
+        let marker = {
+            layerId: layer.id,
+            coordinates: [lon, lat],
+            element: vm.createElement(
+              feature.properties, layer
+            ),
+            options: {
+              anchor: 'bottom'
+              //  offset: [0, 5]
+
+            }, // Optional --> https://www.mapbox.com/mapbox-gl-js/api/#Marker
+            popup: {
+              enabled: false,
+              options: {
+                offset: 25
+              }, // Popup options --> https://www.mapbox.com/mapbox-gl-js/api/#Popup
+              message: name,
+              // getScope: Function, // Default $rootScope
+              onClose: function (event, popupClosed) {
+                // ...
+              }
+            }
+          }
+          vm.glMarkers.push(marker)
+          
+        });
+       // vm.$scope.$apply();
+
+    }
+
+    createElement(marker,layer) {
       var el = document.createElement('div');
       //element.style.width = iconSize.width + 'px';
       //element.style.height = iconSize.height + 'px';
@@ -214,6 +488,14 @@ class ObsMapController {
       //create a DOM element for the marker
 
       el.className = marker.icon;
+      if(angular.isDefined(layer)){
+        el.className += " "+"layer_"+layer.id;
+        if(layer.state == false){
+          el.className += " hide";
+        }
+        //el.setAttribute("ng-class","{'hide': vm.state($event)");
+
+      }
       el.setAttribute("ng-click", "vm.show_station($event," + JSON.stringify(marker) + ");");
       el.innerHTML = "<span class='marker-title'>" + marker.name + "</span>";
       el = this.$compile(el)(this.$scope);
@@ -221,27 +503,67 @@ class ObsMapController {
       return el[0];
     }
 
-    showLayer(layer){
+    showLayer(layer){//Toggle layer
       let map = this.map
       let glLayers = this.glLayers
-      if(layer.state===false) {
+      let glMarkers = this.glMarkers
+      let jsonGlLayer = JSON.parse(layer.glLayers)
+
+      if(layer.state == false ) {
         //Desactivar todos los stilos de esta capa      
-        for (var i = glLayers.length - 1; i >= 0; i--) {
-          if (glLayers[i].layer_id === layer.id) {
-              map.setLayoutProperty(glLayers[i].id, 'visibility', 'none')
-          }
-        }
-      } else {
-        //let target = []
-        if(layer.glLayers!==null && this.map!==null){
-          for (var j = glLayers.length - 1; j >= 0; j--) {
-            if (glLayers[j].layer_id === layer.id) {
-                map.setLayoutProperty(glLayers[j].id, 'visibility', 'visible')
-                //target = glLayers[j].target;
+        //si es API
+        if(jsonGlLayer[0].type=="symbol" ){//cambiar por API
+          //set_visible hide
+          let layersEl = document.getElementsByClassName('layer_'+layer.id)
+          angular.forEach(layersEl,function(el,key) {
+            el.className += " hide";
+          })
+
+        }else{
+        //si es Layer Geojson
+          for (var i = glLayers.length - 1; i >= 0; i--) {
+            if (glLayers[i].layer_id == layer.id) {
+                map.setLayoutProperty(glLayers[i].id, 'visibility', 'none')
+                
             }
           }
-          //this.fly_to_location(target)
         }
+
+      } 
+
+      if(layer.state == true ){
+
+        if(jsonGlLayer[0].type=="symbol"){//cambiar por API
+           //set_visible false
+          let layersEl = document.getElementsByClassName('layer_'+layer.id)
+          angular.forEach(layersEl,function(el,key) {
+            el.classList.remove("hide");
+
+          })
+        }else{
+          
+          if(layer.glLayers!=null && this.map!=null){
+            for (var j = glLayers.length - 1; j >= 0; j--) {
+              if (glLayers[j].layer_id == layer.id) {
+                  map.setLayoutProperty(glLayers[j].id, 'visibility', 'visible')
+                  //target = glLayers[j].target;
+              }
+            }
+            //this.fly_to_location(target)
+          }
+        }
+
+      }
+
+      if(this.$auth.isAuthenticated()){
+        if(this.can("manage.layers")){
+          if(angular.isDefined(this.editLayer)){
+              this.editLayer(layer);
+          }
+        }
+      }else{
+        //O colocar un popup
+        this.$state.go("login")
       }
 
     }
@@ -293,6 +615,8 @@ class ObsMapController {
       let $window = this.$window
       let Upload = this.Upload
       let showLayer = this.showLayer
+      let $state = this.$state
+      let vm = this
 
       let tpl = type == "category" ? "add-category-dialog.html" : "add-layer-dialog.html"
 
@@ -312,10 +636,10 @@ class ObsMapController {
           $log.debug('You said the information was "' + answer + '".');
           switch (answer.type) {
             case "category":
-              editCategory(answer, categories, API, $log)
+              editCategory(answer, categories, API, $log, $state)
               break;
             case "layer":
-              editLayerUploader(answer, categories, API, $log, $timeout, $window, Upload,showLayer)
+              editLayerUploader(answer, categories, API, $log, $timeout, $window, Upload,showLayer,vm)
               break;
             default:
               break;
@@ -329,7 +653,7 @@ class ObsMapController {
       let files_url = "/files/shares/plataforma/" //Folder in laravel where files are
 
       //For station dialog
-      if (station !== null) {
+      if (station != null) {
         $scope.station = station
 
         $scope.station.files_url = files_url;
@@ -345,12 +669,12 @@ class ObsMapController {
       }
 
       //ADD Layer dialgo
-      if (category !== null) {
+      if (category != null) {
         $scope.category = category
         $scope.layer = {
           category_id: category.id,
           name: "",
-          state: true,
+          state: 1
         }
         $scope.add_layer = function (layer) {
           layer.type = "layer"
@@ -363,7 +687,7 @@ class ObsMapController {
           name: "",
           public_desc: "",
           admin_desc: "",
-          state: true
+          state: 1
         }
         $scope.add_category = function (category) {
           category.type = "category"
@@ -389,7 +713,7 @@ class ObsMapController {
     }
 
     //FOR LAYER (Call from Callbak in Nav item dialog)
-    editLayerUploader(data, categories, API, $log, $timeout, $window, Upload,showLayer) {
+    editLayerUploader(data, categories, API, $log, $timeout, $window, Upload,showLayer, vm) {
 
       API = angular.isDefined(API) ? API : this.API;
       $log = angular.isDefined($log) ? $log : this.$log;
@@ -422,6 +746,25 @@ class ObsMapController {
           if (angular.isUndefined(data.layer.id)) {
             $timeout(function () {
                 data.category.layers.push(response.data.data.layer);
+                //Agregar source y layer al mapa
+                let layer = response.data.data.layer
+                if(layer.glSource!=null && layer.glLayers!=null){
+                  let jsonGlLayers = JSON.parse(layer.glLayers)
+                  angular.forEach(jsonGlLayers, function(glLayer) {
+                    if(layer.state == false){
+                      if(angular.isUndefined( glLayer.layout)){
+                        glLayer.layout = {"visibility":"none"}
+                      }else{
+                        glLayer.layout.visibility="none"
+                      }
+                    }
+                    vm.glLayers.push(glLayer);
+                    vm.glLayersNames.push(glLayer.id);
+                  });
+                  vm.glSources.push(JSON.parse(layer.glSource));
+
+              }
+
             });
           }
           data.layer.edit = false 
@@ -447,39 +790,28 @@ class ObsMapController {
       });
     }
   
-    editLayer(data, categories, API, $log, $timeout) {
-      API = angular.isDefined(API) ? API : this.API;
-      $log = angular.isDefined($log) ? $log : this.$log;
-      $timeout = angular.isDefined($timeout) ? $timeout : this.$timeout;
-  
-      API.all('layers').post(data.layer).then((response) => {
+    editLayer(layer) {
+      let API = this.API;
+      let $log = this.$log;
+      let $state = this.$state;
+
+      API.all('layers').post(layer).then((response) => {
         if (response.error) {
           $log.debug(response);
         } else {
-          swal('Capa Agregada Correctamente!', '', 'success');
-          //Añadir item al array del category si es una nueva layer
-          if(angular.isUndefined(data.category.layers)){
-            data.category.layers=[]
-          }
-          if (angular.isUndefined(data.layer.id)) {
-            this.showLayer(data.layer);
-
-          }
-          data.layer.edit = false
           $log.debug(response);
         }
-      },
-        function (error) {
-          // Handle error here
-          $log.debug(error);
-  
-        })
+      }, function(response) {
+        //$log.debug(response);}
+        $state.go("login")
+      })
     }
   
     deleteLayer(layer, category, $index) {
       let API = this.API
       let $log = this.$log
       let $timeout = this.$timeout
+      let vm = this
   
       swal({
         title: 'Seguro?',
@@ -505,6 +837,8 @@ class ObsMapController {
                 //quitar de categorias local
                 $timeout(function () {
                   category.layers.splice($index, 1);
+                  layer.state = false
+                  //vm.showLayer(layer);
                 });
   
               })
@@ -518,11 +852,11 @@ class ObsMapController {
     }
 
       //FOR CATEGORY
-    editCategory(category, categories, API, $log) {
+    editCategory(category, categories, API, $log, $state) {
       API = angular.isDefined(API) ? API : this.API;
       categories = angular.isDefined(categories) ? categories : this.categories;
       $log = angular.isDefined($log) ? $log : this.$log;
-
+      $state = angular.isDefined($state) ? $log : this.$state;
       API.all('categories').post(category).then((response) => {
         if (response.error) {
           $log.debug(response);
@@ -539,7 +873,7 @@ class ObsMapController {
         function (error) {
           // Handle error here
           $log.debug(error);
-
+          $state.go("login")
         })
     }
 
@@ -548,7 +882,7 @@ class ObsMapController {
       let categories = this.categories
       let $log = this.$log
       let $timeout = this.$timeout
-
+      let $state = this.$state
       swal({
         title: 'Seguro?',
         text: 'No será posible recuperar la información!',
@@ -581,6 +915,9 @@ class ObsMapController {
             else {
               $log.debug(response);
             }
+          }, function(response){
+            $state.go("login")
+
           })
 
       })
