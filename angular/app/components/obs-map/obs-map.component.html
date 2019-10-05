@@ -1,5 +1,15 @@
-<!--<div style="max-height: 200px; overflow: auto;"> {{vm.glMarkers|json}} </div>
- 
+
+<!--
+    <div style="max-height: 200px; overflow: auto;"> {{vm.glApiLayers|json}} </div>
+
+<div style="max-height: 200px; overflow: auto;"> {{vm.glLayersNames|json}} </div>
+
+<div style="max-height: 200px; overflow: auto;"> {{vm.glSources|json}} </div>
+
+
+<div style="max-height: 200px; overflow: auto;"> {{vm.glLayers|json}} </div>
+
+
 <div> {{vm.glLayersNames|json}}
     <br>
         {{vm.glSources|json}}
@@ -8,9 +18,9 @@
 mapboxgl 
 gl-controls="vm.glControls" 
 gl-zoom="{ value: 8 }" 
-gl-center="{ lng: -75, lat:10.5 }"
-gl-pitch="{ value:30 }" 
-gl-bearing="{ value: 40   }" 
+gl-center="{ lng: -74.5, lat:9.5 }"
+gl-pitch="{ value:90 }" 
+gl-bearing="{ value: 0   }" 
 gl-markers="vm.glMarkers" 
 gl-sources="vm.glSources"
 gl-layers="vm.glLayers" gl-style="vm.glStyle">
@@ -45,19 +55,30 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
         <li flex><a href="https://www.youtube.com/channel/UCYIPAkNxbPptJPtAmG_WO7Q?view_as=subscriber"
                 target="_blank"><img src="img/youtube.png"></a></li>
         <li flex><a href="https://twitter.com/obsriomagdalena" target="_blank"><img src="img/twitter.png"></a></li>
-        <li flex><a href="http://www.uninorte.edu.co/web/guest/home;jsessionid=FEAD291220E96143E0E741E25F29F04B"
+        <li flex><a href="https://www.uninorte.edu.co/obsriomagdalena"
                 target="_blank"><img src="img/web.png"></a></li>
         <li flex><a href="mailto:obsriomagdalena@uninorte.edu.co"><img src="img/contact.png"></a>
 
         </li>
     </ul>
-    <a flex href="http://www.uninorte.edu.co" target="_blank">
+    <a flex href="https://www.uninorte.edu.co/web/ideha" target="_blank">
         <p>Instituto de Estudios Hidráulicos y Ambientales - IDEHA</p>
     </a>
 </div>
 
 <!--FAB colocado en la mitad de la pantalla al bottom-->
-<md-fab-speed-dial id="md-fab-layers" ng-click="vm.toggleSidenav(); " md-open="vm.isOpen" md-direction="left"
+<md-fab-speed-dial ng-if="vm.isLogged" id="md-fab-layers" ng-click="vm.toggleSidenav(); " md-open="vm.isOpen" md-direction="left"
+    class="md-scale md-fab-up-right stick-fab-center-bottom">
+    <md-fab-trigger>
+        <md-button id="menu_fab" aria-label="menu" class="md-fab md-secondary">
+            <md-tooltip md-direction="left" md-autohide="false">Menu</md-tooltip>
+            <md-icon md-svg-src="/img/shp1.svg"></md-icon>
+        </md-button>
+    </md-fab-trigger>
+</md-fab-speed-dial>
+
+<!--FAB colocado para registrarse-->
+<md-fab-speed-dial ng-if="!vm.isLogged" id="md-fab-layers" ng-click="vm.register(); " md-open="vm.isOpen" md-direction="left"
     class="md-scale md-fab-up-right stick-fab-center-bottom">
     <md-fab-trigger>
         <md-button id="menu_fab" aria-label="menu" class="md-fab md-secondary">
@@ -69,14 +90,14 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
 
 
 <!--Side Nav, se activa con el FAB anterior-->
-<md-sidenav class="md-sidenav-left" md-disable-backdrop md-component-id="closeEventsDisabled" md-whiteframe="4"
+<md-sidenav ng-if="vm.isLogged" class="md-sidenav-left" md-disable-backdrop md-component-id="closeEventsDisabled" md-whiteframe="4"
     md-disable-close-events>
 
     <md-toolbar class="md-theme-indigo">
         <div class="md-toolbar-tools">
             <h1>CAPAS</h1>
             <span flex></span>
-            <md-icon ng-click="vm.add_nav_item($event, 'category')" md-font-icon="ion-plus-circled" aria-label="add">
+            <md-icon ng-if="vm.can('manage.layers')" ng-click="vm.add_nav_item($event, 'category')" md-font-icon="ion-plus-circled" aria-label="add">
                 <md-tooltip md-direction="left">Refresh</md-tooltip>
             </md-icon>
         </div>
@@ -89,10 +110,10 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
                <!-- <md-list-item class="noright">-->
                 <div   layout="row">
                     <!--<img src="{{category.icon}}" class="md-avatar category-avatar" alt="{{category.name}}">-->
-                    <span flex="70" ng-dblclick="category.edit=true"
-                        ng-if="!category.edit || category.id==1"> {{category.name | uppercase}}   </span>
+                    <span flex="70" ng-dblclick="vm.checkEdit(category);"
+                        ng-if="(!category.edit || category.id==1) "> {{category.name | uppercase}}   </span>
 
-                    <div  layout="row"  ng-if="category.edit && category.id!=1">
+                    <div  layout="row"  ng-if="category.edit && category.id!=1 ">
                         <md-input-container   style="min-width:100px; width: 250px; padding: 0; margin: 0;" flex-gt-sm>
                             <input type="text" name="name" ng-model="category.name" />
                         </md-input-container>
@@ -105,29 +126,31 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
                     </div>
 
                     <span flex class="flex"></span>
-                    <md-icon flex ng-click="vm.add_nav_item($event, 'layer', category)" class="md-secondary"
-                        md-font-icon="ion-plus-circled" aria-label="download"></md-icon>
-                    <md-icon flex ng-if="category.hide==true" ng-click="category.hide=false" class="md-secondary"
+                    <md-icon ng-if="vm.can('manage.layers')"  flex ng-click="vm.add_nav_item($event, 'layer', category)" class="md-secondary"
+                        md-font-icon="ion-plus-circled" aria-label="add new layer"></md-icon>
+
+                    <md-icon  ng-if="category.hide==true" ng-click="category.hide=false" class="md-secondary"
                         md-font-icon="ion-chevron-down" aria-label="up"></md-icon>
-                    <md-icon flex ng-if="category.hide!=true" ng-click="category.hide=true" class="md-secondary"
+
+                    <md-icon  ng-if="category.hide!=true" ng-click="category.hide=true" class="md-secondary"
                         md-font-icon="ion-chevron-up" aria-label="down"></md-icon>
                 </div>
-                <!--</md-list-item>                 
-                    ng-if="category.hide!==true" 
- -->
+                <!--</md-list-item>  -->
             </md-subheader>
-            <md-list-item hm-swipeleft="layer.showDelete = false"
+            <md-list-item 
+                ng-if="category.hide!==true" 
+                hm-swipeleft="layer.showDelete = false"
                 hm-manager-options='{"enabled":true,"preventGhosts":true}' 
                 hm-swiperight="layer.showDelete = true"
                 ng-repeat="layer in category.layers" class="noright">
                 <img src="{{category.icon}}" class="md-avatar layer-avatar" alt="{{category.name}}">
                 <p> {{ layer.name | capitalize}} </p>
-                <md-icon ng-show="layer.showDelete" ng-click="vm.deleteLayer(layer, category, $index)"
+                <md-icon ng-if="vm.can('manage.layers')"  ng-show="layer.showDelete" ng-click="vm.deleteLayer(layer, category, $index)"
                     md-svg-src="/img/del.svg" aria-label="delete layer" class="md-secondary md-hue-3"></md-icon>
                 <md-checkbox ng-true-value="1" ng-false-value="0" ng-checked="layer.state == 1" ng-model="layer.state"
                     ng-change="vm.showLayer(layer,$index)" class="md-secondary"></md-checkbox>
                 <md-divider></md-divider>
-
+            </md-list-item>
         </div>
     </md-list>
 
@@ -161,7 +184,7 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
                             <label>Nombre</label>
                             <input ng-model="category.name" type="text">
                           </md-input-container>
-
+<!--
                           <md-input-container class="md-block">
                                 <label>Descripción para visitantes</label>
                                 <textarea ng-model="category.public_desc" md-maxlength="150" rows="2" md-select-on-focus></textarea>
@@ -170,11 +193,11 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
                                 <label>Descripción para Administradores</label>
                                 <textarea ng-model="category.admin_desc" md-maxlength="150" rows="2" md-select-on-focus></textarea>
                             </md-input-container>
-                      
+
                            <md-checkbox name="tos" ng-model="category.state" required>
-                                Categoria visible para visitantes?
+                              Categoria visible para visitantes?
                             </md-checkbox> 
-                      
+                       --> 
                      </div>
                 </md-dialog-content>
                 <md-dialog-actions layout="row" >
@@ -215,17 +238,28 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
                         <md-radio-group layout="row" ng-model="layer.sourceType">
                                 <md-radio-button value="file" class="md-primary">Subir archivo</md-radio-button>
                                 <md-radio-button value="url"> GeoJson desde Url </md-radio-button>
-                                <md-radio-button value="realtime"> API Rest </md-radio-button>
+                                <md-radio-button value="realtime"> API </md-radio-button>
+                                <md-radio-button value="realtime_icons"> API (Iconos) </md-radio-button>
                         </md-radio-group>
 
-                        <md-input-container ng-if="layer.sourceType=='url' || layer.sourceType=='realtime'" class="md-icon-float md-block">
+                        
+                        <md-input-container ng-if="layer.sourceType!='file'" class="md-icon-float md-block">
                             <!-- Use floating label instead of placeholder -->
                             <label>Url</label>
                             <input ng-model="layer.url" type="text">
                         </md-input-container>
-                
-                        <md-input-container ng-if="layer.sourceType=='file'" class="md-icon-float md-block">
-                            <label> GeoJson File</label>
+                        
+                        <md-switch ng-if="layer.sourceType != 'realtime_icons'" ng-model="layer.isHeatmap" aria-label="Es Heatmap?" class="md-secondary">
+                            Cargar como Heatmap
+                        </md-switch>
+                        <md-input-container  ng-if="layer.isHeatmap" class="md-icon-float md-block">
+                                <!-- Use floating label instead of placeholder -->
+                            <label>Nombre de la variable que contiene el valor</label>
+                            <input ng-model="layer.prop" type="text">
+                        </md-input-container>
+
+
+                        <div ng-if="layer.sourceType=='file'" class="md-icon-float md-block">
                             <md-button ng-if="!layer.file" class="md-icon-button "
                                 aria-label="upload" ngf-select ng-model="layer.file" 
                                 name="shpfile"
@@ -244,7 +278,9 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
                             <span class="progress" ng-show="layer.file.progress >= 0">
                                 <div ng-bind="layer.file.progress + '%'"></div>
                             </span>
-                        </md-input-container>
+                            <label> GeoJson File</label>
+
+                        </div>
                      </div>
                 </md-dialog-content>
                 <md-dialog-actions layout="row" >
@@ -264,11 +300,11 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
             <md-toolbar>
                 <div class="md-toolbar-tools">
                     <h2 >Estación {{station.name}}</h2>
-                    <md-icon md-font-icon="ion-plus-round" aria-label="Send Email" ></md-icon>
 
                     <span flex></span>
                     <md-button class="md-icon-button" ng-click="cancel()">
-                            <md-icon md-font-icon="ion-close-circled" aria-label="download"></md-icon>
+    
+                        <md-icon md-font-icon="ion-close-circled" aria-label="cerrar"></md-icon>
                     </md-button>
                 </div>
             </md-toolbar>     
@@ -280,8 +316,13 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
                         <div flex="30">
                             <h4>Archivos descargables </h4>
                         </div>
+                        
                         <md-button flex="10" ng-repeat="file in station.otherFiles" class="md-icon-button" href="{{station.files_url + file.file_path}}" target="_blank" download>
+                            
+                            <md-tooltip md-direction="top"  >{{file.name}}</md-tooltip>
+
                             <md-icon md-font-icon="ion-android-download" aria-label="download"></md-icon>
+                            
                         </md-button> 
                     </div>
                     <br>
@@ -297,7 +338,47 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
     
     
             <md-dialog-actions  >
-            <md-button href="https://www.uninorte.edu.co/web/observatorio-del-rio-magdalena/niveles" target="_blank" md-autofocus>
+            <md-button href="https://www.uninorte.edu.co/obsriomagdalena/" target="_blank" md-autofocus>
+                Más en nuestro portal
+            </md-button>
+            <span flex></span>
+            <md-button ng-click="answer('closed')">
+                Cerrar
+            </md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog>  
+</script>
+
+<!--MODAL DE LAYER REALTIME ICON!-->
+
+<script type="text/ng-template" id="icon-dialog.html">
+    <md-dialog aria-label="Datos de la estación {{station.name}}">
+        <form ng-cloak  >
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2 > {{station.name}}</h2>
+
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+    
+                        <md-icon md-font-icon="ion-close-circled" aria-label="cerrar"></md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>     
+            <md-dialog-content >   
+                <div layout-align="center " class="md-dialog-content">
+                    <div layout="row" ng-repeat="(prop,val) in station">
+                        <span>{{prop}}</span>
+                        <span>:</span>
+                        <span>{{val}}</span>
+                    </div>
+                </div>
+            </md-dialog-content>
+    
+    
+            <md-dialog-actions  >
+            <md-button href="https://www.uninorte.edu.co/obsriomagdalena/" target="_blank" md-autofocus>
                 Más en nuestro portal
             </md-button>
             <span flex></span>

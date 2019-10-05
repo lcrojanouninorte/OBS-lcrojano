@@ -95,7 +95,6 @@ class LayerController extends Controller
                 $layer->name = trim($request->input('name'));
                 $layer->category_id = $request->input('category_id');
                 $layer->state = false;
-
                 $layer->sourceType = $request->input('sourceType');
                 $layer->icon = "layer.svg";
                 
@@ -134,8 +133,9 @@ class LayerController extends Controller
                     "type"  => "geojson"
                 ];
                 $jsonString ="";
+                $type = explode(".", $layer->sourceType)[0];
 
-                switch ($layer->sourceType) { //Obtener el paraetro Data (URL, FIle o gejson creado)
+                switch ($type) { //Obtener el paraetro Data (URL, FIle o gejson creado)
                     case 'file':
 
                         $glSource->data = './files/shares/plataforma/'.$layer->source;
@@ -148,6 +148,7 @@ class LayerController extends Controller
                         $glSource->data = $layer->source;
                         $jsonString = file_get_contents($layer->source);
                         break;
+                    case 'realtime_icons':
                     case 'realtime':
                         $layer->source = $request->input('url'); 
                         $glSource->data = $this->toGeoJSON($layer->source);
@@ -160,19 +161,21 @@ class LayerController extends Controller
                         # code...
                         break;
                 }
-                //return response()->error()
                 $layer->glSource = json_encode($glSource,JSON_UNESCAPED_SLASHES);
+
+
                 //GLLAYERS
                 //Buscamos caso estandar: features->geometry->type en el geojson obtenido
                 $geoJson = json_decode($jsonString, true);
                 $geoTypes = [];
                 $geoLayers = [];
                     foreach ($geoJson['features']  as $key => $feature) {
+
                         if($feature["geometry"]["type"] == "GeometryCollection") {
                             //pero puede ser caso especial de geometries
                             foreach ($feature["geometry"]['geometries']  as $key => $geometry) {
+                                $layerStyle = $this->getGeoTypesStyles($geometry, $layer, $feature);
                                 if(!in_array($geometry["type"], $geoTypes) ){
-                                    $layerStyle = $this->getGeoTypesStyles($geometry, $layer, $feature);
                                     array_push($geoTypes,$geometry["type"]);
                                     array_push($geoLayers,$layerStyle);
                                 }
@@ -180,8 +183,8 @@ class LayerController extends Controller
                         }else{
 
                             if(!in_array($feature["geometry"]["type"], $geoTypes) ){
-    
                                 $layerStyle = $this->getGeoTypesStyles($feature["geometry"], $layer,$feature);
+    
                                 array_push($geoTypes,$feature["geometry"]["type"]);
                                 array_push($geoLayers,$layerStyle);
                             }
@@ -190,7 +193,8 @@ class LayerController extends Controller
                 
                 $layer->glLayers =  json_encode($geoLayers, JSON_UNESCAPED_SLASHES);
         }
-            
+        //return response()->error( $layer);
+
             if($layer->save()){
                 $log->table_id = $layer->id;
                 $log->desc = $log->desc." Layer ($layer->id, $layer->name).";
@@ -235,8 +239,8 @@ class LayerController extends Controller
                 ];
                 //Convertir los demas elementos en array de propiedades
                 foreach($items as $key => $item) { 
-                    $feature->properties[$key] = $item;       
-                }   
+                    $feature->properties[$key] = $item;  
+                 }   
                 $features[] =  $feature;
             };
             $allfeatures = array("type" => "FeatureCollection", "features" => $features);
@@ -249,55 +253,107 @@ class LayerController extends Controller
 
     
     }
-
     public function getGeoTypesStyles($geometry, $layer,$feature){
+
+        //background, fill, line, symbol, raster, circle, fill-extrusion, heatmap, hillshade.//https://docs.mapbox.com/mapbox-gl-js/style-spec/#layers    
         $geoStyles =[];
-        //background, fill, line, symbol, raster, circle, fill-extrusion, heatmap, hillshade.
-        //https://docs.mapbox.com/mapbox-gl-js/style-spec/#layers    
-
-        //echo($geoType);
         $geoType = $geometry["type"];
-       // $target = $geometry["coordinates"];
-
         switch ($geoType) {
             case "MultiPoint":
             case "Point": 
-            //TODO: verificar caso en el que hay un circulo en ves de un marcador
-            //TODO: verificar caso heatmap
-
-            $style =  (object) [ //Basic
-                "layer_id" => $layer->id,
-                "id" => "Layer".$geoType.$layer->id,
-                "source"  =>"Source".$layer->id,
-                "filter"  => ["==", "\$type", $geoType]
-            ];
-                    //Crear layout segun pripiedades comunes:
-                    //Name, Icon
-                    $layout =  [
+                    $style =  (object) [ //Basic
+                        "layer_id" => $layer->id,
+                        "id" => "Layer".$geoType.$layer->id,
+                        "source"  =>"Source".$layer->id,
+                        "filter"  => ["==", "\$type", 'Point']
+                    ];
+                        if(!array_key_exists("properties",$feature)){//Agrecar propieties al feature si no lo tiene, 
+                        $feature["properties"] = ["name"=>"point"];
+                    }
+                    $layout =  [ //Crear layout generic:
                         "visibility" => "visible"
                     ];
 
-                    if(!array_key_exists("properties",$feature)){
-                        $feature["properties"] = ["name"=>"point"];
-                    }
-                    if(array_key_exists("icon", $feature["properties"])){
-                        $layout["icon-size"] = 0.25;
-                        $layout["icon-image"] = $feature["properties"]["icon"];
-                        $style->type ="symbol";
-                        if(array_key_exists("name", $feature["properties"])){
-                            $layout["text-field"] = "{".$feature['properties']['name']."}";
+                    //Puede ser heatmap, tiempo real, o tiempo real con icono
+                    if(strpos($layer->sourceType, 'heatmap') === false){ 
+                        if(strpos($layer->sourceType, 'realtime_icons') !== false){
+                            $style->type ="symbol";
+                            if(array_key_exists("icon", $feature["properties"])){ //Debe tener un icono (url)
+                                $layout["icon-size"] = 0.25;
+                                $layout["icon-image"] = "{icon}";
+                                $layout["text-field"] = "{name}";
+                            }else{
+                                //error
+                            }
+                        }else{
+                            //Puede ser punto estatico o realtime sin icono
+                            $style->type="circle";
+                            $style->paint = [
+                                'circle-radius'=> 5,
+                                'circle-color'=> '#088',
+                                'circle-opacity'=> 0.7,
+                                'circle-stroke-width'=> 2,
+                                'circle-stroke-color'=> '#887'
+                            ];
+                        
                         }
                     }else{
-                        $style->type="circle";
+
+                        //get popierty for heatmap, is in the las position
+                        //estrutura: type.heatmap.prop
+                        $prop = explode(".",$layer->sourceType)[2];
+                        $style->type ="heatmap";
+                        $style->maxzoom =2;
                         $style->paint = [
-                            'circle-radius'=> 5,
-                            'circle-color'=> '#088',
-                            'circle-opacity'=> 0.7,
-                            'circle-stroke-width'=> 2,
-                            'circle-stroke-color'=> '#887'
+                            // Increase the heatmap weight based on frequency and property magnitude
+                            "heatmap-weight"=> [
+                                "interpolate",
+                                ["linear"],
+                                ["get", "mag"],
+                                0, 0,
+                                6, 1
+                            ],
+                        // Increase the heatmap color weight weight by zoom level
+                            // heatmap-intensity is a multiplier on top of heatmap-weight
+                            "heatmap-intensity" => [
+                                "interpolate",
+                                ["linear"],
+                                ["zoom"],
+                                0, 1,
+                                9, 3
+                            ],
+                                // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
+                                // Begin color ramp at 0-stop with a 0-transparancy color
+                                // to create a blur-like effect.
+                                "heatmap-color" => [
+                                    "interpolate",
+                                    ["linear"],
+                                    ["heatmap-density"],
+                                    0, "rgba(33,102,172,0)",
+                                    0.2, "rgb(103,169,207)",
+                                    0.4, "rgb(209,229,240)",
+                                    0.6, "rgb(253,219,199)",
+                                    0.8, "rgb(239,138,98)",
+                                    1, "rgb(178,24,43)"
+                                ],
+                                // Adjust the heatmap radius by zoom level
+                                "heatmap-radius" => [
+                                    "interpolate",
+                                    ["linear"],
+                                    ["zoom"],
+                                    0, 2,
+                                    9, 20
+                                ],
+                                // Transition from heatmap to circle layer by zoom level
+                                "heatmap-opacity" => [
+                                    "interpolate",
+                                    ["linear"],
+                                    ["zoom"],
+                                    7, 1,
+                                    9, 0
+                                ],
                         ];
                     }
-
                     $style->layout=$layout;
                     return $style;
                 break;
@@ -338,7 +394,7 @@ class LayerController extends Controller
                     "layout" => [
                         "visibility"=> "visible"
                     ],
-                "filter"  => ["==", "\$type", $geoType]
+                "filter"  => ["==", "\$type", "Polygon"]
             ];
                 break;
             default:

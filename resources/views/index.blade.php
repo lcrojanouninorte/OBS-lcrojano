@@ -37,17 +37,17 @@
 
     <!--Mapboxgl js-->
 
-    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js"></script>
-    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js"></script>
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css" rel="stylesheet" />
 
     
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.css">
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.js"></script>
 
 </head>
-<body route-bodyclass class="sidebar-collapse isEmpresario  skin-blue-light ">
+<body  route-bodyclass class="sidebar-collapse skin-blue-light ">
     <div class="wrapper" >
-        <div ui-view="layout"></div>
+        <div   ui-view="layout"></div>
         <div class="control-sidebar-bg"></div>
     </div>
     <script src="{!! elixir('js/final.js') !!}" async defer></script>

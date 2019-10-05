@@ -28,10 +28,10 @@ export function RoutesRun ($rootScope, $state, $auth, AclService, $timeout, API,
       var sidebar_height = $('.sidebar').height()
 
       //set css if super admin
-          if(can('manage.users')){
-           var el =  angular.element(document.querySelectorAll("#contenido"));
-            el.addClass('sidebar-margin');
-          }
+        if(can('manage.users')){
+          var el =  angular.element(document.querySelectorAll("#contenido"));
+          el.addClass('sidebar-margin');
+        }
 
       if ($('body').hasClass('fixed')) {
         $('.content-wrapper, .right-side').css('min-height', window_height - $('.main-footer').outerHeight())

@@ -43,7 +43,7 @@ class StationController extends Controller
                 }
             }
             $station->imgFiles = $imgFiles;
-            $station->otherFiles= $otherFiles;
+            $station->otherFiles = $otherFiles;
         }        
         return response()->success(compact('stations'));
     }
@@ -82,10 +82,10 @@ class StationController extends Controller
         //check if have file
         // DB::transaction(function () use ($request, $user,  $station) {
             $station = new Station;
-            $log = new Log;
-            $log->desc = "User ($user->id, $user->name): ADD ";
-            $log->user_id = $user->id;
-            $log->table = "stations";
+                $log = new Log;
+                $log->desc = "User ($user->id, $user->name): ADD ";
+                $log->user_id = $user->id;
+                $log->table = "stations";
 
             if($request->has('id')){
                 $station =  Station::find($request->input('id'));
@@ -98,16 +98,28 @@ class StationController extends Controller
             $station->latitude = $request->input('latitude');
             $station->longitude = $request->input('longitude');
             $station->state = $request->input('state'); 
-            $station->icon = "river3"; 
+            //$station->icon = "river3"; 
+
+            if($request->hasFile('image')){
+                $image_file  = $request->file('image');
+                $destinationPath = "";
+                $image_file_completeName = $image_file[0]->getClientOriginalName();
+                $destinationPath = "ICONOS/$image_file_completeName";
+                //save file of a station in a folder with the column name
+                $path = Storage::disk('plataforma')->put(
+                    $destinationPath,
+                    file_get_contents($image_file[0]->getRealPath())
+                );
+                $station->icon = "/files/shares/plataforma/$destinationPath";
+            }
+
            
 
             //Save file in files table, with station_id and column_id
             if($request->hasFile('files')){
                 $files  = $request->file('files');
-
                 //desde el front, podemos relacionar con el index (en este caso es el key) el archivo y la columna
                 foreach ($files as $key => $file) {
-                    
                     $destinationPath = "";
                     $fileCompleteName = $file->getClientOriginalName();
                     $fileName = explode(".", $fileCompleteName)[0];
@@ -115,16 +127,10 @@ class StationController extends Controller
                     $station->name = trim($station->name);
 
                     //Replace space in column name with _ and any accent to normal
-                    
                     $columns = $request->input('columns');
-
                     //recordar column[$key] es selacionado a files[$key]
                     $column = $columns[$key]; //Hicimos un mapping desde el front end se envia como llave el id de la columna
-
                     $column_name = $column["name"];
-
-                  
-
                     $unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
                             'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
                             'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
@@ -134,15 +140,11 @@ class StationController extends Controller
                     $column_name = str_replace(' ', '_', $column_name);
                     $destinationPath = "$station->name/$column_name.$extension";
 
-
-
                     //save file of a station in a folder with the column name
                     $path = Storage::disk('plataforma')->put(
                         $destinationPath,
                         file_get_contents($file->getRealPath())
                     );
-                   
-                    
 
                     //se realiza un update de files table (column + station)
                     //buscar si ya existe un archivo:
@@ -167,9 +169,9 @@ class StationController extends Controller
                     
 
                 }
-                
-                
             }
+
+
             if($station->save()){
 
                 //uodate log

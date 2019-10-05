@@ -156,7 +156,6 @@
       table[class="w320"] {
         width: 320px !important;
       }
-
       img[class="force-width-gmail"] {
         display: none !important;
         width: 0 !important;
@@ -231,12 +230,14 @@
                 <table cellpadding="0" cellspacing="0" width="600" class="w320">
                   <tr>
                     <td class="pull-left mobile-header-padding-left" style="vertical-align: middle;">
-                      <a href=""><img width="137" height="47" src="http://s3.amazonaws.com/swu-filepicker/0zxBZVuORSxdc9ZCqotL_logo_03.gif" alt="logo"></a>
+                      <a href=""><img width="137" height="47" src="{{asset('/img/LogoOBS.jpg')}}" alt="logo"></a>
                     </td>
                     <td class="pull-right mobile-header-padding-right" style="color: #4d4d4d;">
-                      <a href=""><img width="44" height="47" src="http://s3.amazonaws.com/swu-filepicker/k8D8A7SLRuetZspHxsJk_social_08.gif" alt="twitter" /></a>
-                      <a href=""><img width="38" height="47" src="http://s3.amazonaws.com/swu-filepicker/LMPMj7JSRoCWypAvzaN3_social_09.gif" alt="facebook" /></a>
-                      <a href=""><img width="40" height="47" src="http://s3.amazonaws.com/swu-filepicker/hR33ye5FQXuDDarXCGIW_social_10.gif" alt="rss" /></a>
+                      <a href="https://twitter.com/obsriomagdalena"><img width="44" height="47" src="{{asset('/img/twitter.png')}}" alt="twitter" /></a>
+                      <a href="https://www.instagram.com/obsriomagdalena/"><img width="38" height="47" src="{{asset('/img/instagram.png')}}" alt="instagram" /></a>
+                      <a href="https://www.youtube.com/channel/UCYIPAkNxbPptJPtAmG_WO7Q?view_as=subscriber"><img width="40" height="47" src="{{asset('/img/youtube.png')}}" alt="youtube" /></a>
+                      <a href="https://www.uninorte.edu.co/obsriomagdalena"><img width="40" height="47" src="{{asset('/img/web.png')}}" alt="web" /></a>
+
                     </td>
                   </tr>
                 </table>
@@ -262,7 +263,7 @@
           </tr>
           <tr>
             <td class="free-text">
-              Gracias Por Registrarte, se te ha asignado una cuenta.
+              Gracias Por Registrarte, se te ha asignado una cuenta con la cual podrá revisar distintas capas.
               <br>
               <br>
              <b> Usuario: {{ $email }}</b>

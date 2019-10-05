@@ -1,9 +1,16 @@
+ 
 .thumb {
     width: 24px;
     height: 24px;
     float: none;
     position: relative;
     top: 7px;
+}
+.ellipsis-100 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 90px;
 }
 
 form .progress {

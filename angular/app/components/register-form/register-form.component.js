@@ -30,8 +30,8 @@ class RegisterFormController {
 
       this.$auth.signup(user)
         .then(() => {
-          //this.$state.go('login', { registerSuccess: true })
-          swal('Usuario creado con exito!', 'Se ha enviado un correo al usuario donde deberá elejir una contraseña', 'success')
+          swal('Usuario creado con exito!', 'Se ha enviado un correo al usuario donde deberá elegir una contraseña', 'success')
+          this.$state.go('login', { registerSuccess: true })
 
         })
         .catch(this.failedRegistration.bind(this))

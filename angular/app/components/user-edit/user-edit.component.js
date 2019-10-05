@@ -1,8 +1,10 @@
 class UserEditController {
-  constructor ($stateParams, $state, API) {
+  constructor ($stateParams, $state, API,AclService) {
     'ngInject'
 
     this.$state = $state
+    this.can = AclService.can
+
     this.formSubmitted = false
     this.alerts = []
     this.userRolesSelected = []
