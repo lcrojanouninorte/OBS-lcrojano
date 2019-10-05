@@ -201,7 +201,7 @@ class AuthController extends Controller
         $token = JWTAuth::fromUser($user);
 
         //asignar rol  al nuevo usuario
-        $role = Role::where("slug", 'visitor')->get();
+        $role = Role::where("slug", 'subscriber')->get();
         $user->attachRole($role);
 
         $data = array(
@@ -214,7 +214,7 @@ class AuthController extends Controller
 
         Mail::send('emails.userverification', $data, function ($m) use ($user) {
             $m->from('obsriomagdalena@uninorte.edu.co', 'Observatorio del Río Magdalena ');
-            $m->to($user->email)->subject('Confirmación Plataforma OBS');
+            $m->to($user->email)->subject('Confirmación de Registro en Plataforma OBS');
         });
 
 

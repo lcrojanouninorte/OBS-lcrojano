@@ -27,17 +27,17 @@ angular.module('app', [
   
 ]).config(function($mdThemingProvider) {
   $mdThemingProvider.definePalette('amazingPaletteName', {
-    '50': '#006064',
+    '50': '#0f7b5d',
     '100': '#e8f5e9',
     '200': '#e8f5f9',
     '300': '#e8f5ff',
     '400': 'ef5350',
     '500': 'f44336',
     '600': 'e8f5f9',
-    '700': 'd32f2f',
+    '700': 'f5fff8',
     '800': 'c62828',
-    '900': '#006064',
-    'A100': '#006064',
+    '900': '#0f7b5d',
+    'A100': '#0f7b5d',
     'A200': 'ff5252',
     'A400': 'ff1744',
     'A700': '#e8f5e9',

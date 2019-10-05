@@ -63,7 +63,6 @@ class CategoryController extends Controller
         $user = Auth::user();
         $this->validate($request, [
         'name' => 'required',
-        'state' => 'required'
 
          ]);
 
@@ -85,9 +84,9 @@ class CategoryController extends Controller
             }
             //add or update category
             $category->name = trim($request->input('name'));
-            $category->state = trim($request->input('state'));
-            $category->public_desc = trim($request->input('public_desc'));
-            $category->admin_desc = trim($request->input('admin_desc'));
+            $category->state = 1;
+            $category->public_desc ="default";
+            $category->admin_desc = "default";
 
          
 
