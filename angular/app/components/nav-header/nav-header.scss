@@ -85,6 +85,13 @@ li.dropdown.user.user-menu {
     }
 
 }
+ 
+@media only screen and (max-width: 768px) {
+    .main-header .md-toolbar-tools {
+      
+        font-size: 12px!important;
+    }
+  }
 
 .dropdown:hover>.dropdown-menu {
     display: block;
