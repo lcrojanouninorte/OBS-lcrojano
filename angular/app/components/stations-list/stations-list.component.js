@@ -1,8 +1,9 @@
 class StationsListController{
-    constructor(API,AclService, $scope, $state, $mdDialog, $log, Upload, $timeout, $window, $auth){
+    constructor(API,AclService, $scope, $state, $mdDialog, $log, Upload, $timeout, $window, $auth,ContextService){
         'ngInject';
         //
         this.$scope = $scope
+        this.ContextService = ContextService
         this.API = API
         this.$window =$window
         this.$log = $log
@@ -57,7 +58,7 @@ class StationsListController{
       }
       
       station.upload = this.Upload.upload({
-        url: 'http://obsriomagdalena.lcrojano.com/api/stations', //Change: emote: http://rostation.lcrojano.com/api/stations local: http://localhost:8000/api
+        url: this.ContextService.baseUrl+'/api/stations', 
         data: station,
         headers: hders
       });
