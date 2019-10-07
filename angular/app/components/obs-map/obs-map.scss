@@ -1,58 +1,58 @@
 .rain1 {
 	background-image: url(/img/pluvial.co/lluvia1F.gif);
 	background-size: cover;
-	width: 36px;
-	height: 36px;
+	width: 28px;
+	height: 28px;
  }
 .rain2 {
 	background-image: url(/img/pluvial.co/lluvia2F.gif);
 	background-size: cover;
-	width: 36px;
-	height: 36px;
+	width: 28px;
+	height: 28px;
  }
 .rain3 {
 	background-image: url(/img/pluvial.co/lluvia3F.gif);
 	background-size: cover;
-	width: 36px;
-	height: 36px;
+	width: 28px;
+	height: 28px;
  }
 .rain4 {
 	background-image: url(/img/pluvial.co/lluvia4F.gif);
 	background-size: cover;
-	width: 36px;
-	height: 36px;
+	width: 28px;
+	height: 28px;
  }
 .rain5 {
 	background-image: url(/img/pluvial.co/lluvia5F.gif);
 	background-size: cover;
-	width: 36px;
-	height: 36px;
+	width: 28px;
+	height: 28px;
  }
 .rain6 {
 	background-image: url(/img/pluvial.co/lluvia6F.gif);
 	background-size: cover;
-	width: 36px;
-	height: 36px;
+	width: 28px;
+	height: 28px;
  }
 .maintenance {
 	background-image: url(/img/pluvial.co/mantenimiento.png);
 	background-size: cover;
-	width: 36px;
-	height: 36px;
+	width: 28px;
+	height: 28px;
  }
 
 .sun {
 	background-image: url(/img/pluvial.co/sol.png);
 	background-size: cover;
-	width: 41px;
-	height: 46px;
+	width: 31px;
+	height: 36px;
 	cursor: pointer;
 }
 .moon {
 	background-image: url(/img/pluvial.co/luna.png);
 	background-size: cover;
-	width: 38px;
-	height: 36px;
+	width: 28px;
+	height: 26px;
 	cursor: pointer;
 }
 
@@ -76,7 +76,7 @@ background-repeat: no-repeat;
 	background: #fffffff0;
     padding: 10px;
     font-family: 'Open Sans', sans-serif;
-    top: 10px;
+    top: 60px;
     left: 47px;
 	}
 
@@ -91,7 +91,7 @@ background-repeat: no-repeat;
 .stick-fab-center-bottom {
     top: auto !important;
     bottom: 50px !important;
-    left: 47% !important;
+    //left: 47% !important;
     position: fixed !important;
 }
 
@@ -192,6 +192,16 @@ background-repeat: no-repeat;
 			width: 30px;
 			margin-left: 5px;
 		}
+		.stick-fab-center-bottom {
+			top: auto !important;
+			bottom: 90px !important;
+			//left: 44% !important;
+			position: fixed !important;
+		}
+		#menu{
+
+		}
+		
 	}
 
  ::-webkit-scrollbar {
