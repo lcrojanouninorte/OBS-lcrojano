@@ -755,7 +755,7 @@ class ObsMapController {
       }
       
       layer.upload = vm.Upload.upload({
-        url: 'http://localhost:8000/api/layers', //Change: emote: http://rostation.lcrojano.com/api/stations local: http://localhost:8000/api
+        url: vm.ContextService.baseUrl+'/api/layers', 
         data: layer,
         headers: hders
       });

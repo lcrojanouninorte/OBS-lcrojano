@@ -8,6 +8,7 @@ class NavSidebarController {
     this.isSuperAdmin = AclService.hasRole("admin.super");
     this.$window = $window
     this.$state =$state
+    this.ContextService =ContextService
 
     ContextService.me(function (data) {
       navSideBar.userData = data
@@ -25,7 +26,7 @@ class NavSidebarController {
   $onInit () {}
 
   open_file_manager(){
-    var url = "http://localhost:8000/obs-file-manager"
+    var url = this.ContextService.baseUrl+"/obs-file-manager"
     this.$window.open(url,'_blank');
   }
 }
