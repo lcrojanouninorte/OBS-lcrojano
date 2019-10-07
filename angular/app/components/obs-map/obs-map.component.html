@@ -146,13 +146,12 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
             </md-subheader>
             <md-list-item 
                 ng-if="category.hide!==true" 
-                hm-swipeleft="layer.showDelete = false"
-                hm-manager-options='{"enabled":true,"preventGhosts":true}' 
-                hm-swiperight="layer.showDelete = true"
+               
                 ng-repeat="layer in category.layers" class="noright">
                 <img src="{{category.icon}}" class="md-avatar layer-avatar" alt="{{category.name}}">
                 <p> {{ layer.name | capitalize}} </p>
-                <md-icon ng-if="vm.can('manage.layers')"  ng-show="layer.showDelete" ng-click="vm.deleteLayer(layer, category, $index)"
+                <!--ng-show="layer.showDelete"-->
+                <md-icon ng-if="vm.can('manage.layers')"   ng-click="vm.deleteLayer(layer, category, $index)"
                     md-svg-src="/img/del.svg" aria-label="delete layer" class="md-secondary md-hue-3"></md-icon>
                 <md-checkbox ng-true-value="1" ng-false-value="0" ng-checked="layer.state == 1" ng-model="layer.state"
                     ng-change="vm.showLayer(layer,$index)" class="md-secondary"></md-checkbox>
@@ -165,7 +164,12 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
 </md-sidenav>
 
 
+<!--
 
+     hm-swipeleft="layer.showDelete = false"
+                hm-manager-options='{"enabled":true,"preventGhosts":true}' 
+                hm-swiperight="layer.showDelete = true"
+-->
 
 <!--TEMPLATES FOR MODALS-->
 
