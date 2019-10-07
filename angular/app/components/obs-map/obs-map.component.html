@@ -80,18 +80,18 @@ gl-layers="vm.glLayers" gl-style="vm.glStyle">
         </md-fab-trigger>
     </md-fab-speed-dial>
 
-</div>
 
-<!--FAB colocado para registrarse-->
-<md-fab-speed-dial ng-if="!vm.isLogged" id="md-fab-layers" ng-click="vm.register(); " md-open="vm.isOpen" md-direction="left"
-    class="md-scale md-fab-up-right stick-fab-center-bottom">
-    <md-fab-trigger>
-        <md-button id="menu_fab" aria-label="menu" class="md-fab md-secondary">
-            <md-tooltip md-direction="left" md-autohide="false">Menu</md-tooltip>
-            <md-icon md-svg-src="/img/shp1.svg"></md-icon>
-        </md-button>
-    </md-fab-trigger>
-</md-fab-speed-dial>
+    <!--FAB colocado para registrarse-->
+    <md-fab-speed-dial ng-if="!vm.isLogged" id="md-fab-layers" ng-click="vm.register(); " md-open="vm.isOpen" md-direction="left"
+        class="md-scale md-fab-up-right stick-fab-center-bottom">
+        <md-fab-trigger>
+            <md-button id="menu_fab" aria-label="menu" class="md-fab md-secondary">
+                <md-tooltip md-direction="left" md-autohide="false">Menu</md-tooltip>
+                <md-icon md-svg-src="/img/shp1.svg"></md-icon>
+            </md-button>
+        </md-fab-trigger>
+    </md-fab-speed-dial>
+</div>
 
 
 <!--Side Nav, se activa con el FAB anterior-->
