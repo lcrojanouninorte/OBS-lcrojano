@@ -618,7 +618,7 @@
   color: rgba(255, 255, 255, 0.8);
   font-size: 14px;
   font-weight: normal;
-  pointer-events: none;
+  /*pointer-events: none;*/
   line-height: normal;
   position: absolute;
   top: 50%;

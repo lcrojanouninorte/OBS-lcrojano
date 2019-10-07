@@ -4,6 +4,11 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
+use App\Layer;
+
+
 
 class Kernel extends ConsoleKernel
 {
@@ -13,7 +18,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        // Commands\Inspire::class,
+        '\App\Console\Commands\UpdateExternalAPIs',
     ];
 
     /**
@@ -26,5 +31,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command("OBS:updateAPIs")->cron('* * * * * *')->appendOutputTo(storage_path('logs/obsExternalApiUpdates.log'));
+        ;
     }
+
+    
 }

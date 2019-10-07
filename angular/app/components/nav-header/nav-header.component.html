@@ -1,9 +1,9 @@
 <header class="main-header">
-    <md-toolbar layout="column">
+    <md-toolbar md-whiteframe="1" layout="column" id="main-nav">
         <div class="md-toolbar-tools">
             <a href="/" class="logo">
                 <span class="logo-mini">
-                    <img src="/img/LogoOBSTexto.jpg" alt="OBS">
+                    <img src="/img/LogoOBSTexto.png" alt="OBS">
                 </span>
                 <span class="logo-lg">
                     <img src="/img/LogoOBS.jpg" alt="OBS">
@@ -134,11 +134,13 @@
                             <span class="hidden-xs">{{vm.userData.name | capitalize}}</span>
 
                         </a>
-                        <a ng-if="!vm.isLogged" href="" class="dropdown-toggle" ui-sref="login">
+                        <a ng-if="!vm.isLogged" href="" class="dropdown-toggle md-raised md-primary" ui-sref="login">
                             <img src="/img/avatar0.png" class="user-image" alt="User Image">
                             <span class="hidden-xs">Ingresar</span>
+                           
 
                         </a>
+                   
                         <ul class="dropdown-menu" uib-dropdown-menu ng-if="vm.isLogged">
                             <li class="user-header">
                                 <img src="{{vm.userData.avatar}}" class="img-circle" alt="User Image"

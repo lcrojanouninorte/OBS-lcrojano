@@ -1,15 +1,18 @@
 class StationsListController{
-    constructor(API,AclService, $scope, $state, $uibModal, $log, Upload, $timeout, $window){
+    constructor(API,AclService, $scope, $state, $mdDialog, $log, Upload, $timeout, $window, $auth){
         'ngInject';
         //
-
+        this.$scope = $scope
         this.API = API
         this.$window =$window
         this.$log = $log
         this.$state = $state
         this.originatorEv = {}
         this.can = AclService.can
-        this.$uibModal =$uibModal
+        this.$mdDialog =$mdDialog
+        this.isLogged = $auth.isAuthenticated()
+
+        //Stations
         let Stations = this.API.all('stations');
         Stations.getList()
           .then((response) => {
@@ -25,23 +28,30 @@ class StationsListController{
         this.errorMsg=""
         this.add_check = false
 
+        //Columns
+        this.columns = {}
+        let Columns = this.API.all('columns');
+        Columns.getList()
+          .then((response) => {
+            this.columns = response.plain()
+        })
+
+        //FAB
+        this.isOpen = false;
+        
     }
-    
+   
     $onInit(){
-      
+
     }
 
-    uploadExcel(station) {
-      //let station = station //station to edit or to add
-      let station_origin = this.station_origin 
-      let stations = this.stations
-      //let add_check = this.add_check
-      let $state = this.$state
+    uploadStation(station, vm) {//Viene de un modal
+      
       var hders = {
         'Content-Type': 'application/json',
         'Accept': 'application/x.laravel.v1+json'
       }
-      var token = this.$window.localStorage.satellizer_token
+      var token = vm.$window.localStorage.satellizer_token
       if (token) {
         hders.Authorization = 'Bearer ' + token
       }
@@ -53,24 +63,19 @@ class StationsListController{
       });
   
       station.upload.then(function (response) {
-          
           station.files.result = response.data;
-          //ajustes
-          //stations.push(angular.copy(station))
-          //station = angular.copy(station_origin)
-          //add_check = false
-          $state.reload()
+          vm.$state.reload()
         
         }, function (response) {
           if (response.status > 0){
-            this.errorMsg = response.status + ': ' + response.data;
-            this.$log.debug(response)
+            vm.errorMsg = response.status + ': ' + response.data;
+            vm.$log.debug(response)
           }
-        }, function (evt) {
-        // Math.min is to fix IE which reports 200% sometimes
-         
+        }, function (evt) {         
           station.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
           station.files = []
+          station.image = []
+
       });
     }
 
@@ -125,19 +130,144 @@ class StationsListController{
              }
             });
     }
+    openDialog(ev, option){
+      let template = ""
+      let $log = this.$log
+      let API  = this.API
+      let $state = this.$state
+      let vm= this
 
-    modalcontroller($uibModalInstance, station) {
+      if(!vm.isLogged){
+        vm.$state.go("login")
+      }
+
+      if(option==1){
+        template = "addStationTemp.html"
+      }else{
+        template = "addColumnTemp.html"
+      }
+
+      this.$mdDialog.show({
+        locals: {
+          option: option
+        },
+        controller: this.modalcontroller,
+        templateUrl: template,
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose: true,
+        fullscreen: true // Only for -xs, -sm breakpoints.
+      }).then(function (answer) {
+        //CALLBACK WHEN USER CLIC ON SAVE IN CREATE NAV ITEM MODAL
+          $log.debug('You said the information was "' + answer + '".');
+          switch (answer.type) {
+            case "column":
+              API.all('columns').post(answer).then((response) => {
+                if(response.errors){
+                    $log.debug(response);
+                }else{
+                    $state.reload()
+                    swal('Columna Agregada Correctamente!', '', 'success')
+                   // this.closeparent();
+                    //$log.debug(response);
+                }
+                    
+              })
+              break;
+            case "station":
+                vm.uploadStation(answer, vm)
+              break;
+            default:
+              break;
+          }
+        }, function () {
+          $log.debug('You cancelled the dialog.');
+        });
+
+    }
+     
+    editColumn(column){
+      let $log = this.$log
+      this.API.all('columns').post(column).then((response) => {
+        if(response.errors){
+          $log.debug(response);
+        }else{
+            //this.$state.reload()
+            //swal('Columna Agregada Correctamente!', '', 'success')
+
+            $log.debug(response)
+            column.edit=false
+
+        }
+            
+      })
+    }
+
+    deleteColumn(column){
+      let API = this.API
+      let $state = this.$state
+  
+      swal({
+        title: 'Seguro?',
+        text: 'No será posible recuperar la información!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Si, borrar.',
+        //closeOnConfirm: false,
+        //showLoaderOnConfirm: true,
+        html: false
+      }).then(function () {
+        API.one('columns').one('', column.id).remove()
+          .then((response) => {
+              if(!response.error){
+                swal({
+                  title: 'Columna Borrada!',
+                  text: 'Se ha eliminado correctamente la columna.',
+                  type: 'success',
+                  confirmButtonText: 'OK'
+                  //closeOnConfirm: true
+                }).then( function () {
+                  $state.reload()
+                })
+              }
+              else{
+                  this.$log.debug(response);
+              }
+          })
+      
+    })
+    }
+
+    modalcontroller($scope, $mdDialog, option) {
         'ngInject'
-        this.station = station
-       
-        this.ok = () => {
-          //$uibModalInstance.close($scope.selected.item)
+        $scope.option = option
+
+        if(option==1){
+          $scope.form = {
+            type:"station",
+            name:""
+          }
+        }else{
+          $scope.form = {
+            type:"column",
+            name:""
+          }
         }
 
-        this.cancel = () => {
+      //Common functions
+      $scope.open = function ($index) {
+      }
+      $scope.hide = function () {
+        $mdDialog.hide();
+      };
+      $scope.cancel = function () {
+        $mdDialog.cancel();
+      };
+      $scope.answer = function () {
+        $mdDialog.hide($scope.form);
+      };
 
-          $uibModalInstance.dismiss('cancel');
-        }
   }
 
 }

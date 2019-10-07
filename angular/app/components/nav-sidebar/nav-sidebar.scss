@@ -1,5 +1,14 @@
 
 
 .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
-    background-color: #006064!important;
+    /*background-color: #0f7b5d!important;*/
+    background-color: #ecf0f5 !important;
+}
+
+.skin-blue .sidebar a {
+    color: #0f7b5d;
+}
+.sidebar {
+    padding-bottom: 10px;
+    padding-top: 10px;
 }

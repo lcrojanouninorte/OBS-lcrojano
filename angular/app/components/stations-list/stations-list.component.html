@@ -1,5 +1,4 @@
-<div layout="row" layout-wrap layout-margin layout-align=" center">
-
+<div layout="column" layout-wrap layout-margin layout-align="center center">
 
     <div ng-if="!vm.stations.length>0" class="alert alert-info alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -8,379 +7,381 @@
     </div>
     <br>
 
-    <div class="row">
-        <div class="col-xs-12" layout-align="center ">
+    <div>
+        <div layout="column" layout-align="center center">
+            <!--Search and Title-->
             <div layout="column" class="box box-primary">
                 <div class="box-header" layout="row">
-                    <h3 flex class="box-title label" ng-class="{'label-success': vm.station.type == 'LesPac', 'label-primary': vm.station.type == 'Kijiji' }"><b>{{vm.station.type}}</b> Rostations </h3>
                     <div flex layout="row">
-                        <md-input-container flex="70">
+                        <md-input-container flex="60">
                             <h2 flex class="box-title"><b>Estaciones</b> </h2>
-                           <!--<label>Type</label>
-                            <md-select name="stationType" id="stationType" ng-model="vm.station.type">
-                                
-                                <md-option value="LesPac">LesPac</md-option>
-                                <md-option value="Kijiji">Kijiji</md-option>
-                            </md-select>
-                            --> 
                         </md-input-container>
 
-                        <div flex="30" class="input-group input-group-sm">
-                            <input ng-model="vm.rostationFilter" type="text" name="table_search"
+                        <div flex="40" class="input-group input-group-sm">
+                            <input ng-model="vm.stationFilter" type="text" name="table_search"
                                 class="form-control pull-right" placeholder="Search">
-                            <div class="input-group-btn">
-                                <md-button ng-click="vm.add_check=!vm.add_check" class="md-icon-button"
-                                    aria-label="add">
-                                    <md-icon ng-if="vm.add_check" md-font-icon="ion-chevron-up"></md-icon>
-                                    <md-icon ng-if="!vm.add_check" md-font-icon="ion-plus-round"></md-icon>
-                                </md-button>
-                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- /.box-header -->
+            </div>
+            <!-- Search and Title-->
 
 
-                <div layout="row" layout-align="center " ng-if="vm.add_check"
-                    class="box-body table-responsive no-padding">
-                    <table felx class="table table-hover table-responsive">
+            <!-- Stations Table-->
+            <div class="box box-primary stations-edit" ng-if="vm.stations.length>0">
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover table-responsive table-bordered">
                         <tr>
                             <th>Nombre</th>
                             <th>Latitud</th>
-                            <th>Longitud</th>
-                            <th>Duracion</th>
-                            <th>Fecuencia</th>
-                            <th>CSV</th>
-                            <th>Estado</th>
-                            <th>Guardar</th>
-                        </tr>
-                        <tr>
-                            <!--formulario para agregar rostation-->
-                            <div ng-form="stationForm">
-                                <!--Nombre-->
-                                 <td ng-if="vm.station.type!='Watcher'">
-                                    <div>
+                            <th width="90px">Longitud</th>
+                            <th width="90px">Estado</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            <th class="custom-column" ng-repeat="column in vm.columns">
+                                <div layout="row">
+                                    <span ng-dblclick="column.edit=true" flex
+                                        ng-if="!column.edit"><a>{{column.name}}</a></span>
+                                    <div layout="row" flex ng-if="column.edit">
                                         <md-input-container style="min-width:180px; padding: 0; margin: 0;" flex-gt-sm>
-                                            <input type="text" name="name" ng-model="vm.station.name" />
+                                            <input type="text" name="name" ng-model="column.name" />
                                         </md-input-container>
-                                     </div>
+                                        <div flex>
+                                            <md-icon ng-click="vm.editColumn(column)" class="delete-col"
+                                                md-svg-src="/img/edit-col.svg" aria-label="edit col "></md-icon>
+                                            <md-icon ng-click="vm.deleteColumn(column)" class="delete-col"
+                                                md-svg-src="/img/del-col.svg" aria-label="del col "></md-icon>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </th>
+
+
+                        </tr>
+                        <!--stations Creados-->
+                        <tr
+                            ng-repeat="station in vm.stations | filter:vm.stationFilter | filter:{ type: vm.station.type  } | orderBy: 'station.created_at':true">
+                            <div ng-form="stationForm{{station.id}}">
+                                <div style="display: none;"> {{station.edit=false;}}</div>
+                                <td layout="row" layout-align="center center" layout-margin=""
+                                    style="min-width:180px; ">
+                                    <!--imagen-->
+                                    <img ng-if="!station.edit" style="margin: auto; max-width: 100%;" width="35"
+                                        height="35" alt="marker" src="{{station.icon}}"
+                                        onError="this.src='/img/water-icon33.png'">
+                                    <div ng-if="station.edit" flex layout="row">
+                                        <md-button ng-if="!station.image[0]" class="md-icon-button " aria-label="upload"
+                                            ngf-select ng-model="station.image[0]" name="image[0]" ngf-max-size="500KB"
+                                            ngf-resize="{width: 50, height: 50}" required
+                                            ngf-model-invalid="vm.errorFile">
+                                            <md-tooltip md-direction="top">Subir imagen</md-tooltip>
+                                            <md-icon md-font-icon="ion-upload"></md-icon>
+                                        </md-button>
+                                        <img width="35" height="35" ng-if="station.image[0]"
+                                            ngf-thumbnail="station.image[0] || '/img/file1.png'">
+                                        <md-button ng-click="station.image[0] = null" ng-show="station.image[0]"
+                                            class="md-icon-button " aria-label="delete">
+                                            <md-tooltip md-direction="top">Borrar Imagen</md-tooltip>
+                                            <md-icon md-font-icon="ion-close-circled"></md-icon>
+                                        </md-button>
+                                        <span class="progress" ng-show="station.image.progress >= 0">
+                                            <div ng-bind="station.image.progress + '%'"></div>
+                                        </span>
+                                    </div>
+                                    <p> </p>
+
+
+
+                                    <!--Nombre-->
+
+                                    <span flex ng-if="!station.edit">{{station.name}}</span>
+                                    <div ng-if="station.edit">
+                                        <md-input-container style="min-width:180px; padding: 0; margin: 0;" flex-gt-sm>
+                                            <input type="text" name="name" ng-model="station.name" />
+                                        </md-input-container>
+                                    </div>
                                 </td>
                                 <!--long-->
-                                <td >
-                                    <div>
-                                        <md-input-container style="min-width:150px; padding: 0; margin: 0;" flex-gt-sm>
-                                            <input type="number" name="longitude" ng-model="vm.station.longitude" />
+                                <td width="10%" class="ellipsis-100">
+                                    <span ng-if="!station.edit">{{station.longitude}}</span>
+                                    <div ng-if="station.edit">
+                                        <md-input-container style="min-width:100px; padding: 0; margin: 0;" flex-gt-sm>
+                                            <input type="text" step="any" name="longitude"
+                                                ng-model="station.longitude" />
                                         </md-input-container>
                                     </div>
                                 </td>
                                 <!--lat-->
-                                <td >
-                                    <div>
-                                        <md-input-container style="min-width:150px; padding: 0; margin: 0;" flex-gt-sm>
-                                            <input type="number" name="latitude" ng-model="vm.station.latitude" />
+                                <td width="10%" class="ellipsis-100">
+                                    <span ng-if="!station.edit">{{station.latitude}}</span>
+                                    <div ng-if="station.edit">
+                                        <md-input-container style="min-width:100; padding: 0; margin: 0;" flex-gt-sm>
+                                            <input type="text" step="any" name="latitude" ng-model="station.latitude" />
                                         </md-input-container>
                                     </div>
                                 </td>
-                                <!--Duration-->
-                                
-                               <td >
-                                    <div layout="row">
-                                        <md-button ng-if="!vm.station.files[0]" class="md-icon-button " aria-label="upload"
-                                            ngf-select ng-model="vm.station.files[0]" name="file1"
-                                            accept="image/*"
-                                            ngf-max-size="30MB" required ngf-model-invalid="vm.errorFile">
-                                            <md-tooltip md-direction="top">Subir imagen</md-tooltip>
-                                            <md-icon md-font-icon="ion-upload"></md-icon>
-                                        </md-button>
 
-                                        <img flex ng-if="vm.station.files[0]" src="/img/file1.png" class="thumb">
-                                        <md-button flex ng-click="vm.station.files[0] = null" ng-show="vm.station.files[0]"
-                                            class="md-icon-button " aria-label="delete">
-                                            <md-tooltip md-direction="top">Borrar Imagen</md-tooltip>
-                                            <md-icon md-font-icon="ion-close-circled"></md-icon>
-                                        </md-button>
-                                        <span class="progress" ng-show="vm.station.files[0].progress >= 0">
-                                            <div ng-bind="vm.station.files[0].progress + '%'"></div>
-                                        </span>
-
-                                       
-                                    </div>
+                                <!--Estado-->
+                                <td>
+                                    <md-switch ng-if="station.edit" class="text-center" ng-model="station.state"
+                                        aria-label="Switch 2" ng-true-value="1" ng-false-value="0" class="md-warn">
+                                    </md-switch>
+                                    <span ng-if="!station.edit" flex
+                                        ng-class="{'label-success': station.state == 01, 'label-warning': station.state == 0 }"
+                                        class="label ">
+                                        <span ng-if="station.state == 1">Active</span>
+                                        <span ng-if="station.state == 0">Off</span>
+                                    </span>
                                 </td>
-                             <!--Frecuencia-->
-                                
-                               <td >
-                                    <div layout="row">
-                                        <md-button ng-if="!vm.station.files[1]" class="md-icon-button " aria-label="upload"
-                                            ngf-select ng-model="vm.station.files[1]" name="file2"
-                                            accept="image/*"
-                                            ngf-max-size="30MB" required ngf-model-invalid="vm.errorFile2">
-                                            <md-tooltip md-direction="top">Subir imagen</md-tooltip>
-                                            <md-icon md-font-icon="ion-upload"></md-icon>
-                                        </md-button>
+                                <!--Save-->
 
-                                        <img flex ng-if="vm.station.files[1]" src="/img/file2.png" class="thumb">
-                                        <md-button flex ng-click="vm.station.files[1] = null" ng-show="vm.station.files[1]"
-                                            class="md-icon-button " aria-label="delete">
-                                            <md-tooltip md-direction="top">Borrar Imagen</md-tooltip>
-                                            <md-icon md-font-icon="ion-close-circled"></md-icon>
-                                        </md-button>
-                                        <span class="progress" ng-show="vm.station.files[1].progress >= 0">
-                                            <div ng-bind="vm.station.files[1].progress + '%'"></div>
-                                        </span>
- 
-                                    </div>
-                                </td>
-                                <!--CSV-->
-                                <td >
-                                        <div layout="row">
-                                            <md-button ng-if="!vm.station.files[2]" class="md-icon-button " aria-label="upload"
-                                                ngf-select ng-model="vm.station.files[2]" name="file3"
-                                                accept="image/*"
-                                                ngf-max-size="30MB" required ngf-model-invalid="vm.errorFile2">
-                                                <md-tooltip md-direction="top">Subir imagen</md-tooltip>
-                                                <md-icon md-font-icon="ion-upload"></md-icon>
-                                            </md-button>
-    
-                                            <img flex ng-if="vm.station.files[2]" src="/img/excel2.png" class="thumb">
-                                            <md-button flex ng-click="vm.station.files[2] = null" ng-show="vm.station.files[2]"
-                                                class="md-icon-button " aria-label="delete">
-                                                <md-tooltip md-direction="top">Borrar Imagen</md-tooltip>
-                                                <md-icon md-font-icon="ion-close-circled"></md-icon>
-                                            </md-button>
-                                            <span class="progress" ng-show="vm.station.files[2].progress >= 0">
-                                                <div ng-bind="vm.station.files[2].progress + '%'"></div>
-                                            </span>
-     
-                                        </div>
-                                    </td>
-                                    <!--Estado-->
-                                    <td>
-                                        <md-switch class="text-center" ng-model="vm.station.state" aria-label="Switch 2"
-                                            ng-true-value="1" ng-false-value="2" class="md-warn">
-
-                                        </md-switch>
-                                    </td>
-                                    <!--Save-->
-                                    <td>
-                                        <div>
-                                            <md-button class="md-icon-button" aria-label="edit" ng-click="vm.uploadExcel(vm.station)">
-                                                <md-icon md-font-icon="ion-plus-circled"></md-icon>
-                                            </md-button>
-                                        </div>
-                                    </td>
-                            </div>
-                        </tr>
-                    </table>
-                </div>
-                <span class="progress text-center" ng-show="vm.station.progress >= 0">
-                    <div ng-bind="vm.station.progress + '%'"></div>
-                </span>
-            </div>
-            <!-- /.box -->
-
-            <div class="box box-primary" ng-if="vm.stations.length>0">
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover table-responsive">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Latitud</th>
-                            <th>Longitud</th>
-                            <th>Duracion</th>
-                            <th>Fecuencia</th>
-                            <th>CSV</th>
-                            <th>Estado</th>
-                             <th>Edit</th>
-                            <th>Delete</th>
-                            
-                        </tr>
-                        <!--Rostations Creados-->
-                        <tr
-                            ng-repeat="station in vm.stations | filter:vm.stationFilter | filter:{ type: vm.station.type  } | orderBy: 'station.created_at':true">
-                            <div ng-form="stationForm{{station.id}}">
-                                 <div style="display: none;"> {{station.edit=false;}}</div>
-                                <!--Nombre-->
-                                <td layout="row" style="min-width:180px; ">
-                                    <div flex style="
-                                    background-size: contain;
-                                    background-repeat: no-repeat;
-                                    background-position: center;
-                                " class="river3"></div>
-                                        <span flex ng-if="!station.edit">{{station.name}}</span>
-                                        <div flex ng-if="station.edit">
-                                            <md-input-container style="min-width:180px; padding: 0; margin: 0;" flex-gt-sm>
-                                                <input type="text" name="name" ng-model="station.name" />
-                                            </md-input-container>
-                                         </div>
-                                    </td>
-                                    <!--long-->
-                                    <td >
-                                        <span ng-if="!station.edit">{{station.longitude}}</span>
-                                        <div  ng-if="station.edit">
-                                            <md-input-container style="min-width:100px; padding: 0; margin: 0;" flex-gt-sm>
-                                                <input type="text" step="any" name="longitude" ng-model="station.longitude" />
-                                            </md-input-container>
-                                        </div>
-                                    </td>
-                                    <!--lat-->
-                                    <td >
-                                         <span ng-if="!station.edit">{{station.latitude}}</span>
-                                        <div  ng-if="station.edit">
-                                            <md-input-container style="min-width:100; padding: 0; margin: 0;" flex-gt-sm>
-                                                <input type="text" step="any"  name="latitude" ng-model="station.latitude" />
-                                            </md-input-container>
-                                        </div>
-                                    </td>
-                                    <!--Duration-->
-                                    
-                                   <td >
-                                        <md-button ng-if="!station.edit"  class="md-icon-button " aria-label="edit " ng-click="vm.download_fuente(station.duration)">
-                                                <md-tooltip md-direction="top">Download</md-tooltip>
-                                                <md-icon md-font-icon="ion-code-download"></md-icon>
-                                        </md-button>
-                                        
-                                        <div ng-if="station.edit" layout="row">
-                                            <md-button ng-if="!station.files[0]" class="md-icon-button " aria-label="upload"
-                                                ngf-select ng-model="station.files[0]" name="files[0]"
-                                                accept="image/*"
-                                                ngf-max-size="30MB" required ngf-model-invalid="vm.errorFile">
-                                                <md-tooltip md-direction="top">Subir imagen</md-tooltip>
-                                                <md-icon md-font-icon="ion-upload"></md-icon>
-                                            </md-button>
-    
-                                            <img flex ng-if="station.files[0]" src="/img/file1.png" class="thumb">
-                                            <md-button flex ng-click="station.files[0] = null" ng-show="station.files[0]"
-                                                class="md-icon-button " aria-label="delete">
-                                                <md-tooltip md-direction="top">Borrar Imagen</md-tooltip>
-                                                <md-icon md-font-icon="ion-close-circled"></md-icon>
-                                            </md-button>
-                                            <span class="progress" ng-show="station.file.progress >= 0">
-                                                <div ng-bind="station.file.progress + '%'"></div>
-                                            </span>
-    
-                                           
-                                        </div>
-                                    </td>
-                                 <!--Frecuencia-->
-                                    
-                                   <td >
-                                        <md-button ng-if="!station.edit"  class="md-icon-button " aria-label="edit " ng-click="vm.download_fuente(station.frequencies)">
-                                                <md-tooltip md-direction="top">Download</md-tooltip>
-                                                <md-icon md-font-icon="ion-code-download"></md-icon>
-                                        </md-button>
-                                        <div layout="row" ng-if="station.edit">
-                                            <md-button ng-if="!station.files[1]" class="md-icon-button " aria-label="upload"
-                                                ngf-select ng-model="station.files[1]" name="file"
-                                                accept="image/*"
-                                                ngf-max-size="30MB" required ngf-model-invalid="vm.errorFile2">
-                                                <md-tooltip md-direction="top">Subir imagen</md-tooltip>
-                                                <md-icon md-font-icon="ion-upload"></md-icon>
-                                            </md-button>
-    
-                                            <img flex ng-if="station.files[1]" src="/img/file2.png" class="thumb">
-                                            <md-button flex ng-click="station.files[1] = null" ng-show="station.files[1]"
-                                                class="md-icon-button " aria-label="delete">
-                                                <md-tooltip md-direction="top">Borrar Imagen</md-tooltip>
-                                                <md-icon md-font-icon="ion-close-circled"></md-icon>
-                                            </md-button>
-                                            <span class="progress" ng-show="station.file.progress >= 0">
-                                                <div ng-bind="station.file.progress + '%'"></div>
-                                            </span>
-     
-                                        </div>
-                                    </td>
-                                    <!--CSV-->
-                                    <td >
-                                        <md-button ng-if="!station.edit"  class="md-icon-button " aria-label="edit " ng-click="vm.download_fuente(station.readings_csv)">
-                                                <md-tooltip md-direction="top">Download</md-tooltip>
-                                                <md-icon md-font-icon="ion-code-download"></md-icon>
-                                        </md-button>
-                                            <div layout="row" ng-if="station.edit" >
-                                                <md-button ng-if="!station.files[2]" class="md-icon-button " aria-label="upload"
-                                                    ngf-select ng-model="station.files[2]" name="files[2]"
-                                                    
-                                                    ngf-max-size="30MB" required ngf-model-invalid="vm.errorFile3">
-                                                    <md-tooltip md-direction="top">Subir imagen</md-tooltip>
-                                                    <md-icon md-font-icon="ion-upload"></md-icon>
-                                                </md-button>
-        
-                                                <img flex ng-if="station.files[2]" src="/img/excel2.png" class="thumb">
-                                                <md-button flex ng-click="station.files[2] = null" ng-show="station.files[2]"
-                                                    class="md-icon-button " aria-label="delete">
-                                                    <md-tooltip md-direction="top">Borrar Imagen</md-tooltip>
-                                                    <md-icon md-font-icon="ion-close-circled"></md-icon>
-                                                </md-button>
-                                                <span class="progress" ng-show="station.file.progress >= 0">
-                                                    <div ng-bind="station.file.progress + '%'"></div>
-                                                </span>
-         
-                                            </div>
-                                        </td>
-                                        <!--Estado-->
-                                        <td>
-                                                <md-switch  ng-if="station.edit" class="text-center" ng-model="station.state"
-                                                aria-label="Switch 2" ng-true-value="1" ng-false-value="2" class="md-warn" >
-                                                </md-switch>
-                                                <span  ng-if="!station.edit" flex ng-class="{'label-success': station.state == 1, 'label-warning': station.state == 2 }" class="label ">
-                                                        <span ng-if="station.state == 1">Active</span>
-                                                        <span ng-if="station.state == 2">Off</span>
-                                                </span>
-                                            </td>
-                                        <!--Save-->
-                                          
                                 <!--Edit-->
-                                <td >
-                                        <md-button ng-if="!station.edit" class="md-icon-button " aria-label="edit " ng-click="station.edit=!station.edit">
-                                            <md-tooltip md-direction="top">Editar</md-tooltip>
-                                            <md-icon md-font-icon="ion-edit"></md-icon>
+                                <td>
+                                    <md-button ng-if="!station.edit" class="md-icon-button " aria-label="edit "
+                                        ng-click="station.edit=!station.edit">
+                                        <md-tooltip md-direction="top">Editar</md-tooltip>
+                                        <md-icon md-font-icon="ion-edit"></md-icon>
+                                    </md-button>
+
+                                    <div layout="row">
+                                        <md-button flex ng-if="station.edit" class="md-icon-button" aria-label="edit"
+                                            ng-click="vm.uploadStation(station, vm);">
+                                            <md-icon md-font-icon="ion-checkmark-round"></md-icon>
                                         </md-button>
-    
-                                        <div layout="row">
-                                            <md-button flex ng-if="station.edit" class="md-icon-button" aria-label="edit" ng-click="vm.uploadExcel(station);">
-                                                <md-icon md-font-icon="ion-checkmark-round"></md-icon>
-                                            </md-button>
-                                            <md-button flex ng-if="station.edit" class="md-icon-button" aria-label="edit" ng-click="station.edit=!station.edit">
-                                                    <md-icon md-font-icon="ion-close-round"></md-icon>
-                                                </md-button>
-                                                
-                                        </div>
-                                     
-                                    </td>
-                                     
+                                        <md-button flex ng-if="station.edit" class="md-icon-button" aria-label="edit"
+                                            ng-click="station.edit=!station.edit">
+                                            <md-icon md-font-icon="ion-close-round"></md-icon>
+                                        </md-button>
+
+                                    </div>
+
+                                </td>
+
                                 <!--Delete-->
                                 <td>
-                                        <div>
-                                            <md-button class="md-icon-button" aria-label="edit"
-                                                ng-click="vm.delete(station.id)">
-                                                <md-icon md-font-icon="ion-trash-a"></md-icon>
+                                    <div>
+                                        <md-button class="md-icon-button" aria-label="edit"
+                                            ng-click="vm.delete(station.id)">
+                                            <md-icon md-font-icon="ion-trash-a"></md-icon>
+                                        </md-button>
+                                    </div>
+                                </td>
+
+                                <!--Add Custom Columns Created From Here-->
+                                <td ng-repeat="column in vm.columns">
+
+                                    <div layout="row" layout-align="center center">
+                                        <div style="display: none"> {{station.columns[column.id] = column}}</div>
+                                        <!--Con el fin de al hacer el upload enviar los datos de la columna, relacionamos con el $index la columna y el archivo seleccionado-->
+
+
+                                        <!--si ya se cuenta con un archivo-->
+
+                                        <md-button 
+                                            ng-if="!station.edit && column.stations[station.id].file.file_path"
+                                            class="md-icon-button " 
+                                            aria-label="edit "
+                                            ng-click="vm.download_fuente(column.stations[station.id].file.file_path)">
+                                            <md-tooltip md-direction="top"> {{column.stations[station.id].file.name}}</md-tooltip>
+                                            <md-icon md-font-icon="ion-code-download"></md-icon>
+                                        </md-button>
+
+                                        <!--si No se cuenta con un archivo-->
+                                        <!--si queremos solo imagenes: accept="image/*"-->
+                                        <div ng-if="station.edit" layout="row">
+                                            <md-button ng-if="!station.files[column.id]" class="md-icon-button "
+                                                aria-label="upload" ngf-select ng-model="station.files[column.id]"
+                                                name="files[column.id]"
+                                                ngf-max-size="column.stations[station.id].file.max_file_size" required
+                                                ngf-model-invalid="vm.errorFile">
+                                                <md-tooltip md-direction="top" md-visible="tooltipVisible">Subir imagen</md-tooltip>
+                                                <md-icon md-font-icon="ion-upload"></md-icon>
                                             </md-button>
+
+                                            <img flex ng-if="station.files[column.id]" src="/img/file1.png"
+                                                class="thumb">
+                                            <md-button flex ng-click="station.files[column.id] = null"
+                                                ng-show="station.files[column.id]" class="md-icon-button "
+                                                aria-label="delete">
+                                                <md-tooltip md-direction="top">Borrar Imagen</md-tooltip>
+                                                <md-icon md-font-icon="ion-close-circled"></md-icon>
+                                            </md-button>
+                                            <span class="progress" ng-show="station.file.progress >= 0">
+                                                <div ng-bind="station.file.progress + '%'"></div>
+                                            </span>
+
+
                                         </div>
-                                    </td>
+                                        <!--<div flex ng-if="column.stations[station.id].file.file_path">
+                                            {{column.stations[station.id].file.name}}
+                                        </div>-->
+                                    </div>
+                                </td>
+
                             </div>
                         </tr>
                     </table>
                 </div>
                 <!-- /.box-body -->
+
+
             </div>
+            <!-- Stations Table-->
+
             <!-- /.box -->
         </div>
+
+        <md-fab-speed-dial md-open="vm.isOpen" md-direction="left" class="md-scale md-fab-bottom-right stick-fab">
+            <md-fab-trigger>
+                <md-button aria-label="menu" class="md-fab md-secondary">
+                    <md-icon md-font-icon="ion-navicon-round"></md-icon>
+                    <md-tooltip md-direction="left" md-autohide="false">Menu</md-tooltip>
+                </md-button>
+            </md-fab-trigger>
+
+            <md-fab-actions>
+                <md-button ng-click="vm.openDialog($event, 1)" aria-label="Añadir Estacion"
+                    class="md-fab md-raised md-mini md-secondary">
+                    <md-tooltip md-direction="left" md-autohide="false">Añadir Estacion
+                    </md-tooltip>
+                    <md-icon md-font-icon="ion-location"></md-icon>
+                </md-button>
+                <md-button ng-click="vm.openDialog($event, 2)" aria-label="Añadir Columna"
+                    class="md-fab md-raised md-mini md-secondary">
+                    <md-tooltip md-direction="left" md-autohide="false">Añadir Columna
+                    </md-tooltip>
+                    <md-icon md-font-icon="ion-plus-round"></md-icon>
+                </md-button>
+            </md-fab-actions>
+        </md-fab-speed-dial>
+
+
+
     </div>
 
-    <!--     <project-item class="fx-fade-up fx-stagger-245" project="station" ng-repeat="station in vm.stations" flex="100" flex-gt-sm="30"></project-item>
- -->
 </div>
-<!--Modal formulario de edicion de proyecto!-->
-<script type="text/ng-template" id="myModalBot.html">
+
+
+<!--ADD STATION!-->
+<script type="text/ng-template" id="addStationTemp.html">
+    <md-dialog style="max-width:500px;" aria-label="Añadir Categoria">
+        <form ng-cloak   >
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>Añadir Nueva Columna</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                            <md-icon md-font-icon="ion-close-circled" aria-label="download"></md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>     
+            <md-dialog-content style="min-width:400px; ">
+                    <div class="md-dialog-content">
+                        A continuación podrá crear una estación. 
+                    <br/>
+                    <md-input-container layout="row" class="md-icon-float md-block">
+                            <!--si queremos solo imagenes: accept="image/*"-->
+                            <div flex layout="row">
+                                <md-button  ng-if="!form.image[0]" class="md-icon-button " aria-label="upload"
+                                    ngf-select ng-model="form.image[0]" name="image[0]"
+                                    ngf-max-size="500KB" ngf-resize="{width: 50, height: 50}" required ngf-model-invalid="vm.errorFile">
+                                    <md-tooltip md-direction="top">Subir imagen</md-tooltip>
+                                    <md-icon md-font-icon="ion-upload"></md-icon>
+                                </md-button>
+                                <img width="50" height="50" ng-if="form.image[0]" ngf-thumbnail="form.image[0] || '/img/file1.png'">
+                                <md-button  ng-click="form.image[0] = null" ng-show="form.image[0]"
+                                    class="md-icon-button " aria-label="delete">
+                                    <md-tooltip md-direction="top">Borrar Imagen</md-tooltip>
+                                    <md-icon md-font-icon="ion-close-circled"></md-icon>
+                                </md-button>
+                                <span class="progress" ng-show="form.image.progress >= 0">
+                                    <div ng-bind="form.image.progress + '%'"></div>
+                                </span>
+                            </div>
+    
+                            <span>Subir Imagen</span>
+                        </md-input-container>
+
+                       <md-input-container class="md-icon-float md-block">
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Nombre</label>
+                        <input ng-model="form.name" type="text">
+                      </md-input-container>
+                      <md-input-container class="md-icon-float md-block">
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Latitud</label>
+                        <input ng-model="form.latitude" type="number" step="any">
+                      </md-input-container>
+                      <md-input-container class="md-icon-float md-block">
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Longitud</label>
+                        <input ng-model="form.longitude" type="number"  step="any">
+                      </md-input-container>
+
+                      
+                    <md-input-container class="md-block">
+
+                      <md-switch ng-model="form.state"   ng-true-value="1" ng-false-value="0"  aria-label="Switch 2" class="md-warn">
+                        Visible?
+                      </md-switch>
+                    </md-input-container>
+
+
+<!--
+                      <md-input-container class="md-block">
+                            <label>Descripción para visitantes</label>
+                            <textarea ng-model="category.public_desc" md-maxlength="150" rows="2" md-select-on-focus></textarea>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Descripción para Administradores</label>
+                            <textarea ng-model="category.admin_desc" md-maxlength="150" rows="2" md-select-on-focus></textarea>
+                        </md-input-container>
+
+                       <md-checkbox name="tos" ng-model="category.state" required>
+                          Categoria visible para visitantes?
+                        </md-checkbox> 
+                   --> 
+                 </div>
+            </md-dialog-content>
+            <md-dialog-actions layout="row" >
+            <md-button flex="100" ng-click="answer()" layout-fill="" class="md-primary">Guardar</md-button>
+
+              
+            </md-dialog-actions>
+        </form>
+    </md-dialog>  
+</script>
+
+<!--ADD COLUMN-->
+<script type="text/ng-template" id="addColumnTemp.html">
     <div role="dialog" aria-label="Eat me!" layout="column" layout-align="center">
-        <md-toolbar md-colors="{background: 'green'}">
+        <md-toolbar >
             <div class="md-toolbar-tools">
-                <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Edit Bot! </h2>
+                <h2><md-icon class="step img" md-font-icon="ion-ios-lightbulb-outline" aria-label="proyecto"></md-icon>Añadir Columna </h2>
             </div>
         </md-toolbar>
         <div layout="column" layout-margin>
-            <station-form mode="'edit'" station="mvm.station" closeparent="mvm.cancel()" flex></station-form>
+
+            <!--Formulario para añadir una columna (variable) a todas las estaciones-->
+            <br/>
+               <md-input-container class="md-icon-float md-block">
+                <!-- Use floating label instead of placeholder -->
+                <label>Nombre de la Columna {{form.name}}</label>
+                <md-icon md-font-icon="ion-map"></md-icon>
+                <input ng-model="form.name" type="text">
+              </md-input-container>
+              
+
+ 
         </div>
         <div layout="row" class="demo-dialog-button">
-            <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog(); mvm.cancel()">
+            <md-button md-autofocus flex   ng-click="answer()">
+                Guardar
+            </md-button>
+            <md-button md-autofocus flex class="md-primary" ng-click="cancel()">
                 Cancelar
             </md-button>
         </div>

@@ -1,5 +1,5 @@
 <section class="content-header">
-  <h1>Users <small>Module description here</small></h1>
+  <h1>Users <small>Cambiar contraseña</small></h1>
   <ol class="breadcrumb">
     <li><a ui-sref="app.landing"><i class="fa fa-dashboard"></i> Home</a></li>
     <li><a ui-sref="app.userlist">User Lists</a></li>
@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="box-footer">
-            <a ui-sref="app.userlist" class="btn btn-default"><i class="fa fa-angle-double-left"></i> Back</a>
+            <a ng-if="vm.can('manage.users')" ui-sref="app.userlist" class="btn btn-default"><i class="fa fa-angle-double-left"></i> Back</a>
             <button type="submit" class="btn btn-primary pull-right">Update</button>
           </div>
         </form>

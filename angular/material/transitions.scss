@@ -1,4 +1,4 @@
-/*[ui-view].ng-enter,
+[ui-view].ng-enter,
 [ui-view].ng-leave {
   -webkit-transition: opacity ease-in-out 200ms;
   transition: opacity ease-in-out 200ms;
@@ -11,5 +11,5 @@
 
 [ui-view].ng-enter.ng-enter-active {
   opacity: 1;
-}*/
+}
 

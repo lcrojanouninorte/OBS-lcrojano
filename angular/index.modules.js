@@ -6,6 +6,7 @@ angular.module('app', [
   'app.routes',
   'app.config',
   'app.partials',
+
   'ngMaterial',
   'mgo-angular-wizard',
   'angular-svg-round-progressbar',
@@ -15,24 +16,55 @@ angular.module('app', [
   'daterangepicker',
   'ng-fx',
   'ng-currency',
-  'gantt',
-            'gantt.sortable',
-            'gantt.movable',
-            'gantt.drawtask',
-            'gantt.tooltips',
-            'gantt.bounds',
-            'gantt.progress',
-            'gantt.table',
-            'gantt.tree',
-            'gantt.groups',
-            'gantt.resizeSensor',
-            'gantt.overlap',
-            'gantt.dependencies',
-'ngFileUpload',
-'ds.clock',
-'mdPickers',
-'mapboxgl-directive'
-])
+  'ngFileUpload',
+  'ds.clock',
+  'mdPickers',
+  'mapboxgl-directive',
+  'ngBootstrapLightbox',
+  'hmTouchEvents',
+  'ngAnimate',
+  'angular-joyride'
+  
+]).config(function($mdThemingProvider) {
+  $mdThemingProvider.definePalette('amazingPaletteName', {
+    '50': '#0f7b5d',
+    '100': '#e8f5e9',
+    '200': '#e8f5f9',
+    '300': '#e8f5ff',
+    '400': 'ef5350',
+    '500': 'f44336',
+    '600': 'e8f5f9',
+    '700': 'f5fff8',
+    '800': 'c62828',
+    '900': '#0f7b5d',
+    'A100': '#0f7b5d',
+    'A200': 'ff5252',
+    'A400': 'ff1744',
+    'A700': '#e8f5e9',
+    'contrastDefaultColor': 'dark',    // whether, by default, text (contrast)
+                                        // on this palette should be dark or light
+
+    'contrastDarkColors': [ '100', //hues which contrast should be 'dark' by default
+     '200', '300', '400', 'A100'],
+    'contrastLightColors': ['50', '900']    // could also specify this if default was 'dark'
+  });
+
+  $mdThemingProvider.theme('default')
+    .primaryPalette('amazingPaletteName',
+      {
+        'default': '50', // by default use shade 400 from the pink palette for primary intentions
+        'hue-1': '100', // use shade 100 for the <code>md-hue-1</code> class
+        'hue-2': '600', // use shade 600 for the <code>md-hue-2</code> class
+        'hue-3': 'A100' // use shade A100 for the <code>md-hue-3</code> class
+      } 
+    )
+    .accentPalette('amazingPaletteName', {'default': '900'})
+    .backgroundPalette('grey', 
+    {
+      'default': '50' // use shade 200 for default, and keep all other shades the same
+    }
+    );
+});
 
 angular.module('app.run', [])
 angular.module('app.routes', [])

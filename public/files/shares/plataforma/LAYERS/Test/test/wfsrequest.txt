@@ -1,0 +1,1 @@
+http://geonodesiam.invemar.org.co:80/geoserver/wfs?format_options=charset%3AUTF-8&typename=geonode%3Alimite_final_uac_rm&outputFormat=SHAPE-ZIP&version=1.0.0&service=WFS&request=GetFeature
