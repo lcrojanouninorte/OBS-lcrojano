@@ -1,12 +1,12 @@
 class ObsMapController {
-  constructor(API, AclService, $auth, $log, $compile, $scope, $mdDialog, $mdSidenav, lightbox, $timeout, Upload,$window, mapboxglMapsData, $interval, $state,joyrideService, $http) {
+  constructor(API, AclService, $auth, $log, $compile, $scope, $mdDialog, $mdSidenav, lightbox, $timeout, Upload,$window, mapboxglMapsData, $interval, $state,joyrideService, $http, ContextService) {
     'ngInject';
 
     //
     this.API = API
     this.$http = $http
     this.isLogged = $auth.isAuthenticated()
-
+    this.ContextService = ContextService
     this.$state =$state
     this.map = null
     this.$auth = $auth
