@@ -26,3 +26,5 @@ public/js
 public/fonts
 public/css
 public/build
+
+.env.example
