@@ -170,23 +170,26 @@ class LayerController extends Controller
                 $geoTypes = [];
                 $geoLayers = [];
                     foreach ($geoJson['features']  as $key => $feature) {
+                        if( $feature["geometry"] != null){
 
-                        if($feature["geometry"]["type"] == "GeometryCollection") {
-                            //pero puede ser caso especial de geometries
-                            foreach ($feature["geometry"]['geometries']  as $key => $geometry) {
-                                $layerStyle = $this->getGeoTypesStyles($geometry, $layer, $feature);
-                                if(!in_array($geometry["type"], $geoTypes) ){
-                                    array_push($geoTypes,$geometry["type"]);
+                            
+                            if($feature["geometry"]["type"] == "GeometryCollection") {
+                                //pero puede ser caso especial de geometries
+                                foreach ($feature["geometry"]['geometries']  as $key => $geometry) {
+                                    $layerStyle = $this->getGeoTypesStyles($geometry, $layer, $feature);
+                                    if(!in_array($geometry["type"], $geoTypes) ){
+                                        array_push($geoTypes,$geometry["type"]);
+                                        array_push($geoLayers,$layerStyle);
+                                    }
+                                }
+                            }else{
+
+                                if(!in_array($feature["geometry"]["type"], $geoTypes) ){
+                                    $layerStyle = $this->getGeoTypesStyles($feature["geometry"], $layer,$feature);
+        
+                                    array_push($geoTypes,$feature["geometry"]["type"]);
                                     array_push($geoLayers,$layerStyle);
                                 }
-                            }
-                        }else{
-
-                            if(!in_array($feature["geometry"]["type"], $geoTypes) ){
-                                $layerStyle = $this->getGeoTypesStyles($feature["geometry"], $layer,$feature);
-    
-                                array_push($geoTypes,$feature["geometry"]["type"]);
-                                array_push($geoLayers,$layerStyle);
                             }
                         }
                     }

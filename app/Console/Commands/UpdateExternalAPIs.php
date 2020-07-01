@@ -41,17 +41,30 @@ class UpdateExternalAPIs extends Command
     public function handle()
     {
         //
-        //$this->info('Inicio OBS:updateAPIs');
+        $currenttime = date('h:i:s:u');
+        //echo(Schema::hasTable('layers'));
+        sleep(58); //esto con el fin de actualizar 58 segundo antes de que actualize la api origen
+        //Este cron corre cada minuto, mas un delay de 58 segundos, es decir que relamente sera cada 58 segundos.
         if(Schema::hasTable('layers')) {
-            $layers = Layer::where('sourceType', "realtime")->where('state', 1)
+            $layers = Layer::where('sourceType', "realtime_icons")->where('state', 1)
             ->get();
+                    if($layers){
+                        
+                        foreach ($layers as $key => $layer) {
+                            echo("[$currenttime] layer_id: ".$layer->id);
+
+                            $glSource = json_decode($layer->glSource);
+                            $glSource->data = $this->toGeoJSON($layer->source);
+                            $layer->glSource = json_encode($glSource,JSON_UNESCAPED_SLASHES);
+                            if($layer->save()){
+                                echo("[$currenttime] layer_id: $layer->id.  updated");
             
-            foreach ($layers as $key => $layer) {
-                $glSource = json_decode($layer->glSource);
-                $glSource->data = $this->toGeoJSON($layer->source);
-                $layer->glSource = json_encode($glSource,JSON_UNESCAPED_SLASHES);
-                $layer->save();
-            }
+                            };
+                        }
+                    }
+
+            
+
         }
         //$this->info('Fin OBS:updateAPIs');
 

@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command("OBS:updateAPIs")->cron('* * * * * *')->appendOutputTo(storage_path('logs/obsExternalApiUpdates.log'));
+        $schedule->command("OBS:updateAPIs")->cron('* * * * * *')->sendOutputTo(storage_path('logs/obsExternalApiUpdates.log'));
         ;
     }
 

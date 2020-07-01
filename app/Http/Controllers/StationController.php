@@ -113,12 +113,13 @@ class StationController extends Controller
                 $station->icon = "/files/shares/plataforma/$destinationPath";
             }
 
-           
+            
 
             //Save file in files table, with station_id and column_id
             if($request->hasFile('files')){
                 $files  = $request->file('files');
                 //desde el front, podemos relacionar con el index (en este caso es el key) el archivo y la columna
+
                 foreach ($files as $key => $file) {
                     $destinationPath = "";
                     $fileCompleteName = $file->getClientOriginalName();
@@ -128,9 +129,11 @@ class StationController extends Controller
 
                     //Replace space in column name with _ and any accent to normal
                     $columns = $request->input('columns');
-                    //recordar column[$key] es selacionado a files[$key]
+                    //recordar column[$key] es relacionado a files[$key]
+                   
                     $column = $columns[$key]; //Hicimos un mapping desde el front end se envia como llave el id de la columna
                     $column_name = $column["name"];
+
                     $unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
                             'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
                             'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
@@ -145,7 +148,6 @@ class StationController extends Controller
                         $destinationPath,
                         file_get_contents($file->getRealPath())
                     );
-
                     //se realiza un update de files table (column + station)
                     //buscar si ya existe un archivo:
                     $file_id = "";
