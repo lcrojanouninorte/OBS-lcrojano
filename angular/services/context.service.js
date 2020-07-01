@@ -4,11 +4,7 @@ export class ContextService {
     this.$auth = $auth
     this.API = API
     this.$rootScope = $rootScope
-<<<<<<< HEAD
     this.baseUrl = "http://obsriomagdalena.lcrojano.com"
-=======
-    this.baseUrl = "http://localhost:8000/"
->>>>>>> f28da96f16008ada72ae86c39623643931c4b283
   }
 
   getContext () {
