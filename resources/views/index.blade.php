@@ -56,10 +56,21 @@
 
  
  
+     <!--<canvas id="canvas" width="1000" height="1000">your canvas loads here</canvas>-->
 
     <script type='text/javascript' src="//unpkg.com/css-element-queries@^0.4.0/src/ElementQueries.js"></script>
     <script type='text/javascript' src="//unpkg.com/css-element-queries@^0.4.0/src/ResizeSensor.js"></script>
-    
-  
+   <script>
+        /*test raster
+        var canvas=document.getElementById("canvas");
+        var context=canvas.getContext('2d');
+        var image=new Image();
+        image.onload=function(){
+        context.drawImage(image,0,0,canvas.width,canvas.height);
+        };
+        image.src="files/shares/plataforma/LAYERS/test_0.png";
+*/
+    </script>
+
 </body>
 </html>
