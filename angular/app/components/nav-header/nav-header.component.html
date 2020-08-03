@@ -3,19 +3,19 @@
         <div class="md-toolbar-tools">
             <a href="/" class="logo">
                 <span class="logo-mini">
-                    <img src="/img/LogoOBSTexto.png" alt="OBS">
+                   <!-- <img src="/img/LogoOBSTexto.png" alt="OBS">-->
+                    <img src="/img/logo.jpg" alt="OBS">
                 </span>
                 <span class="logo-lg">
                     <img src="/img/LogoOBS.jpg" alt="OBS">
 
                 </span>
             </a>
-             
-            <a ng-show="vm.can('manage.users')" href="javascript:void(0)" class="sidebar-toggle "
-                data-toggle="offcanvas" role="button">
+
+            <a ng-show="vm.can('manage.users')" href="javascript:void(0)" class="sidebar-toggle " data-toggle="offcanvas" role="button">
                 <span class="sr-only">Menú</span>
             </a>
-             
+
             <a ui-sref="app.landing" flex> </a>
 
 
@@ -30,8 +30,7 @@
                 -->
                     <li class="dropdown messages-menu" uib-dropdown>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle>
-                            <i class="fa fa-envelope-o"></i>
-                            contribuciones
+                            <i class="fa fa-envelope-o"></i> contribuciones
                         </a>
                         <ul class="dropdown-menu" uib-dropdown-menu>
                             <li>
@@ -50,7 +49,7 @@
 
                                         </a>
                                     </li>
-                                    <li ng-click="vm.show_dialog($event, '#donations')">
+                                    <!-- <li ng-click="vm.show_dialog($event, '#donations')">
                                         <a href="#">
                                             <div class="pull-left">
                                                 <md-icon md-font-icon="ion-card" aria-label="donacion"></md-icon>
@@ -61,7 +60,7 @@
 
                                         </a>
                                     </li>
-
+                                    -->
                                 </ul>
                             </li>
 
@@ -69,8 +68,7 @@
                     </li>
                     <li class="dropdown messages-menu" uib-dropdown>
                         <a href="#" class="dropdown-toggle " data-toggle="dropdown" uib-dropdown-toggle>
-                            <i class="fa fa-info-circle"></i>
-                            Información
+                            <i class="fa fa-info-circle"></i> Información
                         </a>
                         <ul class="dropdown-menu" uib-dropdown-menu>
                             <li>
@@ -120,24 +118,21 @@
                         </ul>
                     </li>
                     <li class="dropdown user user-menu" uib-dropdown>
-                        <a ng-if="vm.isLogged" href="" class="dropdown-toggle" data-toggle="dropdown"
-                            uib-dropdown-toggle>
-                            <img src="{{vm.userData.avatar}}" class="user-image" alt="User Image"
-                                onError="this.src='/img/avatar0.png'">
+                        <a ng-if="vm.isLogged" href="" class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle>
+                            <img src="{{vm.userData.avatar}}" class="user-image" alt="User Image" onError="this.src='/img/avatar0.png'">
                             <span class="hidden-xs">{{vm.userData.name | capitalize}}</span>
 
                         </a>
                         <a ng-if="!vm.isLogged" href="" class="dropdown-toggle md-raised md-primary" ui-sref="login">
                             <img src="/img/avatar0.png" class="user-image" alt="User Image">
                             <span class="hidden-xs">Ingresar</span>
-                           
+
 
                         </a>
-                   
+
                         <ul class="dropdown-menu" uib-dropdown-menu ng-if="vm.isLogged">
                             <li class="user-header">
-                                <img src="{{vm.userData.avatar}}" class="img-circle" alt="User Image"
-                                    onError="this.src='/img/avatar0.png'">
+                                <img src="{{vm.userData.avatar}}" class="img-circle" alt="User Image" onError="this.src='/img/avatar0.png'">
                                 <p>
                                     {{vm.userData.name | capitalize}}
                                     <small>Usuario desde
@@ -157,7 +152,8 @@
                     <li>
                         <a href="/" class="logo">
                             <span class="logo-mini">
-                                <img src="/img/uninorte-logo.png" alt="OBS">
+                                <!--<img src="/img/uninorte-logo.png" alt="OBS">-->
+                                <img src="/img/LogoUninorte.png" alt="OBS">
                             </span>
                             <span class="logo-lg">
                                 <img src="/img/uninorte-logo.png" alt="OBS">
@@ -179,20 +175,15 @@
 <!--Contribuyentes-->
 
 <div style="visibility: hidden">
-    <div id="disclaimer"  class=" md-dialog-container reveal-modal full-screen modal" data-reveal>
+    <div id="disclaimer" class=" md-dialog-container reveal-modal full-screen modal" data-reveal>
         <md-dialog layout-padding>
             <h2 class="text-center">Renuncia de responsabilidades</h2>
-            <p>Toda la información en este sitio web se publica de buena fe y como información general solamente. No
-                hacemos ninguna garantía sobre la exactitud, fiabilidad y precisión de la información. Cualquier acción
-                que usted tome de la información en nuestra web es estrictamente a su propio riesgo, y no será
-                responsable por las pérdidas y daños y perjuicios en relación con el uso de nuestro sitio web.</br>Desde
-                nuestro sitio web, usted puede visitar otros sitios web siguiendo los hipervínculos a esos sitios.
-                Mientras que nos esforzamos en ofrecer sólo los enlaces a sitios web útiles y éticos, no tenemos ningún
-                control sobre el contenido y la naturaleza de estos sitios y los enlaces a otras páginas web no implican
-                una recomendación para todo el contenido de estos sitios.</br>Por favor, hay que tener en cuenta que
-                cuando usted sale de nuestro sitio web, otros sitios pueden tener diferentes políticas de privacidad y
-                términos que están más allá de nuestro control.</p>
-         </md-dialog>
+            <p>Toda la información en este sitio web se publica de buena fe y como información general solamente. No hacemos ninguna garantía sobre la exactitud, fiabilidad y precisión de la información. Cualquier acción que usted tome de la información
+                en nuestra web es estrictamente a su propio riesgo, y no será responsable por las pérdidas y daños y perjuicios en relación con el uso de nuestro sitio web.</br>Desde nuestro sitio web, usted puede visitar otros sitios web siguiendo los
+                hipervínculos a esos sitios. Mientras que nos esforzamos en ofrecer sólo los enlaces a sitios web útiles y éticos, no tenemos ningún control sobre el contenido y la naturaleza de estos sitios y los enlaces a otras páginas web no implican
+                una recomendación para todo el contenido de estos sitios.</br>Por favor, hay que tener en cuenta que cuando usted sale de nuestro sitio web, otros sitios pueden tener diferentes políticas de privacidad y términos que están más allá de
+                nuestro control.</p>
+        </md-dialog>
     </div>
 
     <div id="glosary" class=" md-dialog-container reveal-modal full-screen modal" data-reveal>
@@ -209,7 +200,8 @@
 
     <div id="credits" class=" md-dialog-container reveal-modal full-screen modal" data-reveal>
         <md-dialog layout-padding>
-            <h2 class="text-center">Equipo Uninorte</h2></br>
+            <h2 class="text-center">Equipo Uninorte</h2>
+            </br>
             <p>Humberto Avila, PhD. Director, Investigador Diseño de Sistema</p>
             <p>Wilson Nieto, PhD. Investigador Desarrollo Software</p>
             <p>Augusto Sisa, MSc. Investigador Hidrología</p>
@@ -228,7 +220,8 @@
 
     <div id="colaboradores" class=" md-dialog-container reveal-modal full-screen modal" data-reveal>
         <md-dialog layout-padding>
-            <h2>Colaboradores</h2></br>
+            <h2>Colaboradores</h2>
+            </br>
             <!-- <p>Triple A S.A E.S.P</p>
                     <p>Parroquia Espíritu Santo</p>
                     <p>Parroquia Nuestra Señora de Chiquinquirá</p>
@@ -241,22 +234,43 @@
 
     <div id="contribuyentes" class=" md-dialog-container reveal-modal full-screen modal medium text-center" data-reveal>
         <md-dialog layout-padding>
-            <h2 class="text-center">Contribuyentes</h2></br>
+            <h2 class="text-center"> contribuyentes o patrocinadores</h2>
+            </br>
             <!-- <a href="http://www.atlantico.gov.co" target="_blank"><img src="images/gobernacionok.gif"></a>
                     <a href="https://www.sgr.gov.co" target="_blank"><img src="images/sgrok.png"></a>
                     <a href="http://www.colciencias.gov.co" target="_blank"><img src="images/colcienciasok.png"></a>-->
             <a href="http://www.uninorte.edu.co" target="_blank"><img src="img/unok.png"></a>
-            <a href="http://www.uninorte.edu.co" target="_blank">
-                <h3>Instituto de Estudios Hidráulicos y Ambientales - IDEHA</h3>
-            </a>
+
+            <h3>2019</h3>
+            <ul>
+                <li>
+                    <a href="https://uninorte.edu.co/" target="_blank">Universidad del Norte</a>
+                </li>
+                <li>
+                    <a href="https://www.uninorte.edu.co/obsriomagdalena/" target="_blank">Instituto de Estudios Hidráulicos y Ambientales - IDEHA</a>
+                </li>
+            </ul>
+
+            <h3>2020</h3>
+            <ul>
+                <li>
+                    <a href="http://www.cormagdalena.gov.co/" target="_blank">Cormagdalena</a>
+                </li>
+                <li>
+                    <a href="https://uninorte.edu.co/" target="_blank">Universidad del Norte</a>
+                </li>
+                <li>
+                    <a href="https://www.uninorte.edu.co/obsriomagdalena/" target="_blank">Instituto de Estudios Hidráulicos y Ambientales - IDEHA</a>
+                </li>
+            </ul>
         </md-dialog>
     </div>
 
     <div id="donations" class=" md-dialog-container reveal-modal full-screen modal medium" data-reveal>
         <md-dialog layout-padding>
-            <h2 class="text-center">Donaciones</h2></br>
-            <p>Usted o su empresa puede contribuir con el desarrollo de obsriomagdalena.co mediante su vinculación como
-                donante o contribuyente.</p>
+            <h2 class="text-center">Donaciones</h2>
+            </br>
+            <p>Usted o su empresa puede contribuir con el desarrollo de obsriomagdalena.co mediante su vinculación como donante o contribuyente.</p>
             <p>Para mayores informes contactar a: <strong>obsriomagdalena@uninorte.edu.co</strong></p>
 
         </md-dialog>
