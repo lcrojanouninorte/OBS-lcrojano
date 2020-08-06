@@ -55,7 +55,7 @@ class ObsMapController {
                 enabled: true,
                 options: {
                     position: 'bottom-right',
-                    customAttribution: "contributors/ OBSRIOMAGDALENA.CO - Plataforma de Monitoreo del Río Magdalena"
+                    customAttribution: "OBSRIOMAGDALENA - Plataforma de Monitoreo del Río Magdalena"
                 }
             },
             geolocate: {

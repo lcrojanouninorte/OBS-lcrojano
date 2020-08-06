@@ -50,10 +50,10 @@ $api->group(['middleware' => ['auth']], function ($api) {
 });
 
 $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
-    $api->resource('stations', 'StationController', ['except'=> ['index']]);
-    $api->resource('columns', 'ColumnController', ['except'=> ['index']]);
-    $api->resource('layers', 'LayerController', ['except'=> ['index','show']]);
-    $api->resource('categories', 'CategoryController', ['except'=> ['index']]);
+        $api->resource('stations', 'StationController', ['except'=> ['index']]);
+        $api->resource('columns', 'ColumnController', ['except'=> ['index']]);
+        $api->resource('layers', 'LayerController', ['except'=> ['index','show']]);
+        $api->resource('categories', 'CategoryController', ['except'=> ['index']]);
 
 
 

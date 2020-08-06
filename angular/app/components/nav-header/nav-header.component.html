@@ -4,7 +4,11 @@
             <a href="/" class="logo">
                 <span class="logo-mini">
                    <!-- <img src="/img/LogoOBSTexto.png" alt="OBS">-->
-                    <img src="/img/logo.jpg" alt="OBS">
+                    <img src="/img/logo.jpg" style="position: absolute;
+                    left: -4px;
+                    height: 100%;
+                    width: auto!important;
+                    top: 0" alt="OBS">
                 </span>
                 <span class="logo-lg">
                     <img src="/img/LogoOBS.jpg" alt="OBS">
@@ -30,7 +34,8 @@
                 -->
                     <li class="dropdown messages-menu" uib-dropdown>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle>
-                            <i class="fa fa-envelope-o"></i> contribuciones
+
+                            <i class="fa fa-globe" aria-hidden="true"></i> Contribuciones
                         </a>
                         <ul class="dropdown-menu" uib-dropdown-menu>
                             <li>
@@ -38,29 +43,29 @@
                                     <li ng-click="vm.show_dialog($event, '#contribuyentes')">
                                         <a href="#">
                                             <div class="pull-left">
+                                                <!--<md-icon md-svg-src="/img/contrib.svg" aria-label="Contribuciones"></md-icon>-->
+                                                <i class="fa fa-rocket" aria-hidden="true"></i>
 
-                                                <md-icon md-font-icon="ion-person-stalker" aria-label="contribuyentes">
-                                                </md-icon>
                                             </div>
                                             <h4>
-                                                Contribuyentes
+                                                Patrocinadores
 
                                             </h4>
 
                                         </a>
                                     </li>
-                                    <!-- <li ng-click="vm.show_dialog($event, '#donations')">
+                                    <li ng-click="vm.show_dialog($event, '#donations')">
                                         <a href="#">
                                             <div class="pull-left">
-                                                <md-icon md-font-icon="ion-card" aria-label="donacion"></md-icon>
+                                                <i class="fa fa-gift"></i>
                                             </div>
                                             <h4>
-                                                Donaciones
+                                                Donaciones y Aportes
                                             </h4>
 
                                         </a>
                                     </li>
-                                    -->
+
                                 </ul>
                             </li>
 
@@ -82,6 +87,7 @@
                                             </h4>
                                         </a>
                                     </li>
+                                    <!--
                                     <li ng-click="vm.show_dialog($event, '#glosary')">
                                         <a href="#">
                                             <div class="pull-left">
@@ -92,10 +98,12 @@
                                             </h4>
                                         </a>
                                     </li>
+                                -->
                                     <li ng-click="vm.show_dialog($event, '#colaboradores')">
                                         <a href="#">
                                             <div class="pull-left">
-                                                <i class="fa fa-users"></i>
+                                                <i class="fa fa-users" aria-hidden="true"></i>
+
                                             </div>
                                             <h4>
                                                 Colaboradores
@@ -108,7 +116,7 @@
                                                 <i class="fa fa-terminal"></i>
                                             </div>
                                             <h4>
-                                                Desarrollado por
+                                                Desarrolladores
                                             </h4>
                                         </a>
                                     </li>
@@ -150,7 +158,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/" class="logo">
+                        <a href="https://www.uninorte.edu.co/" target="_blank" class="logo">
                             <span class="logo-mini">
                                 <!--<img src="/img/uninorte-logo.png" alt="OBS">-->
                                 <img src="/img/LogoUninorte.png" alt="OBS">
@@ -176,93 +184,205 @@
 
 <div style="visibility: hidden">
     <div id="disclaimer" class=" md-dialog-container reveal-modal full-screen modal" data-reveal>
-        <md-dialog layout-padding>
-            <h2 class="text-center">Renuncia de responsabilidades</h2>
-            <p>Toda la información en este sitio web se publica de buena fe y como información general solamente. No hacemos ninguna garantía sobre la exactitud, fiabilidad y precisión de la información. Cualquier acción que usted tome de la información
-                en nuestra web es estrictamente a su propio riesgo, y no será responsable por las pérdidas y daños y perjuicios en relación con el uso de nuestro sitio web.</br>Desde nuestro sitio web, usted puede visitar otros sitios web siguiendo los
-                hipervínculos a esos sitios. Mientras que nos esforzamos en ofrecer sólo los enlaces a sitios web útiles y éticos, no tenemos ningún control sobre el contenido y la naturaleza de estos sitios y los enlaces a otras páginas web no implican
-                una recomendación para todo el contenido de estos sitios.</br>Por favor, hay que tener en cuenta que cuando usted sale de nuestro sitio web, otros sitios pueden tener diferentes políticas de privacidad y términos que están más allá de
-                nuestro control.</p>
+        <md-dialog layout-padding style="max-width: 60%!important">
+            <h2 style="text-align: center;"><strong>AVISO LEGAL</strong></h2>
+            <p style="text-align: justify;">&nbsp;</p>
+            <p style="text-align: justify;">Toda la informaci&oacute;n en este sitio web se publica de buena fe y como informaci&oacute;n general solamente. No hacemos ninguna garant&iacute;a sobre la exactitud, fiabilidad y precisi&oacute;n de la informaci&oacute;n. Cualquier acci&oacute;n
+                que usted tome de la informaci&oacute;n en nuestra web es estrictamente a su propio riesgo, y la Universidad del Norte no ser&aacute; responsable por las p&eacute;rdidas y da&ntilde;os y perjuicios en relaci&oacute;n con el uso de nuestro
+                sitio web.<br /> </p>
+            <p style="text-align: justify;">Desde nuestro sitio web, usted puede visitar otros sitios web siguiendo los hiperv&iacute;nculos a esos sitios. Tenga en cuenta que mientras que nos esforzamos en ofrecer s&oacute;lo los enlaces a sitios web &uacute;tiles y &eacute;ticos,
+                no tenemos ning&uacute;n control sobre el contenido y la naturaleza de estos sitios y los enlaces a otras p&aacute;ginas web no implican una recomendaci&oacute;n para todo el contenido de estos sitios.</p>
+            <p style="text-align: justify;"><br /> </p>
+            <p style="text-align: justify;">La informaci&oacute;n analizada y presentada en esta plataforma, corresponde a registros, bases de datos, meta data e informaci&oacute;n obtenida de fuentes libres, entidades p&uacute;blicas e informaci&oacute;n cient&iacute;fica de libre
+                acceso. hay que tener en cuenta que cuando usted sale de nuestro sitio web, otros sitios pueden tener diferentes pol&iacute;ticas de privacidad y t&eacute;rminos que est&aacute;n m&aacute;s all&aacute; de nuestro control.</p>
         </md-dialog>
     </div>
-
+    <!--
     <div id="glosary" class=" md-dialog-container reveal-modal full-screen modal" data-reveal>
         <md-dialog layout-padding>
             <h2 class="text-center">Glosario</h2>
             <p>Estos son enlaces que direccionan hacia otras paginas.</p>
-            <!-- <p><strong> <a href="http://es.wikipedia.org/wiki/Precipitaci%C3%B3n_(meteorolog%C3%ADa)" target="_blank">Precipitación</a></strong></p>
+           <p><strong> <a href="http://es.wikipedia.org/wiki/Precipitaci%C3%B3n_(meteorolog%C3%ADa)" target="_blank">Precipitación</a></strong></p>
                 <p><strong><a href="http://es.wikipedia.org/wiki/Lluvia" target="_blank">Lluvia</a></strong></p>
                 <p><strong><a href="http://es.wikipedia.org/wiki/Lluvia" target="_blank">Medición de la lluvia</a></strong></p>
                 <p><strong><a href="http://es.wikipedia.org/wiki/Pluvi%C3%B3metro" target="_blank">Pluviómetro</a></strong></p>
-                <p><strong><a href="http://es.wikipedia.org/wiki/Red_de_monitoreo" target="_blank">Red de monitoreo</a></strong></p> -->
+                <p><strong><a href="http://es.wikipedia.org/wiki/Red_de_monitoreo" target="_blank">Red de monitoreo</a></strong></p>  
         </md-dialog>
     </div>
+-->
 
     <div id="credits" class=" md-dialog-container reveal-modal full-screen modal" data-reveal>
         <md-dialog layout-padding>
-            <h2 class="text-center">Equipo Uninorte</h2>
+            <h2 class="text-center">DESARROLLADORES</h2>
             </br>
-            <p>Humberto Avila, PhD. Director, Investigador Diseño de Sistema</p>
-            <p>Wilson Nieto, PhD. Investigador Desarrollo Software</p>
-            <p>Augusto Sisa, MSc. Investigador Hidrología</p>
-            <p>Luis Rojano, Est. MSc. Investigador Desarrollo Software</p>
-            <!--<p>Danilo Garcia, Ing. Sistemas. Asistente de Investigación</p>
-                    <p>Brayan Garcia, Ing. Sistemas. Asistente de Investigación</p>
-                <p>Leandro Avila, Ing. Civil. Asistente de Investigación</p>
-                <p>Tatiana De Alba, Ing. Civil. Asistente de Investigación</p>
-                <p>Leydis Villadiego, Ing. Sanitaria. Asistente de Investigación</p>
-                <p>Andrea Perez, Estudiante Ing. Civil. Auxiliar de Investigación</p>
-                <p><strong>Instituto de Estudios Hidráulicos y Ambientales – IDEHA</strong></p>
-                <p><strong>Grupo Redes de Computadores e Ingeniería de Software - GReCIS</strong></p>-->
+            <div class="row">
+                <a style="text-align: center" class="col-sm-6 sponsor " href="http://www.uninorte.edu.co" target="_blank"><img src="img/unok.png"></a>
+                <a style="text-align: center" class="col-sm-6 sponsor" href="https://www.uninorte.edu.co/web/ideha" target="_blank"><img src="https://www.uninorte.edu.co/image/layout_set_logo?img_id=13805915&t=1596730935221"></a>
+            </div>
+
+            <md-content>
+                <md-list flex>
+                    <md-subheader class="md-no-sticky">Desarrolladores</md-subheader>
+                    <md-list-item class="md-2-line" ng-click="vm.navigateTo('https://www.researchgate.net/profile/Humberto_Avila/publications')">
+                        <img src="/img/users/FotoHumbertoAvila.png" class="md-avatar" alt="Humberto Avila" />
+                        <div class="md-list-item-text" layout="column">
+                            <h3>Humberto Rangel Ávila, Ph.D</h3>
+                            <h4>Director del Observatorio del Río Magdalena</h4>
+                        </div>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                    <md-list-item class="md-2-line" ng-click="vm.navigateTo('https://www.researchgate.net/profile/Augusto_Sisa')">
+                        <img src="/img/users/FotoAugustoSisa.png" class="md-avatar" alt="Augusto Herminio" />
+                        <div class="md-list-item-text" layout="column">
+                            <h3>Augusto Herminio Sisa Camargo, M.Sc</h3>
+                            <h4>Docente tiempo completo Dpto. de Ing.Civil y Ambiental</h4>
+                        </div>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                    <md-list-item class="md-2-line" ng-click="vm.navigateTo('http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001582654')">
+                        <img src="/img/users/FotoLuisRojano.png" class="md-avatar" alt="Luis Rojano" />
+                        <div class="md-list-item-text" layout="column">
+                            <h3>Luis Rojano, Ing.</h3>
+                            <h4>Ingeniero de Software</h4>
+                        </div>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                    <md-list-item class="md-2-line" ng-click="vm.navigateTo('https://www.researchgate.net/profile/Wilson_Bernal')">
+                        <img src="/img/users/FotoWilsonNieto.png" class="md-avatar" alt="Wilson Nieto" />
+                        <div class="md-list-item-text" layout="column">
+                            <h3>Wilson Nieto Bernal, Ph.D</h3>
+                            <h4>Docente tiempo completo Dpto. de Ing. de Sistemas</h4>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+
+
+
 
         </md-dialog>
     </div>
 
     <div id="colaboradores" class=" md-dialog-container reveal-modal full-screen modal" data-reveal>
-        <md-dialog layout-padding>
-            <h2>Colaboradores</h2>
-            </br>
-            <!-- <p>Triple A S.A E.S.P</p>
-                    <p>Parroquia Espíritu Santo</p>
-                    <p>Parroquia Nuestra Señora de Chiquinquirá</p>
-                    <p>Parroquia Nuestra Señora de las Gracias Torcoroma</p>
-                    <p>Cuerpo Oficial de Bomberos Barranquilla</p>
-                    <p>Condominio Brisas del Norte</p>
-                    <p>Edificio Máximo</p>  -->
+        <md-dialog layout-padding style="max-width: 80%!important;">
+
+            <h2 style="text-align: center;"><strong>COLABORADORES</strong></h2>
+            <p style="text-align: justify;">Usted puede colaborar con informaci&oacute;n como bases de datos, meta data, an&aacute;lisis, batimetr&iacute;as, entre otros. Los siguientes corresponden a investigadores que han contribuido con informaci&oacute;n, t&eacute;cnica y cient&iacute;fica
+                para la plataforma web del observatorio del rio magdalena.</p>
+            <div class="row">
+                <md-content>
+                    <md-list class="col-md-4" flex>
+
+                        <!--<md-subheader class="md-no-sticky">Desarrolladores</md-subheader>-->
+                        <md-list-item class="md-2-line" ng-click="vm.navigateTo('https://www.researchgate.net/profile/Humberto_Avila/publications')">
+                            <img src="/img/users/FotoHumbertoAvila.png" class="md-avatar" alt="Humberto Avila" />
+                            <div class="md-list-item-text" layout="column">
+                                <h3>Humberto Rangel Ávila, Ph.D</h3>
+                            </div>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                        <md-list-item class="md-2-line" ng-click="vm.navigateTo('https://www.researchgate.net/profile/Augusto_Sisa')">
+                            <img src="/img/users/FotoAugustoSisa.png" class="md-avatar" alt="Augusto Herminio" />
+                            <div class="md-list-item-text" layout="column">
+                                <h3>Augusto Herminio Sisa Camargo, M.Sc</h3>
+                            </div>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                        <md-list-item class="md-2-line" ng-click="vm.navigateTo('http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001582654')">
+                            <img src="/img/users/FotoLuisRojano.png" class="md-avatar" alt="Luis Rojano" />
+                            <div class="md-list-item-text" layout="column">
+                                <h3>Luis Rojano, Ing.</h3>
+                            </div>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                        <md-list-item class="md-2-line" ng-click="vm.navigateTo('https://www.researchgate.net/profile/Wilson_Bernal')">
+                            <img src="/img/users/FotoWilsonNieto.png" class="md-avatar" alt="Wilson Nieto" />
+                            <div class="md-list-item-text" layout="column">
+                                <h3>Wilson Nieto Bernal, Ph.D</h3>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                    <md-list class="col-md-4" flex>
+                        <md-list-item class="md-2-line" ng-click="vm.navigateTo('https://www.researchgate.net/profile/Alexander_Montalvo_Molina')">
+                            <img src="/img/users/FotoAlexanderMontalvo.png" class="md-avatar" alt="https://www.researchgate.net/profile/Alexander_Montalvo_Molina" />
+                            <div class="md-list-item-text" layout="column">
+                                <h3>Alexander Alberto Montalvo Molina</h3>
+                            </div>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                        <md-list-item class="md-2-line" ng-click="vm.navigateTo('https://www.researchgate.net/profile/Ruben_Doria')">
+                            <img src="/img/users/FotoRubenDoria.png" class="md-avatar" alt="Ruben Doria" />
+                            <div class="md-list-item-text" layout="column">
+                                <h3>Rubén De Jesús Doria García</h3>
+                            </div>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                        <md-list-item class="md-2-line" ng-click="vm.navigateTo('https://www.researchgate.net/profile/Stephanie_Diaz18')">
+                            <img src="/img/users/FotoStephanieDiaz.png" class="md-avatar" alt="Stephanie Díaz Umaña" />
+                            <div class="md-list-item-text" layout="column">
+                                <h3>Stephanie Díaz Umaña</h3>
+                            </div>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                        <md-list-item class="md-2-line" ng-click="vm.navigateTo('https://www.researchgate.net/profile/Francisco_Gomez48')">
+                            <img src="/img/users/Francisco_Gomez.png" class="md-avatar" alt="Francisco gomez" />
+                            <div class="md-list-item-text" layout="column">
+                                <h3>Francisco Gómez Díaz</h3>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                    <md-list class="col-md-4" flex>
+                        <md-list-item class="md-2-line" ng-click="vm.navigateTo('https://www.researchgate.net/profile/Humberto_Avila/publications')">
+                            <img src="/img/users/fotoDefault.png" class="md-avatar" alt="Humberto Avila" />
+                            <div class="md-list-item-text" layout="column">
+                                <h3>Colab1</h3>
+                            </div>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                        <md-list-item class="md-2-line" ng-click="vm.navigateTo('https://www.researchgate.net/profile/Augusto_Sisa')">
+                            <img src="/img/users/fotoDefault.png" class="md-avatar" alt="Augusto Herminio" />
+                            <div class="md-list-item-text" layout="column">
+                                <h3>Colab1</h3>
+
+                            </div>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                        <md-list-item class="md-2-line" ng-click="vm.navigateTo('http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001582654')">
+                            <img src="/img/users/fotoDefault.png" class="md-avatar" alt="Luis Rojano" />
+                            <div class="md-list-item-text" layout="column">
+                                <h3>Colab1</h3>
+                            </div>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                        <md-list-item class="md-2-line" ng-click="vm.navigateTo('https://www.researchgate.net/profile/Wilson_Bernal')">
+                            <img src="/img/users/fotoDefault.png" class="md-avatar" alt="Wilson Nieto" />
+                            <div class="md-list-item-text" layout="column">
+                                <h3>Colab1</h3>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </md-content>
+            </div>
+
         </md-dialog>
     </div>
 
     <div id="contribuyentes" class=" md-dialog-container reveal-modal full-screen modal medium text-center" data-reveal>
-        <md-dialog layout-padding>
-            <h2 class="text-center"> contribuyentes o patrocinadores</h2>
-            </br>
-            <!-- <a href="http://www.atlantico.gov.co" target="_blank"><img src="images/gobernacionok.gif"></a>
-                    <a href="https://www.sgr.gov.co" target="_blank"><img src="images/sgrok.png"></a>
-                    <a href="http://www.colciencias.gov.co" target="_blank"><img src="images/colcienciasok.png"></a>-->
-            <a href="http://www.uninorte.edu.co" target="_blank"><img src="img/unok.png"></a>
-
+        <md-dialog style="    width: 600px;
+        max-height: 810px;" layout-padding>
+            <h2 class="text-center"> PATROCINADORES</h2>
             <h3>2019</h3>
-            <ul>
-                <li>
-                    <a href="https://uninorte.edu.co/" target="_blank">Universidad del Norte</a>
-                </li>
-                <li>
-                    <a href="https://www.uninorte.edu.co/obsriomagdalena/" target="_blank">Instituto de Estudios Hidráulicos y Ambientales - IDEHA</a>
-                </li>
-            </ul>
+            <div class="row">
+                <a class="sponsor" href="http://www.uninorte.edu.co" target="_blank"><img src="img/unok.png"></a>
+            </div>
+
 
             <h3>2020</h3>
-            <ul>
-                <li>
-                    <a href="http://www.cormagdalena.gov.co/" target="_blank">Cormagdalena</a>
-                </li>
-                <li>
-                    <a href="https://uninorte.edu.co/" target="_blank">Universidad del Norte</a>
-                </li>
-                <li>
-                    <a href="https://www.uninorte.edu.co/obsriomagdalena/" target="_blank">Instituto de Estudios Hidráulicos y Ambientales - IDEHA</a>
-                </li>
-            </ul>
+            <div class="row">
+                <a class="sponsor" href="http://www.uninorte.edu.co" target="_blank"><img src="img/unok.png"></a>
+                <a class="sponsor" href="http://www.cormagdalena.gov.co/" target="_blank"><img src="img/cormagdalena.jpg"></a>
+            </div>
+
         </md-dialog>
     </div>
 
@@ -270,9 +390,10 @@
         <md-dialog layout-padding>
             <h2 class="text-center">Donaciones</h2>
             </br>
-            <p>Usted o su empresa puede contribuir con el desarrollo de obsriomagdalena.co mediante su vinculación como donante o contribuyente.</p>
-            <p>Para mayores informes contactar a: <strong>obsriomagdalena@uninorte.edu.co</strong></p>
-
+            <p style="max-width: 500px;">Usted puede ayudarnos a mejorar la calidad y alcance de esta plataforma </br>
+                a trav&eacute;s de sus aportes de informaci&oacute;n o recursos financieros para el desarrollo
+                </br>y mantenimiento de esta herramienta.</p>
+            <p>Puede enviarnos un correo manifestando su inter&eacute;s a: <strong>obsriomagdalena@uninorte.edu.co</strong></p>
         </md-dialog>
     </div>
 
